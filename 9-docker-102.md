@@ -17,3 +17,18 @@ Docker arka planda onlarca farklı servisten oluşması ve altyapısal olarak ka
         Macvlan: Bu driver ile oluşturulan network objeleri sayesinde containerlar fiziksel ağlara kendi mac adreslerine sahip birer fiziksel ağ adaptörüne sahipmişçesine bağlanabilirler.
         None: Ağ bağlantısı olmasını istemiyorsak, bu driverı kullanırız.
         Overlay: Ayrı hostlar üstündeki containerların aynı ağda çalışıyormuş gibi çalışması istendiği zaman Overlay networkler devreye girer.
+
+Ağ altyapılarında bridge dediğimiz bir sistem var. Bu fiziksel de oluyor, yazılımsal da. Birden fazla ağdan tek, birleşik bir ağ yaratmaya yarıyor. Linux sistemlere bridge network dediğimiz yapılar kullanabiliyoruz.
+
+Docker'da biz de networkler oluşturabiliriz. Peki bunu neden yapalım?
+
+- İlk ve en öncelikli neden olarak birden fazla containerla çalışırken daha karmaşık networklere ihtiyaç duyabilirim. Web ve database containerı barındırıyorum, app1, app2 gibi farklı containerlarım da var. O zaman ben web ve database'i bridge_1, app1 ve app2'yi bridge_2'ya bağlayabilirim.
+
+* Containerlar arası network izolasyonu sağlamak istersek ayrı bridge networkler yaratarak bunu sağlayabiliriz.
+
+* Varsayılan dışında ip aralıkları tanımlanabilir.
+
+        Aynı networkde olsalar da name'den değil 172.17.0.2'yi pingleyerek birbirleriyle iletişime geçebilirler.
+
+* network create new_bridge / --driver
+* docker network connect new_bridge new_container --> container bu networke de bağlanır. Container'lar iki ayrı network'e bağlanabilirler.

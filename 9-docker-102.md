@@ -68,6 +68,8 @@ CPU'ya sınır koyarken core sayısına göre bakıyoruz.
 
 komutları ile bazı sınırlamalar getirebiliriz.
 
+---
+
 <h2> Environment Variables </h2>
 
 Ortam değişkenleri, os ortaya çıktığından beri vardır. Değişkenler adlandırdığımız değer verebildiğimiz şeylerdir.
@@ -81,3 +83,17 @@ Geçici dosyaları $TEMP gibi env'lere yazabiliiz.
 Her sistemde farklı farklı TEMP klasörü aramamak için uygulamaya windows'da TEMP adında bir env bulunuyor, sen buna bakarak yerini bul diyoruz.
 
 <h2> Docker Environment Variables </h2>
+
+Container ortamlarında image yaratılırken, ya da container yaratılırken tanımlanabilen değerlerdir.
+
+container oluştururken
+
+        --env VAR1=deneme
+
+gibi bir şekilde container içinde env var oluşturabiliriz.
+
+direkt olarak hazır env var'ları alıcaksak --env TEMP şeklinde yazabiliriz.
+
+- Normalde tek tek tanımlamak çok zor olacağı için --env-file ./env.list gibi bir şekilde direkt dosya olarak env variable'ları bir dosyadan oluşturabiliriz.
+
+Hangi veritabanına bağlanabileceğimizi, env'den alırsak bu şekilde istediğimiz env ile containerı çağırabiliriz.

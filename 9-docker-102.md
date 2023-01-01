@@ -32,3 +32,52 @@ Docker'da biz de networkler oluşturabiliriz. Peki bunu neden yapalım?
 
 * network create new_bridge / --driver
 * docker network connect new_bridge new_container --> container bu networke de bağlanır. Container'lar iki ayrı network'e bağlanabilirler.
+
+---
+
+<h2>STDIN - STDOUT - STDERR</h2>
+
+Standart Input - Output - Error
+
+Native docker araçlarıyla dockerları izleyebiliyorduk. Bu yüzden bu konulara bakıyoruz.
+
+<b>stdin</b> - Klavyeden veya farklı bir uygulamadan giriş içerebilen, uygulamanın giriş akışıdır.
+
+<b>stdout</b> - Genellikle bir uygulamanın normal çıktısıdır.
+
+<b>stderr</b> - Hata mesajı gönderilmek için kullanılan çıktıdır.
+
+<h2> Docker Logs </h2>
+
+- docker logs
+
+- docker stats -> containerların ne kadar yer kapladığı, i/o'ları...
+
+---
+
+Container'lar istediği kadar memory kullanabilir. Biri hatalı bir şekilde fazla yer kaplarsa, diğer containerlarda sıkıntı çıkabilir.
+
+Bu sıkıntıyı yaşamamak için sistem kaynaklarını containerlar için sınırlı hale getirmeliyiz.
+
+--memory = limit
+--memory-swap=200m
+--cpus="1.5" -> 1.5 tanesini kullanabilir.
+--cpuset-cpus="0,3" CPU 0 ve CPU 3'ü kullan.
+
+CPU'ya sınır koyarken core sayısına göre bakıyoruz.
+
+komutları ile bazı sınırlamalar getirebiliriz.
+
+<h2> Environment Variables </h2>
+
+Ortam değişkenleri, os ortaya çıktığından beri vardır. Değişkenler adlandırdığımız değer verebildiğimiz şeylerdir.
+
+Ortam değişkeni ise sistem bazında geçerli olan ve her yerden çağırılabilen değişkenlerdir.
+
+Geçici dosyaları $TEMP gibi env'lere yazabiliiz.
+
+- Peki $TEMP folder nerede bulunuyor?
+
+Her sistemde farklı farklı TEMP klasörü aramamak için uygulamaya windows'da TEMP adında bir env bulunuyor, sen buna bakarak yerini bul diyoruz.
+
+<h2> Docker Environment Variables </h2>

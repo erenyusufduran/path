@@ -82,11 +82,11 @@ Dockerfile kendine özgü kuralları olan bir dille yazılan ve bizlerin Docker 
         #Install our requirements
         ADD requirements.txt /app/requirements.txt
         RUN pip install -r requirements.txt
-        #Copy code from the current folder to /app inside the container
+        # Copy code from the current folder to /app inside the container
         ADD ./app
-        #Make port 8o available for links
+        # Make port 8o available for links
         EXPOSE 8o
-        #Define our command to be run when launching the container
+        # Define our command to be run when launching the container
         CMD ["gunicorn", "app:app", "-b", "o.o.o.o:8o", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "o"]
 
 ---
@@ -94,3 +94,23 @@ Dockerfile kendine özgü kuralları olan bir dille yazılan ve bizlerin Docker 
 Docker her image katmanına bir ID yüklediği için, dockerfile ile yaptığımız bir dosyadaki her komutu bir layer olarak alıyor, ve bu şekilde o layerları kullandığı için tekrar tekrar bir yer kaplamıyor, olanı kullanıyor. Bu da bize bant genişliği olarak dönüyor.
 
 ---
+
+<h3> Linux Shell </h3>
+
+- echo'yla çıktı alabiliyoruz.
+
+        > işaretiyle farklı bir yere çıktı alabilirsin.
+
+- echo $SHELL > deneme.txt
+
+- & sonuna konulduğunda arkaplanda script çalışır, bizim için de konsola döner.
+
+- ; tek bir satır içerisinde birden fazla komut girmemizi sağlar.
+
+        ls ; date
+
+- && birden çok komutta bir birleştirme yapar. command_one hatasız dönüyorsa, command_two'yu de çalıştırır.
+
+        command_one && command_two
+
+- || ile kullanırsak, hata dönerse command_two'yu çalıştır demek oluyor.

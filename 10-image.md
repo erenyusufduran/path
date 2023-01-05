@@ -114,3 +114,36 @@ Docker her image katmanına bir ID yüklediği için, dockerfile ile yaptığım
         command_one && command_two
 
 - || ile kullanırsak, hata dönerse command_two'yu çalıştır demek oluyor.
+
+---
+
+<h3> ADD ve COPY Farkı </h3>
+
+ADD
+
+- Copy ile aynı işi yapar yani dosya ya da klasör kopyalanır.
+- Fakat ADD bunun yanında dosya kaynağının bir url olmasına da izin verir.
+- Ayrıca ADD ile kaynak olarak bir .tar dosyası belirtilirse bu dosya imaja .tar olarak sıkıştırılmış haliyle değil de açılarak kopyalanır.
+
+<h3> ENTRYPOINT ve CMD Farkı </h3>
+
+CMD ile girdiğimiz komutlar Runtime sırasında değiştirilebilir. Mesela;
+
+        CMD ["java", "merhaba"]
+
+ile çalıştırdığımız bir imagede sonuna ls yazarsak yani;
+
+        docker run javaimage ls
+
+gibi şekillerde yazarsak, runtime'da değişiklik yapmış oluruz. Bunu ENTRYPOINT komutunda uygulayamayız.
+
+- Ayrıyeten CMD ve ENTRYPOINT aynı anda kullanılırsa, ENTRYPOINT'i kullanır, CMD'deki komutu ise buna parametre olarak girer.
+
+        ENTRYPOINT ["ping", "127.0.0.1"]
+
+<br/>
+
+        ENTRYPOINT ["ping"]
+        CMD ["127.0.0.1"]
+
+Yalnız komut satırında runtime esnasında 8.8.8.8 gibi bir komut girersek CMD'deki komutu almayacak, bizim parametre olarak girdiğimiz komutu alacaktır.

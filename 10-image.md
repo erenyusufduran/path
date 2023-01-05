@@ -147,3 +147,13 @@ gibi şekillerde yazarsak, runtime'da değişiklik yapmış oluruz. Bunu ENTRYPO
         CMD ["127.0.0.1"]
 
 Yalnız komut satırında runtime esnasında 8.8.8.8 gibi bir komut girersek CMD'deki komutu almayacak, bizim parametre olarak girdiğimiz komutu alacaktır.
+
+---
+
+1. Her Docker imajında bir CMD veya ENTRYPOINT talimatı bulunmalıdır.
+
+2. Her iki talimat da bu imajdan container yaratıldığında çalıştırılacak uygulamayı belirtmemizi sağlar.
+
+3. ENTRYPOINT ile girilen komut runtime'da yani container çalıştırılırken değiştirilemez. CMD ile yazılan ise runtime'da değiştirilebilir.
+
+4. ENTRYPOINT ve CMD aynı anda kullanılırsa CMD'de yazılan ENTRYPOINT talimatında yazılana parametre olarak eklenir.

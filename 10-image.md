@@ -167,3 +167,11 @@ Komutları parantezler içinde yazmaya exec formu, direkt komut şeklinde yazmay
 Shell formunda ENTRYPOINT'e parametre olarak gidemez.
 
 - Exec direkt process çalıştırır
+
+---
+
+<h2> Multistage Build </h2>
+
+- Docker tarafından 2017 senesinde yayınlanan Multistage Build özelliği bizim image yaratma aşamasını kademelere bölmemize ve ilk kadamede yarattığımız image içerisindeki dosyaları bir sonraki kadamede oluşturacağımız imaja kopyalayabilmemize imkan sağlıyor. Bu sayede nihai imaj boyutumuzun küçülmesine imkan tanıyor.
+
+- Docker java_app içindeki Dockerfile

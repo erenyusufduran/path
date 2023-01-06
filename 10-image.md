@@ -175,3 +175,24 @@ Shell formunda ENTRYPOINT'e parametre olarak gidemez.
 - Docker tarafından 2017 senesinde yayınlanan Multistage Build özelliği bizim image yaratma aşamasını kademelere bölmemize ve ilk kadamede yarattığımız image içerisindeki dosyaları bir sonraki kadamede oluşturacağımız imaja kopyalayabilmemize imkan sağlıyor. Bu sayede nihai imaj boyutumuzun küçülmesine imkan tanıyor.
 
 - Docker java_app içindeki Dockerfile
+
+---
+
+<h2> Docker Save - Load </h2>
+
+Bazı productionlarda internete bağlantı olmaz, dockerla da bu sebeple çalışılamaz.
+
+        docker save
+        docker load
+
+komutlarıyla bunu save edebiliyoruz.
+
+---
+
+<h2> Docker Image Registry </h2>
+
+Docker Hub kullanmak yerine, kendi registry'mizi oluşturabiliriz.
+
+- Docker Trusted Registry bize localde registry sağlıyor.
+
+- Prod ortamlarında uygun olmasa da localde direkt olarak registry'i kullanabiliriz. Bize birçok özelliği sağlamasa da testlerimizde kullanabiliriz.

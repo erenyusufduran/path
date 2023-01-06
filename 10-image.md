@@ -157,3 +157,13 @@ Yalnız komut satırında runtime esnasında 8.8.8.8 gibi bir komut girersek CMD
 3. ENTRYPOINT ile girilen komut runtime'da yani container çalıştırılırken değiştirilemez. CMD ile yazılan ise runtime'da değiştirilebilir.
 
 4. ENTRYPOINT ve CMD aynı anda kullanılırsa CMD'de yazılan ENTRYPOINT talimatında yazılana parametre olarak eklenir.
+
+<h3> EXEC & SHELL Farkı </h3>
+
+!["alt text"](./exec-shell.png)
+
+Komutları parantezler içinde yazmaya exec formu, direkt komut şeklinde yazmaya ise shell formu diyoruz.
+
+Shell formunda ENTRYPOINT'e parametre olarak gidemez.
+
+- Exec direkt process çalıştırır

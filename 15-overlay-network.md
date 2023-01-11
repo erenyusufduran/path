@@ -4,7 +4,7 @@ Overlay, aynı bridge gibi bir driver. Biz swarm altında yeni bir network oluş
 
 Bunu oluşturduğumuz zaman tüm node'lar üzerinden ulaşılabiliyor. Birbirleriyle haberleşebiliyorlar.
 
----
+<hr>
 
 - Bir Swarm Cluster oluşturulduğu zman ingress adında bir overlay network de oluşturulur. Siz aksini belirtmediğiniz sürece oluşturduğunuz servisler bu overlay networke bağlanır.
 

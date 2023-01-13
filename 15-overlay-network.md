@@ -17,3 +17,5 @@ Bunu oluşturduğumuz zaman tüm node'lar üzerinden ulaşılabiliyor. Birbirler
 - Swarm altında yaratılan servisler aynı overlay network üzerinde birbirlerine servis isimleriyle ulaşabilir. Docker burada hem DNS çözümlemesi hizmeti hem de load balancing hizmeti sunmaktadır.
 
 - Overlay network üzerinde aynı zamanda port publish de edebiliriz ve Docker Swarm overlay networklerde ingress routing mesh destekler. Siz port publish edip Docker host üstünden o porta erişirseniz Docker o host üstünde o portun publish olduğu bir container bulunmasa bile bulunan bir host'a trafiği yönlendirecek ve cevap verecektir.
+
+!["alt image"](./docker-overlay.png)

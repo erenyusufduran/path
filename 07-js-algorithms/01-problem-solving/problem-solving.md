@@ -132,4 +132,18 @@ Creating **pointers** or values that correspond to an index or position and move
 
 **countUniqueValues**
 
-Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorted.
+Implement a function called countUniqueValues, which accepts a sorted array, and counts the unique values in the array. There can be negative numbers in the array, but it will always be sorte
+
+### Sliding Window
+
+This pattern involves creaating a **window** which can either be an array or number from one position to another.
+
+Depending on a certain condition, the window either increases or closes (and a new window is created)
+
+Very useful for keeping track of a subset of data in an array/string etc.d
+
+### Divide and Conquer Pattern
+
+This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data.
+
+This pattern can tremendously **decrease time complexity**

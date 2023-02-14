@@ -67,7 +67,7 @@ Examples also provide sanity checks that your eventual soluyion works how it sho
 - Can you think of other ways to refactor?
 - How have other people solved this problem?
 
---
+---
 
 ## 2. **Master** common problem solving patterns
 

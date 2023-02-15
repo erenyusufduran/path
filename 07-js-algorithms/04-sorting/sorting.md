@@ -45,3 +45,26 @@ A sorting algorithm where the largest values bubble up to the top!
 - Return the sorted array
 - **Worst Case** O(n**2)
 - **Best Case** O(1)
+
+## Selection Sort
+
+Similar to bubble sort, but instead of first placing large values into sorted position, it places small values into sorted position.
+
+- Store the first element as the smallest value.
+- Compare this item to the next item in the array until you find a smaller number.
+- If a smaller number is found, designate that smaller number to be the new **minimum** and continue until the end of the array.
+- If the **minimum** is not the value (index) you initiaily began with, swap the two values.
+
+## Insertion Sort
+
+Builds up the sort by gradually creating a larger left half which is always sorted.
+
+- Start by picking the second element in array.
+- Compare the second elemenet with the one before it and swap if necessary.
+- Continue to the next element and if it is in the incorrect order, iterate through the sorted portion to place the element in the correct place.
+
+---
+
+- Bubble sort, selection sort, and insertion sort are all roughly equivalent
+- All have avergae time complexities that are quadratic
+- We can do better... but we need more complex algorithms!

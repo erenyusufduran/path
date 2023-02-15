@@ -68,3 +68,33 @@ Builds up the sort by gradually creating a larger left half which is always sort
 - Bubble sort, selection sort, and insertion sort are all roughly equivalent
 - All have avergae time complexities that are quadratic
 - We can do better... but we need more complex algorithms!
+
+## **Intermediate Sorting Algorithms**
+
+- The sorting algorithms we've learned so far don't scale well.
+
+### **Faster Sorts**
+
+- There is a family of sorting algorithms that can improve time complexity **from O(n ** 2) to O(n*logn)**.
+- There's tradeoff between efficiency and simplicity.
+- The more efficient algorithms are much less simple, and generally take longer to understand.
+
+
+## Merge Sort
+
+- It's a combination of two things - merging and sorting.
+
+    ---
+- In order to implement merge sort, it's useful to first implement a function responsible for merging two sorted arrays.
+- Given two arrays which are sorted, this helper function should create a new array which is also sorted, and consists of all of the elements in the two input arrays.
+- This function should run in **O(n + m)** time and **(n+m)** space and **should not** modiy the parameters passed to it.
+
+    ---
+
+- Create an empty array, take a look at the smallest values in each input array
+- While there are still values we haven't looked at:
+    - If the  value in the first array is smaller than the value in the second array, push the value in the first array into our results and move on to the next value in the first array.
+    - If the value in the first array is larger than the value in the second array, push the value in the second array into our results and move on to the next value in the second array.
+    - Once we exhaust one array, push in all remaining values from the other array.
+- Time Complexity **O(n * logn)** Best / Average / Worst  
+- Space Complexity **O(n)**

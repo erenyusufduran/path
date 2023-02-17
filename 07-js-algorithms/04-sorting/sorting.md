@@ -69,7 +69,7 @@ Builds up the sort by gradually creating a larger left half which is always sort
 - All have avergae time complexities that are quadratic
 - We can do better... but we need more complex algorithms!
 
-## **Intermediate Sorting Algorithms**
+## ** Intermediate Sorting Algorithms**
 
 - The sorting algorithms we've learned so far don't scale well.
 
@@ -98,3 +98,54 @@ Builds up the sort by gradually creating a larger left half which is always sort
     - Once we exhaust one array, push in all remaining values from the other array.
 - Time Complexity **O(n * logn)** Best / Average / Worst  
 - Space Complexity **O(n)**
+
+## Quick Sort
+
+Like merge sort, exploits the fact that arrays of 0 or 1 element are always sorted.
+
+Works by selecting one element (called the **pivot**) and finding the index where the pivot should end up in the sorted array.
+
+### **Pivot Helper**
+
+- In order to implement merge sort, it's useful to first implement a function responsible arranging elements, in an array on either side of a pivot.
+- Given an array, this helper function should designate an element as the pivot.
+- It should then rearrange elements in the array so that all values less than the pivot are moved to the left of the pivot, and all values greater than the pivot are moved to the right of the pivot.
+- The order of elements on either side of the pivot doesn't matter!
+- The helper should do this **in place**, that is, it should not create a new array.
+- When complete, the helper should return the index of the pivot.
+
+    ---
+**Picking Pivot**
+- The runtime of quick sort depends in part on how one selects the pivot.
+- Ideally, the pivot should be chosen so that it's roughly the median value in the data set you're sorting.
+- For simplicity, we'll always choose the pivot to be the first element. 
+
+    ---
+**Pivot Pseudo**
+1. It will help to accept three arguments: an array, a start index, an end index
+2. Grab the pivot from the start of the array
+3. Store the current pivot index in a variable
+4. Loop through the array from the start until the end
+    - If the pivot is greater than the current element, increment the pivot index variable and then swap the current element with the element at the pivot index.
+
+    ---
+**Quick Sort Pseudo**
+1. Call the pivot helper on the array
+2. When the helper returns to you the updated pivot index, recursively call the pivot helper on the subarray to the left of that index, and tthe subarray to the right of that index.
+3. Your base case occurs when you consider a subarray with less than 2 elements.
+
+- Time Complexity **O(n * logn)** Best / Average
+    - **O(n ** 2)** Worst
+- Space Complexity **O(logn)**
+
+---
+
+## **Comparison Sorts**
+
+### *Average Time Complexity*
+- Bubble Sort - **O(n ** 2)**
+- Insertion Sort - **O(n ** 2)**
+- Selection Sort - **O(n ** 2)**
+- Quick Sort - **O(n * logn)**
+- Merge Sort - **O(n * logn)**
+

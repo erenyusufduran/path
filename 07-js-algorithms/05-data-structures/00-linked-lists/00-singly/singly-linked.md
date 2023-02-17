@@ -13,7 +13,7 @@ Linked Lists consists of nodes, and each **node** has a **value** and a **pointe
 - Insertion and deletion can be expensive.
 - Can quickly be accessed at a spesific index.
 
-### **Big O** of Signly Linked Lists
+### **Big O** of Singly Linked Lists
 
 - Insertion - **O(1)**
 - Removal - *It depends* **O(1) or O(n)**

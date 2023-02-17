@@ -149,3 +149,30 @@ Works by selecting one element (called the **pivot**) and finding the index wher
 - Quick Sort - **O(n * logn)**
 - Merge Sort - **O(n * logn)**
 
+---
+
+## Radix Sort
+
+Radix sort is a special sorting algorithm that works on lists of numbers.
+
+It never makes comparisons betweene elements!
+
+It exploits the fact that information about the size of a number is encoded in the number of digits.
+
+More digits means a bigger number!
+
+- With first helper function we are taking the digit.
+- With second helper function we are taking the digit count.
+- With third helper function we are taking an array, and it's giving us most digits number has how many digits.
+
+**Radix Sort Pseudo**
+1. Define a func that accepts list of numbers
+2. Figure out how many digits the largest number has
+3. Loop from k = 0 up to this largest number of digits
+4. For each iteration of the loop:
+    1. Create buckets for each digit (0 to 9)
+    2. Place each number in the corresponding bucket based on its *k*th digit
+5. Replace our existing array with values in our buckets, starting with 0 and going up to 9
+6. Return list at the end!
+- **Time Complexity** O(n*k*)
+- **Space Complexity** O(n + *k*)

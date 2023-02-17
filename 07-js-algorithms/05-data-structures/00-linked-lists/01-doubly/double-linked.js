@@ -87,9 +87,9 @@ class DoublyLinkedLists {
     return current;
   }
   set(index, val) {
-    const foundNote = this.get(index);
-    if (foundNote) {
-      foundNote.val = val;
+    const foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
       return true;
     }
     return false;

@@ -83,7 +83,7 @@ There is two ways:
 - ### **Breadth-first Search**
     - We wanna visit every node on the same level, every sibling node before we look at a child.
     - Horizontally
-
+    - [10, 6, 15, 3, 8, 20]
     **Pseudo Steps**
     1. Create a queue and a variable to store the values of nodes visited.
     2. Place the root node in the queue.
@@ -95,3 +95,50 @@ There is two ways:
 
 
 - ### **Depth-first Search**
+    - Vertically searching.
+
+    **Pseudo PreOrder Steps**
+    > It's pre order so, when we are searching, we are adding to the list.
+    - [10, 6, 3, 8, 15, 20]
+    1. Create a variable to store the values of nodes visited
+    2. Store the root of the BST in a variable called current
+    3. Write a helper function which accepts a node
+        1. Push the value of the node to the variable that stores the values
+        - If the node has a left property, call the helper function with the left property on the node.
+        - If the node has a right property, call the helper function with the right property on the node.
+    4. Invoke the helper function with the current variable
+    5. Return the array of values
+
+    **Pseudo PostOrder Steps**
+    > In post order, when we are searching, we are not adding to the list. Adding is the last thing, so our searching is beginning from the most left leaf.
+    - [3, 8, 6, 20, 15, 10]
+    1. Create a variable to store the values of nodes visited
+    2. Store the root of the BST in a variable called current
+    3. Write a helper function which accepts a node
+        - If the node has a left property, call the helper function with the left property on the node.
+        - If the node has a right property, call the helper function with the right property on the node.
+        - Push the value of the node to the variable that stores the values
+        - Invoke the helper function with the current variable.
+
+    **Pseudo InOrder Steps**
+    - [3, 6, 8, 10, 15, 20]
+    1. Create a variable to store the values of nodes visited
+    2. Store the root of the BST in a variable called current
+    3. Write a helper function which accepts a node
+        - If the node has a left property, call the helper function with the left property on the node.
+        - Push the value of the node to the variable that stores the values
+        - If the node has a right property, call the helper function with the right property on the node.
+        - Invoke the helper function with the current variable.
+
+    ### Which one is Better?
+    - Depends on the tree.
+    - Time complexity stays the same, we are going to visit every single node.
+
+    ## **Recap**
+
+    - Trees are non-linear data structures that containe a root and child nodes.
+    - Binary Trees can have values of any type, but at most two children for each parent.
+    - BSTs are a more spesific version of binary trees where every node to the left of a parent is less than it's value and every node to the right is greater.
+    - We can search through Trees using BFS and DFS.
+        - DFS has tree order
+            - PreOrder, PostOrder, InOrder

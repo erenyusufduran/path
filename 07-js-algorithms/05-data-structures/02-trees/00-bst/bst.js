@@ -61,9 +61,39 @@ class BinarySearchTree {
     while (queue.length) {
       node = queue.shift();
       data.push(node); // or node.value
-      if (node.left) queue.push(node.left);
-      if (node.right) queue.push(node.right);
+      node.left && queue.push(node.left);
+      node.rigth && queue.push(node.right);
     }
+    return data;
+  }
+  dfsPreOrder() {
+    const data = [];
+    function traverse(node) {
+      data.push(node);
+      node.left && traverse(node.left);
+      node.rigth && traverse(node.right);
+    }
+    traverse(this.root);
+    return data;
+  }
+  dfsPostOrder() {
+    const data = [];
+    function traverse(node) {
+      node.left && traverse(node.left);
+      node.rigth && traverse(node.right);
+      data.push(node);
+    }
+    traverse(this.root);
+    return data;
+  }
+  dfsInOrder() {
+    const data = [];
+    function traverse(node) {
+      node.left && traverse(node.left);
+      data.push(node);
+      node.rigth && traverse(node.right);
+    }
+    traverse(this.root);
     return data;
   }
 }

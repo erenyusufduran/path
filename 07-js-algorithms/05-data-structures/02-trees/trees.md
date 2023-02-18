@@ -71,3 +71,27 @@ Lots of different applications!
             - Check to see if there is a node to the left
                 - If there is, move to that node and repeat these steps
                 - If there is not, we're done searching!
+
+## Big O of BST
+- Insertion - **O(logn)**
+- Searching - **O(logn)**
+
+---
+
+## Traversing A Tree
+There is two ways:
+- ### **Breadth-first Search**
+    - We wanna visit every node on the same level, every sibling node before we look at a child.
+    - Horizontally
+
+    **Pseudo Steps**
+    1. Create a queue and a variable to store the values of nodes visited.
+    2. Place the root node in the queue.
+    3. Loop as long as there is anything in the queue
+        - Dequeue a node from the queue and push the value of the node into the variable that stores the nodes
+        - If there is a left property on the node dequeued - add it to the queue
+        - If there is a right property on the node dequeued - add it to the queue
+    4. Return the variable that stores the values
+
+
+- ### **Depth-first Search**

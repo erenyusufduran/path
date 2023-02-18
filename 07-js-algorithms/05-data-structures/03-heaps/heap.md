@@ -45,3 +45,27 @@ In a **MaxBinaryHeap**, parent nodes are always larger than child nodes. In a **
         5. Keep looping and swapping until neither child is larger than the element.
         6. Return the old root!
     
+## What is a Priority Queue
+
+A data structure where each element has a priority. Elements with higher priorities are served before elements with lower priorities.
+
+- Could implement a priority queue with an array or a list.
+
+- Value doesn't matter. Heap is constructed using Priority.
+
+**PRIORITY QUEUE Pseudo**
+1. Write a Min Binary Heap - lower number means higher priority.
+2. Each node has a value and a priority. Use the priority to build the heap.
+3. **Enqueue** method accepts a value and priority, makes a new node, and puts it in the right spot based off of its priority.
+4. **Dequeue** method removes root element, returns it, and rearranges heap using priority.
+
+## **Big O of Binary Heaps**
+- Insertion - **O(logn)**
+- Removal - **O(logn)**
+- Search - **O(n)**
+
+## **Recap**
+
+- Binary Heaps are very useful data structures for sorting, and implementing other data structures like priority queues.
+- Binary heaps are either MaxBinaryHeaps or MinBinaryHeaps with parents either being smaller or larget than their children.
+- With just a little bit of math, we can represent heaps using arrays!

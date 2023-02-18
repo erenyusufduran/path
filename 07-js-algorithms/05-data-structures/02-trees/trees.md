@@ -44,3 +44,17 @@ Lots of different applications!
 - Every parent node has at most **two** children.
 - Every node to the left of a parent node is **always less** than the parent.
 - Every node to the right of a parent node is **always greater** than the parent.
+
+### Insertin A Node to BSTR
+1. Create a new node
+2. Starting at the root
+    1. Check if there is a root.
+    2. If there is a root, check if the value of the new node is greater or less?
+        1. If it is greater
+            - Check to see if there is a node to the right
+                - If there is, move to that node and repeat these steps
+                - If not, add that node as the right property
+        2. If it is less
+            - Check to see if there is a node to the left
+                - If there is, move to that node and repeat these steps
+                - If there is not, add that node as the left property.

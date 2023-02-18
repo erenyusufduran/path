@@ -134,6 +134,25 @@ There is two ways:
     - Depends on the tree.
     - Time complexity stays the same, we are going to visit every single node.
 
+    **BFS**
+    - 
+    1. **Data Structure** - BFS uses **Queue** data structure for finding the shortest path.
+    2. **Technique** - BFS can be used to find a single source shortest path in an unweighted graph because, in BFS, we reach a vertex with a minimum number of edges from a source vertex.
+    3. **Suitable For** - BFS is more suitable for searching vertices closer to the given source.
+    4. **Applications** - BFS is used in various applications such as bipartite graphs, shortest paths, etc.
+    5. **Memory** - BFS requires more memory.
+    7. **When to use?** - When the **target is close to the source**, BFS performs better.
+
+    **DFS**
+    - 
+    1. **Data Structure** - DFS uses **Stack** data structure.
+    2. **Technique** - In DFS, we might traverse through more edges to reach a destination vertex from a source.
+    3. **Suitable For** - DFS is more suitable when there are solutions away from source.
+    4. **Applications** - DFS is used in various applications such as acyclic graphs and topological order etc.
+    5. **Memory** - DFS requires less memory.
+    6. **Space Complexity** - DFS has lesser space complexity because at a time it needs to store only a single path from the root to the leaf node.
+    7. **When to use?** - When the **target is far from the source**, DFS is preferable. 
+
     ## **Recap**
 
     - Trees are non-linear data structures that containe a root and child nodes.

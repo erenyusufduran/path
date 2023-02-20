@@ -58,3 +58,27 @@ A **graph data structure** consists of a finite (and possibly mutable) set of ve
 2. The function should loop as long as there are any other vertices in the adjacency list for that vertex
 3. Inside of loop, call our **removeEdge** function with the vertex we are removing and any values in the adjacency list for that vertex
 4. Delete the key in the adjacency list for that vertex
+
+---
+
+## Graph Traversal
+
+### Uses
+- Peer to peer networking
+- Web crawlers
+- Finding **closest** matches/recommendations
+- Shortest path problems
+    - GPS Navigation
+    - Solving mazes
+    - AI (shortest path to win the game)
+
+### Depth First Traversal
+**Recursive**
+1. The function should accept a starting node
+2. Create a list to store the end result, to be returned at the very end
+3. Create an object to store visited vertices
+4. Create a helper function which accepts a vertex
+    1. The helper func should return early if the vertex is empty
+    2. The helper func should place the vertex it accepts into the visited object and push that vertex into the result array
+    3. Loop over all of the values in the adjacencyList for that vertex
+    4. If any of those values have not been visited, recursively invoke the helper function with that vertex

@@ -20,6 +20,23 @@ class Graph {
     }
     delete this.adjacencyList[vertex];
   }
+  depthFirstRecursive(start) {
+    const result = [];
+    const visited = {};
+    const adjacencyList = this.adjacencyList;
+    function dfs(vertex) {
+      if (!vertex) null;
+      visited[vertex] = true;
+      result.push(vertex);
+      adjacencyList[vertex].forEach((neighbor) => {
+        if (!visited[neighbor]) {
+          return dfs(neighbor);
+        }
+      });
+    }
+    dfs(start);
+    return result;
+  }
 }
 
 const g = new Graph();
@@ -40,3 +57,5 @@ console.log(g);
 g.removeVertex("Istanbul");
 
 console.log(g);
+
+g.depthFirstRecursive("Tokyo");

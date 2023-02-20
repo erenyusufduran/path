@@ -82,3 +82,19 @@ A **graph data structure** consists of a finite (and possibly mutable) set of ve
     2. The helper func should place the vertex it accepts into the visited object and push that vertex into the result array
     3. Loop over all of the values in the adjacencyList for that vertex
     4. If any of those values have not been visited, recursively invoke the helper function with that vertex
+
+### Depth First Traversal
+**Iterative**
+1. The function should accept a starting node
+2. Create a stack to help use keep track of vertices (use a list/array)
+3. Create a list to store the end result, to be returned at the very end
+4. Create an object to store visited vertices
+5. Add the starting vertex to the stack, and mark it visited
+6. While the stack has something in it:
+    - Pop the next vertex from the stack
+    - If that vertex hasn't been visited yet:
+        1. Mark it as visited
+        2. Add it to the result list
+        3. Push all of its neighbors into the stack
+
+7. Return the result array.

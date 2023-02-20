@@ -38,3 +38,23 @@ A **graph data structure** consists of a finite (and possibly mutable) set of ve
 |   Can be slower to lookup spesific edge   |     Faster to lookup spesific edge     |
 
 - Most data in the real-world tends to lend itself to sparser and/or larger graphs. We will use **Adjacency List**.
+
+### Adding a Vertex
+1. Write a method called addVertex, which accepts a name of a vertex
+2. It should add a key to the adjacency list with the name of the vertex and set its value to be an empty array.
+
+### Adding an Edge
+1. This func should accept two vertices, we can call them vertex1 and vertex2
+2. The function should find in the adjacency list the key of vertex1 and push vertex2 to the array
+3. The function should find in the adjacency list the key of vertex2 and push vertex1 to the array
+
+### Removing an Edge
+1. This func should accept two vertices, we can call them vertex1 and vertex2
+2. The function should reassign the key of vertex1 to be an array that does not contain vertex2
+3. The function should reassign the key of vertex2 to be an array that does not contain vertex1
+
+### Removing a Vertex
+1. This func should accept a vertex to remove
+2. The function should loop as long as there are any other vertices in the adjacency list for that vertex
+3. Inside of loop, call our **removeEdge** function with the vertex we are removing and any values in the adjacency list for that vertex
+4. Delete the key in the adjacency list for that vertex

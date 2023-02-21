@@ -39,6 +39,24 @@ class SinglyLinkedList {
     }
     return current;
   }
+  get(index) {
+    if (index < 0 || index >= this.length) return null;
+    let counter = 0;
+    let current = this.head;
+    while (counter != index) {
+      current = current.next;
+      counter++;
+    }
+    return current;
+  }
+  set(index, val) {
+    const node = this.get(index);
+    if (node) {
+      node.val = val;
+      return true;
+    }
+    return false;
+  }
 }
 
 const linkedList = new SinglyLinkedList();

@@ -9,8 +9,8 @@ function digitCount(num) {
 
 function mostDigits(numsArr) {
   let maxDigits = 0;
-  for (let i = 0; i < numsArr.lenght; i++) {
-    maxDigits = Math.max(maxDigits, digitCount(nums[i]));
+  for (let i = 0; i < numsArr.length; i++) {
+    maxDigits = Math.max(maxDigits, digitCount(numsArr[i]));
   }
   return maxDigits;
 }
@@ -23,7 +23,10 @@ function radixSort(nums) {
       let digit = getDigit(nums[i], k);
       digitBuckets[digit].push(nums[i]);
     }
+    console.log(digitBuckets);
     nums = [].concat(...digitBuckets);
   }
   return nums;
 }
+
+radixSort([23, 5, 48, 786, 231, 76, 342, 653, 2, 12, 7]);

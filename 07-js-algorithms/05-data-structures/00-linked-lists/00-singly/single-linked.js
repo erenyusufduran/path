@@ -79,9 +79,9 @@ class SinglyLinkedList {
   }
   // Changing the value of a node based on it's position in the Linked List!
   set(index, val) {
-    const foundNote = this.get(index);
-    if (foundNote) {
-      foundNote.val = val;
+    const foundNode = this.get(index);
+    if (foundNode) {
+      foundNode.val = val;
       return true;
     }
     return false;

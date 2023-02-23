@@ -4,7 +4,7 @@ const chalk = require("chalk");
 const addNote = (title, body) => {
   const notes = loadNotes();
   const duplicateNote = notes.find((note) => note.title === title);
-
+  debugger; // node --inspect-brk app.js add --> to chrome://inspect
   if (!duplicateNote) {
     notes.push({ title, body });
     console.log(chalk.green.inverse("Note Added!"));
@@ -58,4 +58,4 @@ const loadNotes = () => {
   }
 };
 
-module.exports = { getNotes, addNote, removeNote, listNotes, readNote };
+module.exports = { addNote, removeNote, listNotes, readNote };

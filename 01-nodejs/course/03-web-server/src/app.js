@@ -32,9 +32,9 @@ app.get("/about", (req, res) => {
 
 app.get("/help", (req, res) => {
   res.render("help", {
-    helpText: "This is some helpful text.",
     title: "Help",
     name: "Eren Yusuf Duran",
+    helpText: "This is some helpful text.",
   });
 });
 

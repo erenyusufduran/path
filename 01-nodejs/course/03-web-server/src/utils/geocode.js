@@ -6,7 +6,6 @@ const geocode = (address, callback) => {
   )}.json?access_token=${process.env.GEOCODE_ACCESS_KEY}&limit=1`;
 
   request({ url, json: true }, (error, { body }) => {
-    console.log(body);
     if (error) {
       callback("Unable to connect to location services!", undefined);
     } else if (body.features.length === 0) {

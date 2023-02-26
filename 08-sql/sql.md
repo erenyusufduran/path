@@ -4,3 +4,13 @@
 
 ![](./nosql-sql-1.png)
 ![](./sql-nosql.png)
+
+## SQL (Structured Query Language)
+
+- Data is stored in tables
+- There is rows and columns
+
+## NoSQL (Not only SQL)
+
+- Data is stored in collections
+- There is documents and fields

@@ -1,7 +1,8 @@
-const { model } = require("mongoose");
+const { model, Schema } = require("mongoose");
 const validator = require("validator");
+const bcrypt = require("bcryptjs");
 
-const User = model("User", {
+const userSchema = new Schema({
   name: { type: String, required: true, trim: true },
   email: {
     type: String,
@@ -32,5 +33,16 @@ const User = model("User", {
     },
   },
 });
+
+// arrow funcs don't bide this. so use regular funcs.
+userSchema.pre("save", async function (next) {
+  const user = this;
+  if (user.isModified("password")) {
+    user.password = await bcrypt.hash(user.password, 8);
+  }
+  next();
+});
+
+const User = model("User", userSchema);
 
 module.exports = User;

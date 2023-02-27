@@ -12,9 +12,18 @@ router.post("/users", async (req, res) => {
   }
 });
 
+router.post("/users/login", async (req, res) => {
+  try {
+    const user = await User.findByCredentials(req.body.email, req.body.password);
+    res.send(user);
+  } catch (error) {
+    res.status(400).send({ error: "Invalid Credentials!" });
+  }
+});
+
 router.get("/users", async (req, res) => {
   try {
-    const users = await User.find({});
+    const users = await User.find({ error: "Invalid Credentials!" });
     res.status(200).send(users);
   } catch (error) {
     res.status(500).send(error);
@@ -25,7 +34,7 @@ router.get("/users/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const user = await User.findById(id);
-    if (!user) return res.status(404).send();
+    if (!user) return res.status(404).send({ error: "Invalid Credentials!" });
     res.status(200).send(user);
   } catch (error) {
     res.status(500).send(error);
@@ -43,7 +52,7 @@ router.patch("/users/:id", async (req, res) => {
     updates.forEach((update) => (user[update] = req.body[update]));
     await user.save(); // we must use save method for schema middleware.
     // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true }); -> so we deleting this line
-    if (!user) return res.status(404).send();
+    if (!user) return res.status(404).send({ error: "Invalid Credentials!" });
 
     res.send(user);
   } catch (error) {
@@ -54,7 +63,7 @@ router.patch("/users/:id", async (req, res) => {
 router.delete("/users/:id", async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);
-    if (!user) return res.status(404).send();
+    if (!user) return res.status(404).send({ error: "Invalid Credentials!" });
     res.send(user);
   } catch (error) {
     res.status(500).send(error);

@@ -6,6 +6,7 @@ const userSchema = new Schema({
   name: { type: String, required: true, trim: true },
   email: {
     type: String,
+    unique: true,
     required: true,
     lowercase: true,
     validate(val) {
@@ -34,6 +35,16 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.statics.findByCredentials = async (email, password) => {
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("Unable to login");
+
+  const isMatch = await bcrypt.compare(password, user.password);
+  if (!isMatch) throw new Error("Unable to login");
+  return user;
+};
+
+// Hash the plain text password before saving.
 // arrow funcs don't bide this. so use regular funcs.
 userSchema.pre("save", async function (next) {
   const user = this;

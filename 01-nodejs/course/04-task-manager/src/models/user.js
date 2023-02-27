@@ -1,6 +1,7 @@
 const { model, Schema } = require("mongoose");
 const validator = require("validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const userSchema = new Schema({
   name: { type: String, required: true, trim: true },
@@ -33,8 +34,26 @@ const userSchema = new Schema({
       if (value < 0) throw new Error("Age must be a positive number");
     },
   },
+  tokens: [
+    {
+      token: {
+        type: String,
+        required: true,
+      },
+    },
+  ],
 });
 
+// When we are using statics, this is for every collection in User model,
+// When we are using methods, this is only for spesific user, we'll use this, so use regular function.
+userSchema.methods.generateAuthToken = async function () {
+  const user = this;
+  const token = jwt.sign({ _id: user._id.toString() }, "erenyusufduran", { expiresIn: "7 days" });
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+  return token;
+};
+// 63fcbdc4b814c8479c8880dc
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("Unable to login");

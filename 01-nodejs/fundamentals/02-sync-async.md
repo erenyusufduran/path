@@ -15,6 +15,7 @@ Diğer bir yandan **Asenkron Programlama**, aynı anda birden fazla görevin bir
 ## Hangi Programlama Dilleri Hangi Yapıyı Kullanır?
 
 Hangi programlama dillerinin asenkron, hangilerinin senkron programlama kullandığı konusunda herkese uyan tek bir yanıt yoktur. Ancak bazı genel gözlemler olabilir. Bunlar;
+
 1. Senkron Programlama genellikle C++, Java gibi OOP yapılı dillerde kullanılır. Bu programlama dilleri I/O gibi yaygın işlemler için **blocking API'ları sağlayarak** senkron programlam uygulanmasını kolaylaştırırlar.
 2. Asenkron Programlama genellikle JavaScript, Python gibi **event-driven** dillerde kullanılır. Bu programlama dilleri, non-blocking I/O fikri etrafında oluşturulmuştur ve genellikle ağ istekleri gibi yaygın işlemler için senkron yapılar sağlarlar.
 3. C# ve Swift gibi bazı programlama dilleri ise hem senkron hem asenkron yapıda olarak, geliştiricilerin kendi kullanım durumlarına en uygun yaklaşımı seçmelerine olanak tanır.

@@ -1,13 +1,13 @@
 # Node.js
 
-Nodejs JavaScript kodlarını execute etmek için yapılmış, açık kaynak kodlu bir runtime environment'tır ve Chrome V8 Engine motoru üzerine inşa edilmiştir. 
+Nodejs JavaScript kodlarını execute etmek için yapılmış, açık kaynak kodlu bir runtime environment'tır ve Chrome V8 Engine motoru üzerine inşa edilmiştir.
 
 ## Chrome V8 Engine
 
 - Chrome V8 JavaScript engine'idir. Yani JavaScript kodlarını çalıştırır. Aslında JavaScript web browserlarında çalıştırılabilmek için çıkmıştır, fakat V8 browser içinde veya dışında JavaScript kodunu çalıştırabilir.
 
 - Chrome V8 güçlü ve hızlıdır. JavaScript kodunu makine koduna çevirir, bilgisayarlar bunu anlar.
-    - Makine kodu CPU'nun anlayabileceği bir dildir. 
+  - Makine kodu CPU'nun anlayabileceği bir dildir.
 
 ### Sandboxing
 
@@ -16,7 +16,7 @@ Nodejs JavaScript kodlarını execute etmek için yapılmış, açık kaynak kod
 Diğer ortamlardan izole edilmiş ve bölümlenmiş yazılımları çalıştırmak için kullanılan bir ortamdır.
 
 - Sandboxing, Chrome V8'in önemli bir özelliğidir. Her process sandboxa alınır. Bu da JavaScript fonksiyonlarının ayrı ayrı execute edildiğini, bir kodun diğer kodu etkilemeyeceğini gösteriyor.
-    - Genelde sandboxing yapan makineler, virtual makineler düşük performans veriyorlar, fakat V8 düşük bir performans göstermiyor.
+  - Genelde sandboxing yapan makineler, virtual makineler düşük performans veriyorlar, fakat V8 düşük bir performans göstermiyor.
 
 ---
 
@@ -46,7 +46,7 @@ Adından da anlaşılacağı gibi, eşzamanlı bir sırada olmak anlamına gelir
 
 ### Asenkron
 
-Programın, eşzamanlı kodun mevcut kodu bitirene kadar kalan kodun daha fazla yürütülmesine olanak tanır.    
+Programın, eşzamanlı kodun mevcut kodu bitirene kadar kalan kodun daha fazla yürütülmesine olanak tanır.
 
 - Eşzamansız koddaki talimatlar paralel olarak yürütülebilir.
 - Sonraki işlem, önceki işlem işlenirken gerçekleşebilir.
@@ -87,7 +87,7 @@ Unutmamak lazım, parametreler ve local variable'lar bulunmaya devam edebilirler
 
 > İşlenecek mesajlar listesi olarak <b> message queue </b> kullanılır. Her mesajın, mesajı işlemek için çağrılan bir işlevi vardır.
 
-> Event Loop sırasında çalışma zamanı, en eski iletiden başlayarak queue'daki iletileri işlemeye başlar. Bunu yapmak için mesajdan queue kaldırılır ve karşılık gelen işlevi, bir giriş parametresi olarak mesajla birlikte çağırır. 
+> Event Loop sırasında çalışma zamanı, en eski iletiden başlayarak queue'daki iletileri işlemeye başlar. Bunu yapmak için mesajdan queue kaldırılır ve karşılık gelen işlevi, bir giriş parametresi olarak mesajla birlikte çağırır.
 
 > Fonksiyonlar, yığın boşalana kadar devam eder. Ardından, event loop, queue'da bulunan bir sonraki iletiyi işleyecektir.
 
@@ -99,7 +99,7 @@ Unutmamak lazım, parametreler ve local variable'lar bulunmaya devam edebilirler
 
 - Nodejs'de I/O gibi JS olmayan bir işlemi beklemek yerine CPU'nun yoğun olması nedeniyle düşük performans sergileyen JS'e genellikle blocking adı verilmez. Nodejs standart kitaplığında libuv kullanan senkron, en sık kullanılan engelleme işlemleridir. Yerel modüller ayrıca engelleme yöntemlerine sahip olabilir.
 
-- Blocking metotlar senkron, non-blocking mehodlar asenkron çalışırlar.  
+- Blocking metotlar senkron, non-blocking mehodlar asenkron çalışırlar.
 
 ### Never Blocking
 

@@ -44,6 +44,13 @@ const userSchema = new Schema({
   ],
 });
 
+userSchema.methods.toJSON = function () {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
+  delete userObject.tokens;
+  return userObject;
+};
 // When we are using statics, this is for every collection in User model,
 // When we are using methods, this is only for spesific user, we'll use this, so use regular function.
 userSchema.methods.generateAuthToken = async function () {

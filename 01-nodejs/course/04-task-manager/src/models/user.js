@@ -44,6 +44,12 @@ const userSchema = new Schema({
   ],
 });
 
+userSchema.virtual("tasks", {
+  ref: "Task",
+  localField: "_id",
+  foreignField: "owner",
+});
+
 userSchema.methods.toJSON = function () {
   const user = this;
   const userObject = user.toObject();
@@ -51,6 +57,7 @@ userSchema.methods.toJSON = function () {
   delete userObject.tokens;
   return userObject;
 };
+
 // When we are using statics, this is for every collection in User model,
 // When we are using methods, this is only for spesific user, we'll use this, so use regular function.
 userSchema.methods.generateAuthToken = async function () {
@@ -60,7 +67,7 @@ userSchema.methods.generateAuthToken = async function () {
   await user.save();
   return token;
 };
-// 63fcbdc4b814c8479c8880dc
+
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email });
   if (!user) throw new Error("Unable to login");

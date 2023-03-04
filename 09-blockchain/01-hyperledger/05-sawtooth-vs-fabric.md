@@ -131,3 +131,69 @@ But you will see that this platform is a bit different as well. The most promine
   It’s definitely, on the whole, another level. Hyperledger doesn’t want to limit your innovation. Thus, it makes sure to include as many features as it can for you to check out. That’s why you’ll see so many use cases with one single platform in the background. Can you imagine that?
 
   In reality, if you want to add a completely foreign feature, you can simply just plug it in and use it. Yes, it’s that simple to do. We will cover more about this topic later on in the Hyperledger Fabric vs Sawtooth Lake comparison section.
+
+# Hyperledger Sawtooth vs Fabric: The Comparison
+
+In reality, many professionals debate on the topic of Hyperledger Fabric vs Sawtooth. Well, we can see where the confusion can be, as both of them seem more or less quite similar.
+
+But there are some differences that are critical for you to understand. Thus, once you know them, you can use these two platforms where they are most relevant. So, let’s see the final comparison of Hyperledger Fabric vs Sawtooth now!
+
+## Permission Level
+
+First of all, the permission level in Hyperledger Sawtooth vs Hyperledger Fabric has a massive difference. In reality, Sawtooth supports both permissioned and permissionless network systems. So, there is no restriction there.
+
+On the other hand, Hyperledger Fabric architecture only offers permissioned blockchain access. So, it’s exclusively only for enterprise use cases. But other public companies can also use Sawtooth instead of Fabric.
+
+## Consensus Algorithm
+
+Another major difference in Hyperledger Fabric vs Sawtooth comparison is the use of consensus algorithms. At the moment, Sawtooth offers a wide variety of consensus algorithm to choose from. For example, it offers Proof of Elapsed Time, Practical Byzantine Fault Tolerance, Devmode, Raft, and PoET CFT.
+
+On the other hand, Hyperledger Fabric architecture only offers Kafka, Solo, and Raft.
+
+## Byzantine Fault Tolerance Support
+
+This is one of the major differences between Hyperledger Fabric vs Sawtooth. In reality, Sawtooth supports Byzantine Fault Tolerance, which ensures that your network is safe and secured from any corruption whatsoever.
+
+But Hyperledger Fabric architecture only offers Crash Fault Tolerance. So, you won’t get the highest level of fault tolerance in Fabric. Even though CFT is working absolutely fine as of now. Still, Sawtooth is far ahead of Fabric in this term.
+
+## Smart Contract Technology
+
+In the next point of Hyperledger Sawtooth vs Hyperledger Fabric comparison, we have smart contract technology. In reality, smart contracts are just a form of business logic, so it means you can automate and digitize your business contracts on the network.
+
+Therefore, in Sawtooth, the transaction families look after this feature. You will have to use these families to facilitate your business logic.
+
+On the other hand, Fabric offers Chaincode for that. This feature handles all kinds of logic execution and asset management.
+
+### Smart Contract Type
+
+In Hyperledger Fabric, you get an installed version of Chaincode. Do you know what it means? It means that you can’t alter the contract language here. It’s a bit restrictive.
+
+But in Sawtooth, you get both installed and on-chain contracts. Thus, it ensures that you can customize your contracts and use your preferred programming language for that.
+
+### Supported Smart Contract Language
+
+Smart contract languages are really important when it comes to blockchain platforms. In reality, in Sawtooth, you get a wide range of language support for it. For example, it offers Rust, JavaScript, Go, or Python, and even Solidity using Seth!
+
+More so, they are working on introducing more languages as well. But in Fabric, you only get Go, Java, Javascript, and Solidity, which is a bit limiting.
+
+## Transaction Processing
+
+For this Hyperledger Sawtooth vs Hyperledger Fabric comparison, we are looking into transaction processing methods. In Hyperledger Sawtooth, you will get validators that will look after the transaction process.
+
+On the other hand, Fabric endorsing peers and ordering services look after this process. In short, this process makes Hyperledger blockchain projects so efficient in the first place.
+
+## State Storage
+
+In Sawtooth, the current state of the network is stored in the central lmdb database. But in Fabric, the state storage is leveldb or CouchDB database. In short, this is one of the important aspects of the two platforms. And without state storage, a network can’t function properly. So, if you are a developer, keep this in mind.
+
+## EVM Support
+
+Hyperledger Sawtooth uses Seth to support Ethereum Virtual Machine. In reality, it’s a huge deal for developers as they can use Solidity for smart contacts now. On the other hand, Fabric recently integrated this new system that allows it to use EVM as well. So, in Hyperledger Sawtooth vs Hyperledger Fabric comparison, both support EVM.
+
+## Transaction Speed
+
+When it comes to transaction speed, nothing can beat Fabric as of now. In reality, Hyperledger Fabric comes with a different strategy to increase the speed in the network. Thus, it offers more than 2000 transactions per second.
+
+On the other hand, Sawtooth only offers something close to 1000 transactions per second. This is a bit less than Fabric, but it’s more suited for those industries that don’t need a high transaction rate.
+
+![](./fabric-sawtooth-table.png)

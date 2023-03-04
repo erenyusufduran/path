@@ -90,3 +90,44 @@ You can learn more about the use cases in the <a href="https://101blockchains.co
   - **Identity Transaction Family:** It will preserve all the permissioning data for validators and even transacting nodes with their public key, thus giving you a digital identity.
   - **Seth Transaction Family:** This family is extremely necessary as it offers Ethereum Virtual Machine compatibility for the platform. So, using this, you can run smart contracts in Solidity.
   - **Sabre Transaction Family:** It’s also another family that will help you run smart contracts. But here, you can run it on a WebAssembly (WASM) virtual machine. In reality, it will help you run the contract on-chain.
+
+## What is Hyperledger Fabric?
+
+<a href="https://101blockchains.com/hyperledger-fabric/">Hyperledger Fabric</a> is another popular open-source distributed ledger system under Hyperledger – an enterprise <a href="https://101blockchains.com/blockchain-consortium/">blockchain consortium</a>. In reality, Hyperledger always wants a collaborative environment for their projects. Therefore, all of their projects are the result of the collaboration of different high-end enterprise companies.
+
+For instance, Hyperledger Fabric architecture is actually a collaboration between Hyperledger and IBM. Anyhow, just like all other platforms in the market, Fabric comes with its own share of protocols, standards, consensus, APIs, ledger systems, smart contracts, and so on.
+
+But you will see that this platform is a bit different as well. The most prominent difference is that this platform is not public but rather permissioned. So, it’s mostly suited for enterprise needs. Any public domain can’t use this platform for its blockchain solutions. Also, now there is a new version out called <a href="https://101blockchains.com/hyperledger-fabric-2-0/">Hyperledger Fabric 2.0</a>, which includes many features.
+
+### What Are the Benefits of Hyperledger Fabric?
+
+- **Open-Source**
+  First of all, Fabric is a full blockchain open-source project for you to use. Therefore, you won’t have to pay a single dime to use it. More so, Hyperledger already has the files and codes uploaded on GitHub. So, it’s quite easy to access all the codes from that as well.
+
+  Therefore, if you are a developer or a company with a strong development team, you can just use that to make your blockchain solution.
+
+  Another great factor of this platform is that it offers all the features without any initial lock-ins. So, use the code, change it as you please; it’s all up to you and your company.
+
+- **Suitable for Wide-Ranging Industry**
+  Yes, Fabric is suitable for a wide range of industries. There are many <a href="https://101blockchains.com/hyperledger-fabric-use-cases/">Hyperledger Fabric use cases</a> that are suitable for enterprise environments. As a matter of fact, because it’s so popular when it was first released that there are tons of examples for you to check out now. Many high-end enterprise companies are using Fabric as the backbone of their solutions.
+
+  So, you have real-life proof that it works and can deliver what it actually promises. But if you want to learn how to use it, you should check out a tutorial or even get a certification that will cover this.
+
+- **Quality Code**
+  The best part about Hyperledger Fabric is that it comes with a high quality of codes. More so, they are very careful about any new updates. When they add any new updates, they review and test out their codes many times to see if they have any issues.
+
+  Thus, when it comes to Fabric, you can opt for more quality over quantity. If you notice properly, you’ll see that every single <a href="https://101blockchains.com/hyperledger-project/">Hyperledger project</a> takes a lot of time to go live in the markets. And Fabric is definitely among them.
+
+  Therefore, you can always expect the best of the best quality codes from this platform.
+
+- **Higher Efficiency**
+  If we start to compare Fabric with other platforms in the markets, you will be surprised to find the result. In reality, Fabric beats every single of them with higher efficiency. More so, the developers of this platform ensure that it can take on a lot of workloads.
+
+  That’s why it offers more than 2000 transactions per second. But how does it achieve it? Well, the architecture of this platform separates the transaction processes from the ordering services. Therefore, nodes have specific goals to follow, and everything gets distributed among the nodes for that.
+
+- **Modular Design**
+  Another huge benefit of Fabric is that it offers a modular structure for your enterprise blockchain needs. It’s also one of the greatest additions of Fabric architecture. In reality, it adds up a lot of functionality to the system and makes it crazy customizable compared to any other platform in the market.
+
+  It’s definitely, on the whole, another level. Hyperledger doesn’t want to limit your innovation. Thus, it makes sure to include as many features as it can for you to check out. That’s why you’ll see so many use cases with one single platform in the background. Can you imagine that?
+
+  In reality, if you want to add a completely foreign feature, you can simply just plug it in and use it. Yes, it’s that simple to do. We will cover more about this topic later on in the Hyperledger Fabric vs Sawtooth Lake comparison section.

@@ -4,46 +4,49 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Task = require("./task");
 
-const userSchema = new Schema({
-  name: { type: String, required: true, trim: true },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-    lowercase: true,
-    validate(val) {
-      if (!validator.isEmail(val)) {
-        throw new Error("Email is invalid");
-      }
-    },
-  },
-  password: {
-    type: String,
-    trim: true,
-    minlength: 7,
-    required: true,
-    validate(val) {
-      if (val.toLowerCase().includes("password")) {
-        throw new Error("Password cannot container 'password'");
-      }
-    },
-  },
-  age: {
-    type: Number,
-    default: 0,
-    validate(value) {
-      if (value < 0) throw new Error("Age must be a positive number");
-    },
-  },
-  tokens: [
-    {
-      token: {
-        type: String,
-        required: true,
+const userSchema = new Schema(
+  {
+    name: { type: String, required: true, trim: true },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+      validate(val) {
+        if (!validator.isEmail(val)) {
+          throw new Error("Email is invalid");
+        }
       },
     },
-  ],
-});
+    password: {
+      type: String,
+      trim: true,
+      minlength: 7,
+      required: true,
+      validate(val) {
+        if (val.toLowerCase().includes("password")) {
+          throw new Error("Password cannot container 'password'");
+        }
+      },
+    },
+    age: {
+      type: Number,
+      default: 0,
+      validate(value) {
+        if (value < 0) throw new Error("Age must be a positive number");
+      },
+    },
+    tokens: [
+      {
+        token: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 userSchema.virtual("tasks", {
   ref: "Task",

@@ -70,7 +70,7 @@ userSchema.methods.toJSON = function () {
 // When we are using methods, this is only for spesific user, we'll use this, so use regular function.
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id.toString() }, "erenyusufduran", { expiresIn: "7 days" });
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_STRING, { expiresIn: "7 days" });
   user.tokens = user.tokens.concat({ token });
   await user.save();
   return token;

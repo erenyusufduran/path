@@ -3,12 +3,17 @@ const sgMail = require("@sendgrid/mail");
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-sgMail
-  .send({
-    to: "erenyusufduran1905@gmail.com",
+const sendWelcomeOrCancellationEmail = (email, name, boolean = false) => {
+  sgMail.send({
+    to: email,
     from: "eren.duran@colins.com",
-    subject: "This is my first creation!",
-    text: "I hope this one actually get to you.",
-  })
-  .then((res) => console.log(res))
-  .catch((err) => console.log(err));
+    subject: !boolean ? "Welcome to the App!" : "Your cancelation is in process.",
+    text: !boolean
+      ? `Welcome to the app, ${name}. Let me know you get along with the app.`
+      : `Goodbye ${name}, I hope to see you back!`,
+  });
+};
+
+module.exports = {
+  sendWelcomeOrCancellationEmail,
+};

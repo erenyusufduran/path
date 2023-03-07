@@ -31,6 +31,15 @@ test("Should signup a new user", async () => {
   expect(user.password).not.toBe("pass7985ew4");
 });
 
+test("Should not signup user with invalid email", async () => {
+  await request(app)
+    .post("/users")
+    .send({
+      email: "askdlasdkaslkd",
+    })
+    .expect(400);
+});
+
 test("Should login existing user", async () => {
   const response = await request(app)
     .post("/users/login")
@@ -103,4 +112,21 @@ test("Should not update invalid user fields", async () => {
       location: "California",
     })
     .expect(400);
+});
+
+test("Should not update user if unauthenticated", async () => {
+  await request(app)
+    .patch("/users/me")
+    .send({
+      name: "Eren Yusuf",
+    })
+    .expect(401);
+});
+
+test("Should not update user if invalid email", async () => {
+  await request(app)
+    .patch("/users/me")
+    .set("Authorization", `Bearer ${userOne.tokens[0].token}`)
+    .send({ email: "asldas@@.com" })
+    .expect(500);
 });

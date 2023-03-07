@@ -5,8 +5,7 @@
 - <a href="#chapter3">Hyperledger Sawtooths Development – Architecture Description</a>
 - <a href="#chapter4">Hyperledger Sawtooths Offering Live Demo Applications</a>
 - <a href="#chapter5">Hyperledger Sawtooths At Work</a>
-- <a href="#chapter6">Hyperledger Sawtooths Course: Training and tutorial</a>
-- <a href="#chapter7">Concluding Thoughts</a>
+- <a href="#chapter6">Concluding Thoughts</a>
 
 Hyperledger is an enterprise blockchain project, and Linux foundation is behind it. However, it’s only an umbrella project, and there are many blockchain projects in work under it. Among them, Hyperledger Sawtooth happens to be one of the popular ones. Additionally, many enterprises are already using this incredible new platform.
 
@@ -276,6 +275,8 @@ In reality, for that, they are bringing accountability and traceability with the
     - Connects with better suppliers and promotes consumer trust.
 
       Well, the food supply chain is just a demo. You can easily customize the solution to go with your specific supply chain niche. In reality, no matter what customization you do, it would still offer the same benefits.
+
+---
 
 ## <font id="chapter5">Hyperledger Sawtooth At Work</font>
 

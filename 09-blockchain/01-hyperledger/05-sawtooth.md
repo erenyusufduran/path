@@ -123,7 +123,7 @@ At the time of setting up the network, you can easily select the one you wish to
 Anyhow at present, it comes with 5 different consensuses for you to select. They are:
 
 - **Devmode**
-  - This consensus is mainly suited for development purposes. It will allow you to test drive the platform with one validator node. So, as you can see, it’s definitely not suited for production purposes.
+  - Devmode (short for "developer mode") is a simplified random-leader algorithm that is useful for developing and testing a transaction processor. Devmode is not recommended for multi-node networks and should not be used for production.
 - **pBFT**
   - This one is actually a leader based consensus algorithm. Unfortunately, you can’t fork PBFT. But on the plus side, you are getting a Byzantine fault tolerance algorithm. In reality, this one is more suited for smaller environments and definitely not the best one for any consortium type environments.
 - **PoET CFT**
@@ -132,7 +132,7 @@ Anyhow at present, it comes with 5 different consensuses for you to select. They
 - **PoET SGX**
   - In this version of PoET, it will use the SGX. And with the help of SGX, it can offer Byzantine Fault Tolerance similar to PoW. However, it only needs a relatively low amount of CPU power.
 - **Raft**
-  - In this one, the algorithms need to have a leader for a selected amount of time. Moreover, when the timer runs out, the leader will automatically get replaced. In reality, Raft is way faster than PoET; however, it only offers CFT and is not Byzantine.
+  - Sawtooth Raft is a leader-based consensus algorithm that provides crash fault tolerance for a small network with restricted membership.
 
 ### **Sample Transaction Families**
 

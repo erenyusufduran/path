@@ -11,7 +11,7 @@ Hyperledger is an enterprise blockchain project, and Linux foundation is behind 
 
 ## <span id="chapter1">What is Hyperledger Sawtooth?</span>
 
-Hyperledget Sawtooth is an open-source blockchain project under the enterprise blockchain platform Hyperledger. It's a perfect solution for developing networks and distributed ledger applications.
+Hyperledger Sawtooth is an open-source blockchain project under the enterprise blockchain platform Hyperledger. It's a perfect solution for developing networks and distributed ledger applications.
 
 Well, according to the Hyperledger Sawtooth documentation, it actually simplifies the whole process of application design. In reality, the application domain is wholly separated from the core system. Thus, it makes it simpler to try out applications without affecting the core system in any way.
 

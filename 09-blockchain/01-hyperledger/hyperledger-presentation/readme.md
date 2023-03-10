@@ -204,10 +204,6 @@ Kurumsal blockchain platformunda bu tür bir esneklik oldukça nadir. Genellikle
      - Sistemdeki tüm kimliklerin yönetilmesine yardımcı olur. Herhangi bir zincir üstü izin durumunda, bir doğrulayıcı anahtar ve işlem anahtarı kesinlikle gereklidir. Ayrıca bunu yapmak için her iki tarafın da uygun kimlik doğrulama iznine sahip olması gerekir.
      - Ancak tüm bu bilgiler, yönetilmesi gerekilen bir engel haline gelir. Yine de durumu bu transaction ailesi yardımıyla yönetmek kolaydır.
 
-   - **IntegerKey Transaction Family**
-
-     - Hyperledger Sawtooth mimarisindeki başka bir aile, kullanıcıların durum sözlüğünün girişlerinin değerini ayarlamasına, artırmasına veya azaltmasına olanak tanır.
-
    - **Validator Registry Transaction Family**
 
      - Tek doğrulayıcı (validator) ile, ağda çok fazla kullanıcı olduğunda sistem çökebilir. Doğrulayıcı işlem ailesi, bu konuda yardımcı olmak için ağa yeni doğrulayıcılar eklemek için bir yol sunar.
@@ -220,12 +216,6 @@ Kurumsal blockchain platformunda bu tür bir esneklik oldukça nadir. Genellikle
    - **Smallbank Transaction Family**
 
      - Yeni bir çerçeve oluşturdunuz. Ama şimdi gerçekten nasıl performans gösterdiğini görmeniz gerekiyor. Şimdi bunu nasıl yapacaksın? Gerçekte, Smallbank işlem ailesi, kullanıcıların çerçeveyi karşılaştırmasına ve nasıl performans gösterdiğini görmesine olanak tanır.
-
-   - **XO Transaction Family**
-
-     - Bu işlem ailesinin Hyperledger Sawtooth mimarisi içindeki en hafiflerinden biri olduğunu söyleyebilirim. Ama neden? Bu, başka bir kullanıcıyla tic-tac-toe oyunu oynamanıza izin verecek.
-
-     - Bu aile içindeki kodlama sistemi, geliştiricilerin işlem ailesi için referans yapısını görmelerine yardımcı olur.
 
      ***
 

@@ -7,11 +7,22 @@ Containers are the fundamental building block of the Docker toolkit and that's o
 - Learn common container management commands
 - Learn Docker networking basics
 
-  docker version - verified cli can talk to engine
-  docker ps - to see working containers
-  docker info
-  docker container logs
-  docker container rm
+---
+
+    docker version - verified cli can talk to engine
+    docker ps - to see working containers
+    docker info
+    docker container logs
+    docker container rm
+    docker top - list running processes in spesific cont
+
+---
+
+**-d**
+
+- it's the short version of --detach. By running in detached mode, we are able to have access to our command line when the container spins up and runs. Without it, we would have logs constantly fed onto the screen.
+
+---
 
 ### Image vs. Container
 
@@ -40,3 +51,9 @@ Containers are the fundamental building block of the Docker toolkit and that's o
 5. Gives it a virtual IP on a private network inside docker engine
 6. Opens up port 80 on host and forwards to port 80 in container
 7. Starts container by using the CMD in the image Dockerfile.
+
+## What's Going On In Containers
+
+- docker container top - process list in one container
+- docker container inspect - details of one container config
+- docker container stats - performance starts for all containers

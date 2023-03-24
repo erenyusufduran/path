@@ -28,7 +28,6 @@ docker container run -p 80:80 --rm nginx-with-html
 ```
 
 ```
-docker image prune to clean up just "dangling" images
-
-- docker system prune will clean up everything
+docker image prune - to clean up just "dangling" images
+docker system prune - will clean up everything
 ```

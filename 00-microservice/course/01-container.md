@@ -57,3 +57,8 @@ Containers are the fundamental building block of the Docker toolkit and that's o
 - docker container top - process list in one container
 - docker container inspect - details of one container config
 - docker container stats - performance starts for all containers
+
+```
+docker network create dude
+docker container run -d --net dude --net-alias search elasticsearch:2
+```

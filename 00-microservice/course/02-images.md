@@ -11,4 +11,16 @@
 docker pull nginx:version
 docker history nginx:latest
 docker image inspect mysql
+docker image push _image_name_
+docker logout
+```
+
+- **Official Repositories**: They live at the _root namespace_ of the registry, so they don't need account name in front of repo name.
+- **Package Manager**: PM's like apt and yum are one of the reasons to build containers FROM debian, ubuntu, fedora or CentOS
+
+**01-example**
+
+```
+docker image build -t nginx-with-html .
+docker container run -p 80:80 --rm nginx-with-html
 ```

@@ -35,3 +35,39 @@ Swarm Mode brings together years of understanding the needs of containers and ho
 | :---------: | ---------------------------------------------- |
 |   Worker    | Connects dispatcher to check on assigned tasks |
 |  Executor   | Executes the tasks assigned to worker node     |
+
+---
+
+```
+docker swarm init
+docker node ls
+docker service create alpine ping 8.8.8.8
+docker service update ID --replicas 3
+```
+
+## Scaling Out with Overlay Networking
+
+- Just choose --driver overlay when creating network
+- For container to container traffic inside a single Swarm
+- Optional IPSec encryption on network creation
+- Each service can be connected to multiple networks
+
+## Scaling Out with Routing Mesh
+
+- Routes ingress (incoming) packets for a service to proper task
+- Spans all nodes in Swarm
+- Uses IPVS from Linux Kernel
+- Load balances Swarm Services across their tasks
+- _Two ways this works:_
+  - Container to container in a overlay network
+  - External traffic incoming to published ports (all nodes listen)
+  ***
+- This is stateless load balancing
+- This LB is at OSI layer 3 (TCP), not layer 4 (DNS)
+- Both limitation can be overcome with:
+  - Nginx or HAProxy LB proxy, or
+  - Docker Enterprise Edition, which comes with build-in L4 web proxy
+
+> The load balancer built-in to the overlay networking driver will do this job out of the box.
+
+> In the default overlay network, you can visit any node on port 8088 to see the NGINX welcome message.

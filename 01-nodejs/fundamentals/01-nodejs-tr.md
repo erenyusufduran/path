@@ -58,19 +58,19 @@ Programın, eşzamanlı kodun mevcut kodu bitirene kadar kalan kodun daha fazla 
 
 JavaScript kodu execute etmekten, event toplamak ve işlemekten, queue (sıra - kuyruk)'da olan görevleri yönetmekten sorumlu bir olay döngüsüne dayalı bir çalışma modeline sahiptir. Bu <b> olay döngüsüne </b> dayalı çalışma modeline <b> Event Loop </b> diyoruz. Bu olay C ve Java gibi programlama dillerinden biraz daha farklıdır.
 
-<code> 
-function foo(b) {<br>
-  const a = 10;<br>
-  return a + b + 11;<br>
-}<br>
-<br>
-function bar(x) {<br>
-  const y = 3;<br>
-  return foo(x * y);<br>
-}<br>
-<br>
+```
+function foo(b) {
+  const a = 10;
+  return a + b + 11;
+}
+
+function bar(x) {
+  const y = 3;
+  return foo(x * y);
+}
+
 const baz = bar(7); // assigns 42 to baz
-</code>
+```
 
 <br>
 
@@ -120,7 +120,3 @@ Event Loop'un ilginç bir özelliği de diğer birçok dilin aksine JavaScript'i
 - Bunlara ek olarak JavaScript ile multi-thread bir şekilde eşzamanlı çalışma ve paralelleştirme yapılabilir. Rust kadar esnek, Go kadar basit olmasa da diğer dillerde mümkün olan hemen hemen her şeyi yapabilir ve iyi performans elde edeblirsiniz.
 
 ---
-
-nodejs non-blocking, event looptur
-
-event loop

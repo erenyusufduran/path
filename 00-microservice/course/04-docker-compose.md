@@ -29,3 +29,9 @@ docker-compose.yml is default name, it can change with -f
 - If all your projects had a _Dockerfile_ and _docker-compose.yml_ then new eveloper onboarding would be:
   - git clone github.com/some/
   - docker compose up
+
+---
+
+- Compose can also build your custom images
+- Will build them with _docker-compose up_ if not found in cache
+- Also rebuild with _docker-compose build_

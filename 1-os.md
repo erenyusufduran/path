@@ -1,0 +1,29 @@
+<h1>İşletim Sistemleri</h1>
+
+<h2>Temel Bilgisayar Bileşenleri</h2>
+
+- Aklımıza gelebilecek hemen hemen her bilgisayar, yaptığı işe özelleşmiş birkaç parçanın bir araya gelmesiyle oluşur.
+
+- Bunların en temeli de 2 ünitedir.
+
+1. CPU (Central Processing Unite) Bilgisayarın içerisinde ana işi yapan ünitedir. Özetle yaptığı iş hesaplamadır. Mause cursor'unun yerini değiştirmemiz aslında matematiksel işlemlerdir.
+
+2. RAM (Random Access Memory) Temel görevi geçici süreli bilgi tutma ve bunu CPU'ya aktarmaktır. CPU'dan gelen sonucu da geçici süre saklamaktır.
+
+Bu iki ünitenin ve diğer tüm ünitelerin birbiriyle haberleşmesini sağlayan anakarta (mother board) takıyoruz. Hard disk adını verdiğimiz depolama ünitesini de bunlara bağlıyoruz. Monitördeki grafik kartı da anakarta bağlıyoruz. Hepsine güç sağlayan power supply ile temel bilgisayar bileşenlerini oluşturabiliyoruz.
+
+3. Anakart (Motherboard) tüm ünitelerin birbiriyle haberleşmelerini sağlayan cihaz.
+
+   - Bunların bir tanesi de BIOS'tur. Anakarta takılı depolama cihazlarından işletim sistemlerini getirir.
+
+   - İşletim sistemi yüklenir ve bize bir işletim sistemi sunar.
+
+---
+
+- Univac 1 (1950) -> Tek bir iş için programlanan, bunun için kullanılan bugünki bilgisayarların atalarındandır.
+
+- IBM 7090 (1960) -> Uygulamaya dayalı bilgisayarların atasıdır. Ne kullanmak istiyosan onu yükleyerek kullanıyordunuz.
+
+---
+
+<h3> Yüzeysel olarak işletim sistemleri, çalıştırmak istediğiniz uygulamayı çalıştırmanızı sağlayan en temel programa verilen isimdir. En temel işi uygulamamızın çalışmasını sağlamaktır.

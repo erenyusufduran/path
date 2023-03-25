@@ -97,6 +97,14 @@ echo "myDBpassWORD" | docker secret create psql_pass -
 docker secret ls
 ```
 
+`for 05-example`
+
+```
+echo "oagy938hs" | docker secret create psql-pw -
+docker stack deploy -c docker-compose.yml drupal
+
+```
+
 - when creating services add: `--secret psql_user -e POSTGRES_USER_FILE=/run/secrets/psql_user`
 
 **in yml file**

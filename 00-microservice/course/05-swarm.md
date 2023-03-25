@@ -71,3 +71,38 @@ docker service update ID --replicas 3
 > The load balancer built-in to the overlay networking driver will do this job out of the box.
 
 > In the default overlay network, you can visit any node on port 8088 to see the NGINX welcome message.
+
+## Swarm Stacks: Production Grade Compose
+
+- Stacks accept compose files as their declarative definition for services, networks and volumes.
+- We use `docker stack deploy` rather than `docker service create`
+- Stacks manages all those objects for us, including overlay network per stack. Adds stack name to start of their name.
+- `docker-compose` CLI doesn't need on swarm server.
+
+## Secrets Storage
+
+- Easiest _secure_ solution for storing secrets in Swarm.
+- Supports generic strings or binary content up to 500KB in size
+- Doesn't require apps to be rewritten
+- Only stored on disk on Manager Nodes
+- Secrets are first stored in Swarm, then assigned to a Service
+- Only containers in assigned Service(s) can see them
+- `/run/secrets/<secret_name>`
+- Local docker-compose can use file-based secrets, but not secure
+
+```
+cat pssql_user.txt
+docker secret create psql_user psql_user.txxt
+echo "myDBpassWORD" | docker secret create psql_pass -
+docker secret ls
+```
+
+- when creating services add: `--secret psql_user -e POSTGRES_USER_FILE=/run/secrets/psql_user`
+
+**in yml file**
+
+```
+secrets:
+  psql_user:
+    file: ./psql_user.txt
+```

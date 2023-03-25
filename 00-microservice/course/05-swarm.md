@@ -142,3 +142,28 @@ docker service update --image nginx:1.13.6
 docker service update --publish-rm 8088 --publish-add 9090:80 web
 docker service update --force web
 ```
+
+## Docker Healtchecks
+
+- **HEALTHCHECK** was added in 1.12
+- Docker engine will `exec'`s the command in the container
+- It expects **exit 0 (OK)** or **exit 1 (Error)**
+- Three container states: starting, healthy, unhealthy
+- Not a external monitoring replacement
+- Healtcheck status shows up in `docker container ls`
+- Check last 5 healthchecks with `docker container inspect`
+- Docker run does nothing with healthchecks
+- Services will replace tasks if they fail healthchech
+- Service updates wait for them before continuing
+
+### **healthcheck examples**
+
+```
+docker run \
+  --health-cmd="curl -f localhost:9200/_cluster/health || false" \
+  --health-interval=5s \
+  --health-retries=3 \
+  --health-timeout=2s \
+  --health-start-period=15s \
+  elasticsearch:2
+```

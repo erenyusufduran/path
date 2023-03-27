@@ -84,8 +84,8 @@ Dockerfile kendine özgü kuralları olan bir dille yazılan ve bizlerin Docker 
         RUN pip install -r requirements.txt
         # Copy code from the current folder to /app inside the container
         ADD ./app
-        # Make port 8o available for links
-        EXPOSE 8o
+        # Make port 80 available for links
+        EXPOSE 80
         # Define our command to be run when launching the container
         CMD ["gunicorn", "app:app", "-b", "o.o.o.o:8o", "--log-file", "-", "--access-logfile", "-", "--workers", "4", "--keep-alive", "o"]
 

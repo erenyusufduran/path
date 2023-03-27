@@ -7,7 +7,6 @@ Sisteme Docker yüklendiğinde bir docker CLI ve bir docker deamon kuruluyor. Bu
 
 - docker version
 - docker container run / docker run
-
 - docker image
 
 > docker container run -> docker create ve docker start'ı birleştirir.
@@ -17,12 +16,9 @@ Sisteme Docker yüklendiğinde bir docker CLI ve bir docker deamon kuruluyor. Bu
 <h2> Container Temelleri - 1</h2>
 
 - Localde image bulunabiliyorsa, localdeki image'e ulaşıyor. Eğer localde image yoksa hub'daki image'i buluyor. Onu run ediyor.
-
-        - Her container imajında, o imajdan bir container yarattığımız zaman varsayılan olarak çalışması için ayarlanmış bir uygulama vardır.
-
-        - Bu uygulama çalıştığı sürece container ayakta kalır.
-
-        - Uygulama çalışmayı bıraktığında container da kapatılır.
+  - Her container imajında, o imajdan bir container yarattığımız zaman varsayılan olarak çalışması için ayarlanmış bir uygulama vardır.
+  - Bu uygulama çalıştığı sürece container ayakta kalır.
+  - Uygulama çalışmayı bıraktığında container da kapatılır.
 
 <hr>
 
@@ -30,7 +26,7 @@ Sisteme Docker yüklendiğinde bir docker CLI ve bir docker deamon kuruluyor. Bu
 
 > Her container imajında o imajdan bir container yarattığımız zaman varsayılan olarak çalışması için ayarlanmış bir uygulama vardır ve bu uygulama çalıştığı sürece container ayakta kalır. Uygulama çalışmayı bıraktığında container da kapatılır.
 
-Image içerisinde birden fazla program olabilir, fakat containerlarda bir uygulaema çalışabilir. Uygulamayı kapattığımızda container içinde bir başka uygulama çalıştırabiliriz.
+Image içerisinde birden fazla program olabilir, fakat containerlarda bir uygulama çalışabilir. Uygulamayı kapattığımızda container içinde bir başka uygulama çalıştırabiliriz.
 
 - docker container rm \_\_ ile container'lar silinebilirler. Stop edilmiş olmamlılar.
 
@@ -41,7 +37,7 @@ Container'lar oluşturulduklarında ekstra bir komut girilmez, olacak her şey i
 
 - Tabii bu demek değildir ki container'a bağlanamayız.
 
-docker container exeec -it \_\_\_ sh
+docker container exec -it \_\_\_ sh
 
 - sh -> shell'e bağlan demek.
 - ubuntu tabanlı olsaydı --> bash yazardık.
@@ -56,14 +52,11 @@ Docker Image'leri base bir image üstüne eklenir. Her bir değişiklik de yeni 
 1. Docker mecburen bu layer sistemini bu kadar karıştırıyor. Saniyelik açılması için..
 2. Daha fazla disk alanına ihtiyaç duymamamız için layer sistemi kullanılıyor.
 3. Docker her image'ı katmanlar üzerinde tuttuğu için, iki image için ayrı image tutulmuyor ve ayrı ayrı yer kaplamıyorlar. Tek diskte tutuluyorlar.
-
    - docker image pull alpine
 
 <h2> Docker Container Yaşam Süresi </h2>
 
 Server dediğimiz kavram bilgisayarlar hayatımıza girdiği günden beri var. Bunları yönetiyoruz.
-
-<br>
 
 <h3>Contaiener YASALARI :)</h3>
 
@@ -83,16 +76,13 @@ Containerlar uzun ömürlü olmyabiliyorlar, ama bizim datamız bize uzun ömür
 
 Çözüme volume..
 
-- Volume, container gibi bir docker objesi. Container başlatılırken, ona senin veriler bu volume'e yazılsın diyeibliriz.
+Volume, container gibi bir docker objesi. Container başlatılırken, ona senin veriler bu volume'e yazılsın diyeibliriz.
 
-        docker volume create ---
-        docker volume inspect ---
+- `docker volume create ---`
+- `docker volume inspect ---`
+- `docker container run -it -v volume_name:/folder_name image_name sh`
 
----
-
-        docker container run -it -v volume_name:/folder_name image_name sh
-
-- Boş ve dolu volumeleri containerlara mounth edebiliriz.
+Boş ve dolu volumeleri containerlara mount edebiliriz.
 
 <h3>Boş-Dolu Volume Mount Edildiğinde ne Olur?</h3>
 
@@ -108,7 +98,6 @@ Containerlar uzun ömürlü olmyabiliyorlar, ama bizim datamız bize uzun ömür
 <h2>Bind Mounts</h2>
 
 - Büyük veriler ile uğraşacağımızda, production gibi ortamlarda veri saklamak için kullanacağımız tek yöntem VOLUME'dir.
-
 - Container dışarısında localde Bind Mount kullanabiliriz.
 
 > Host üstündeki bir klasör ya da dosyayı Container içerisine map edebiliriz. Buna Bind Mount denir.

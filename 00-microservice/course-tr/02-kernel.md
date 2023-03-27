@@ -1,6 +1,6 @@
-<h1> KERNEL </h2>
+# KERNEL
 
-- İşletim sistemi kullanıcının bir bilgisayardaki uygulamaları çalıştırmasını sağlayan ana yazılımdır.
+İşletim sistemi kullanıcının bir bilgisayardaki uygulamaları çalıştırmasını sağlayan ana yazılımdır.
 
 Normalde bir uygulama işletim sistemi olmadan da çalışır, ama ne yapması gerektiğiyle ilgili tüm machine code'ların yazılmış olması gerekir. İşletim sistemi ise bu işi kolaylaştırır.
 

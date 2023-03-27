@@ -19,7 +19,7 @@ Sunucular da anakartlara sahipler, bunlara ram, harddisk gibi componentler sağl
 
 - İçerisine çalışmasını istediğimiz uygulamaları kuruyor ve kullanıyoruz.
 
-- HP, DELL, IBM gibi şirketlerden sunucu biligsayarları alınırdı. Bunları veri merkezleri yapabilirdik. Bunlara da üç-dört farklı yerden ulaşabilirdik.
+- Önceden HP, DELL, IBM gibi şirketlerden sunucu biligsayarları alınırdı. Bunları veri merkezleri yapabilirdik. Bunlara da üç-dört farklı yerden ulaşabilirdik.
 
 - Farklı bir uygulamaya daha ihtiyaç duyduğumuzda tekrar bir sunucu sipariş etmemiz gerekirdi.
 
@@ -33,5 +33,4 @@ Sunucular da anakartlara sahipler, bunlara ram, harddisk gibi componentler sağl
 
    - Önceden uygulama kurmak için bir adet makine alıp buna sistem kuruyorduk. Sanallaştırma sayesinde fiziksel sunucu alıp öncelikle sanallaştırma yazılımını bu sistemin üzerinde kuruyoruz. Birden fazla sanal makineyi bu sistem üzerrinde kurmamızı sağlıyor. Birbirlerinden izole sanal makineler kuduğumuz için, bu makineler üzerine istediğim OS'i kurarak üstüne de çalışmasını istediğimiz serveri kuruyoruz.
 
-    <br/>
-   1. Bunun kullanımının ilk sebebi kaynak israfını engellemek.
+   - Sanallaştırmanın kullanımının ilk sebebi kaynak israfını engellemek.

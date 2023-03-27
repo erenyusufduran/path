@@ -6,11 +6,9 @@
 
 > Bu çözüm daha minimal bir kaynak israfı sağlasa da aslında burada da bir kaynak israfı söz konusu. Yeni işletim sistemleri kendi işletim sistemlerini yönetmek için bile bir kaynak israfı olacak.
 
-İşte bunlara çözüm olacak bir teknoloji de 2010'lara doğru hayatımıza girdi.
+İşte bunlara çözüm olacak bir teknoloji de 2010'lara doğru hayatımıza girdi. Sorumuz şuydu: Acaba biz bu uygulamaları aynı sistem üzerinde birbirinden izole çalıştırabilir miyiz?
 
-    Sorumuz şuydu: Acaba biz bu uygulamaları aynı sistem üzerinde birbirinden izole çalıştırabilir miyiz?
-
-- Bu sonuca yanıt olarak bir yöntem bulundu ve adına <font size="4">container</font> diyoruz.
+- Bu sonuca yanıt olarak bir yöntem bulundu ve adına <font size="3">**container**</font> diyoruz.
 
 - Linux 1991'den beri geliştiriliyor. Bu çekirdeğe namespaces adı verilen bir özellik eklendi. namespace'ler sayesinde iki ayrı process'i birbirinden bağımsız çalıştırabiliyoruz.
 

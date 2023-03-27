@@ -12,11 +12,11 @@ Docker arka planda onlarca farklı servisten oluşması ve altyapısal olarak ka
 
 <h3> Docker Network Drivers </h2>
      
-        Bridge: Varsayılan olan driverdır. Adından da anlaşılacağı üzere bir köprü oluşturacak docker network yaratmak için kullanılacak olan driverdır. 
-        Host: Bu network'e bağlı container'da network izolasyonu olmaz. Sanki o host üstünde çalışan bir process gibi host'un ağ kaynaklarını kullanır. Her sistemde host driver ile yaratılmış "Host" adında bir network bulunur.
-        Macvlan: Bu driver ile oluşturulan network objeleri sayesinde containerlar fiziksel ağlara kendi mac adreslerine sahip birer fiziksel ağ adaptörüne sahipmişçesine bağlanabilirler.
-        None: Ağ bağlantısı olmasını istemiyorsak, bu driverı kullanırız.
-        Overlay: Ayrı hostlar üstündeki containerların aynı ağda çalışıyormuş gibi çalışması istendiği zaman Overlay networkler devreye girer.
+- **Bridge:** Varsayılan olan driverdır. Adından da anlaşılacağı üzere bir köprü oluşturacak docker network yaratmak için kullanılacak olan driverdır. 
+- **Host:** Bu network'e bağlı container'da network izolasyonu olmaz. Sanki o host üstünde çalışan bir process gibi host'un ağ kaynaklarını kullanır. Her sistemde host driver ile yaratılmış "Host" adında bir network bulunur.
+- **Macvlan:** Bu driver ile oluşturulan network objeleri sayesinde containerlar fiziksel ağlara kendi mac adreslerine sahip birer fiziksel ağ adaptörüne sahipmişçesine bağlanabilirler.
+- **None:** Ağ bağlantısı olmasını istemiyorsak, bu driverı kullanırız.
+- **Overlay:** Ayrı hostlar üstündeki containerların aynı ağda çalışıyormuş gibi çalışması istendiği zaman Overlay networkler devreye girer.
 
 Ağ altyapılarında bridge dediğimiz bir sistem var. Bu fiziksel de oluyor, yazılımsal da. Birden fazla ağdan tek, birleşik bir ağ yaratmaya yarıyor. Linux sistemlere bridge network dediğimiz yapılar kullanabiliyoruz.
 
@@ -28,10 +28,10 @@ Docker'da biz de networkler oluşturabiliriz. Peki bunu neden yapalım?
 
 * Varsayılan dışında ip aralıkları tanımlanabilir.
 
-        Aynı networkde olsalar da name'den değil 172.17.0.2'yi pingleyerek birbirleriyle iletişime geçebilirler.
+Aynı networkde olsalar da name'den değil 172.17.0.2'yi pingleyerek birbirleriyle iletişime geçebilirler.
 
-* network create new_bridge / --driver
-* docker network connect new_bridge new_container --> container bu networke de bağlanır. Container'lar iki ayrı network'e bağlanabilirler.
+- network create new_bridge / --driver
+- docker network connect new_bridge new_container --> container bu networke de bağlanır. Container'lar iki ayrı network'e bağlanabilirler.
 
 ---
 
@@ -80,7 +80,7 @@ Geçici dosyaları $TEMP gibi env'lere yazabiliiz.
 
 - Peki $TEMP folder nerede bulunuyor?
 
-Her sistemde farklı farklı TEMP klasörü aramamak için uygulamaya windows'da TEMP adında bir env bulunuyor, sen buna bakarak yerini bul diyoruz.
+Her sistemde farklı farklı TEMP klasörü aramamak için uygulamaya windows'da TEMP adında bir env bulunuyor, buna bakarak yerini bul diyoruz.
 
 <h2> Docker Environment Variables </h2>
 

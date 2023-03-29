@@ -41,7 +41,7 @@ At its heart lies the humble, immutable commit log, and from there you can subsc
 
 ## What is Kafka Used For?
 
-Commonly used to build real-time streaming data pipelines and real-time streaming applcations, today, there are hundreds of Kafka use cases. Any company that relies on, or works with data can find numerous benefits.
+Commonly used to build real-time streaming data pipelines and real-time streaming applications, today, there are hundreds of Kafka use cases. Any company that relies on, or works with data can find numerous benefits.
 
 - **Data Pipelines**
   In the context of Apache Kafka, a streaming data pipeline means ingesting the data from sources into Kafka as it's created and then streaming that data from Kafka to one or more targets.

@@ -23,3 +23,10 @@ const logTodo = (id: number, title: string, completed: boolean) => {
   Has a title of: ${title} 
   Is it finished? ${completed} `);
 };
+
+/*
+ *  Primitive Types
+ *  number - boolean - void - undefined - string - symbol - null
+ *  Object Types
+ *  functions - arrays - classes - objects
+ */

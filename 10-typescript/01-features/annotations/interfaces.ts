@@ -14,7 +14,7 @@ const oldCivic = {
   },
 };
 
-const drink = {
+const _drink = {
   color: "brown",
   carbonated: true,
   sugar: 40,
@@ -34,4 +34,4 @@ const printSummary = (item: Reportable): void => {
 };
 
 printSummary(oldCivic);
-printSummary(drink);
+printSummary(_drink);

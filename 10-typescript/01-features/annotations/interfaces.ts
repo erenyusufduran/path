@@ -1,10 +1,7 @@
 // Interfaces
 // Creates a new type, describing the property names and value types of an object
 
-interface Vehicle {
-  name: string;
-  year: Date;
-  broken: boolean;
+interface Reportable {
   summary(): string;
 }
 
@@ -23,6 +20,8 @@ const printVehicle = (vehicle: { name: string; year: Date; broken: boolean }): v
   console.log(`Broken: ${vehicle.broken}`);
 };
 
-const printVehicleV2 = (vehicle: Vehicle): void => {
-  console.log(vehicle.summary());
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
 };
+
+printSummary(oldCivic);

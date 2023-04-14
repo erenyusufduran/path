@@ -1,9 +1,3 @@
-interface Sortable {
-  length: number;
-  compare(leftIndex: number, rightIndex: number): boolean;
-  swap(leftIndex: number, rightIndex: number): void;
-}
-
 export abstract class Sorter {
   abstract length: number;
   abstract compare(leftIndex: number, rightIndex: number): boolean;
@@ -20,3 +14,15 @@ export abstract class Sorter {
     }
   }
 }
+
+/*
+ * Interfaces
+ * - Sets up a contract between different classes.
+ * - Use when we have very different objects that we want to work together.
+ * - Promotes loose coupling
+ *
+ * INheritance / Abstract Classes
+ * - Sets up a contract between different classes.
+ * - Use when we are trying to build up a definition of an object.
+ * - Strongly couples classes together.
+ */

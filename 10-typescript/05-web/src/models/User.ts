@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import { Eventing } from "./Eventing";
 
 interface UserProps {
   id?: number;
@@ -6,7 +7,22 @@ interface UserProps {
   age?: number;
 }
 
+/*
+ *  HOW TO RE-INTEGRATE EVENTS?
+ *  - Option #1
+ *    - Accept dependencies as second constructor argument.
+ *  - Option #2
+ *    - Only accept dependencies into contstructor
+ *     - Define a static class method to preconfigure
+ *      - User and assign properties afterwards
+ *  - Option #3
+ *    - Only accept properties into constructor
+ *      - Hard code dependencies as class properties
+ */
+
 export class User {
+  events: Eventing = new Eventing();
+
   constructor(private data: UserProps) {}
 
   get(propName: string): number | string {

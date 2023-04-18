@@ -1,5 +1,5 @@
 import axios, { AxiosPromise } from "axios";
-import { UserProps } from "./User";
+
 /*
  * Option #1
  * Sync gets function arguments
@@ -17,14 +17,18 @@ import { UserProps } from "./User";
  * coming into save.
  */
 
-export class Sync {
+interface HasId {
+  id: number;
+}
+
+export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {}
 
   fetch(id: number): AxiosPromise {
     return axios.get(`${this.rootUrl}/${id}`);
   }
 
-  save(data: UserProps): AxiosPromise {
+  save(data: T): AxiosPromise {
     const { id } = data;
     if (id) {
       return axios.put(`${this.rootUrl}/${id}`, data);

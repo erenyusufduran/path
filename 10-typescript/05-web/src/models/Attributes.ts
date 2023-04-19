@@ -1,9 +1,7 @@
-import { UserProps } from "./User";
-
 // 1. In Typescript, strings can be types
 // 2. In JS(and therefore TS), all object keys are strings
 
-export class Attributes<T extends UserProps> {
+export class Attributes<T extends object> {
   constructor(private data: T) {}
 
   // K must be key of T.
@@ -23,6 +21,3 @@ export class Attributes<T extends UserProps> {
     return this.data;
   }
 }
-
-const attr = new Attributes<UserProps>({ id: 5, age: 20, name: "Goksen" });
-const name = attr.get("name");

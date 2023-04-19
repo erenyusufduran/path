@@ -18,6 +18,10 @@ export class Attributes<T extends UserProps> {
   set(update: T): void {
     Object.assign(this.data, update);
   }
+
+  getAll(): T {
+    return this.data;
+  }
 }
 
 const attr = new Attributes<UserProps>({ id: 5, age: 20, name: "Goksen" });

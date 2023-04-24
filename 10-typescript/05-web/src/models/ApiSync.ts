@@ -1,4 +1,5 @@
 import axios, { AxiosPromise } from "axios";
+import { HasId } from "./Model";
 
 /*
  * Option #1
@@ -16,10 +17,6 @@ import axios, { AxiosPromise } from "axios";
  * Sync is generic class to customize the type of 'data'
  * coming into save.
  */
-
-interface HasId {
-  id?: number;
-}
 
 export class ApiSync<T extends HasId> {
   constructor(public rootUrl: string) {}

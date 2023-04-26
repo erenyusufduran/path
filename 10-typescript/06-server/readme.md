@@ -9,3 +9,13 @@
 ### Pros
 
 - Addressing these type issues with Typescript can force us to write better code.
+
+---
+
+> Messaging TS and Express to work better together will take a lot of time + effort.
+
+- Must get one of two outcomes
+  - Get better type safety (help TS do a better job of catching errors)
+  - Significantly enhance the developer experience
+
+---

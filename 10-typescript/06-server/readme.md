@@ -19,3 +19,18 @@
   - Significantly enhance the developer experience
 
 ---
+
+- Node executes our code
+- Class definition read in - decorators are executed
+- Decorators associate route configuration info with the method by using metadata
+- All method decorators run
+- Class decorator of @controller runs last
+- Class decorator reads metadata from each method, adds complete route definitons to router
+
+## Metadaata
+
+- Proposed feature to be added to JS (and thus, TS)
+- Snippets of info that can be tied to a method, property, or class definiton
+- Can be used for super custom stuff
+- Typescript will (optionally) provide type information as metadata
+- Read and written using the reflect-metadata package

@@ -101,3 +101,29 @@ A distributed ledger technology framework for building business blockchain appli
 2. Native setup
    - Binaries installed directly on VM
    - Orchestration tools & scripts may be used.
+
+---
+
+<a href="https://www.vagrantup.com/intro/getting-started/">Vagrant Getting Started</a>
+
+- vagrant up - Starts the VM
+- vagrant ssh - Log into the VM
+- vagrant halt - Gracefully shuts down the VM
+- vagrant destroy - Deletes the VM
+
+---
+
+## Fabric 2.x Updates
+
+- **MAJOR** enhancements to Chaincode Lifecycle
+
+  - The only way of managing the chain, called lifecycle is still available. But at this point, would be to use the Fabric 2.0 check code lifecycle management.
+  - ```
+    New peer command for chaincode lifecycle - peer lifecycle chaincode --flash
+    ```
+
+- Introduction of implicit collections
+  - If you are exchanging private information with an organization, you don't have to explicitly create a private data collection definition for that.
+- State Database caching for CouchDB
+  - You will find that the query performance has improved, because now caching is in use.
+- Docker image optimization

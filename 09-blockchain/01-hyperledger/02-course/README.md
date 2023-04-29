@@ -169,3 +169,16 @@ Bottom line is that you can use any technology to build a chain. Because the bui
 - Chaincode tracked with _name_ & _sequence_ number. _Sequence_ number incremented when CC updates.
 - Admins MUST approve spesific packages for installation.
 - Out of sync peers won't work.
+
+## Cryptogen Binary - Command Line Tool
+
+```
+  cryptogen command --flags <args>
+```
+
+- Identity managed by way of certificates.
+- Identity management is not centralized.
+- Members manage identities within their organizations.
+- Utility for generating the crypto material.
+  - Used for test environment setups.
+  - Requires the information in YAML format.

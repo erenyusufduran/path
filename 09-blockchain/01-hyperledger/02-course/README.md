@@ -247,3 +247,36 @@ Orderer needs access to the MSP & TLS
     - Org2 (budget.com)
 - Start by using crypto-config.yaml
 - Delete the existing crypto-config folder
+
+## Configtxgen Tool
+
+**Utility for managing configuration artifacts**
+
+- **Genesis Block**: This is the first block in the Blockchain
+- **Channel Tx**: Create channel transaction
+- **Anchor Peer Tx**: Anchor Peer Update Transaction
+
+**Generated in the form of a _binary file_**
+
+- Does not have any dependency on runtime.
+- TX may be signed by multiple admins using the **peer**.
+
+In yaml file has six section. `configtx/simple-two-org/configtx.14.yaml`
+
+- **Organizations**: List the Member Organizations
+  - Orgs defined as **anchors (&)** to avoid repetition.
+  - Each organization has a name. There is ID and MSPDir.
+- **Orderer**: Configuration for the Orderer
+  - Order section is also defined as an anchor element so that you can refer to it.
+  - OrdererType: solo | kafka | etcdraft
+    - Single item for type = solo
+  - Batch Timeout: Which basically decides the block time for the network.
+  - Batch Size:
+    - MaxMessageCount: Indicate is the maximum number of messages.
+    - MaxBytes: The administrator or the dev of the configuration can specify the preferred max byte's maximum size, but the block can accommodate the size specified by absolute max bytes. Let's say the order has received six transactions. If it reach out the Max Bytes, it sends to block.
+- **Application**: Application Configuration
+  - There is a list of organizations that participate in the application type transactions.
+- **Channel**: Channel related parameters
+  - Defines the default set of parameters for the channel. It sets the default policies.
+- **Capabilities**: Binary version management
+- **Profiles**: Setup multiple configs in a file.

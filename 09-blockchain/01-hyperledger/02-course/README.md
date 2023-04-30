@@ -253,8 +253,11 @@ Orderer needs access to the MSP & TLS
 **Utility for managing configuration artifacts**
 
 - **Genesis Block**: This is the first block in the Blockchain
+  - `-outputBlock` `-inspectBlock`
 - **Channel Tx**: Create channel transaction
+  - `-outputCreateChannelTx` `-inspectCreateChannelTx`
 - **Anchor Peer Tx**: Anchor Peer Update Transaction
+  - `-outputAnchorPeersUpdate` `-inspectCreateChannelTx`
 
 **Generated in the form of a _binary file_**
 
@@ -303,3 +306,13 @@ in configtx/simple-two-org:
 - `cryptogen generate --config=../../cryptogen/simple-two-org/crypto-config.yaml`
 - `configtxgen -outputBlock ./acme-genesis.block -profile AcmeOrdererGenesis -channelID ordererchannel`
 - `configtxgen -inspectBlock ./acme-genesis.block  > temp/acme-genesis.json`
+
+### Generating the Create Channel Transaction
+
+- Requires the configuration for the Application
+- Requires the configuration for the Consortiums
+  - MSP for the organizations
+- Requires the channel ID
+
+- `configtxgen -outputCreateChannelTx ./acme-channel.tx -profile AcmeChannel -channelID acmechannel`
+- `configtxgen -inspectChannelCreateTx acme-channel.tx > ./temp/acme-channel.json`

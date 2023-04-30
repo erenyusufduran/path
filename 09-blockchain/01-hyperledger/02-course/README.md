@@ -280,3 +280,12 @@ In yaml file has six section. `configtx/simple-two-org/configtx.14.yaml`
   - Defines the default set of parameters for the channel. It sets the default policies.
 - **Capabilities**: Binary version management
 - **Profiles**: Setup multiple configs in a file.
+  - Each of these profiles are names subsections under the profiles section.
+  - Each profiles are needed for generation fo spesific configuration components.
+    - Attributes in profile depends on the configuration component type.
+  - Profiles refer to elements in other sections.
+  - In profiles subsection there is AcmeOrdererGenesis & AcmeChannel.
+    - AcmeOrdererGenesis profile is for creating the Genesis block
+    - AcmeChannel profile is for creating the channel transaction.
+    - Each of these how a different set of attributes or sections as they generate different type of configuration artifacts.
+  - `configtxgen profile`

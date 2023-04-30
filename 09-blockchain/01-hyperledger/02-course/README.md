@@ -316,3 +316,10 @@ in configtx/simple-two-org:
 
 - `configtxgen -outputCreateChannelTx ./acme-channel.tx -profile AcmeChannel -channelID acmechannel`
 - `configtxgen -inspectChannelCreateTx acme-channel.tx > ./temp/acme-channel.json`
+
+### Generating the Anchor Peer Update Transactiono
+
+- The anchor peer update tx file is used by peer for submitting transaction.
+- `configtxgen -outputAnchorPeersUpdate Org1Anchors.tx -profile AcmeChannel -asOrg Org1 -channelID acmechannel`
+- `configtxgen -inspectChannelCreateTx Org1Anchors.tx > temp/updatepeers.json`
+- `configtxgen -printOrg Org1 > temp/Org1.json` : Print the org information

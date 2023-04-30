@@ -289,3 +289,17 @@ In yaml file has six section. `configtx/simple-two-org/configtx.14.yaml`
     - AcmeChannel profile is for creating the channel transaction.
     - Each of these how a different set of attributes or sections as they generate different type of configuration artifacts.
   - `configtxgen profile`
+
+### Generating the Genesis Block
+
+- Requires the configuration for the Orderer
+- Requires the configuration for the Orderer Organization
+  - MSP for the organizations
+- Requires the configuration for the Consortiums
+  - MSP for the organizations
+
+in configtx/simple-two-org:
+
+- `cryptogen generate --config=../../cryptogen/simple-two-org/crypto-config.yaml`
+- `configtxgen -outputBlock ./acme-genesis.block -profile AcmeOrdererGenesis -channelID ordererchannel`
+- `configtxgen -inspectBlock ./acme-genesis.block  > temp/acme-genesis.json`

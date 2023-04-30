@@ -182,3 +182,68 @@ Bottom line is that you can use any technology to build a chain. Because the bui
 - Utility for generating the crypto material.
   - Used for test environment setups.
   - Requires the information in YAML format.
+
+```
+cryptogen generate --config=./crypto-config.yaml
+```
+
+Orderer needs access to the MSP & TLS
+
+- cryptogen/simle-two-org/crypto-config/ordererOrganization/orders/msp & tls
+
+**Addition of components to existing setup**
+
+- Full crypto regeneration = Resetting the component setup
+- Extend existing crypto setup using the **extend** command
+- `cryptogen extend --config=<conf-file>`
+- `--input=<input-folder>`
+- It's for;
+  - Addition of a member
+  - Addition of a orderer
+  - Addition of a peer(s) to an organization
+  - Addition of user(s)
+
+```
+  Example: Add a peer for organization
+
+  We have the old one organization
+  in which there's a peer by the name
+  Dev Peer. We are going to create new
+  Dev peer.
+
+  Then we will run the cryptogen command
+  on the extension configuration. It will
+  generate the crypto material for dev
+  peer to under the crypto config.
+
+  Key point to note here is that this
+  extension file is not the same as the
+  original crypto config file we used.
+  So it will not affect the existing
+  crypto material.
+
+  crypto-config.addpeer.yaml
+```
+
+### Summary
+
+- Cryptogen tool generates the crypto material that is typically used for: **Testing**
+- The default output folder name for the cryptogen tool is **crypto-config**
+- To specify the output folder for generating crypto material you would use the flag **--output**
+- **PeerOrgs** of cryptogen tool is used for defining the anchors.
+- By default cryptogen tool generates a special user the **Admin** that can manage the peers _within the organization_.
+- The MSP/TLS folders for the Peer/Orderer
+  - May be placed in shared folder or copied to seperate folders/hosts to be used by Peers/Orderers
+
+### Exercise - Setup crypto-config.yaml for 2 Peer Orgs
+
+- Setup a new crypto-config
+- Orderer
+  - Org
+    - Orderer
+- Peer
+  - Orgs
+    - Org1 (acme.com)
+    - Org2 (budget.com)
+- Start by using crypto-config.yaml
+- Delete the existing crypto-config folder

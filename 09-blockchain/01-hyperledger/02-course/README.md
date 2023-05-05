@@ -58,8 +58,6 @@ A distributed ledger technology framework for building business blockchain appli
 
 ## Binaries & Configuration
 
----
-
 1. ### Dependencies
 
 - **Docker** is used by Fabric in three ways.
@@ -313,7 +311,6 @@ in configtx/simple-two-org:
 - Requires the configuration for the Consortiums
   - MSP for the organizations
 - Requires the channel ID
-
 - `configtxgen -outputCreateChannelTx ./acme-channel.tx -profile AcmeChannel -channelID acmechannel`
 - `configtxgen -inspectChannelCreateTx acme-channel.tx > ./temp/acme-channel.json`
 

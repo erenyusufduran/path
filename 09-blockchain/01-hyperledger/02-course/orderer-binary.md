@@ -48,3 +48,24 @@ Orderer binary uses, levelDB. LevelDB is the one that uses the ledger folder loc
   - Cleans the _ledger_ but **NOT** the artifacts.
 - `./clean.sh all`
   - Cleans the ledger & the network artifacts
+
+### Orderer.YAML file
+
+orderer.YAML file has multiple section.
+
+- **General:** General properties of the orderer.
+  - ORDERER*GENERAL*...
+- **FileLedger:** Filesystem Location to which the Orderer persists the ledger data.
+  - ORDERER*FILELEDGER*...
+- **Consensus:** Used for managing storage for orderer type _etcdraft_.
+  - ORDERER*CONSENSUS*...
+- **Kafka:** Kafka environment setup
+  - ORDERER*KAFKA*...
+- **Debug:** Debug information control.
+  - ORDERER_DEBUG...
+  - `BroadcastTraceDir`: Request to broadcast service written to the specified directory.
+  - `DeliverTraceDir`: Request to deliver service written to the specified directory.
+- **Operations:** Operations endpoint used for network monitoring | alerting.
+- **Metrics:** Configuration for collection of metrics emitted by orderer.
+  - When Orderer Binary launched, it looks for the value in the environment variable **FABRIC_CFG_PATH**. This variable points to folder with _orderer.yaml_
+  - If the environment variable fabric not set, orderer binary sends error.

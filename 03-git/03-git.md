@@ -7,11 +7,11 @@
 ## Terminal Komutları
 
 <code> pwd <br>
-        ls, -a <br>
-        cd <br>
-        mkdir <br>
-        touch <br>
-        code <br>        
+ls, -a <br>
+cd <br>
+mkdir <br>
+touch <br>
+code <br>  
 </code>
 
 ## Git Komutları
@@ -36,22 +36,21 @@
   - git log
   - git log --oneline
 - Eski bir commite geri dönmek için;
-  - git reset _commit_id --hard
+  - git reset \_commit_id --hard
     - hard bayrağı sürümlerin hepsini siler
-  - git reset _commit_id --soft
+  - git reset \_commit_id --soft
     - soft olduğu için silinen commitleri stage areaya atar.
 - Versiyondakileri geri döndürmek istiyorsak;
-  - git revert _commit_id 
+  - git revert \_commit_id
 
 ## Branches
 
 Branch, dal anlamındadır. Neden kullanırız?
 
 - Genellikle projemizde bazı değişiklikler yapıcak ve bu değişiklikler sonucunda yaptığımız işlemlerin işe yarar ya da çalışır olup olmadığını kontrol edeceğimiz durumlarda yaparız.
-   - Bir branch oluştururuz, değişiklikleri buraya pushlarız ve bir sorun yoksa master branch'iyle birleştiririz.
-   
+  - Bir branch oluştururuz, değişiklikleri buraya pushlarız ve bir sorun yoksa master branch'iyle birleştiririz.
 - git branch dev_branch
-- git branch -a 
+- git branch -a
 - git checkout dev_branch
 - git checkout -b feature_branch
 
@@ -65,12 +64,12 @@ Branch, dal anlamındadır. Neden kullanırız?
 
 ## Push
 
-- git push ___link_ branch_name 
+- git push _\_\_link_ branch_name
 
-- git remote add origin __link 
+- git remote add origin \_\_link
 - git remote -v
 
-- git clone 
+- git clone
 
 ## Github Fork & Pull Request
 
@@ -80,7 +79,7 @@ Bir public repository'i kendi profilimize kopyalamaya fork diyoruz. Owner olarak
 - Yaptığımız değişiklikleri git add . ile staging area'ya atabiliriz.
 - git commit ile atıyoruz.
 - git remote -v
-- git push origin _branch_name
+- git push origin \_branch_name
 
 Sonrasında orjinal repository'de bir değişiklik olmuyor, fakat bizim repomuzda değişiklik oluyor. Sonrasında create pull request ile orjinal repository'e bir request gönderebiliyoruz. O koda katkı sağlayabiliyoruz.
 
@@ -117,11 +116,10 @@ Commit ederek, local repoya işlediğimizden farklı bir alan olarak tanımlanı
 
 > stash save yaptığımzda değişikliğimiz kaybolur.
 
-- git stash show -p 
+- git stash show -p
 - git stash drop
 - git stash pop -> ile çalışma alanımıza geri gelir.
   - id'si 0 olan gelir. Yani son atadığımız, fakat 1, 2 yazarak diğerlerini de getirebiliriz.
-
 
 ## git Alias
 
@@ -130,9 +128,11 @@ Bu komut kullandığımız git komutlarını kısaltmak için kullanılan bir ko
 - Config dosyamıza alias adında komutlar işlemek.
 
 - git config --global alias.st status
+
   - yaptığımız zaman st komutu status komutu yerine geliyor.
 
 - git config --global alias.co 'commit -m'
+
   - dersek co "message" diyerek -m flagi kullanmayabiliriz.
 
 - git config list
@@ -145,7 +145,7 @@ Değişiklikleri nasıl geri alacağımızı ve listeleyeceğimiz komut.
 - git checkout -- yazi.txt yapsak yazi.txt'dekiler geçmiş konumuna döner.
 
 - yine bir değişiklik yaptığımız zaman,
-- nasıl bir değişiklik olduğunu görmek için git diff yazarak, neyin değiştiğini görebiliriz. 
+- nasıl bir değişiklik olduğunu görmek için git diff yazarak, neyin değiştiğini görebiliriz.
 
 ## git remove
 
@@ -158,6 +158,7 @@ Değişiklikleri nasıl geri alacağımızı ve listeleyeceğimiz komut.
 - Move özelliği iki işe yarar, dosya taşır ve isim değiştirebilir.
 
 - git mv deneme.txt test.txt
+
   - ismini değiştirir.
 
 - git mv test.txt ./folder/

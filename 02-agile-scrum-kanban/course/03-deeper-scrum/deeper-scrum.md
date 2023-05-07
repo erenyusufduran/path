@@ -8,7 +8,7 @@ Team velocity, in short is how many points of stories can the team, complete in 
 
 A burndown chart is a visual represantation of work being completed throughout the various sprints of the project.
 
-- In a spesific sprint, you can focus on development, testing or something else. You would be lost. The burndown chart was created to help give a visual representation to where you're at. 
+- In a spesific sprint, you can focus on development, testing or something else. You would be lost. The burndown chart was created to help give a visual representation to where you're at.
 
 ## Burn Up Chart
 
@@ -17,11 +17,12 @@ Very similar to a burn down chart. In the vertical axis, you have your story poi
 - Orange line in our example is showing the total number of story points that need to be completed for that project to be considered done.
 - The blue line is showing the total number of story points that have actually been completed by the team.
 
-Now you are able to compare and see, are you really actually making prograss, or did something change overall?  
+Now you are able to compare and see, are you really actually making prograss, or did something change overall?
 
 **Compare**
+
 - Burndown chart, between sprints two and three it looks like the team completed a heck of a lot of work. We took a great decrease in the amount of work that needs to be done yet for this particular project.
-- When we look at the burn up chart, its actually because work was removed. The team did make prograss, we can see that completed story points did go up in sprint three on our burn up chart. 
+- When we look at the burn up chart, its actually because work was removed. The team did make prograss, we can see that completed story points did go up in sprint three on our burn up chart.
 
 ## TERMS
 

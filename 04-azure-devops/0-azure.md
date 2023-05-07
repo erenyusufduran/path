@@ -11,24 +11,26 @@ DevOps is more of a framework than anything else. It also includes a standardize
 - And then as a result of those two things, you have a better culture at work. Less friction between departments, less burnout, you are not constantly fighting fires and you have a much better chance of forming a collaborative environment rather than a culture of blame.
 
 So in the Azure environment, we are going to be encountering a specific set of tools that represents one way of creating a DevOps organization.
+
 - Azure Boards - Track Work
 - Repos - Cloud-Based Source Control
 - Pipelines - Build and Deploy
 - Testplans - Test Apps
 - Artifacts
 - Integrations / Extensions
-    - Slack
-    - Trello
-    - Campfire
-    - Github 
+  - Slack
+  - Trello
+  - Campfire
+  - Github
 
---- 
+---
 
 ## Conclusion
 
 **DevOps is a framework that can utilize lots of tools**
 
 As you leverage DevOps for your teams, you may encounter tools and terms like
+
 - Docker
 - Maven
 - Kubernates
@@ -40,6 +42,6 @@ As you leverage DevOps for your teams, you may encounter tools and terms like
 - Ansible
 - Puppet
 
-You could use this foundation to add tools to the tool belt, to read documentation on Docker, for example, and understand how it might fit into the DevOps ecosystem. 
+You could use this foundation to add tools to the tool belt, to read documentation on Docker, for example, and understand how it might fit into the DevOps ecosystem.
 
 You may even want to use this foundation to pursue a certification on Azure DevOps.

@@ -13,6 +13,7 @@ But, if you make the most of **blockchain benefit** through a blockchain-based Q
 General QR codes are safe, but since one can modify them, their safety stands vulnerable. However, if you use blockchain-based QR codes, they are future-proofed. Whether you use them for **secure documents** or data, nobody can modify them as the unique hash value in these QR codes is permanent.
 
 ---
+
 ## Resources
 
 - <a href="https://medium.com/techskill-brew/are-blockchain-based-qr-codes-safe-part-27-d4ccd751a3d6">Are Blockchain-based QR codes safe?</a>

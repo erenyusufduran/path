@@ -98,3 +98,59 @@ There are two parameters that are available under the file ledger. First one is;
 If you have specificed location, then prefix is ignored in the file ledger section.
 
 In location folder, there is an index file it's our ledger data. In `launch.sh`, there is an environment variable `ORDERER_FILELEDGER_LOCATION`. This variable is the location also.
+
+### CSP (Crypto service Provider) & MSP
+
+A crypto service provider exposes the cryptographic functions such as;
+
+- encryption,
+- decryption,
+- key-pair generation,
+- private key,
+- security,
+- creation of message and many more.
+
+  ***
+
+- Orderer leverages CSP for crypto functions.
+
+**CSP Implementation**
+
+The CSP implementation is available in the form of software. There are software libraries such as Windows or Linux shared objects that implement the CSP in software.
+
+- Software CSP
+  - Implemented as software binaries.
+- Hardware CSP
+  - Hardware Security Modules (HSM)
+  - Smart Cards
+
+> Orderer CSP is configurable.
+
+It can be configured to use the software based CSP or it can be configured to use PKC as elevent compliant CSP built in the hardware.
+
+---
+
+The CSP configured for the orderer by providing the parameters under the;
+
+- `BCCSP`: **B**lock**c**hain **C**rypto **S**ervice **P**rovider
+  - Under the BCCSP, there is a subsection _default_.
+  - **Default**: Preferred provider
+    - `SW` - Software based CSP
+    - `PKCS11` - Hardware based CSP
+
+If the default is set to be software, then you need to create a section for defining the parameters
+
+- `SW`:
+  - `Hash` - Hashing Algorithm // SHA256
+  - `Security` - Key size //
+  - `FileKeyStore` - Location of the keystore
+    - `KeyStore` - Defaults to LocalMSPDir/keystore
+
+If you don't provide the file keystore value, then in that case the default is local MSP directory/keystore
+
+> BCCSP setup **MUST** be consistent across network.
+
+The orderer MSP is set up by way of providing values for two elements under the General section.
+
+- `LocalMSPID` - Local MSP ID MUST match Orderer Org's MSP ID
+- `LocalMSPDir` - Local MSP folder for the crypto material

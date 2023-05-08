@@ -69,3 +69,32 @@ orderer.YAML file has multiple section.
 - **Metrics:** Configuration for collection of metrics emitted by orderer.
   - When Orderer Binary launched, it looks for the value in the environment variable **FABRIC_CFG_PATH**. This variable points to folder with _orderer.yaml_
   - If the environment variable fabric not set, orderer binary sends error.
+
+---
+
+## Orderer Configuration
+
+### Genesis Block & Ledger State
+
+- Orderer initialized without a system channel.
+  - Require manual channel creation step.
+- With a system channel
+  - Requires the genesis block.
+
+The initialization of the orderer is referred to as bootstrapping. In General section;
+
+- `BootstrapMethod`:
+- **none** - Without system channel
+- **file** - `BootstrapFile`: Location of the genesis block file
+
+In orderer.yaml file there is a BootstrapMethod in General section and BootstrapFile.
+
+There are two parameters that are available under the file ledger. First one is;
+
+- **Location:** Directory for the Ledger data (json or db files)
+  - If this i s not set then a temporary files used.
+- **Prefix:** Used as a prefix for temporary ledger files.
+
+If you have specificed location, then prefix is ignored in the file ledger section.
+
+In location folder, there is an index file it's our ledger data. In `launch.sh`, there is an environment variable `ORDERER_FILELEDGER_LOCATION`. This variable is the location also.

@@ -224,3 +224,18 @@ In our orderer.yaml file TLS Enabled is false, but we can owerwrite it with in `
 
 7. Similarly for the Kafka setup the configtx.yaml file need to modified for the `OrdererType` to Kafka. Genesis block need to be generated. This Genesis block is then used by the orderers in the network to connect to the Kafka cluster.
    - In Fabric 2.0, Kafka order type is deprecated. **So the recommandation in Fabric 2.0, use for OrdererType = `etcdraft`**
+
+## Kafka 101 // **DEPRECATED**
+
+Apache Kafka is an open-source, publish-subscribe message system. It provides;
+
+- High-Throughput
+- Durable & Real time
+- Highly Scalable
+- High Performance
+
+Orderers create to the blocks, and publish to the cluster. Peers receive the blocks as the subscriber of the messages and these messages are block data.
+
+Channels on Hyperledger Fabric are created as topics of the Kafka cluster. For example, in our sample setup we have the orderer channel, so there will be an orderer topic which will be for the orderer channel.
+
+Kafka installation depends on JAVA JRE8 and Apache ZooKeeper. In setup/kafka folder there is an install.sh file. start.sh and stop.sh for start and stop kafka server.

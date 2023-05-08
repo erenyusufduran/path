@@ -203,3 +203,24 @@ In `crypto-config/ordererOrganizations/acme.com/orderers/orderer.acme.com/` ther
   - `ClientRootCAs` - List of Client CA certs that can be trusted
 
 In our orderer.yaml file TLS Enabled is false, but we can owerwrite it with in `snippets/orderer.tls.sh` file commands. If you execute it Enabled will be true.
+
+## Orderer Setup in Production
+
+### Let's Recap
+
+1. There is a **configtx.yaml** file that contains the type of the orderer under the orderer section.
+
+2. This configtx.yaml file provided as an input the **configtxgen tool that generate the Genesis Block**.
+
+3. The orderer then uses the Genesis Block for **initialization**. Since the orderer type is configured to SOLO, the orderer initializes and launches the **SOLO** at runtime.
+
+   - Solo is built in the _Orderer binary_. In other words there's no seperate process for SOLO.
+
+4. There can only be a single instance of orderer with the type SOLO. **This introduces a single point of failure in the network. If the orderer goes down, the entire network become unavailable. So you would never use SOLO in production**.
+
+5. In production you will set to orderer type the **Kafka or RAFT**. Since the Kafka and Raft, both provide a cluster orderer setup, even if some of the components in the network go back, **the network will continue to operate**.
+
+6. To setup to RAFT cluster, you need to create Genesis Block with the orderer type set to **etcdraft**. The genesis block is then used for the orderer initialization in the network.
+
+7. Similarly for the Kafka setup the configtx.yaml file need to modified for the `OrdererType` to Kafka. Genesis block need to be generated. This Genesis block is then used by the orderers in the network to connect to the Kafka cluster.
+   - In Fabric 2.0, Kafka order type is deprecated. **So the recommandation in Fabric 2.0, use for OrdererType = `etcdraft`**

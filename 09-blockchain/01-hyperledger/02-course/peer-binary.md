@@ -164,3 +164,40 @@ In orderer dependency core.YAML will MSP setup to use peer crypto.
     peer channel getinfo -c acmechannel
     peer channel update -f Org1Anchors.tx -c acmechannel -o localhost:7050
   ```
+
+Setting up the components manually would be error prone and pretty resource intensive.
+
+## How would Automate?
+
+There are four steps involved in automating the peers.
+
+1. **Create** channel | **Fetch** channel genesis
+2. **Start** the peer node
+3. **Join** the peer node with the channel
+4. **List** the channels peer node has joined
+
+   ***
+
+- `./init.sh`
+  - Initializes the peer setup
+- `./init.sh all`
+  - Cleans up past run
+  - Initializs the peer setup
+
+```
+  in orderer/simple-two-org
+  ./init.sh all
+  ./launch.sh
+
+  in peer/simple-two-org
+  ./init.sh all
+  ./start-node.sh
+
+  peer channel list
+```
+
+---
+
+- **Orderer** MUST be up for the setup.
+- **Channel creation** is carried out against the orderer.
+- **Channel join** requires the peer to be available.

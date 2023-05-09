@@ -28,3 +28,59 @@ Like the orderer, peer also leverages cryptographic service provider. In other w
     - lifecycle - Manage the chaincode lifecycle
       - chaincode - Available for managing CC
 - `peer lifecycle chaincode --flags`
+
+## Peer Test Setup
+
+The peer setup will use the channel transaction file and the crypto config folder under the `orderer/simple-two-org`
+
+Peer setup `peer/simple-two-org/core.yaml`
+
+This storage location will be specified by way of the core document file on the environment variable, and that's where the peer write the ledger and other data elements.
+
+In orderer dependency core.YAML will MSP setup to use peer crypto.
+
+```
+./clean.sh - Deletes the content of the storage folder
+
+./clean.sh all
+  - Deletes the storage folder
+  - Deletes the generated artifacts
+  - Copies from setup/config/simple-two-org/core.yaml
+
+.env.sh - Set up the environment variables
+
+./show-env.sh - Shows the current environment variables setup for peers
+```
+
+- Peer commands are executed under an **identity context**.
+
+  - `./set.identity.admin.sh` - Sets up the _admin_ identity.
+  - `./set.identity.user1.sh` - Sets up the _user1_ identity.
+
+- Orderer MUST be up for peer to function
+  - `./start-node.sh` - Launches the peer node.
+  - `./stop-node.sh` - Kills the peer node.
+
+## Command: Peer node
+
+`peer node start --help`
+
+- `start` - Starts the peer
+  - To stop in terminal, kill the peer process ^C
+  - To stop back groundprocess, use Linux `killall | kill`
+- `reset` - Removes the block from:
+  - ALL Channels
+  - EXCEPT the genesis block
+  - On start receives the blocks for all channels
+- `rollback` - Removes the blocks from:
+  - SPECIFIC Channel
+  - From latest to specific block
+  - On start receives the blocks
+- `pause` - Puts the peer in dormant | offline state
+  - SPECIFIC Channel
+  - No new blocks received
+- `resume` - Starts the paused peer
+  - SPECIFIC Channel
+- `rebuild-dbs` - Resets the database(s)
+- `upgrade-dbs` - Updates the databse(s) with new formats
+  - ALL Channels [StateDB | HistoryDB]

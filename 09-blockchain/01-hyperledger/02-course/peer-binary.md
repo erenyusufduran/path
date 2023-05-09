@@ -97,7 +97,6 @@ In orderer dependency core.YAML will MSP setup to use peer crypto.
 `peer channel operation --flags`
 
 - `create` - Create the channel on the network
-
   - Executed by administrators to create a new channel.
     - _Requires_ the file for channelTx `-f | --file`
     - _Requires_ the channelId `-C | --channelID`
@@ -108,16 +107,13 @@ In orderer dependency core.YAML will MSP setup to use peer crypto.
     - The orderer can be specified in the command using the `-o | --orderer`
   - The block file that is written by the order is actually the zero to block for the channel or the Genesis Block
   - Any peer intending to join the channel must have access to the Genesis block. The creator of the channel receives the Genesis block as a result of execution of to create command. Other organizations can receive the copy of Genesis Block by using the fetch operation.
-
 - `join` - Peer joins the specified channel
   - Executed by administrators of the organizations
   - Peer binary initializes the _Ledger_ | _State Database_ for the channel.
     - _Requires_ the Genesis Block for the channel `-b | --blockchain`
 - `list` - Lists the channels that peer has joined
-
   - Peer can join multiple channels and for each channel there is a seperate ledger and state database.
   - List a channel that the peer has joined.
-
   ```
   peer channel create -o localhost:7050
                       -c acmechannel
@@ -127,8 +123,16 @@ In orderer dependency core.YAML will MSP setup to use peer crypto.
   peer channel join -o localhost:7050 -b ./acmechannel.block
   peer channel list
   ```
-
 - `fetch` - Performs a operation on _orderer_ to fetch a block
+  - Fetches the specified block from the **orderer**. `-c channelID -o localhost:7050 [output_file_name]`
+    - `newest` - Fetches the latest block
+    - `oldest` - Fetches the oldest block
+    - `Block number` - Fetches by block number
+      - `Block number = 0` - Fetches the Genesis Block
+    - `config` - Gets the latest config block. Also provides block number.
+  - _fetch_ **config** is commonly used for making config changes.
 - `getinfo` - Gets information on the specified channel
+  - Current height
+  - Block hashes
 - `signconfigtx` - For signing the config transaction file
 - `update` - Updates the existing channel config

@@ -135,4 +135,32 @@ In orderer dependency core.YAML will MSP setup to use peer crypto.
   - Current height
   - Block hashes
 - `signconfigtx` - For signing the config transaction file
+  - Administrators will then submit this transaction to the network and to submit the transaction to the network.
+  - Enables admin to sign config transaction using **admin**'s identity.
+  - The way it works is that the admin executes this command using the peer binary by providing the updated configuration file as input.
+  - The peer binary reads the crypto material for the administrator from the configured MSP and then signs the update config file in place, meaning a new file is not generated.
+  - Peer binary makes 2 changes in updated config file.
+    1. Admin certificate is added to config file
+    2. Payload signed by admin's key
+    - Verify by checking the size, file size will increase.
+  - `-f transactionFile`
 - `update` - Updates the existing channel config
+
+  - Enables admin to submit config transaction to _Orderer_.
+  - It submits the transaction to the orderer, orderer validates the transaction and then sends out the conflict transaction to all the peers in the network.
+  - `-f transactionFile -c channelID -o localhost:7050`
+
+  ```
+    in orderer/simple-two-org
+    configtxgen -outputAnchorPeersUpdate  Org1Anchors.tx
+                -profile AcmeChannel
+                -channelID acmechannel
+                -asOrg Org1
+
+    cp Org1Anchors.tx ../../peer/simple-two-org
+    so go on peer/simple-two-org
+
+    peer channel signconfigtx -f Org1Anchors.tx
+    peer channel getinfo -c acmechannel
+    peer channel update -f Org1Anchors.tx -c acmechannel -o localhost:7050
+  ```

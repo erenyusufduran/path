@@ -157,3 +157,30 @@ Peer crypto service provider is configurable. Peer support both software based C
       - `Hash`: Hashing algorithm
       - `Security`: Key size
       - `FileKeyStore`: Location of the keystore (default LocalMSPDir/keystore)
+
+## `peer` Events
+
+- Peers emit events on receiving blocks.
+- Clients subscribe to this events.
+- Event subscription is on per channel basis.
+  - Only member organization can subscribe.
+  - Subscriber may be from outside the organization.
+    - Receive missed events
+- Chaincode emit events. Defines the chaincode events.
+  - Emitted in code using SDK/API.
+  - Chaincode events included in the block event emitted by peer.
+- Chaincode event subscription
+  - Get the status of the transaction.
+  - Trigger asynchronous processing.
+- Client Subscription models
+  - `Filtered`:
+    - Block information summary | Transaction status
+    - Less restrictive in terms of access.
+    - Chaincode _event_ name only
+  - `Un-Filtered`:
+    - All of transaction information
+    - Stricter access restriction
+    - Chaincode _event_ payload
+  ***
+- `events`:
+  - `Address`: `0.0.0.0:7053` CORE_PEER_EVENTS_ADDRESS

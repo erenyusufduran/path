@@ -76,3 +76,25 @@ As look at the parameters you need to set for enabling the TLS on the peer.
      - `file`: Cert used by peer for client connections
    - `clientKey`:
      - `file`: Key used peer for client connections
+
+### Enabling TLS on the Peer
+
+There are 3 steps.
+
+1. Enable the TLS & Set the certificates
+   - It can be done by way of either the core.YAML update the `enabled, cert, key, rootcert` parameters or it can be done by of overwriting the core.YAML parameters in the environment variables.
+2. Setup the VM `hostname` & `etc/hosts`
+   - Reason you need to do this is because the DNS certificate issued to the peer is for a specific host. In our case devpeer host, doesn't have an associated IP and that is the reason we need to add that UP address to _axios_.
+3. run a command to check if TLS is working. - `peer channel list` can be.
+
+- `. env.sh`
+- `. ./snippets/enable.tls.sh`
+- `.start-node.sh`
+
+if running this commands you would take an error.
+
+- Peer associated with the host: devpeer
+  - `sudo hostname devpeer`
+- Host devpeer need to set with an IP address
+  - if in `sudo vi/etc/hosts` does not have devpeer:
+    - `sudo edit /etc/hosts`

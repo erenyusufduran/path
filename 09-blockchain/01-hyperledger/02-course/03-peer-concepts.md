@@ -39,9 +39,40 @@ If the **address** parameter is not set, then all incoming connections accepted 
 > As a best practice always set the address parameter to a private IP address.
 
 - **chaincodeAddress**: Chaincode listener address - Optional
+  - is used by chaincode containers for interacting to the peer.
 
 There are two parameters for setting up the local MSP.
 
-- **localMspId**: Must match with the MSP ID in the _genesis block_
+- **localMspId**: Must match with the MSP ID in the channel _genesis block_
 - **mspConfigPath**: File system path for MSP local configuration for the crypto material.
 - Peer writes to the file system, where path to peer write is specified at **fileSystemPath**. As a best practice this path must be protected and secured.
+
+![](./core-yaml-generalProps.jpeg)
+
+## Transport Layer Security for the `peer`
+
+Like the orderer, peer also has gRPC server embedded with it. It can receive calls from gRPC clients. The peer also acts as a gRPC client to the orderer.
+
+The peer binary has the gRPC server and there are gRPC services which are exposed to the clients. These services are exposed on the `listenAddress`. gRPC support TLS, which is enabled by way of the properties under the TLS subsection. You can enable and disable the TLS and then you can also enable, disable client authentication.
+
+The peer binary acts as a gRPC client to the orderer. If the orderer has the client authentication enabled, then the peer has to present it's certificate.
+
+As look at the parameters you need to set for enabling the TLS on the peer.
+
+1. Enabling the TLS
+   - `tls`: TLS Configuration
+     - `enabled`: true | false
+     - `key`: Path to the private key _server.key_
+     - `cert`: Path to the TLS certificate _server.crt_
+     - `rootcert` : Truster root certificate
+2. Setting up the Client Authentication
+   - `tls`:
+     - `clientAuthRequired`: true | false
+       - false = Accepts connection from any source
+     - `clientRootCAs`:
+       - `files`: List of Client CA certs that can be trusted
+3. gRPC TLS Client
+   - `clientCert`:
+     - `file`: Cert used by peer for client connections
+   - `clientKey`:
+     - `file`: Key used peer for client connections

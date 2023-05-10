@@ -222,3 +222,36 @@ To setup to peer to use couchDB:
 - Setup secure access credentials.
 - Disable remote access to CouchDB in production.
   - If used for querying then whitelist UP from where to connect.
+
+## Setup CouchDB for State Data
+
+### CouchDB
+
+- CouchDB is a noSQL database.
+- CRUD operations carried out by way of API/JOSN
+- Has an embedded admin tool: **Futon**
+
+Setup CouchDB for state data persistence
+
+1. Install & Validate CouchDB
+   - Multiple options
+     - <a href="https://hub.docker.com/_/couchdb/">docker</a>
+     - Persists data within the container.
+     - You cant use that container in production.
+     - Image setup does not require user/password by default.
+2. Setup the parameters in core.yaml & initialize peer
+3. Verify that peer is using couchDB.
+
+---
+
+1. in `setup` run `couchdb.sh`
+2. change `core.yaml`, `stateDatabase` to CouchDB
+3. re-initialize the peer in `orderer/simple-two-org`, `./init.sh all`, `./launch.sh`
+4. `peer/simple-two-org`, `./init.sh`, `. ./env.sh`, `./start-node.sh`
+5. then `. .env.sh`, `peer channel list`
+6. Connect to Futon from Host Machine to <a href="http://localhost:5984/_utils/">URL</a>
+
+---
+
+- Colocate the _Peer_ & _CouchDB_ on same server.
+- CouchDB configuration need to be changed for remote access. By default only on machine.

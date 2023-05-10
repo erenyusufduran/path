@@ -98,3 +98,35 @@ if running this commands you would take an error.
 - Host devpeer need to set with an IP address
   - if in `sudo vi/etc/hosts` does not have devpeer:
     - `sudo edit /etc/hosts`
+  ***
+- Hostname for the TLS certificate must match with VM hostname.
+- Hostname must have IP address setup
+
+## Gossip Data Dissemination Protocol
+
+_Gossip data dissemination_ protocol is computer-to-computer process that is based on the way _social network disseminates information_ or how the _epidemics spread_.
+
+The main objective of this protocol is to get all the nodes in sync in terms of the data they hold.
+
+- There is **NO CENTRAL** data repository or hub.
+- _Nodes interact_ with each other to _send | receive data_.
+- Network state is _eventually consistent_.
+- Inherent _redundancy_, because each of these nodes pull the same data.
+
+> Hyperledger Fabric Peers _leverage gossip data dissemination protocol_ to broadcast ledger and channel data in a scalable fashion.
+
+There are 3 primary functions;
+
+1. Manages _Peer discovery_ & _channel membership_
+2. Peers identify the missing data and receive daata from other peers.
+3. New peers catch up by receiving data from other peers.
+
+> All peers engaged in the concept network must be members of the same channel. In other words two peers that have joined different channels will not engage in the gossip data dissemination protocol.
+
+One of the peer is elected as a leader. The leader peer then connects to the order to receive the block data on receiving the block data from the orderer. The leader peer forwards that block data to lead peers in the network. These peers receiving the data. Then engage in te gossip dissemination to disseminate the new block data to the rest of the peers in the network.
+
+Sometimes the peers will discover that they are lagging. In that case, they don't wait for the data to be sent. They can initiate a pull request from other peers to guard the log data, builds forward data to random number of peers, and this number is selected independently by each of the peers.
+
+There are two ways in which the leader can be set. Either it can be set statically by way of assigning the peer the role of a leader, or it can be set by real dynamic election of leader RUNTIME.
+
+Peers send signed heartbeats to other peers. If connected peer, does not send, then that peer is pushed after some time. That's how the inactive peers are removed from the Gossip Network.

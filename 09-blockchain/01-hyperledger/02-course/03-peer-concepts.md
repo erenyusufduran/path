@@ -184,3 +184,41 @@ Peer crypto service provider is configurable. Peer support both software based C
   ***
 - `events`:
   - `Address`: `0.0.0.0:7053` CORE_PEER_EVENTS_ADDRESS
+
+## core Ledger Setup
+
+The peer binary stores the **ledger** and **state data** in persistent storage. The transaction log or the blockchain data is always stored in the **levelDB database**. The data is written into the file system.
+
+The state data can be configured to use levelDB or an instance of couchDB.
+
+To setup to peer to use couchDB:
+
+- `core.yaml`:
+  - `ledger`:
+    - `stateDatabase` = CouchDB
+    - `couchDBConfig`
+    - `couchDBAddress`: Database instance address
+    - Database credentials need to be set
+      - `username`
+      - `password`
+    - Database tuning parameters may be set
+      - `maxRetriesonStartup`
+      - `maxRetries`
+      - `requestTimeout`
+      - `queryLimit`
+- State data written to couchDB.
+- Database configuration parameters set
+
+### Best Practices
+
+**Txn Log**
+
+- Use the local file system as opposed network drive.
+- Secure the file system.
+
+**State**
+
+- Co-locate the peer and CouchDB on same server/host.
+- Setup secure access credentials.
+- Disable remote access to CouchDB in production.
+  - If used for querying then whitelist UP from where to connect.

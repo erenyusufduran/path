@@ -130,3 +130,17 @@ Sometimes the peers will discover that they are lagging. In that case, they don'
 There are two ways in which the leader can be set. Either it can be set statically by way of assigning the peer the role of a leader, or it can be set by real dynamic election of leader RUNTIME.
 
 Peers send signed heartbeats to other peers. If connected peer, does not send, then that peer is pushed after some time. That's how the inactive peers are removed from the Gossip Network.
+
+### Gossip Parameters Setup
+
+In order for a peer to connect to a gossip network.
+
+- `peer`:
+  - `gossip`:
+    - `bootstrap`: List of bootstrap
+    - `aliveTimeInterval`: Time (seconds) between alive message
+    - `aliveExpirationTimeout`: Alive expiration in seconds
+    - `orgLeader`: true | false
+    - `useLeaderElection`: true | false
+  ***
+- Large network for peers it is recommended to set `useLeaderElection = true`

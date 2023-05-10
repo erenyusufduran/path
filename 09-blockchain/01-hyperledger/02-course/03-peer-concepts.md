@@ -144,3 +144,16 @@ In order for a peer to connect to a gossip network.
     - `useLeaderElection`: true | false
   ***
 - Large network for peers it is recommended to set `useLeaderElection = true`
+
+## BCCSP Setup
+
+CSP exposes the cryptographic functions such as **encryption, decryption, key pair generation, private key security**.
+
+Peer crypto service provider is configurable. Peer support both software based CSP and hardware based CSP.
+
+- `BCCSP`: Blockchain Crypto Service Provider
+  - `Default`: Preferred Provider _SW | PKCS11_
+    - `SW`:
+      - `Hash`: Hashing algorithm
+      - `Security`: Key size
+      - `FileKeyStore`: Location of the keystore (default LocalMSPDir/keystore)

@@ -48,3 +48,21 @@ Orderer system channel is a special channel that gets created as part of the net
 - Orderers and peers use the orderer system for initialization. That is the reason Orderer System Channel also **refers to as Bootstrap Channel**.
 - Network configuration held in the orderer system channel ledger.
 - Primary responsibilities of the orderer system channel is to orchestrate the creation of **new channels**. These are application channels.
+
+## Inspecting the latest channel config
+
+There are three steps;
+
+1. _Fetch the latest **Config Block**._
+2. Translate the block to **JSON**.
+3. Extract the _config_ using ./jq
+
+---
+
+0.  - Initialize orderer and peer.
+1.  - Create a temp folder under the `peer/simple-two-org/temp`
+    - `peer channel fetch config -c acmechannel -o localhost:7050 ./temp/config_block.pb`
+2.  - `configtxlator proto_decode --input ./temp/config_block.pb --type common.Block > ./temp/config_block.json`
+3.  - We need channel configuration path.
+    - `export JQ_CONFIG_PATH=.data.data[0].payload.data.config.channel_group.groups.Orderer.values`
+    - `cat ./temp/config_block.json | jq $JQ_CONFIG_PATH`

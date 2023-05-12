@@ -154,3 +154,23 @@ Under the `setup/config/multi-org` section there are policies subfolders.
 Policies are organized as hierarchy of groups. Then there are policies and values. Each of the policy has a type and a value.
 
 The type is set **1 for Signature** and **3 for Meta Implicit** policy.
+
+## Signature Policy Type
+
+Rules are created by using functions.
+
+- **OR(...)** - Logical _OR_ operation applied to the arguments.
+  - Any member of Org1 - **OR(`Org1MSP.member`)**
+  - An admin of Org1 _OR_ a member of Org2 **OR(`Org1MSP.admin`, `Org2MSP.member`)**
+- **AND(..)** - Logical _AND_
+  - An admin of Org1 _AND_ an admin of Org2 **AND(`Org1MSP.admin`,`Org2MSP.admin`)**
+- **OUFOF(...)** - Where a number is provided as first argument.
+  - If the specified number of signatures are there out of the principles specified from second arguments onward.
+  - If you have three organizations specified in the out of function and the first argument is set to one, then this policy will be satisfied only if one out of the three organizations specified in the function have signed the config update transaction.
+  - 1 out of Org1 admin, Org2 admin **OUTOF(1, `Org1MSP.admin`, `Org2MSP.admin`)**
+  - Both admins from Org1 admin, Org2 admin **OUTOF(2, `Org1MSP.admin`, `Org2MSP.admin`)**
+
+Signature policies are very flexible in terms of rule creation. You can create complex rules.
+
+- An admin of Org1 _OR_ Org2 + A Member of Org3
+  - **AND(OR(`Org1MSP.admin`, `Org2.admin`), OR(`Org3MSP.member`))**

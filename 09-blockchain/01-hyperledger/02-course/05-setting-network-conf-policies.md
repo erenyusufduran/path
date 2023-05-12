@@ -139,3 +139,18 @@ Type of the policy can be signature or implicit meta.
 - Applicable for channel configuration
   - Not applicable for Org level policies
 - Keywords: ANY ALL MAJORITY
+
+## Policy Encoding in Genesis
+
+### Policies Testing Setup
+
+Under the `setup/config/multi-org` section there are policies subfolders.
+
+- In this folder `./clean.sh all`, `./init.sh`, `./block-json.sh`
+  - If you execute script without any argument, it generate JSON represantation of Genesis Block.
+  - If you provide group parameter, it apply JQ
+  - If you provide subpath, it shows easier
+
+Policies are organized as hierarchy of groups. Then there are policies and values. Each of the policy has a type and a value.
+
+The type is set **1 for Signature** and **3 for Meta Implicit** policy.

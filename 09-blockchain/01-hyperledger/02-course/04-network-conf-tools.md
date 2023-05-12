@@ -14,9 +14,7 @@ One of an administrators sets up the config, the transaction as protocol buffer,
 
 There is a challenge in this part, since the protocol buffers are in binary format, they can't be managed easily by the administrator. They need to be converted between human readeble format and protocol buffer format. That's where **configtxlator tool** comes up.
 
-### Configtxlator
-
-Config translaator tool can be used for converting protocol buffer formats to JSON.
+Config translator tool can be used for converting protocol buffer formats to JSON.
 
 > Configuration updates are made by first fetching the current configuration, then editing.
 
@@ -27,3 +25,30 @@ Config translaator tool can be used for converting protocol buffer formats to JS
    - To update the configuration administrator will need to convert the configuration and JSON to protocol buffer format. That will be done by configtxlator.
    - Then one or more administrators will sign it.
    - Administrator submit the protocol buffer for configuration update to the orderer.
+
+## Configtxlator Tool
+
+Tool is available in 2 mods.
+
+1. **Command Line Interface**: All the commands are executed on the terminal prompt.
+2. **REST Server**: Configtxlator is launched as a REST server and the commands are executed by using the curl utility.
+
+- Same binary used to launching CLI & REST Server.
+- Commands exposed as REST endpoints.
+- `configtxlator command --flags`
+- commmands:
+  - `proto_decode`: proto buffer to JSON
+  - `proto_encode`: JSON to proto buffer
+  - `compute_update`: Compute **DELTA** between 2 proto buffer files.
+    - `--original`: Original config proto buffer fetched from network.
+    - `--updated`: Updated config proto buffer.
+    - `--channel_id`: Channel ID
+- flags:
+  - `--type`: Type of proto buffer structure to encode/decode
+    - common.Block - Block format
+    - common.Config - Configuration transaction
+    - common.Envelope - Transaction enclosed in message envelope
+    - common.ConfigUpdate - Update config transaction message format
+    - Common.Policy - Policy message format
+  - `--input`: Specification the file that is used as an input.
+  - `--output`: same as input.

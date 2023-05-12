@@ -209,3 +209,90 @@ Majority of Orderer Org Admins MUST agree.
 ### Access Control
 
 Under the Orderer policies, readers you will find that the rule says that any leader from the orderer organizations can can read the channel. So rule is in here `ANY of /Channel/Orderer/*/Readers`. Look at `policy.3`
+
+## Recouse Level Access Control List (ACLs)
+
+Access Control Lists are used for managing access to resources by way of Policies.
+
+Resources in the contrext of ACL's are,
+
+- The event sources
+- The functions exposed by the system chaincode
+  - Iscc / Get instantiated chaincode
+  - Qscc / Get chain info
+- The functions exposed by user chaincode are also considered as the resources.
+
+Users access these resources using the SDK and access control is applied to who can access these resources by way of policies. What type of policies using?
+
+- **You can use the signature policies**, which case you will need to provide the boolean expression that will be used for evaluating whether the access is granted to the resources or not.
+- **It can be implicit metapolicy**, in which case the policy used from the ACL will refer to an existing policy.
+
+---
+
+- `event/Block`, `event/FilteredBlock` - Receive block events
+- `Iscc/GetInstantiatedChaincodes` - Get list of instantiated chaincode
+  - `peer chaincode list --instantiated`
+- `qscc/GetChainInfo` - Get list of installed chaincode
+  - `peer chaincode list --installed`
+- `peer/Propose` - Submit transaction proposal
+  - `peer chaincode invoke`
+
+ACL's are defined under the _ACL subsection_ under the Application section of configtx.yaml file. `./block-json.sh acls`
+
+Access control for the resources may be overridden by way of defining the `resource: policy specification` under the ACL subsection. These policy specification may be reference to a existing policy or you may craete new custom policies under the policies section.
+
+---
+
+### Exercise: Execute the peer chaincode list commands with different identities
+
+Launch Terminal#1
+
+1. Initialize & Launch the Orderer ./clean.sh all ./init.sh (orderer/multi-org)
+2. Launch orderer ./launch.sh
+
+Launch Terminal#2
+
+1. Clean the peer setup ./clean.sh (peer/multi-org)
+2. Setup the environmemnt source set-env.sh acme admin
+3. Create the airlinechannel ./create-airline-channel.sh
+4. Launch peer for acme ./launch-peer.sh acme
+5. Join airlinechannel for acme ./join-airline-channel.sh acme
+6. Set the identity admin . ./set-env.sh acme admin
+
+7. Check the installed chaincode peer chaincode list --installed -C airlinechannel
+8. Check the instantiated chaincode peer chaincode list --instantiated -C airlinechannel
+9. Check the joined channels peer channel list
+
+10. Set the identity User1 . ./set-env.sh acme User1
+11. Repeat steps 7, 8 & 9
+
+---
+
+To upper configtx.yaml do some changes.
+
+1. Add a new custom policy
+   - ANY admin can access
+2. Override the default ACLs for appropriate resource
+   - Give StrictAdminPolicy
+3. Validate the setup
+   - Initialize & Launch the Orderer
+   - Create the airline channel
+     - `./create-airline-channel.sh`
+   - Launch peer for acme
+     - `./launch-peer.sh acme`
+   - Join airline channel
+     - `./join-airline-channel.sh acme`
+   - Execute commands with admin identity
+     - `./set-identity.sh acme admin`
+       - `peer chaincode list --installed -C airlinechannel`
+       - `peer chaincode list --instantiated -C airlinechannel`
+   - Execute commands with User1 identity
+   - `./set-identity.sh acme User1`
+     - `peer chaincode list --installed -C airlinechannel`
+     - `peer chaincode list --instantiated -C airlinechannel`
+
+- `peer lifecycle chaincode --queryinstalled`
+
+Default ACLs may be overridden.
+
+ACLs may use custom policies.

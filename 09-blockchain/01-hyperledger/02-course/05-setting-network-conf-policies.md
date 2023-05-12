@@ -190,3 +190,22 @@ Signature policies are very flexible in terms of rule creation. You can create c
 1. Setup the Policies at Org Level as per requirements
 2. Initialize the Orderer
 3. Verify the setup by inspecting the _JSON_.
+
+## Implicit Meta Policy Type
+
+- Helps in avoiding duplication of policies.
+- No need to update when new orgs are added.
+
+---
+
+- _ANY_ - Requires any sub policy to be satisfied
+- _ALL_ - Requires all sub policies to be satisfied
+- _MAJORITY_ - Requires a strict majority of sub policy to be satisfied
+
+The order level policy is a consensus driven decision point. The values that can be changed at the orderer level are `BatchSize, BatchTimeout, ChannelRestriction, ConsensusType`. No one administrator should be in control of changes to these values.
+
+Majority of Orderer Org Admins MUST agree.
+
+### Access Control
+
+Under the Orderer policies, readers you will find that the rule says that any leader from the orderer organizations can can read the channel. So rule is in here `ANY of /Channel/Orderer/*/Readers`. Look at `policy.3`

@@ -52,3 +52,12 @@ Tool is available in 2 mods.
     - Common.Policy - Policy message format
   - `--input`: Specification the file that is used as an input.
   - `--output`: same as input.
+
+## JQ Utility
+
+JQ is a command line processor for JSON data. Available as a single binary.
+
+- Slice & Filter data
+- Transform the data
+
+> cat file.json | jq `expression`

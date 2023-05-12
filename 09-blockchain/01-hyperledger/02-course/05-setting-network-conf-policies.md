@@ -66,3 +66,76 @@ There are three steps;
 3.  - We need channel configuration path.
     - `export JQ_CONFIG_PATH=.data.data[0].payload.data.config.channel_group.groups.Orderer.values`
     - `cat ./temp/config_block.json | jq $JQ_CONFIG_PATH`
+
+## Policies
+
+Hyperledger Fabric **Policies** embodies the rules for _Access | Updates_ to the _Network & Channel_ configurations.
+
+The initial set of policies are defined by the consortium members, and this mechanism provides a very fine griend access control over the various configuration elements of the network.
+
+These policies are encoded in the `configtx.yaml` file. Then eventually become part of the _Genesis Block_. Then genesis block control what can be changed, who can changed, and how the changes will be applied to the various configuration elements.
+
+- What question for
+  - Network configuration
+  - Channel configuration
+- Who question for
+  - Administrator
+  - Member
+  - Application | Client
+- How question for
+  - Rules applied to the transactions
+    - Single Org driven
+    - Multi Org driven
+
+### Policy Examples
+
+- Addition of anchor peer says `any admin from owner org`
+- Update the orderer system channel is a risky activity rule may be `majority admin from all org`
+- Adding a new member `any admin from any org`
+- Remove existing member `majority admin from all org`
+
+Rules are expressed as Boolean expressions in terms of the Principles.
+
+Principles refers to the _signers role in the member organization_.
+
+There are four standard policies; MSPId.Role
+
+- admin
+- member
+- client
+- peer
+
+---
+
+Policies are defined in the appropriate section in `configtx.yaml` file.
+
+- Organizations: Organization level policies.
+- Orderer:
+- Application:
+- Channel:
+
+Defined as hierarchies
+
+- `/Channel` Top level change - Extremely Restrictive
+- `/Channel/Orderer` Orderer config changes - Very Restrictive
+- `Channel/Application` App channel changes - Restrictive
+- `Channel/Application/<OrgID> | Channel/Orderer/<OrgID>` Org level change
+
+Policy names are defined as `/Channel/Application/<OrgID>/<PolicyName>`
+
+Type of the policy can be signature or implicit meta.
+
+### Signature
+
+- Rules are boolean expressions
+  - Result: true | false
+- Applicable at all levels
+- Functions: OR() AND()
+
+### Implicit Meta
+
+- Rules refer to other policies
+  - Result: Aggregated from referred policies
+- Applicable for channel configuration
+  - Not applicable for Org level policies
+- Keywords: ANY ALL MAJORITY

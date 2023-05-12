@@ -174,3 +174,19 @@ Signature policies are very flexible in terms of rule creation. You can create c
 
 - An admin of Org1 _OR_ Org2 + A Member of Org3
   - **AND(OR(`Org1MSP.admin`, `Org2.admin`), OR(`Org3MSP.member`))**
+
+## Exercise: Manually Create the Airline Channel with Different Identities
+
+### Hypothetical Situation
+
+- Start with `policy.0/configtx.yaml`
+- Update the **Orderer** Org Admins policy
+  - `Only Orderer Admin can take Admin actions`
+- Update the **Acme** Org Admins policy
+  - `Acme Admin Or Orderer Org Admin`
+- Update the **Budget** Org Admins policy
+  - `Both Budget Admin, Orderer Org Admin`
+
+1. Setup the Policies at Org Level as per requirements
+2. Initialize the Orderer
+3. Verify the setup by inspecting the _JSON_.

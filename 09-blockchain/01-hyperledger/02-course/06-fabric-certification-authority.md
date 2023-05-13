@@ -40,3 +40,14 @@ Attributes use for **Authorization**.
   - **hf.Registrar.Roles - List** - Roles that registrar can manage
   - **hf.Registrar.Attributes - List** - List of attributes for registrar
   - **hf.AffiliationMgr - Boolean** - Allowed to manage affiliations
+
+## Certification Authority
+
+Fabric provides a built in Certification Authority component. Fabric CA components;
+
+- Allow for the creation and management of certification authorities for blockchain networks.
+- Implementation of the certification authority is custom built to fulfill the needs of the fabric blockchain networks.
+  - You cannot use the certificates created from the fabric, see it in a browser or in other applications.
+- Primarily, the fabric is used for setting up _Private Root CA_ & _Intermadiate (ICA)_.
+
+There are three parts in the Fabric CA implementation.

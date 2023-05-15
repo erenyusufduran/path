@@ -218,3 +218,15 @@ These properties may be overridden with environment variables.
 
 - `fabric-ca-client enroll -u http://admin:adminpw@localhost:7054`
 - `fabric-ca-client reenroll`
+
+### Explore the CA Client Setup
+
+1. Add an additional bootstrap identity (user)
+   - added in `config.1`
+2. Enroll the bootstrap identities (admin & user)
+   - in ca folder `. ./setclient.sh admin`
+   - `fabric-ca-client enroll -u http://admin:adminpw@localhost:7054`
+   - in ca folder `. ./setclient.sh user`
+   - `fabric-ca-client enroll -u http://user:userpw@localhost:7054`
+     - gives an error in third time.
+3. Call enroll command multiple times for user

@@ -103,3 +103,11 @@ Apart from managing information in the database, the CA server also manages info
     - Exposed REST APIs
   - CA Client
   - SDK
+
+### Exercise - CA Server
+
+1. Launch the CA server with default configuration.
+   - Open terminal window and switch to folder: `ca/server`
+   - `fabric-ca-server start -b admin:adminpw`
+2. Explore the REST API `swagger`
+   - <a href="https://github.com/hyperledger/fabric-ca/blob/master/swagger/swagger-fabric-ca.json">Swagger Fabric CA</a>

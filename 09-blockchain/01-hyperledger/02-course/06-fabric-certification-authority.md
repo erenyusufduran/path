@@ -158,3 +158,40 @@ These properties may be overridden with environment variables.
     - To configure the multiple certificate authorities on the same CA server, you have to setup the parameters in two sections.
       - `cacount`: Count of the CA.
       - `cafiles`: Files related to each of the CA.
+
+### Standalone Root CA Server Setup
+
+- Single CA for Acme and Orderer organization
+- Use _default database_ for identity persistence - **SQLite**
+- TLS = disabled
+  - cn - Common Name - Acme-CA
+  - O - Organization Name - Acme
+  - OU - Organizational unit - B2B
+  - L - Location or city - Newark
+  - ST - State - New York
+  - C - Country - USA
+
+1. Setup the parameters in `fabric-ca-server-config`
+   - `ca`
+     - `name`: acme-ca
+     - `keyfile`: ca-cert.pem
+   - `affiliations`
+     - `acme`:
+       - logistics
+       - accounting
+     - `orderer`:
+       - support
+   - `registry`:
+     - `maxenrollments`
+     - `identities`:
+   - `csr`:
+     - `cn`: Acme-CA
+   1. Execute `./clean.sh`
+   2. Copy fabric-ca-server-config.yaml to `ca/server`
+2. Execute the init command
+   1. In `ca/server`, run `fabric-ca-server init`
+   2. `fabric-ca-server start`
+3. Examine the Root Certificate
+   1. Check <a href="https://certlogik.com/decoder/">ca-cert.pem</a>
+
+**Solution: `config/ca/simple/config.0`**

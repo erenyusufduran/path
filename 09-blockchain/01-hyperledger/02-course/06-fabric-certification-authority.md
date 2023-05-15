@@ -230,3 +230,36 @@ These properties may be overridden with environment variables.
    - `fabric-ca-client enroll -u http://user:userpw@localhost:7054`
      - gives an error in third time.
 3. Call enroll command multiple times for user
+
+## Attribute Based Access Control (ABAC) & Identity Commands
+
+- Standard attributes are used for fabric runtime access control.
+  - When the registrar is creating an identity, the fabric runtime checks, if the registrar has the appropriate attribute, that would allow the registrar to create new identities.
+- Specification elements added as attributes (default)
+  - Name: hf.EnrollmentID
+  - Type: hf.Type
+  - Affiliation: hf.Affiliation
+- Custom attributes are added by the registrar.
+  - User by Application Level Access Control.
+  - Accessible from chaincode.
+
+By default attributes are not added to the enrollment certificae of an identity. Registrar need to expliciitly request for the attributes to be added to the insert.
+
+These access control mechanism is referred to as the attribute based access control.
+
+1. Launch the CA server & Enroll admin identity
+   - `fabric-ca-server init`
+   - `fabric-ca-server start`
+   - `. ./setclient.sh admin`
+   - `fabric-ca-client enroll -u http://admin:adminpw@localhost:7054`
+2. List the identities using the _`identity list`_ command
+   - `fabric-ca-client identity list`
+3. Add 2 new identities of `type=user` and default attributes
+   - `fabric-ca-client identity add user1 --type user --affiliation org1 --maxenrollments 2`
+   - `fabric-ca-client identity add user2 --json '{"type": "user", "affiliation": "org1", "maxenrollments": 2}'`
+4. Modify affiliation of the user to _org2_ & add a custom attribute
+   - `fabric-ca-client identity modify user --affiliation org2 --attrs myAttr=true`
+5. Remove the user1 and then use `list` command to confirm
+   - `fabric-ca-client identity remove user`
+6. Modify custom attribute such that its added to the _ECert_.
+   - `fabric-ca-client identity modify user --affiliation org2 --attrs myAttr=true:ecert`

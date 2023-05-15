@@ -72,3 +72,38 @@ Setup for each admin is different. Org Identities created by the Org Admins.
 2. As Org Admin Identity **Enroll**
    - `./register-enroll-admins.sh`
    - `fabric-ca-client identity list` as caserver admin
+
+## Local MSP setup for Identities & Organizations
+
+All identities **need the local MSP setup**, which is created on the local filesystem for the identity. It consists of multiple subfolders with crypto material. In this logical structure for the MSP, the same certificates are held in their own subfolder.
+
+- There is a subfolder to hold **private key** for the identity. - `keystore`
+- **Root CA Cert** - `cacerts`
+- **ICA**
+- **Signing Cert** - `signcerts`
+- **Admin Certs** - `admincerts`
+
+All our identities need admin certificates and they can be more than one certificate in the admin certificate subfolder.
+
+The MSP folder for the identities get created as part of the enroll command.
+
+### Exercise - MSP for User Identity
+
+1.  Register & Enroll User Identity
+    - `fabric-ca-client register & enroll`
+    - `./add-admincerts.sh acme jdoe`
+    1. As Acme Admin _Register_ the User identity
+       - `. ./setclient.sh acme admin`
+       - John Doe:
+         - affiliation=acme.logistics
+         - type=user
+         - id=jdoe
+         - secret=pw
+    2. Setup the `fabric-ca-client-config`
+       - `fabric-ca-client register --id.type user --id.name jdoe --id.secret pw --id.affiliation acme.logistics`
+    3. As `John Doe`, enroll the identity
+       - `fabric-ca-client enroll -u http://jdoe:pw@localhost:7054`
+2.  Setup the MSP for User Identity
+    1. Create the admincerts subfolder for `jdoe/msp`
+    2. Copy ACME Admin's cert to the `jdoe/msp/admincerts`
+       - `./add-admincerts.sh acme jdoe`

@@ -194,4 +194,27 @@ These properties may be overridden with environment variables.
 3. Examine the Root Certificate
    1. Check <a href="https://certlogik.com/decoder/">ca-cert.pem</a>
 
-**Solution: `config/ca/simple/config.0`**
+## Fabric CA Client
+
+- Fabric CA Client is a command line interface for interacting with the CA server. Like the CA Server, it is available as a single binary `fabric-ca-client`.
+- CA Client binary picks up the configuration information from `fabric-ca-client-config.yaml` file.
+- CA Client need access to the crypto material for the identity that it uses for interacting with the CA Server.
+- Home folder can specified with `-h flag`, `FABRIC_CA_CLIENT_HOME`, `FABRIC_CA_HOME`, `CA_CFG_PATH`, `$HOME/fabric-ca-client`
+
+- `fabric-ca-client command --flags`
+  - command:
+    - `getcainfo`: Gets the CA info
+    - `identity`: Manage the identities
+    - `register`: Registers an identity
+    - `enroll`: Enroll an identity
+    - `reenroll`: Re-enroll an identity
+    - `affiliations`: Manage affilitiations
+    - `certificate`: Manage certificates
+    - `revoke`: Revoke identity
+    - `gencrl`: Generate Certificate Revocation List
+    - `gencsr`: Generate a Certificate Signing Request
+
+### Bootstap Identity
+
+- `fabric-ca-client enroll -u http://admin:adminpw@localhost:7054`
+- `fabric-ca-client reenroll`

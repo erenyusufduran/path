@@ -111,3 +111,50 @@ Apart from managing information in the database, the CA server also manages info
    - `fabric-ca-server start -b admin:adminpw`
 2. Explore the REST API `swagger`
    - <a href="https://github.com/hyperledger/fabric-ca/blob/master/swagger/swagger-fabric-ca.json">Swagger Fabric CA</a>
+
+## Configuring and Launching the CA Server
+
+- `fabric-ca-server start --flags`
+  - Launches the CA server process. It checks if the server has already initialized or not.
+    - If the certificate exists and the server has been initialized, then the server is simply logged and starts to listen for the incoming connections.
+    - If that is not the case, then the CA server binary checks
+      - If the CA server need to be set up as an Intermediate CA, this is check from the configuration.
+        - If it is an ICA, then the binary gets the root CA signed cerficate from the root CA.
+      - If it is not being set as an ICA, It is being set as a ROOT CA, then the configuration is used for generating a self-sign root certificate and then the server gets launched.
+  - Config may be provided by way of _flags_ | _environment_ | _yaml_.
+  - Reads the configuration from the `fabric-ca-server-config`
+- `fabric-ca-server init --flags`
+  - Initializes the CA server.
+  - Very similar to start command works, except that it does not launch the CA server.
+
+### `fabric-sa-server-config` File
+
+- `version`: Version of the server
+- `port`: Port on which the server listens for incoming REST requests. _Default=7054_
+- `crlsizelimit`: CRL size limit. _Default=512000_
+- `debug`: Enable/Disable debug level logging
+
+These properties may be overridden with environment variables.
+
+- **Root Certificate Specification**
+  - `ca`: Certification Authority Information
+  - `csr`: Certificate Signing Request
+- **Intermediate CA Setup**
+  - `intermediate`: Intermadiate CA Server Setup
+- **Identity Enrollment**
+  - `affiliations`: CA server affiliations
+  - `signing`: Cerificate Signing Configuration
+- **Identity Persistence**
+  - `registry`: Registry for managing identities
+  - `db`: Database configuration
+    - SQLite, MySQL, PostgreSQL
+  - `ldap`: CA server affiliations
+- **Sections**
+  - `tls`: Transport Layer Security
+  - `crl`: Certificate Revocation List
+  - `bccsp`: Blockchain Crypto Service Provider
+- **Multiple Certification Authorities**
+  - Single CA Server process may host multiple **CA**.
+    - To configure the multiple certificate authorities on the same CA server, you have to setup the parameters in two sections.
+      - `cacount`: Count of the CA.
+      - `cafiles`: Files related to each of the CA.

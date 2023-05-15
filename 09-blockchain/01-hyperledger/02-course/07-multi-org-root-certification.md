@@ -40,3 +40,35 @@ There will be three roles in the multi org setup that we are going to create.
       - `acme`
       - `budget`
       - `orderer`
+
+## CA Server Setup
+
+1. Setup Root CA Server - `./server.sh start`
+   - Set up the FABRIC_CA_SERVER_HOME variable.
+     - export `FABRIC_CA_SERVER_HOME=ca/multi-org-ca/server`
+   - Copy the `fabric-ca-server-config` from following to `./server`
+     - `setup/config/multi-org-ca/yaml.0/fabric-ca-server-config.yaml`
+   - Execute `fabric-ca-server start` command.
+2. Enroll Admin Identity - `./server.sh enroll`
+   - Set up the FABRIC_CA_CLIENT_HOME variable.
+     - export `FABRIC_CA_CLIENT_HOME=ca/multi-org-ca/client/caserver/admin`
+   - Copy yo `$FABRIC_CA_CLIENT_HOME` from yaml.0
+   - Execute _enroll_ commmand for admin
+
+## Register & Enroll Organization Identities
+
+Setup for each admin is different. Org Identities created by the Org Admins.
+
+- Enrollment for non-human actor carried out by Org admin
+- Enrollment for human actor carried out by Identity Owner
+
+1. As CA Admin **Registers Identities**
+   - To set the `FABRIC_CA_CLIENT_HOME`
+     - `. ./setclient.sh <ORG_NAME> <ENROLLMENT_ID>`
+   - To create the necessary client folders for an identity
+     - `mkdir -p $FABRIC_CA_CLIENT_HOME`
+   - Create `acme/admin`, `budget/admin`, `orderer/admin` subfolders in client folder.
+   - Copy client YAML files
+2. As Org Admin Identity **Enroll**
+   - `./register-enroll-admins.sh`
+   - `fabric-ca-client identity list` as caserver admin

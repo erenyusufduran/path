@@ -263,3 +263,37 @@ These access control mechanism is referred to as the attribute based access cont
    - `fabric-ca-client identity remove user`
 6. Modify custom attribute such that its added to the _ECert_.
    - `fabric-ca-client identity modify user --affiliation org2 --attrs myAttr=true:ecert`
+
+## Identity Management Rules
+
+`fabric-ca-client register --id.name user --id.secret userpw --id.type user`
+
+- Register command used for creating new identities.
+- Runtime applices **ABAC** to authorize _create/modify_ requests.
+  - Registrar **MUST** be enrolled before any create/modify action may be taken.
+  - Registar's **Affiliation & Attributes** are used in the checks.
+
+### Fabric CA Client YAML Configuration
+
+- Reads configuration information from the `fabric-ca-client-config`
+  - Applies to the commands
+  - Parameters overridden by environment vars | flags
+- `fabric-ca-client enroll -u http://admin:adminpw@localhost:7054`
+- `url`: URL of the CA server
+- `caname`: Name of the CA server if multiple CA hosted in server
+- `msp`: Folder path to msp directory
+
+CSR (Certificate Signing Request) is sent to CA as part of enroll.
+
+- `fabric-ca-client gencsr` Generating a csr
+- `tls` Used if CA serer is TLS enaabled
+  - `certfiles`: List of trusted Root certificate file
+    - `client`: Needed if client auth enabled on server
+      - `certfile`: Client Cert/Pem file
+- Register command defaults
+  - `id`: Used by register commands
+    - `name`: --id.name
+    - `type`: --id.type
+    - `affiliation`: --id.affiliation
+    - `maxenrollments`
+    - `attributes`: --id.attrs

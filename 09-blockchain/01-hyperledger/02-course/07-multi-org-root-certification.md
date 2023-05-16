@@ -163,3 +163,46 @@ _All scripts in `orderer/multi-org-ca`_
    2. Copy `fabric-ca-client-config` to orderer CA client home.
    3. As orderer execute the enroll command
    4. Setup the orderer identity's MSP
+
+## Peer and Channel Setup Tasks
+
+Leader peers maybe statically created in the organization or the leader peer may be dynamic.
+
+- Leader peer pulls the block data from the orderer and then this block data is passed on to other peers in the network.
+- So each of the peer receives and send data to other peers.
+- Peer can also pull log data from other peers.
+- Each of the peer also forwards the data to random number of peers.
+
+Each of the organization admins can set up the peers within their organization as their desire. They can add and update the peers their organizations. So adding a new peer does not require authorization from admins of other organizations. These peers within the organization are not discoverable from outside the organization. **Only the anchor peers are discoverable in the network**, and this _discoverability is enabled by way of the anchor peer declaration in the `configtx.yaml` file_.
+
+> Adding an anchor peer, admins need to submit a config update transaction, and the policy defines how many administration need to sign that transaction.
+
+**Peer binary has two dependencies**. First one is on the **peer's MSP** and the peers MSP is created by the organization admin. To create the peer MSP, the peer identity need to be created first. The peer binary uses the peer MSP and also requires the **core.yaml to be available**. `core.yaml` has the appropriate set of parameters for the peer binary. Once the peer has launched writes to the filesystem.
+
+1. Organization admin sets up the _peer identity_.
+2. Organization admin sets up the `core.yaml`.
+
+### Application Channel Creation
+
+One of the organization administrator create the `configtx.yaml` file profile for the application channel, which is then fed to the `configtxgen` tool to create the **Channel Transaction File**.
+
+This channel transaction file need to be signed by one or more organization admins. Number of signatures depends on the policy that is applied for the _config update transaction_.
+
+Once the channel transaction file has been signed by the number of administrators, one of the admins use the `configtxgen tool` to submit the channel transaction.
+
+So in effect, there are 3 tasks;
+
+1. One of the Org _Admin_ creates the **channel transaction file**.
+2. Organization _Admins_ _sign_ the channel transaction file.
+3. One of the Org Admin submits the signed channel create transaction.
+
+To make the peer join the channel, it has to be launched. Once the peer has launched successfully, the argument can execute the joined channel command to make the peer join the application channel.
+
+There are 2 tasks for peer to join channel;
+
+1. Launch the anchor peer for organization.
+2. Organization admins execute join channel for peer.
+
+- Setup tasks for all peers is the same except the Anchor Peer.
+- In Anchor Peer we need to define Anchor Peer Setup in the `configtx.yaml` file.
+- Anchor peers also be added by way of config update transactions.

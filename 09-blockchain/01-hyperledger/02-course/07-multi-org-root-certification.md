@@ -193,8 +193,12 @@ Once the channel transaction file has been signed by the number of administrator
 So in effect, there are 3 tasks;
 
 1. One of the Org _Admin_ creates the **channel transaction file**.
+   - in `orderer/multi-org-ca` ./generate-channel-tx.sh
 2. Organization _Admins_ _sign_ the channel transaction file.
+   - in `peer/multi-org-ca` ./sign-channel-tx.sh acme
+   - switch to the `orderer/multi-org-ca` and launch the orderer.
 3. One of the Org Admin submits the signed channel create transaction.
+   - in `peer/multi-org-ca` ./submit-create-channel.sh acme
 
 To make the peer join the channel, it has to be launched. Once the peer has launched successfully, the argument can execute the joined channel command to make the peer join the application channel.
 

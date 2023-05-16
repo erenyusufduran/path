@@ -210,3 +210,23 @@ There are 2 tasks for peer to join channel;
 - Setup tasks for all peers is the same except the Anchor Peer.
 - In Anchor Peer we need to define Anchor Peer Setup in the `configtx.yaml` file.
 - Anchor peers also be added by way of config update transactions.
+
+## Setup Anchor Peer
+
+Anchor peers are known to all of the other peers in the network. Anchor peers are defined by way of the `configtx.yaml file` under the organization section.
+
+The Anchor peer information from the configtx.yaml file is included in the Genesis Block and you can always update and add new anchor peers by way of the config update transactions.
+
+Org administrators can add anchor peers.
+
+1. Setup the _anchor peer_ identity. `./register-enroll-peer.sh acme peer1`
+   - Name = peer1
+   - Secret = pw
+   - Type = peer
+   - Affiliation = acme
+2. Launch the peer and join airline channel. `./launch-peer.sh acme peer1`, `. ./set-env.sh acme admin`, `export CORE_LOGGING_LEVEL=warning`, `./join-airline-channel.sh acme peer1`
+   - Before the launch set up `core.yaml`
+     - Copy from `setup/config/ca/multi-org-ca/` to `peer/multi-org-ca/acme`
+3. To validate to set up
+   - `. ./set-identity.sh acme admin`
+   - `peer channel list`

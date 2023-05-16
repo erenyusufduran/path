@@ -278,3 +278,16 @@ One of the administrators retrieves the latest configuration changes are made an
    - `./sign-config-update.sh`
 4. Submit the _Update Tx_ to the network.
    - `./submit-config-update.sh`
+
+## Adding New Orgs to the Network.
+
+Membership is created on channel basis.
+
+1. Setup the member org identites
+   - Setup Org Admin's identity and create ORG MSP
+2. Setup the config update tx
+   1. - `./fetch-config-json.sh`
+   2. - Generate the ORG {JSON} represantation
+      - Add ORg {JSON} to `cfg_block_no_envolope_`
+   3. - `./generate-config-update.sh`
+3. Sign & Submit the config update tx

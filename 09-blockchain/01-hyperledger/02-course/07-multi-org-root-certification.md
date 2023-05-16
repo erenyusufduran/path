@@ -249,4 +249,32 @@ Peers used to gossip protocol.
    - `ps -eal | grep peer`
 2. ./launch-peer.sh
    - Fetch _airlinechannel_ genesis block
+     - `. ./set-env.sh acme peer2 8050 admin`
+     - `peer channel fetch 0 -c airlinechannel -o localhost:7050`
    - Join the _airlinechannel_ using genesis block
+
+# Updating the Network and Channel Configuration
+
+### Config Update Workflow
+
+One of the administrators retrieves the latest configuration changes are made and this updated config transaction file is signed by one or more administrators from the member organizations.
+
+1. Fetch the latest config for _channel_.
+   - `. ./set-env.sh acme peer1 7050 admin`
+   - `./fetch-config-json.sh ordererchannel`
+   1. Fetch latest config - protobuf
+   2. Convert to JSON - json
+   3. Extract the config data - json
+   4. Create a copy of config - json
+2. Modify config parameters & generate the _Update Tx_.
+   - `./generate-config-update.sh ordererchannel`
+   1. Convert extracted original config to PB
+   2. Convert extracted modified config to PB
+   3. Compute the Config _Delta_ PB
+   4. Convert _Delta_ PB to JSON
+   5. Wrap _Delta_ JSON in HLF Tx Envelope
+   6. Compute the Config Delta PB
+3. Administrators sign the _Update Tx_.
+   - `./sign-config-update.sh`
+4. Submit the _Update Tx_ to the network.
+   - `./submit-config-update.sh`

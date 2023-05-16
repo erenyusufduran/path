@@ -299,3 +299,4 @@ Membership is created on channel basis.
 3. `./join-regular-peer-to-airlinechannel.sh budget budget-peer1 9050`
 4. `. ./set-env.sh budget budget-peer1 9050`
 5. `peer channel list`
+6. `./validate-with-chaincode-3.sh`

@@ -36,3 +36,15 @@ We will have a VPC in which there will be three virtual machines are easy to ins
 1. Fabric CA will be used generating the crypto.
 2. Organization _may_ setup a (intermediate) certificate authority.
 3. Admin's in the Orgs will be responsible for registration / enrollments.
+
+## Setup the crypto material
+
+1. Generate the crypto material using `cryptogen tool`
+2. Seperate the crypto folders for the various orgs. `./gen-crypto.sh`
+   - This script generates our files with crypto material under the artifact subfolder.
+     - Create the Organization MSP to be used by `orgs-msp.tar`
+     - Create the MSP for Orderer `orderer-msp.tar`
+     - Create the MSP for Acme `acme-msp.tar`
+     - Create the MSP for Budget `budget-msp.tar`
+   - `orgs-msp.tar` file will be used for the duration of the **Genesis Block**, which will then be used for **setup of the Orderer**.
+   - Other three tar files will be used for **setting up the local MSP for the organizations**.

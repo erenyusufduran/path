@@ -291,3 +291,11 @@ Membership is created on channel basis.
       - Add ORg {JSON} to `cfg_block_no_envolope_`
    3. - `./generate-config-update.sh`
 3. Sign & Submit the config update tx
+
+## Add a Budget Peer
+
+1. `./register-enroll-peer.sh budger budget-peer1`
+2. `./launch peer.sh budget budget-peer1 9050`
+3. `./join-regular-peer-to-airlinechannel.sh budget budget-peer1 9050`
+4. `. ./set-env.sh budget budget-peer1 9050`
+5. `peer channel list`

@@ -230,3 +230,23 @@ Org administrators can add anchor peers.
 3. To validate to set up
    - `. ./set-identity.sh acme admin`
    - `peer channel list`
+
+## Setup Regular Peer
+
+Regular peer does not require config update transaction.
+
+- Scale the infrastructure.
+- Setup isolated/dedicated peers for the application.
+
+The setup the peer, Org Admin setup the peer's identity and the MSP and configured peer by way of the core.yaml
+
+Peers used to gossip protocol.
+
+1. ./register-enroll-peer.sh
+   - `./register-enroll-peer.sh acme peer2`
+   - `./launch-peer.sh acme peer1 7050`
+   - `./launch-peer.sh acme peer2 8050`
+   - `ps -eal | grep peer`
+2. ./launch-peer.sh
+   - Fetch _airlinechannel_ genesis block
+   - Join the _airlinechannel_ using genesis block

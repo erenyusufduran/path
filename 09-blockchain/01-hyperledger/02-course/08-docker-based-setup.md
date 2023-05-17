@@ -34,3 +34,25 @@ The services for the various fabric components are deployed on the containerisat
   - Used for setting up Fabric in production.
     - Orchestration engine manages the distribution of containers across multiple hosts.
     - **Docker-compose** will **NOT** work | kubernetes will work.
+
+### Docker-Compose
+
+Requires a config file that define services that make up the app.
+
+- Creates the instances of containers in specified in YAML
+
+  - `docker-compose up -d`
+    - Looks for docker-compose.yaml file in current folder.
+    - -d flag used to launch environment in the background/detached mode.
+  - `docker-compose down`
+    - Shuts down all of the containers defined in YAML file.
+    - All data stored in the container filesystem is lost.
+  - `docker-compose stop`
+  - `docker-compose start`
+  - `docker-compose pause`
+  - `docker-compose restart`
+
+- Default YAML file name may be overridden with -f flag - `docker-compose -f some-file.yaml up`
+  - Multiple files may be specified with -f flag - `docker-compose -f file1 -f file2 up`
+  - Merges the configuration
+  - Properties in later files overrides

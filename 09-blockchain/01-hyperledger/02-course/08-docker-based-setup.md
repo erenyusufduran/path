@@ -56,3 +56,19 @@ Requires a config file that define services that make up the app.
   - Multiple files may be specified with -f flag - `docker-compose -f file1 -f file2 up`
   - Merges the configuration
   - Properties in later files overrides
+
+### `docker-compose.yaml`
+
+- version: Version of the compose file
+- network: Virtual network
+- volumes: Data persistence on host machine
+- services: All services defined under this section
+  - container_name
+  - image
+  - working_Dir
+  - command
+  - environment
+  - volumes
+  - ports
+  - networks
+  - depends_on

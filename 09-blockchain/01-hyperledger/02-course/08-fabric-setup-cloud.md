@@ -101,3 +101,31 @@ We will use this IP addresses in `./set-env.sh` as well as in the `configtx.yaml
 3. Setup Orderer MSP & Launch
    - `tar xvf orderer-msp.tar`
    - `chmod 755 *.sh`
+
+## Setup the Peers (Acme & Budget)
+
+1. Each organization will be responsible for setting their own peers
+2. Fixed Public IP addresses assigned to anchor peers
+3. Setup multiple peers in the organization
+
+---
+
+1. FTP files to peer vm
+   - acme-msp.tar and airline-channel.tx
+   - `cloud/bins/peer` files
+2. Setup the peer
+   - SSH to Peer Virtual Machine
+     - `chmod 755 peer`
+     - `chmod 755 *.sh`
+     - `sudo ./docker.sh`
+     - `sudo mv peer /usr/local/bin`
+3. Setup environment scripts & execute
+   - `nano set-env.sh` and change CORE_PEER_LOCALMSPID
+   - `. ./set-env.sh`
+4. Setup peer local MSP
+   - `tar xvf acme-msp.tar`
+5. Create Airline Channel
+   - `./create-airline-channel.sh`
+6. Launch peer & join airline channel
+   - `./launch.sh`
+   - `./join-airlinechannel.sh`

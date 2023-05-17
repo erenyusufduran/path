@@ -48,3 +48,34 @@ We will have a VPC in which there will be three virtual machines are easy to ins
      - Create the MSP for Budget `budget-msp.tar`
    - `orgs-msp.tar` file will be used for the duration of the **Genesis Block**, which will then be used for **setup of the Orderer**.
    - Other three tar files will be used for **setting up the local MSP for the organizations**.
+
+## Setup Cloud VM and Configuration Files
+
+We will be setting three VMs on the cloud. These three VMs will be created on AWS.
+
+### For Production Setup
+
+1. Virtual machines will be owned by different organizations
+2. Fixed public IP addresses (or VPN secure) will be assigned to peer VM
+3. Sizing of VM will be done based on estimated loads
+4. Multiple peers will be setup by each organization for scalability and availability.
+
+> After the restart need network configuration again.
+
+**EC2 Public IP addresses**
+
+- Orderer - 172.31.31.243
+- Acme - 172.31.91.65
+- Budget - 172.31.93.246
+
+We will use this IP addresses in `./set-env.sh` as well as in the `configtx.yaml`
+
+### Configuration Setup
+
+1. Setup the IP address for VMs in _script_
+   - Set public IP of Orderer under the `cloud` folder.
+   - `set-env.sh` & `bins/set-env.sh`
+2. Setup the IP addresses for Orderer and two peers in the `configtx.yaml`
+   - Update configtx.yaml with EC2 IPs.
+3. Generate the Genesis Block & Create Channel Transaction file.
+   - Execute the `gen-genesis-channeltx.sh`

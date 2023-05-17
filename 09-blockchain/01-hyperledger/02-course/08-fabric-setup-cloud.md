@@ -64,9 +64,9 @@ We will be setting three VMs on the cloud. These three VMs will be created on AW
 
 **EC2 Public IP addresses**
 
-- Orderer - 172.31.31.243
-- Acme - 172.31.91.65
-- Budget - 172.31.93.246
+- Orderer - 172.31.85.13
+- Acme - 172.31.92.92
+- Budget - 172.31.25.85
 
 We will use this IP addresses in `./set-env.sh` as well as in the `configtx.yaml`
 
@@ -79,3 +79,25 @@ We will use this IP addresses in `./set-env.sh` as well as in the `configtx.yaml
    - Update configtx.yaml with EC2 IPs.
 3. Generate the Genesis Block & Create Channel Transaction file.
    - Execute the `gen-genesis-channeltx.sh`
+
+## Orderer Setup
+
+### For Production Setup
+
+1. Kafka cluster will be used instead of Solo
+2. Multiple organization will host the orderer instances
+3. Each Org admin will create the credentials for the Orderer instance
+
+---
+
+1. FTP files to Orderer VM
+   - airline-genesis.block and orderer-msp.tar need to be FTPied.
+   - Then you need to FTP all of the files under the `cloud/bins/orderer` folder.
+2. Setup the Orderer
+   - SSH to _Orderer_ VM - connect from aws
+     - `chmod 775 orderer`
+     - `sudo mv orderer /usr/local/bin`
+     - `orderer version`
+3. Setup Orderer MSP & Launch
+   - `tar xvf orderer-msp.tar`
+   - `chmod 755 *.sh`

@@ -129,3 +129,39 @@ We will use this IP addresses in `./set-env.sh` as well as in the `configtx.yaml
 6. Launch peer & join airline channel
    - `./launch.sh`
    - `./join-airlinechannel.sh`
+
+## Testing the Cloud Setup
+
+Use these scripts `set-env.sh`, `cc-test.sh` for cloud setup.
+
+### Testing Strategy
+
+- Install a common chaincode on multiple peers in the network.
+- Instantiate chaincode on one of the peers.
+- Execute `invoke | query` again chaincode on different peers.
+
+### Testing Set up Options
+
+- Setup test code on all peer VMs, execute on VM
+  - Additional component installation needed.
+- Setup a common cloud VM for testing.
+  - Cloud VM setup needed
+  - You may use private IP address for components.
+- Setup a local VM for testing.
+  - You may use existing HOST/VM we are using.
+
+### Local VM Testing
+
+We dont need to carry out any tasks for the VM that we are using on our local machine.
+
+- `./cc-test.sh install`
+  1. Package `lifecycle chaincode package`
+  2. Install `lifecycle chaincode install`
+  3. Approves `lifecycle chaincode approveformyorg`
+- `cc-test.sh instantiate`
+  1. Commit `lifecycle chaincode commit`
+  2. Initialize `lifecycle chaincode invoke -isInit`
+- `cc-test.sh invoke`
+  - `peer chaincode invoke`
+- `cc-test.sh query`
+  - `peer chaincode query`

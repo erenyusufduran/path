@@ -45,7 +45,7 @@ When the RAFT cluster is launched, all of the nodes send the proposal as a candi
 
 Log Entries in the log has the fabric transaction that act on the data manage in the fabric network. Requires 3 or more instances.
 
-Graph nodes within the orderer instances communicate with other instances in the network by way of keyless enabled gRPC protocol.
+Graph nodes within the orderer instances communicate with other instances in the network by way of TLS enabled gRPC protocol.
 
 > Each channel in the fabric network, there is RAFT cluster which operates independently of the graph cluster for other channels.
 
@@ -61,3 +61,34 @@ RAFT setup requires configuration to be carried out at the network and organizat
 - At the organization level, org admins have to make updates to the core.yaml and orderer.yaml.
   - orderer.yaml - Org Admins responsible for TLS setup
   - core.yaml - Org Admins responsible for Cluster setup
+
+## Setup the Orderer TLS
+
+Peer nodes will need to be configured so that they can connect to the orderer enabled for TLS.
+
+> Update to the TLS setup for orderer requires a local change.
+
+1. Setup the TLS parameters
+
+   - General:
+     - TLS:
+     - Enabled: true to enable TLS
+     - PrivateKey: TLS private key
+     - Certifcate: TLS server certificate
+     - RootCAs: List of Root CA's
+   - peer:
+     - tls:
+       - enabled
+       - key
+       - cert
+       - clientRootCAs: - files:
+
+   Crypto for TLS `docker/config/docker-compose-base.yaml`
+
+   - Launch `docker/init.stup.sh tls`
+   - `docker/launch.sh`
+
+2. Initialize and launch the setup
+3. Test the setup with TLS enabled
+   - To test the script `./test-all.sh tls`
+     - executes `docker/bins/cc-test.sh`

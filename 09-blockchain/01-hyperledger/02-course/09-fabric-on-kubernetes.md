@@ -104,3 +104,52 @@ You need to set up the persistent volume claim for couchDB and this container fo
 - Implement Liveliness probe.
 - Setup CouchDB in peer pod.
 - Setup multiple dedicated / isolated peer pods.
+
+---
+
+## Setup Fabric on Google K8s Engine
+
+1. Setup Requirements
+
+   Fabric network will have two member organizations, Acme and Budget. Acme will host an orderer of type SOLO and it will also host one Anchor peer. The Budget will host one peer. There will be one application channel and both the acme and budget will join this channel to transact using chaincode.
+
+   **Stateful Set** met with our requirements. The sample network that we will create in k8s will consist of three stateful sets. _Acme Orderer_, _Acme Peer_, _Budget Peer_. Each of these stateful set pods will have associated **persistent volumes** that they will use for managing ledger and state data.
+
+   In the `acloudfan/HLF-K8s-Cloud` repository, you will find multiple k8s definition YAML files.
+
+2. Setup Fabric on Google K8s Engine
+
+   Once the parties are up and running, we will log into the containers and create the channel and join the two peers to the application channel.
+
+   To setup to images, we need to setup Dockerfile, and then push the Docker Hub. <a href="hub.docker.com/u/acloudfan">acloudfun docker</a>
+
+   Then we will set up k8s cluster on Google Cloud.
+
+   In google cloud, kubernetes engine and create cluster. Then connect and with shell `kubectl get all`, then get the repo with `git clone`
+
+   Then launch the code editor and run
+
+   - `cd HLF-K8s-Cloud`
+   - `cd gcp`
+   - `kubectl apply -f .`
+   - `cd ..`
+   - `kubectl apply -f .`
+
+   Now we can see in workloads. Lets create the channel.
+
+   - `kubectl exec -it acme-peer-0 /bin/bash`
+   - `ls -la` there are some scripts.
+   - `./submit-channel-create.sh`
+   - `./join-channel.sh`
+   - `peer channel list`
+   - `./anchor-update.sh`
+   - `kubectl exec -it budget-peer-0 /bin/bash`
+   - `./fetch-channel-block.sh`
+   - `./join-channel.sh`
+   - `peer channel list`
+
+   At this point fabric network setup on Google Cloud.
+
+3. Test the Network
+
+   In README.md file you can see the commands.

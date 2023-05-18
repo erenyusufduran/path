@@ -62,7 +62,11 @@ Requires a config file that define services that make up the app.
 - version: Version of the compose file
 - network: Virtual network
 - volumes: Data persistence on host machine
+  - there will be 3 volumes for each organizations
 - services: All services defined under this section
+  - 3 services and tool service
+    - Tool service created by using the standard fabric-tools image. It has some fabric binaries installed.
+    - Launched in the same virtual network
   - container_name
   - image
   - working_Dir
@@ -72,3 +76,34 @@ Requires a config file that define services that make up the app.
   - ports
   - networks
   - depends_on
+
+## Docker Project Folder Setup
+
+- Single instance of the orderer container type SOLO
+- There are two peer organizations, each have single peer.
+- Tools container for peer admin | testing.
+- Native binary for administration and testing.
+
+> Services are host defined in docker-compose.yaml are not available outside the docker environment. peer1.acme.com, peer1.budget.com will not be available in host machine. You need to define these host /etc/hosts file in setup folder.
+
+### Project Setup Folder Structure
+
+- `docker`
+  - `config` - All config managed in this folder /var/hyperledger/config
+    - `docker-compose-base.yaml`
+    - `crypto-config` - Crypto material used for docker setup
+    - `orderer` - Orderer YAML file
+    - `acme` - Core YAML file
+    - `budget` - Core YAML file
+  - `tool-bins` - Shell scripts executed within tools container /opt/scripts
+  - `bins` - Shell scripts that are dependent on the native binaries
+    - Scripts under the bins folder need to be executed on the VM terminal prompt.
+
+`tool-bins` & `bins` have same shell names files. Differences is that the shell script in `tool-bins` need to be executed within the tools container. In bins folder need to be executed on the VM terminal.
+
+- `init-setup.sh` - Initialize & Launch the setup
+- `shutdown.sh` - Shuhdown without cleanup
+- `launch.sh` - Launch the setup
+- `login-tool.sh` - Logs into the tools docker container
+- `clean.sh` - Removes the volumes
+- `clean.sh all` - Removes the crypto | network artifacts | volumes

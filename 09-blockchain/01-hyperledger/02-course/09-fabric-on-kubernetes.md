@@ -46,6 +46,61 @@ Two tools for setting up the fabric network and comminies clusters. `kubectl`, `
 ### Fabric setup on Kubernetes
 
 1. Prepare the Docker images (optional)
+   - docker build
+   - docker push
+   - `/images` folder
+   - Within the image files are copied to the folder /var/hyperledger/config, all of the conf objects are there.
+   - images/orderer there are a Dockerfile.
+   - images/acme-peer there are a Dockerfile too.
 2. Setup the Kubernetes YAML
+   - `k8s/minikube` there are yaml file for conf.
+   - replicas: 1 because we'll have single instance.
 3. Launch the Orderer and Peer
+   - `k8s/minicube`
+   1. Setup the storage class
+   2. Launch the orderer and check for errors
+   3. Launch acme peer and check for errors
 4. Initialize the peer and test.
+   1. Launch the minikube dashboard
+   2. Submit Channel Create Txn
+   3. Join the airlinechannel channel & update anchor peer
+   4. Validate using the test chaincode
+
+## Production Considerations
+
+Each organization decides independently. So not every org need to use K8s. There is a common misconception that if you are using k8s for fabric, then you have to use federation.
+
+### Network Setup
+
+With the cluster IP, the peers and orderer ports are not exposed to the outside world. In other words, fabric network cannot be created just with cluster IP. You have to expose the IP addresses for the orderer and the peer for setting up the fabric network.
+
+You can do it in three ways;
+
+- **NodePort** - Testing Only
+- **LoadBalancer** - If you are using cloud provider, then the implementation of the load balancer will depend on the k8s service provider.
+- **Ingress Controller**
+
+### Setup CouchDB for State Database
+
+You need to set up the persistent volume claim for couchDB and this container for couchDB will reside in the same pod as the peer.
+
+- Peer container to use localhost for accessing couchDB.
+
+### Setup the healtcheck
+
+- Auto recovery if _pod | container_ fails.
+- Recovery will not work if peer / orderer process fails.
+  - Setup pod liveness probe.
+
+### Spread Load Across Peers
+
+- Leverage K8s flexibility to create additional peers.
+  - Dedicated peer instances for application level queries.
+
+---
+
+- Orgs are free to decide their fabric instrastructure.
+- Peer / Orderer IP need to be exposed outside of K8s cluster.
+- Implement Liveliness probe.
+- Setup CouchDB in peer pod.
+- Setup multiple dedicated / isolated peer pods.

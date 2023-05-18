@@ -92,3 +92,34 @@ Peer nodes will need to be configured so that they can connect to the orderer en
 3. Test the setup with TLS enabled
    - To test the script `./test-all.sh tls`
      - executes `docker/bins/cc-test.sh`
+
+## YAML Configuration for RAFT Setup
+
+**`configtx.yaml`**
+
+- `Orderer`:
+  - OrdererType: set to etcdraft
+  - EtcdRaft: Needed for OrdererType=etcdraft
+    - Consenters: List of orderers | consentors
+      - Host: Host for the consenter
+      - Port: Port number for the consenter
+      - ClientTLSCert: Client TLS Certificate
+      - ServerTLSCert:
+    - Options: Default RAFt parameters for all channels
+      - TickInterval:
+      - HeartbeatTick:
+      - ElectionTick
+
+## Setup the RAFT Orderer Cluster
+
+We will launch three orderer instances. These are going to be consenters in the RAFT network. All of these three will be enabled for TLS. Peer nodes will be setup with TLS enabled and all of the commands that will be executed from the test script will use the appropriate TLS flags in the peer lifecycle chaincode commands.
+
+1. Setup the RAFT network.
+
+   In `configtx file in docker/raft` there is a Consenters subsection. Setup for fivie orderer instances.
+
+   - `./init-setup.sh raft` - Uses the raft/configtx.yaml to generate genesis.
+   - `launch.sh` - Launches the TLS enabled peer and orderer instances.
+
+2. Initialize and Launch the Setup
+3. Checkout Orderer Logs

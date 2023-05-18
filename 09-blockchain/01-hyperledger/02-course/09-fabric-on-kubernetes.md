@@ -121,7 +121,7 @@ You need to set up the persistent volume claim for couchDB and this container fo
 
    Once the parties are up and running, we will log into the containers and create the channel and join the two peers to the application channel.
 
-   To setup to images, we need to setup Dockerfile, and then push the Docker Hub. <a href="hub.docker.com/u/acloudfan">acloudfun docker</a>
+   To setup to images, we need to setup Dockerfile, and then push the Docker Hub. <a href="https://hub.docker.com/u/acloudfan">acloudfun docker</a>
 
    Then we will set up k8s cluster on Google Cloud.
 

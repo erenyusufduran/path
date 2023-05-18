@@ -107,3 +107,43 @@ Requires a config file that define services that make up the app.
 - `login-tool.sh` - Logs into the tools docker container
 - `clean.sh` - Removes the volumes
 - `clean.sh all` - Removes the crypto | network artifacts | volumes
+
+1. `./init-setup.sh`
+2. `. ./bins/set-context.sh acme`
+3. `./bins/cc-test.sh install` install the test chaincode
+4. `./bins/cc-test.sh instantiate`
+5. `./bins/cc-test.sh query`
+6. `./shutdown.sh`
+7. `./launch.sh`
+
+---
+
+## Setup Docker based Fabric Environment
+
+1. Setup the network artifacts
+   1. Launch the tools container & log into it
+   2. Generate the crypto using cryptogen
+   3. Generate the network artifacts - Genesis Block, Channel Tx
+   4. Shutdown tools container
+2. Launch the setup
+   1. Launch the environment
+3. Setup the anchor peer for Orgs
+   1. Log into the tools container
+   2. As acme create | join | update channel
+   3. As budget org join | update channel
+4. Validate the setup
+   1. As acme install | instantiate chaincode
+   2. As acme org invoke | query chaincode
+   3. As budget org install | query chaincode
+
+Look at `docker/README.md` for commands
+
+- Process of setting up is same as native.
+- Tools Docker Container - does not require install of native binaries.
+
+## Native Binaries for Setting Up Docker based Fabric
+
+1. Clean up the setup
+2. Launch the setup
+3. Setup the anchor peer for orgs
+4. Validate the setup

@@ -35,3 +35,29 @@ Consider this five node cluster. Three out of five nodes must aree on the log en
 ### Leader Election
 
 When the RAFT cluster is launched, all of the nodes send the proposal as a candidate to become the leader. And the node that gets the most votes become the leader. As long as the leader, sending out the heartbeat, it stays as leader.
+
+## RAFT Type Ordering Service
+
+- **SOLO** - Single node, OKEY for development, Single point of failure
+- **kafka** - Cluster management is challenging, Cluster needs to be managed by multiple organizations. Deprecated 2.0
+
+**RAFT** built into the orderer. Recommended for live. Raft node manages the current state and in case of fabric network, it manages the state of the fabric network.
+
+Log Entries in the log has the fabric transaction that act on the data manage in the fabric network. Requires 3 or more instances.
+
+Graph nodes within the orderer instances communicate with other instances in the network by way of keyless enabled gRPC protocol.
+
+> Each channel in the fabric network, there is RAFT cluster which operates independently of the graph cluster for other channels.
+
+### Transactions Routing
+
+Lets say 3 organizations A, B, C. Lets say an administrator in the organization, it wants to execute some chaincode. In that case, the sub of the transaction to a local orderer which will inform the peer client who the leader is. Then peer client will then submit transaction to the leader orderer instance.
+
+### Setup
+
+RAFT setup requires configuration to be carried out at the network and organization level.
+
+- At the network level, orderer type and consensus need to be defined in the configtx.yaml. It embedded in the genesis block for the channel.
+- At the organization level, org admins have to make updates to the core.yaml and orderer.yaml.
+  - orderer.yaml - Org Admins responsible for TLS setup
+  - core.yaml - Org Admins responsible for Cluster setup

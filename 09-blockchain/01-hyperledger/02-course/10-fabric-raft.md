@@ -119,7 +119,21 @@ We will launch three orderer instances. These are going to be consenters in the 
    In `configtx file in docker/raft` there is a Consenters subsection. Setup for fivie orderer instances.
 
    - `./init-setup.sh raft` - Uses the raft/configtx.yaml to generate genesis.
-   - `launch.sh` - Launches the TLS enabled peer and orderer instances.
+   - `launch.sh raft` - Launches the TLS enabled peer and orderer instances.
 
 2. Initialize and Launch the Setup
 3. Checkout Orderer Logs
+   - `orderer-logs.sh`
+
+## Expand the RAFT Cluster and Validate Fault Tolerance
+
+1. Update the following file for Orderers
+   - `docker-compose-raft.yaml` to `docker-compose-raft-45.yaml`
+2. Launch the Orderers
+   - `./raft/launch-45.sh`
+3. Validate for Fault Tolerance
+   - You will first identify the leader and then stop the leader.
+
+Look at `raft/README.md`
+
+- docker ps | grep orderer

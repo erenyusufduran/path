@@ -44,3 +44,21 @@ add the `export PATH=$PATH/home/vagrant/own-samples/hyp-youtube/testfolder/fabri
 - Discovery - Command line client for service discovery
 - Idemixgen - Utility for generating key material to be used with identity mixer MSP
 - Fabric-ca-client - Client for creating registernig and enrolling user
+
+## Folder Structure
+
+- ### api-2.0
+  - There are multiple js files.
+  - These will used when we write api.
+- ### artifacts
+  - Most important folder in the fabric network.
+  - There are subfolders.
+    - channel
+      - `configtx.yaml`, `crypto-config.yaml`
+      - There are genesis.block, channel.tx, org1MSP anchor, org2MSP anchor / We don't have them yet.
+      - `/config` folder
+        - `configtx.yaml, core.yaml, orderer.yaml`
+          - core.yaml file one of the important file. **network settings**
+      - `crypto-config` folder will be created aswell.
+    - src
+    - docker-compose.yaml

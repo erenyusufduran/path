@@ -62,3 +62,16 @@ add the `export PATH=$PATH/home/vagrant/own-samples/hyp-youtube/testfolder/fabri
       - `crypto-config` folder will be created aswell.
     - src
     - docker-compose.yaml
+
+## Network Details
+
+- We'll have two organizations
+- There will be two peers in each organization.
+- One CA (Certification Authority) for each organization.
+- We'll use orderer as a RAFT. There will be 5 orderer.
+- State database will be **Couch DB**
+
+> We are not using seperate CLI container for invoking transactions.
+
+**Network Structure**
+![](./assets/network_structure.png)

@@ -62,6 +62,9 @@ add the `export PATH=$PATH/home/vagrant/own-samples/hyp-youtube/testfolder/fabri
       - `crypto-config` folder will be created aswell.
     - src
     - docker-compose.yaml
+    - base.yaml
+    - network-config.yaml - require for writing api on node
+    - org1.yaml
 
 ## Network Details
 
@@ -75,3 +78,20 @@ add the `export PATH=$PATH/home/vagrant/own-samples/hyp-youtube/testfolder/fabri
 
 **Network Structure**
 ![](./assets/network_structure.png)
+
+## Organization Structure
+
+In `channel/crypto-config/peerOrganizations`, there are subfolder for each organization. In this folder there are:
+
+- ca - certification authority
+- msp
+  - admincerts,
+  - cacerts,
+  - keystore, - where the private key
+  - signcerts
+  - tlscacerts
+- peers - we'll have two peers in each organization
+- tlsca
+- users - by default there will be admin user
+  - Admin have two subfolder msp and tls
+    - tls will have ca.crt, client.crt, client.key, there are used for transport layer security communication.

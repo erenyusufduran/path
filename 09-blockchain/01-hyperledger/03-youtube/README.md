@@ -95,3 +95,26 @@ In `channel/crypto-config/peerOrganizations`, there are subfolder for each organ
 - users - by default there will be admin user
   - Admin have two subfolder msp and tls
     - tls will have ca.crt, client.crt, client.key, there are used for transport layer security communication.
+
+---
+
+> You can see important files in this link.
+> <a href="https://github.com/erenyusufduran/colins-path/blob/main/09-blockchain/01-hyperledger/03-youtube/files.md">
+
+- crypto-config.yaml, configtx.yaml, create-artifacts.sh, docker-compose.yaml, createChannel.sh</a>
+
+---
+
+## Anchor & Leader Peer
+
+There are two types of the peer.
+
+- **Leader Peer**:
+  - It pulls the data from ordering service, later on disseminate that data to all the peer within the same organization.
+  - Election is a mechanism which will maintain the connection between the ordering service and get the block and distribute that block to all the peers within the same organizations.
+  - Election types:
+    1. **Static**, means administrator manually configure a peer in an organization. Defining in `core.yaml`
+    2. **Dynamic**, means peer execute a leader election and select one of the leader in organization. / Under gossip, there is useLeaderElection: true
+- **Anchor Peer**
+  - Use by gossip to make sure peers in the different organization know each other.
+  - Main purpose is _peer discovery_.

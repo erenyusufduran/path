@@ -39,7 +39,7 @@ We can generate **Genesis Block and Transaction Channel** with this file.
   - BasicChannel
   - OrdererGenesis
 
-in `./create-atrifacts.sh`, we are using configtxgen for genesis block and basic channel. Then we are creating anchor peers with same file.
+in `./create-artifacts.sh`, we are using configtxgen for genesis block and basic channel. Then we are creating anchor peers with same file.
 
 ## `docker-compose.yaml`
 

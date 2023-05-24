@@ -12,7 +12,7 @@ There are OrdererOrgs, PeerOrgs and their spesifications.
 
 ## `configtx.yaml`
 
-We can generate Genesis Block and Transaction Channel with this file.
+We can generate **Genesis Block and Transaction Channel** with this file.
 
 - Organizations:
   - OrdererOrg
@@ -40,3 +40,36 @@ We can generate Genesis Block and Transaction Channel with this file.
   - OrdererGenesis
 
 in `./create-atrifacts.sh`, we are using configtxgen for genesis block and basic channel. Then we are creating anchor peers with same file.
+
+## `docker-compose.yaml`
+
+services:
+
+- ca-org1 / For organization
+  - image: hyperledger/fabric-ca
+  - environments
+  - ports
+  - volumes
+  - networks
+- orderer.example.com
+  - image: hyperledger/fabric-orderer:2.1
+  - environments
+  - command: orderer
+  - ports
+  - networks
+  - volumes
+- couchdb0
+  - image: hyperledger/fabric-couchdb
+  - environment
+  - ports
+  - networks
+- peer0.org1.example.com
+  - extends:
+    - file: base.yaml
+    - service: peer-base
+  - environment
+  - ports
+  - volumes
+  - networks
+
+Up this network, `docker-compose up -d`

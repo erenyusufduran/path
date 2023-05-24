@@ -73,3 +73,19 @@ services:
   - networks
 
 Up this network, `docker-compose up -d`
+
+## `createChannel.sh` - Create Channel and Join all Peers
+
+- We are exporting all env variables.
+  - Orderer_CA - Orderer certificate
+  - Peer0_Org1_Ca - Peer organization certificate
+  - Fabric_Cfg_Path - config path `core.yaml` file.
+
+---
+
+- With createChannel function call we can create the channel.
+- To join channel joinChannel function call.
+- Can updateAnchorPeers aswell.
+
+- Then `docker exec -it peer0.org1.examle.com sh` come to the shell for peer0-org1.
+  - `peer channel list` - So we can see **mychannel** there

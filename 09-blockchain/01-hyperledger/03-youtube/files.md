@@ -9,3 +9,34 @@ There are OrdererOrgs, PeerOrgs and their spesifications.
   - Users/Count: 1, because we will have 1 Admin and 1 user.
 - `cryptogen generate --config=./crypto-config.yaml --output=./crypto-config/` in `./create-artifacts.sh`
   - Then crypto-config folder is created.
+
+## `configtx.yaml`
+
+We can generate Genesis Block and Transaction Channel with this file.
+
+- Organizations:
+  - OrdererOrg
+    - Name
+    - ID
+    - MSP
+    - Policies
+  - Org1
+    - AnchorPeers:
+  - Org2
+- Capabilities:
+  - Channel capabilities
+  - Orderer capabilities
+  - Application capabilities
+- Application:
+  - Organizations
+  - Policies
+- Orderer
+  - Consensus
+    - Consenters
+- Channel
+  - Policies
+- Profiles
+  - BasicChannel
+  - OrdererGenesis
+
+in `./create-atrifacts.sh`, we are using configtxgen for genesis block and basic channel. Then we are creating anchor peers with same file.

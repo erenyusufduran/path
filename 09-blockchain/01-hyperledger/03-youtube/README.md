@@ -118,3 +118,47 @@ There are two types of the peer.
 - **Anchor Peer**
   - Use by gossip to make sure peers in the different organization know each other.
   - Main purpose is _peer discovery_.
+
+## Chaincode Lifecycle
+
+1. **Package**
+2. **Install**
+3. **Query**
+4. **Approve**
+   - Each organization need to approve that chaincode lifecycle endorsement policy. Signature policy. Once the chaincode approved, we can commit the chaincode.
+5. **Check Commit Readiness**
+6. **Commit**
+7. **Query Committed**
+8. **Invoke Init**
+   - That means chaincode instantitated.
+9. **Invoke**
+10. **Query**
+
+### `deployChaincode.sh`
+
+0.  run `presetup`
+1.  `packageChaincode`
+2.  `installChaincode`
+    - docker cantainers should be running.
+    - install chaincode for each peer.
+3.  `queryInstalled`
+4.  - `approveForMyOrg1`
+      - `checkCommitReadyness`
+        - it will saye Org1MSP: true, Org2MSP: false. So we should approve for Org2
+    - `approveForMyOrg2`
+      - `checkCommitReadyness`
+        - it will saye Org1MSP: true, Org2MSP: true.
+5.  `commitChaincodeDefinition`
+6.  `queryCommitted`
+    - Committed chaincode definition for chaincode 'fabcar' on channel 'mychannel':
+      - Version: 1, Sequence: 1, Endorsement Plugin: escc, Validation Plugin: vscc, Approvals: [Org1MSP: true, Org2MSP: true]
+7.  `chaincodeInvokeInit`
+    - **I am getting error it's here and then, this error comes through.**
+    - initialize the chaincode
+8.  `chaincodeInvoke`
+    - Then we can look at <a href="http://localhost:5984/_utils">CouchDB</a>
+9.  `chaincodeQuery`
+
+## Network with 3 Raft Orderer
+
+In `crypto-config.yaml` add OrdererOrgs to orderer, orderer2, orderer3

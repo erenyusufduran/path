@@ -42,7 +42,7 @@ Yeni nesil androin el terminalleri ile uyumlu ve aynı zamanda mağaza bilgisaya
 - 1C, Rus yazılım şirketi.
 - Çeşitli dezavantajları var.
 - Eski kodla yazılmış.
-- letişim zorluğu var.
+- İletişim zorluğu var.
 - Response süresi çok uzun. (1dk++)
 
 ### Yeni Kampanya Modülü

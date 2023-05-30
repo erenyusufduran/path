@@ -74,3 +74,30 @@ Bazı CA componentleri bulunuyor. Bunlar;
 - SDK: CA Server için library içerir.
 
 Kayıt eden kişi yani registrar CA client kullanırlar, yazılımcılar ise kayıt etmek için CA SDK kullanır.
+
+## Docker Based Fabric Setup
+
+Fabric infrastructure 2 şekilde kurulabilir.
+
+- Fabric binary'leri VM'e direkt olarak indirilerek,
+- Docker'daki fabric image'leri ile.
+
+docker-compose single host olduğu için sadece experimental kullanım için uygun deniyor. Multi host setup için kubernetes gerekli.
+
+---
+
+1. Setup the network artifacts
+   1. Launch the tools container & log into it
+   2. Generate the crypto using cryptogen
+   3. Generate the network artifacts - Genesis Block, Channel Tx
+   4. Shutdown tools container
+2. Launch the setup
+   1. Launch the environment
+3. Setup the anchor peer for Orgs
+   1. Log into the tools container
+   2. As acme create | join | update channel
+   3. As budget org join | update channel
+4. Validate the setup
+   1. As acme install | instantiate chaincode
+   2. As acme org invoke | query chaincode
+   3. As budget org install | query chaincode

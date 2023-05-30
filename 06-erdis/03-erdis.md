@@ -91,4 +91,32 @@ Kafka'nın içine mesaj (`incomingMessage`) string olarak düşüyor, onun için
 - Worker içerisinde `shippingReceipt` adlı bir job var. Datayı aldıktan sonra bu datanın üzerindeki alanlara bakıyor. Eğer ki bu alanlar **invoiceAccount**'ı, **tableParameter** tablosundaki **filterTxt**'e uyuyorsa bu shippingReceipt UA'ya gidiyor veya farklı yerlere gidiyor.
   - Master olmayan ve tablo adına göre ayrıştırılmış data
 
-40:00
+> Consume edilen yapılar management-service haricinde, worker'lar producerlar, service'ler consumer.
+
+---
+
+Geldik middleware-service altındaki `dataStaging` dosyasına, burada MIDDLEWAREQUEUE'yu dinleyen bir yapı var. Message geldiği zaman bunu gidip Staging'e kaydediyor. Management-service'ten alıp produce ettiğimiz datayı burası dinliyor.
+
+Şuanda data middleware içerisine geldi, tabii datanın tamamı yok, sadece izi var. Datanın tamamına sahip olmadığımız için `middleware-worker/scheduler` içerisinde `barcode` schedular'ı var. Bu da gidiyor refAXTableName'i **InventItemBarcode** olan status'u da **none** olan dataları git bul ve bunların ara datalarını getir diyor. Burdan `jobs/getData` içindeki `barcode`'a gidiyorum ve burda bir view var, bu view içinde recId'si şu olan datayı getir diyerek, propertylerini mapleyerek kaydediyoruz.
+
+Burada da bir tableparameters yapısı var burda da InventItemBarcode tableName'si olan kaç tane kayıt varsa bunları çekiyorum ve tüm kafka kuyruklarına bunu pushluyoruz. Bu 4 kayıdı alıp, for ile dönerek her bir servisin içine (kuyruğun içine) produce ediyouz.
+
+Burdan sonra artık wms-ua-service'de izini oluşturuyoruz, buna entegrasyon kuyruğu adını veriyoruz. ApiQueue yapısına giriyor.
+
+Bu noktadan sonra Ukrayna servisinde `barcode` queue'suna gidiyoruz. Bu burda ApiQueue içerisine girip bunu doğrudan mongoId'si ve recId'siyle kaydediyor. isSent'i false olan bir data yoksa bunu yeni bir data olarak kaydediyor. Burada refObjectId diye bir alan var buraya da _ErdisMiddleware_'deki mongoId'yi atıyor.
+
+---
+
+ApiQueue'yu şöyle düşünelim, ApiQueue, IntegrationQueue tablosu gibi tutulabilir.
+
+---
+
+Middleware worker bizim produce ettiğimiz yer, scheduler içerisinde barcode'da biz burayı produce edebiliyoruz. Burada bir businessLogic işletiyoruz. Artık dataları SQL'den alıyoruz ana datayı alıyoruz ve gitmesi gereken her yere produce ediyoruz. Ayrıyeten bir tableparameter tablomuz var buradaki gitmesi gereken yere göre produce ediliyor.
+
+Bunları dinleyen yerler UA, EG gibi yerlerin service'leri, burda service içerisinde barcode var. Burada veriyi dinliyor, ApiQueue'ya bakıyor isSent'i false olan yoksa içeri kaydet diyor.
+
+Data eklenmiş oldu, bu eklenen datanın objectId'si ile middleware'e request atıyoruz ve isSent'i false ise o datayı bana getir diyoruz.
+
+---
+
+Biz barcode'a gidiyoruz ve datayı alıyoruz ya isSent'ini true'ya çekmemiz gerekiyor. Bunu da service'in commit service'ine gel ve datayı aldığını onayla diyoruz. Bunu onayladıktan sonra isSent true'ya çevriliyor.

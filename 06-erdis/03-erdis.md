@@ -51,7 +51,7 @@ Ana data hep AX'da oluşuyor. Biz hep buradan data alışı yapıyoruz. ErdisInt
 
 ---
 
-Yukarıdaki ilk şemada Colinst TR AX 2012'den Management'a olan iletişim SQL sorgusu yani SP ile sağlanıyor. Management, Middleware gibi kalan tüm iletişim **kafka** kuyruklarıyla sağlanıyor. Zaten bunların her biri birer microservice, hatta birden fazla microservice. Kafka produce kısımları ayrı, Kafka consume kısımları ayrı birer servis. Kafka produce kısımlarında ayrıyeten datayı çeken yapılar da var.
+Yukarıdaki ilk şemada Colins TR AX 2012'den Management'a olan iletişim SQL sorgusu yani SP ile sağlanıyor. Management, Middleware gibi kalan tüm iletişim **kafka** kuyruklarıyla sağlanıyor. Zaten bunların her biri birer microservice, hatta birden fazla microservice. Kafka produce kısımları ayrı, Kafka consume kısımları ayrı birer servis. Kafka produce kısımlarında ayrıyeten datayı çeken yapılar da var.
 
 - Servisler sürekli run edilmesi gereken yerler bizim için yönetmesi zor yerlerdi, onları birer container olarak düşündük.
 - Schedule edilecek işler başka türlü yönetilmesi gerekilen işlerdi. Onları birer container olarak düşündük.

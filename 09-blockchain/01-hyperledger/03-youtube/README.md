@@ -159,6 +159,24 @@ There are two types of the peer.
     - Then we can look at <a href="http://localhost:5984/_utils">CouchDB</a>
 9.  `chaincodeQuery`
 
-## Network with 3 Raft Orderer
+---
 
-In `crypto-config.yaml` add OrdererOrgs to orderer, orderer2, orderer3
+## RAFT
+
+Coming to agreement, or consensus, on that value is easy with one node. But how do we come to consensus if we have multiple nodes?
+
+That's the problem of distributed consensus. **Raft** is a protocol for implementing distributed consensus.
+
+A node can be in 1 of 3 states:
+
+```
+    - Follower
+    - Candidate
+    - Leader
+```
+
+All nodes start in the follower state. If followers don't hear from a leader then they can become a candidate. The candidate then requests votes from other nodes. Nodes will reply with their vote. The candidate becomes the leader if it gets votes from a majority of nodes. This process is called _Leader Election_.
+
+All changes to the system not go through the leader. Each change is added as an entry in the node's log. This log entry is currently committed so it won't update the node's value. To commit the entry the node first replicates it to the follower nodes then the leader waits until a majority of nodes have written the entry. The entry is now committed on the leader node and the node state is **5**; The leader then notifies the followers that the entry is committed. The cluster has now come to consensus about the system state. This process is called _Log Replication_.
+
+This election term will continue until a follower stops receiving heartbeats and becomes a candidate.

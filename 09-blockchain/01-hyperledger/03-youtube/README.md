@@ -209,4 +209,12 @@ Let's assume we have created the certificate for the Org1 and in our network we 
 
 In Hyperledger Fabric aswell, we have all the organization's MSP information in the configuration block. So inside that MSP, we have CA information. Who has the CA for this organization.
 
+### Tx Signature Creation (Client) & Validation (Endorsing Peer)
+
+![Alt text](./assets/diagram.png)
+
+When client created the transaction and sign with his private key, after that client create the signature. After that along with the proposal he has the signature aswell and same to the endorsing peer.
+
+First of all endorsing peer check the signature valid or not for this user. Because, this endorsing peer will has that MSP of that organizations and knows CA. If certificate is valid, after that endorsing peer validate if the signer of the transaction.
+
 ---

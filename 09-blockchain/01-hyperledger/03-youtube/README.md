@@ -218,3 +218,12 @@ When client created the transaction and sign with his private key, after that cl
 First of all endorsing peer check the signature valid or not for this user. Because, this endorsing peer will has that MSP of that organizations and knows CA. If certificate is valid, after that endorsing peer validate if the signer of the transaction.
 
 ---
+
+### Create Certificates with CA and Run Network
+
+- `docker-compose up -d`
+- `create-artifacts-with-ca.sh`
+- Keystore to ca don't forget
+- Update `create-artifacts.sh` for CA
+- `createChannel.sh`
+- `deployChaincode.sh`

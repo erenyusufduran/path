@@ -2,7 +2,7 @@
    1. RequestError - 16'sında bir kere
       - Error: ESOCKETTIMEDOUT
       - /usr/src/app/src/schedulers/stockUpdate.js
-   2. TypeError - 17'sinde 20 kere almışız
+   2. TypeError - 17'sinde 8.20 ve 8.30'da defalarca aldık.
       - Cannot read property 'assormentBarcodeLines' of undefined, Cannot read property 'length' of undefined
       - /usr/src/app/src/schedulers/jobs/sendData/shippingOrder.js
 

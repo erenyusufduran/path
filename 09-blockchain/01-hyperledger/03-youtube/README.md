@@ -180,3 +180,33 @@ All nodes start in the follower state. If followers don't hear from a leader the
 All changes to the system not go through the leader. Each change is added as an entry in the node's log. This log entry is currently committed so it won't update the node's value. To commit the entry the node first replicates it to the follower nodes then the leader waits until a majority of nodes have written the entry. The entry is now committed on the leader node and the node state is **5**; The leader then notifies the followers that the entry is committed. The cluster has now come to consensus about the system state. This process is called _Log Replication_.
 
 This election term will continue until a follower stops receiving heartbeats and becomes a candidate.
+
+---
+
+## CA
+
+![Alt text](./assets/image.png)
+
+Right now we have 3 certificate authority. **Org1-CA**, **Org2-CA**, **Orderer-CA**
+
+Most of the important thing in Hyperledger Fabric is _certificate validation_. Before going to the certificate validation, we should be aware of _Encryption_ & _Hashing_.
+
+- **Encryption**: Encryption is the process of converting plane text into the cypher text.
+  - Symmetric: We encrypt the text using some particular key.
+  - Asymmetric: User will have two keys, _public & private_ key. So that user can encrypt that text using one of the key, and decrypt with the other key.
+- **Hashing**: Hashing is the irreverseble function. Once we create the hash, we can not recall it.
+
+![Alt text](./assets/x509-certificate.png)
+
+Here is the X509 standard certificate. CA Information who have sign certificate.
+
+Let's assume we have created the certificate for the Org1 and in our network we have one CA for Org1, that is the dedicated CA for Org1. CA created this certificate.
+
+- CA firstly create hash function with _ID_, _Public Key_, _CA Information_.
+- CA encrypt these hash with CA private key and put it as _Digital Signature_.
+- Finally **Certificate** will get created and CA will gives that authority to user.
+- _If right two hash not match, it is invalid._
+
+In Hyperledger Fabric aswell, we have all the organization's MSP information in the configuration block. So inside that MSP, we have CA information. Who has the CA for this organization.
+
+---

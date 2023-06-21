@@ -221,9 +221,16 @@ First of all endorsing peer check the signature valid or not for this user. Beca
 
 ### Create Certificates with CA and Run Network
 
-- `docker-compose up -d`
+- `docker-compose up -d` - artifacts/channel
 - `create-artifacts-with-ca.sh`
 - Keystore to ca don't forget
 - Update `create-artifacts.sh` for CA
 - `createChannel.sh`
 - `deployChaincode.sh`
+
+---
+
+- take tlsCaCerts --> pem's for peers
+  - `/tls/tlscacerts/`
+- take certificateAuthorities for orgs
+  - `/tlsca/`

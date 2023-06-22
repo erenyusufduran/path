@@ -260,3 +260,15 @@ Fabric 2.x has implicite collection data.
 
 - And now you can just down and up containers.
 - DOWN - `docker stop $(docker ps -aq) && docker rm $(docker ps -aq)`
+
+## Get Tx By TxId
+
+### Query System Chaincode
+
+- GetChainInfo
+- GetBlockByNumber
+- GetBlockByHash
+- GetTransactionByID
+- GetBlockByTxID
+
+---

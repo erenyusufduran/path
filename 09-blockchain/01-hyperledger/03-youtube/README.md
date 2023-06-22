@@ -272,3 +272,15 @@ Fabric 2.x has implicite collection data.
 - GetBlockByTxID
 
 ---
+
+## Discovery Service
+
+### Responsibilities
+
+- Peer Membership Information
+- Configuration Information
+- Endorser Information
+
+We can add this queries using discovery service.
+
+in channel there is a discovery-service folder. There is `conf.yaml` file.

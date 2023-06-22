@@ -185,7 +185,7 @@ This election term will continue until a follower stops receiving heartbeats and
 
 ## CA
 
-![Alt text](./assets/image.png)
+![Alt text](./assets/transaction-flow.png)
 
 Right now we have 3 certificate authority. **Org1-CA**, **Org2-CA**, **Orderer-CA**
 
@@ -234,3 +234,20 @@ First of all endorsing peer check the signature valid or not for this user. Beca
   - `/tls/tlscacerts/`
 - take certificateAuthorities for orgs
   - `/tlsca/`
+
+---
+
+## Private Data Collection
+
+Fabric 2.x has implicite collection data.
+
+### Collection Definition (Explicite)
+
+- Name
+- Policy
+- RequiredPeerCount
+- MaxPeerCount
+- BlockToLive
+- Member Read Only
+- Member Write Only
+- Endorsement Policy

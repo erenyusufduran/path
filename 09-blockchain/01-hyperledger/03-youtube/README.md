@@ -251,3 +251,12 @@ Fabric 2.x has implicite collection data.
 - Member Read Only
 - Member Write Only
 - Endorsement Policy
+
+> With using `docker-compose-persistance.yaml` you can have persistance data. There is a docker compose file with local folder with volumes. So data is persistant.
+
+- in `var/eren/orderer/orderer/chains/mychannel`
+
+  - `sudo cat blockfile_000000`
+
+- And now you can just down and up containers.
+- DOWN - `docker stop $(docker ps -aq) && docker rm $(docker ps -aq)`

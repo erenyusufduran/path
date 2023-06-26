@@ -23,3 +23,16 @@
 8. Register user using API.
 9. Invoke chaincode transaction
 10. Query chaincode transaction.
+
+---
+
+1. Create certification authorities with docker-compose file in `artifacts/channel/create-certificate-with-ca`. Then run `create-certificate-with-ca.sh` file for create **crypto-config** file inside the `channel`.
+2. Then come to next step. Next step is the generating the _channel artifacts_. Like creating the **genesis block** and **channel transaction** files.
+   - In **configtx.yaml** file at `channel` folder, We have three organizations.
+   - With `create-artifacts.sh` file, we can create the _channel artifacts_.
+3. Then docker services for orderers, peers and couchdb instances should be up and running. So we are starting them `/artifacts/docker-compose.yaml`.
+4. Then we need to create channel and join all peers to this channel.
+   - `./createChannel.sh`
+5. Next step is the deploying the chaincode with `deployChaincode.sh`
+   - In `artifacts` folder there is a `configtx.yaml` file. We have policies defined here.
+     - In here there is a _LifecycleEndorsement_ and it's rule is **MAJORITY Endorsement**. We have 3 organization and for committing the chaincode we require atleast majority of the endorsement. So we should approve for two atleast.

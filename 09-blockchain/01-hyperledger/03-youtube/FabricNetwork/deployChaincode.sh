@@ -45,7 +45,7 @@ CHANNEL_NAME="mychannel"
 CC_RUNTIME_LANGUAGE="node"
 VERSION="1"
 SEQUENCE="1"
-CC_SRC_PATH="./artifacts/src/chaincode-js"
+CC_SRC_PATH="./artifacts/src/chaincode-node"
 CC_NAME="fabcar"
 
 packageChaincode() {
@@ -164,15 +164,33 @@ chaincodeInvokeInit() {
 
 chaincodeInvoke() {
     setGlobalsForPeer0Org1
-    # Create Car
+
+    peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com \
+        --tls $CORE_PEER_TLS_ENABLED --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} \
+        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
+        --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA  \
+        -c '{"function":"initLedger","Args":[]}'
+
     peer chaincode invoke -o localhost:7050 \
         --ordererTLSHostnameOverride orderer.example.com \
         --tls $CORE_PEER_TLS_ENABLED \
         --cafile $ORDERER_CA \
         -C $CHANNEL_NAME -n ${CC_NAME}  \
-        --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
+        --peerAddresses localhost:7051 \
+        --tlsRootCertFiles $PEER0_ORG1_CA \
         --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA   \
-        -c '{"function": "createCar","Args":["{\"id\":\"1\",\"make\":\"Audi\",\"addedAt\":1600138309939,\"model\":\"R8\", \"color\":\"red\",\"owner\":\"pavan\"}"]}'
+        -c '{"function": "createCar","Args":["Porsche", "Cayenne", "Grey", "Taygun"]}'
+
+
+    # Create Car
+    # peer chaincode invoke -o localhost:7050 \
+    #     --ordererTLSHostnameOverride orderer.example.com \
+    #     --tls $CORE_PEER_TLS_ENABLED \
+    #     --cafile $ORDERER_CA \
+    #     -C $CHANNEL_NAME -n ${CC_NAME}  \
+    #     --peerAddresses localhost:7051 --tlsRootCertFiles $PEER0_ORG1_CA \
+    #     --peerAddresses localhost:9051 --tlsRootCertFiles $PEER0_ORG2_CA   \
+    #     -c '{"function": "createCar","Args":["{\"id\":\"1\",\"make\":\"Audi\",\"addedAt\":1600138309939,\"model\":\"R8\", \"color\":\"red\",\"owner\":\"pavan\"}"]}'
 }
 
 chaincodeInvokeDeleteAsset() {
@@ -191,7 +209,9 @@ chaincodeInvokeDeleteAsset() {
 chaincodeQuery() {
     setGlobalsForPeer0Org1
     # setGlobalsForOrg1
-    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"function": "GetCarById","Args":["1"]}'
+    peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"function": "queryAllCars","Args":[]}'
+
+    # peer chaincode query -C $CHANNEL_NAME -n ${CC_NAME} -c '{"function": "GetCarById","Args":["1"]}'
 }
 
 packageChaincode

@@ -1,11 +1,11 @@
 const { Gateway, Wallets } = require("fabric-network");
 const helper = require("./helper");
-const { blockListener, contractListener } = require("./listeners");
+// const { blockListener, contractListener } = require("./listeners");
 
 const invokeTransaction = async (channelName, chaincodeName, fcn, args, username, orgName, transientData = []) => {
   try {
     const ccp = await helper.getCCP(orgName);
-    console.log("==================", channelName, chaincodeName, fcn, args, username, org_name);
+    console.log("==================", channelName, chaincodeName, fcn, args, username, orgName);
 
     const walletPath = await helper.getWalletPath(orgName);
     const wallet = await Wallets.newFileSystemWallet(walletPath);
@@ -14,7 +14,7 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
     let identity = await wallet.get(username);
     if (!identity) {
       console.log(`An identity for the user ${username} does not exist in the wallet, so registering user`);
-      await helper.getRegisteredUser(username, org_name, true);
+      await helper.getRegisteredUser(username, orgName, true);
       identity = await wallet.get(username);
       console.log("Run the registerUser.js application before retrying");
       return;
@@ -32,8 +32,8 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
 
     switch (fcn) {
       case "createCar":
-        result = await contract.submitTransaction(fcn, args[0]);
-        result = { txid: result.toString() };
+        await contract.submitTransaction(fcn, args[0], args[1], args[2], args[3]);
+        result = { message: "Car added" };
         break;
       default:
         break;

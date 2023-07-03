@@ -1,4 +1,4 @@
-const { Gateway, Wallets, Gateway } = require("fabric-network");
+const { Gateway, Wallets } = require("fabric-network");
 const log4js = require("log4js");
 const { BlockDecoder } = require("fabric-common");
 const helper = require("./helper");

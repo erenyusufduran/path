@@ -1,6 +1,7 @@
 "use strict";
 
-const cs01Contract = require("./lib/cs01.js");
+const SimpleContract = require("./lib/simple-contract.js");
+const AssetTransferContract = require("./lib/asset-transfer.js");
+const FabCarContract = require("./lib/fabcar.js");
 
-module.exports.Cs01Contract = cs01Contract;
-module.exports.contracts = [cs01Contract];
+module.exports.contracts = [FabCarContract];

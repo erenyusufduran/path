@@ -129,3 +129,11 @@ rusyaya giden bir excel lazım.
   - Karekod başvurusu yapılamıyosa, tek renk için de yapılabiliyor.
   - key olarak karekoda başvuru yaparken, PO MODEL RENK BEDEN'le başvuru olucak. Çünkü GTIN ona istinaden geliyor. GTIN geldiyse Rusya'ya gönderildi olarak varsayılır.
   - Bir PO'yu içindeki tüm bedenlerle yolla, birtakım bilgiler eksikse farklı şeyler düşünülebilir.
+
+---
+
+- Rusyadan QR'lar geldi.
+- Sonrasında QR'ları işledik mongoda, bc'de falan.
+- Sonrasında ERPOS AX'la entegrasyon kurmıcak veriyi erdisten alıcak yani bizden.
+
+ERPOS diyor ki QR kod okutulmalı kasaya gelindiğinde. UseQRCode işaretli veriler erdise gelecek.

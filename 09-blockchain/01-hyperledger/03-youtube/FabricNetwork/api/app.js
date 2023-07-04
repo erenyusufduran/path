@@ -135,7 +135,7 @@ app.post("/register", async (req, res) => {
     app.get("secret")
   );
 
-  const response = await helper.registerAndGetSecret(username, orgName);
+  const response = await helper.registerAndGerSecret(username, orgName);
   logger.debug("-- returned from registering the username %s for organization %s", username, orgName);
   if (response && typeof response !== "string") {
     logger.debug("Successfully registered the username %s for organization %s", username, orgName);

@@ -17,8 +17,6 @@ const port = process.env.PORT || constants.port;
 const helper = require("./app/helper");
 const invoke = require("./app/invoke");
 const query = require("./app/query");
-const qscc = require("./app/qscc");
-
 const app = express();
 
 app.options("*", cors());

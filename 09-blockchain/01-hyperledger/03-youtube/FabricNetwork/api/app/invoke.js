@@ -1,6 +1,6 @@
 const { Gateway, Wallets } = require("fabric-network");
 const helper = require("./helper");
-// const { blockListener, contractListener } = require("./listeners");
+const { blockListener, contractListener } = require("./listeners");
 
 const invokeTransaction = async (channelName, chaincodeName, fcn, args, username, orgName, transientData = []) => {
   try {
@@ -25,8 +25,8 @@ const invokeTransaction = async (channelName, chaincodeName, fcn, args, username
     const network = await gateway.getNetwork(channelName);
     const contract = network.getContract(chaincodeName);
 
-    // await contract.addContractListener(contractListener)
-    // await network.addBlockListener(blockListener)
+    // await contract.addContractListener(contractListener);
+    await network.addBlockListener(blockListener);
 
     let result;
 

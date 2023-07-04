@@ -28,6 +28,10 @@ const query = async (channelName, chaincodeName, args, fcn, username, orgName) =
     const contract = network.getContract(chaincodeName);
     let result;
     switch (fcn) {
+      case "queryCar":
+        console.log("=============");
+        result = await contract.evaluateTransaction(fcn, args[0]);
+        break;
       case "GetDocumentUsingCarContract":
         console.log("=============");
         result = await contract.evaluateTransaction("SmartContract:" + fcn, args[0]);

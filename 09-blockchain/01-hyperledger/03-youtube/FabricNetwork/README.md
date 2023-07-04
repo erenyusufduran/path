@@ -44,3 +44,19 @@ Need to be install node modules, then with `generate-ccp.sh` inside config folde
 ## Cross Chaincode Communication
 
 Sometimes there is a requirement to share the data or communication between smart contracts.
+
+## Certificate Revocation in Hyperledger Fabric
+
+![Alt text](../assets/user-flow.png)
+
+Before starting revoking the identity we have to know that what is the process for creating the certificate for particular user.
+
+1. Registration and Enrollment
+   - In this step generally, admin of the organization is responsible for registering the new user. In the diagram you can see here the **first step**, admin of the organization need to register that particular user with the **certificate authority**. For each organizations we have dedicated certificate authority. Then admin gets the secret. This operation done by admin of the organization only. When admin get this secret, so this secret can be sent to the user who want to enroll.
+   - Using this secret new users can going to enroll, he will create **certificate signing request (CSR)**. For creating the CSR we need to have public and private key and this user need to have them. Using these he create the CSR and request to the same CA. CA just verify if this is the valid user, because admin have already registered that user and owns validation takes place and this CA written one certificate to the user. This is the certificate for that particular new user.
+   - In this registration and involvement process user get finally certificate after creating the CSR.
+
+The flow is straightforward.
+
+1. Registration - Can be done by organization admin.
+2. Enrollment - Can be done by user if he has the secret.

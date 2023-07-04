@@ -60,3 +60,11 @@ The flow is straightforward.
 
 1. Registration - Can be done by organization admin.
 2. Enrollment - Can be done by user if he has the secret.
+
+## How exactly revokation works?
+
+![Alt text](../assets/revoking.png)
+
+Organization admin need to revoke that particular user from the CA first. Once that is done the same user can be revoke from the fabric network as well. So at the both of the places we have to revoke the identity for that particular user.
+
+`artifacts/ca-operations/Revokation`

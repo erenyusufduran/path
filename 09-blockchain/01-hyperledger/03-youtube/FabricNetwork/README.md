@@ -36,3 +36,11 @@
 5. Next step is the deploying the chaincode with `deployChaincode.sh`
    - In `artifacts` folder there is a `configtx.yaml` file. We have policies defined here.
      - In here there is a _LifecycleEndorsement_ and it's rule is **MAJORITY Endorsement**. We have 3 organization and for committing the chaincode we require atleast majority of the endorsement. So we should approve for two atleast.
+
+# API
+
+Need to be install node modules, then with `generate-ccp.sh` inside config folder going to create connection profiles inside the config folder.
+
+## Cross Chaincode Communication
+
+Sometimes there is a requirement to share the data or communication between smart contracts.

@@ -1,5 +1,6 @@
 1.  erdis-management-worker
     1. RequestError - EREQUEST **18 Haziran'dan 20 Haziran'a kadar 150 200 kere**
+       - Cannot continue the execution because the session is in the kill state.
        - /usr/src/app/src/schedulers/dataListener.js
     2. EPIPE **19 ve 20'sinde 2'şer kere**
        - This socket has been ended by the other party

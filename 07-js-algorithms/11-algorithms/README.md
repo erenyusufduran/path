@@ -63,6 +63,39 @@ First you know designing, make your design perfect and throught so that you can 
 <a id="WriteAnalyzeAlgorithm"></a>
 ## How Write and Analyze Algorithm
 
+If we compare the below code with JS program, there is no data type of parameters. We don't decide at algorithm time. When we write program, then we decide the data types. Important thing is the algoritm's understandable or not.
+
+```js
+algorithmSwap(a,b) {
+  temp = a;
+  a = b;
+  b = temp;
+}
+```
+
+### How to analyze and Algorithm?
+
+1. **Time**: How much time it is taking? If the procedure is very long and time-consuming or the procedure is very fast and quickly get results.
+2. **Space**: We need to know how much memory space will consume. So that is the second criteria which we will analyze an algorithm.
+3. **Network Consumption**
+4. **Power Consumption**
+5. **CPU Registers Consuming**
+6. Depend on the project this criterias can be increase.
+
+```js
+algorithmSwap(a,b) {
+  temp = a;
+  a = b;
+  b = temp;
+}
+```
+Let's analyze this function. Every statement in the record takes one unit of time. If suppose the algorithm is calling another algorithm it's using another procedure. Then we have to analyze that also in detail.
+1. **Time**: So it takes 3 units of time. It is **constant**. **`O(1)`**
+2. **Space**: There is *a, b and temp*. So we have 3, it is **contant**. **`O(1)`**
+
+- You have to analyze and design and make a complete plan, so that your mission is succesful. **Go into each and every minor detail you have to take effect**.
+
+
 <a id="FrequencyCountMethod"></a>
 ## Frequency Count Method
 

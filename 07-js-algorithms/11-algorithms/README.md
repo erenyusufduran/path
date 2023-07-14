@@ -73,7 +73,7 @@ algorithmSwap(a,b) {
 }
 ```
 
-### How to analyze and Algorithm?
+### How to Analyze an Algorithm?
 
 1. **Time**: How much time it is taking? If the procedure is very long and time-consuming or the procedure is very fast and quickly get results.
 2. **Space**: We need to know how much memory space will consume. So that is the second criteria which we will analyze an algorithm.
@@ -99,5 +99,47 @@ Let's analyze this function. Every statement in the record takes one unit of tim
 <a id="FrequencyCountMethod"></a>
 ## Frequency Count Method
 
+These method is useful for find to complexity of algorithms.
+```js
+A = [8, 3, 9, 7, 2];
+sum(A, n) {
+  s = 0; --> 1
+  for (i = 0; i < n; i++) { --> n + 1
+    s = s + A[i]; --> n
+  }
+  return s; --> 1
+}
+```
+Assume that there is an array of some elements. Frequency of execution of that statement will calculate and we find that time taken by that. Functions complexity is `2n+3`. We are deleting the constants, so it is **`O(n)`**.
 
+### Some of Two Matrices
+```js
+add(A, B, n) {
+  for(i = 0; i < n; i++) { --> n + 1
+    for (j = 0; j < n; j++) { --> n * (n + 1)
+      C[i ,j] = A[i, j] + B[i, j]; --> n * n
+    }
+  }
+}
+```
+**`2n²+2n+1`** is the result of the complexity, but bigger is important for us. So **`O(n²)`** is the complexity.
 
+Space complexity is *A, B, C, n, i, j*.
+- A, B and C are matrices so they are `n²`
+- n, i and j are constants so the are `1`
+  
+## Multiply
+
+```js
+multiply(A, B, n) {
+  for (i = 0; i < n; i++) { --> n + 1
+    for (j = 0; j < n; j++) { --> n * (n + 1)
+      C[i, j] = 0;
+      for (k = 0; k < n; k++) { --> n * n * (n + 1)
+        C[i, j] = C[i, j] + A[i, k] * B[k, j];
+      }
+    }
+  }
+}
+```
+Now we can see each loop more **complexity** to us. Our complexity is **`O(n³)`**. **Space** will stays same **`O(n²)`**.

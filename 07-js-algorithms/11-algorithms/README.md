@@ -54,3 +54,17 @@ First you know designing, make your design perfect and throught so that you can 
 <a id="CharacteristicsAlgorithm"></a>
 ## Characteristics of Algorithm
 
+1. **Input**: Some algorithm may not take any input also, but algorithm can take *0 or more* input.
+2. **Output**: Algotihm must generate at least one output. Otherwise it's no use of writing a quarter it. It must generate some result. If it doesn't return anything, we say void; but it does something definitely.
+3. **Definiteness**: Every statement should be an ambitious and it should have a single an exact meaning. You can not write any statement which can not be understood or which can not be solved. *If the human can not solve it we **can't ask our computers to solve***.
+4. **Finiteness**: Algorithm is just like a function. A function will have some limited set of strips and it will stop and returns the result. *It must have finite set of statements*.
+5. **Effectiveness**: You should not write **unneccessary statements** in an algorithm whatever the statement you write the objective is that should do something. So some purpose in the procedure in the steps of an algorithm.
+
+<a id="WriteAnalyzeAlgorithm"></a>
+## How Write and Analyze Algorithm
+
+<a id="FrequencyCountMethod"></a>
+## Frequency Count Method
+
+
+

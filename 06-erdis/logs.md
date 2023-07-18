@@ -1,43 +1,39 @@
-1.  erdis-management-worker
-    1. RequestError - EREQUEST **18 Haziran'dan 20 Haziran'a kadar 150 200 kere**
-       - Cannot continue the execution because the session is in the kill state.
-       - /usr/src/app/src/schedulers/dataListener.js
-    2. EPIPE **19 ve 20'sinde 2'şer kere**
-       - This socket has been ended by the other party
-       - /usr/src/app/src/schedulers/dataListenerHR.js
-    3. ELOGIN **20 Haziran'da 8 kere**
-       - Login failed for user 'axintegration'. Reason: The account is disabled.
-       - /usr/src/app/src/schedulers/dataListener.js
-2.  erdis-wms-ma-worker
-    1. StatusCodeError **devam ediyor**
-       - 400 - {"errno":-104,"code":"ECONNRESET","syscall":"read"}
-       - /usr/src/app/src/schedulers/stockUpdate.js
-    2. TypeError **20 Haziran'da bir kere**
-       - wmsModels[_wmsName] is not a function
-       - /usr/src/app/src/helpers/apiQueue.js
-3.  erdis-pos-worker
-    1. RequestError - EREQUEST **20 Haziran'da bir kere**
-       - Cannot continue the execution because the session is in the kill state.
-       - /usr/src/app/src/schedulers/retailSales.js
-    2. ConnectionError - ELOGIN **20 Haziran'da 30 civarı**
-       - Login failed for user 'erdis'. Reason: The account is disabled.
-       - /usr/src/app/src/schedulers/retailSales.js
-       - /usr/src/app/src/schedulers/productReview.js
-4.  erdis-store-worker
-    1. ConnectionError - ELOGIN **20 Haziran'da 37 kez**
-       - Login failed for user 'erdis'. Reason: The account is disabled.
-       - /usr/src/app/src/schedulers/shippingReceiptStatus.js
-    2. MongooseServerSelectionError **20 Haziran'da 2 kere**
-       - connection timed out
-       - /usr/src/app/src/schedulers/boxPicture.js
-5.  erdis-wms-ua-worker
-    1.  RequestError - EREQUEST **1 Haziran'da çok fazla vermişti, sonrasında hiç çıkmamıştı. 21 Haziran'da bir kere daha log atmış. Hala çözülmedi.**
-        - While reading current row from host, a premature end-of-message was encountered--an incoming data stream was interrupted when the server expected to see more data. The host program may have terminated. Ensure that you are using a supported client application programming interface (API).
-        - /usr/src/app/src/schedulers/jobs/sendData/shippingReceipt.js
-6.  erdis-middleware-worker
-    1. ConnectionError - ELOGIN **20'sinde 50'den fazla sayıda log.**
-       - Login failed for user 'erdis'. Reason: The account is disabled.
-       - /usr/src/app/src/schedulers/jobs/getData/storeTransfer.js
-       - /usr/src/app/src/schedulers/price.js
-7.  erdis-pos-ro-worker - RequestError - EREQUEST - devam ediyor.
-8.  NO SERVICE - The numerator data not found! - /usr/src/app/src/schedulers/eDispatch/freeTransferOrder.js - devam ediyor.
+10'undan beri olanları taradım.
+1. serviceName: null - Error
+   - errorMessage: EF0153: [EF0153] Kontör yetersiz
+   - /usr/src/app/src/schedulers/eDispatch/freeTransferOrder.js
+   - methodName: finish
+2. serviceName: null- Error
+   - Cannot parse response
+   - /usr/src/app/src/schedulers/eDispatch/sentEDispatch.js
+3. serviceName: null - Error
+   - Error: Invalid WSDL URL: https://efaturaconnector.efinans.com.tr/connector/ws/connectorService?wsdl
+   - /usr/src/app/src/schedulers/eDispatch/sentEDispatch.js
+4. serviceName: erdis-management-worker - RequestError - EREQUEST
+   - Transaction (Process ID 254) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
+   - /usr/src/app/src/schedulers/dataListener.js
+5. serviceName: erdis-store-worker - RequestError - EREQUEST
+   * Cannot insert duplicate key row in object 'dbo.CLSINVENTTRANSFERBOXTABLEACT' with unique index 'I_105365INVENTTRANSFERREFRECIDX'. The duplicate key value is (5637144576, cl1, 5640402504, K4211750184).
+   * /usr/src/app/src/schedulers/jobs/sendData/shippingReceipt.js
+6. serviceName: erdis-wms-ma-worker - StatusCodeError
+   - 400 - {"errno":-104,"code":"ECONNRESET","syscall":"read"}
+   - /usr/src/app/src/schedulers/stockUpdate.js
+7.  serviceName: erdis-store-worker - MongooseServerSelectionError
+   -  connection timed out
+   -  /usr/src/app/src/schedulers/shippingReceiptStatus.js
+8. erdis-wms-ua-worker - erstore-lf-worker 
+   -  Failed to connect to 10.0.8.113:1433 - Could not connect (sequence)
+9. erdis-data-management
+   1.  Cannot read property 'topicName' of undefined - "5639688500,5639688502,5639688503,5639688505,5639688507" - TypeError
+      - /usr/src/app/src/schedulers/management/jobs/getData/eCommerceOrder.js
+      - getQueue
+   2.  TypeError - Object.hasOwn is not a function
+       - /usr/src/app/src/schedulers/management/dataListenerHR.js  
+       - DataListener.onTick
+       - Cannot read property 'postalCode' of undefined
+       - Cannot read property 'toLocaleUpperCase' of null
+   3. RequestError - EREQUEST 
+       - Incorrect syntax near ','.
+       - Error converting data type varchar to bigint.
+       - /usr/src/app/src/schedulers/management/dataListenerHR.js - handleError
+10. erdis-pos-ro-worker RequestError EREQUEST

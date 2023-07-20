@@ -3,7 +3,7 @@
 ### Contents
 
 
-| 1. **[Introduction To Algorithms](#Introduction_to_Algorithms)**                        |
+| **[Introduction To Algorithms](#Introduction_to_Algorithms)**                           |
 | :-------------------------------------------------------------------------------------- |
 | 1.1  [Priori Analysis and Priori Testing](#Priori)                                      |
 | 1.2  [Characteristics of Algorithm](#CharacteristicsAlgorithm)                          |
@@ -22,7 +22,6 @@
 | 1.11 [Best Worst and Average Case Analysis](#BestWorstAverageCase)                      |
 | 1.12 [Disjoint Sets Data Structure - Weighted Union and Collapsing Find](#DisjointSets) |
 
----
 
 <a id="Introduction_to_Algorithms"></a>
 ## Introduction To Algorithms
@@ -128,7 +127,7 @@ Space complexity is *A, B, C, n, i, j*.
 - A, B and C are matrices so they are `n²`
 - n, i and j are constants so the are `1`
   
-## Multiply
+### Multiply
 
 ```js
 multiply(A, B, n) {
@@ -140,6 +139,34 @@ multiply(A, B, n) {
       }
     }
   }
-}
+} // Now we can see each loop more **complexity** to us. Our complexity is **`O(n³)`**. **Space** will stays same O(n²).
 ```
-Now we can see each loop more **complexity** to us. Our complexity is **`O(n³)`**. **Space** will stays same **`O(n²)`**.
+
+<a id="TimeComplexity1"></a>
+## Time Complexity
+
+```js
+for (let i = 0; i < n; i++) --> n + 1 {
+  s + m; --> n
+} // So this summation is 2n+1. It is equal to O(n). 
+```
+
+```js
+for (i = 0; i < n; i++) { // n times
+  for (j = 0; j < i; j++) { // n times * n
+    s + m; 
+  }
+} // Time complexity is O(n²)
+```
+
+
+<a id="TimeComplexity2"></a>
+### Time Complexity Example
+<a id="TimeComplexity3"></a>
+### Time Complexity of While and If
+<a id="ClassOfFunctions"></a>
+## Classes of Functions
+<a id="CompareClassOfFunctions"></a>
+## Compare Class of Functions
+
+

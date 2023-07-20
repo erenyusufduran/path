@@ -1,9 +1,10 @@
 # Microsoft SQL
 
-| <font size="4px">**Contents**</font>      |
-| :---------------------------------------- |
-| 1  [Concepts](#concepts)                  |
-| 2  [SELECT Statements](#selectstatements) |
+| <font size="4px">**Contents**</font>          |
+| :-------------------------------------------- |
+| 1. [Concepts](#concepts)                      |
+| 2. [SELECT Statements](#selectstatements)     |
+| 3. [Filtering data with WHERE Clause](#where) |
 
 <a id="concepts"></a>
 An **instance** can be thought of as an installation of SQL Server. Every time we create a new server and then install SQL on it, we are actually creating a new instance of SQL.
@@ -42,3 +43,22 @@ FROM Person.Person
 ```
 
 - `*` is a nice feature, but we don't want to return every snigle row of larget tables. Because it slows down performance and sucks up a lot of server or computer resources.
+  
+  ---
+
+Any time that you query a view, you are actually executing a SQL statement. So instead of having to rewrite a bunch of JOINS, we can query a view which makes our lives a little bit easier. Think of a **View** as a `Virtual Table`. We're gonna query the same way.
+
+```sql
+SELECT * FROM HumanResources.vEmployee
+
+SELECT * FROM HumanResources.Employee
+
+SELECT 
+  FirstName, 
+  LastName, 
+  EmailAddress, 
+  PhoneNumber
+FROM Sales.vIndividualCustomer
+```
+
+## <a id="where">Filtering data with WHERE Clause</a>

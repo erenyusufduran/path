@@ -165,3 +165,20 @@ But if I wanted to try to use the alias, for example, in the `WHERE` clause, the
 
 - **ASC** is default one. So if you don't specify that it will automatically gives it **ASC**.
 
+```sql
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY LastName DESC, FirstName DESC
+-- Double ORDER BY clause.
+
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY LastName, FirstName DESC
+-- With this way LastName will ASC because it is default ASC.
+
+SELECT LastName, FirstName, SalesQuota
+FROM Sales.vSalesPerson
+WHERE SalesQuota >= 100000
+ORDER BY SalesQuota DESC, LastName
+```
+

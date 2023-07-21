@@ -1,10 +1,12 @@
 # Microsoft SQL
 
-| <font size="4px">**Contents**</font>          |
-| :-------------------------------------------- |
-| 1. [Concepts](#concepts)                      |
-| 2. [SELECT Statements](#selectstatements)     |
-| 3. [Filtering data with WHERE Clause](#where) |
+| <font size="4px">**Contents**</font>                   |
+| :----------------------------------------------------- |
+| 1. [***Concepts***](#concepts)                         |
+| 2. [***SELECT*** Statements](#selectstatements)        |
+| 3. [Filtering data with ***WHERE*** Clause](#where)    |
+| 4. [Sorting Data with ***ORDER BY*** Clause](#orderBy) |
+
 
 <a id="concepts"></a>
 An **instance** can be thought of as an installation of SQL Server. Every time we create a new server and then install SQL on it, we are actually creating a new instance of SQL.
@@ -116,5 +118,50 @@ SELECT *
 FROM Person.Person
 WHERE MiddleName IS NOT NULL
 
-
 ```
+
+## <a id="orderBy">Sorting Data with ORDER BY</a>
+
+Order BY Clause, which is the clause that allows us to sort our result set based on some criteria.
+
+```sql
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY FirstName
+
+SELECT FirstName, LastName
+FROM Sales.vIndividualCustomer
+ORDER BY 2 DESC -- 2 behave like LastName
+
+SELECT FirstName, LastName AS [Customer Last Name]
+FROM Sales.vIndividualCustomer
+ORDER BY [Customer Last Name] DESC
+```
+
+```sql
+SELECT
+FROM
+WHERE
+GROUP BY
+HAVING
+ORDER BY
+
+FROM
+WHERE
+GROUP BY
+HAVING
+SELECT
+ORDER BY
+```
+
+- These top six lines is how to we write our SQL code.
+- These bottom six lines is the order in which SQL evaluetes the clauses.
+
+So if we look at this, the `SELECT` clause is evaluated before the `ORDER BY` clause. So if we had an alias or if we wanted to specify ordinals, the `ORDER BY` clause actually understands the aliases, because SQL has already interpreted and passed out the `SELECT` clause.
+
+But if I wanted to try to use the alias, for example, in the `WHERE` clause, the `WHERE` clause is actually before the `SELECT` clause. So by the time the `WHERE` clause evaluate it, it's not even aware of any column aliases.
+
+> So with this little info is why we can use the column ordinal or the column aliases in the `ORDER BY` clauses.
+
+- **ASC** is default one. So if you don't specify that it will automatically gives it **ASC**.
+

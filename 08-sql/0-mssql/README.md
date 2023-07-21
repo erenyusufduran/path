@@ -62,3 +62,59 @@ FROM Sales.vIndividualCustomer
 ```
 
 ## <a id="where">Filtering data with WHERE Clause</a>
+
+Where clause that allows you to filter rows of data based on some criteria.
+
+```sql
+SELECT AVG(ListPrice) 
+FROM Production.Product
+WHERE ListPrice > 1500
+
+SELECT *
+FROM HumanResources.Employee
+WHERE MaritalStatus = 'S' AND Gender = 'M'
+
+SELECT *
+FROM HumanResources.Employee
+WHERE (MaritalStatus = 'S' AND Gender = 'M') OR OrganizationLevel = 4
+
+SELECT *
+FROM Sales.vStoreWithDemographics
+WHERE 
+    (AnnualSales > 1000000 AND BusinessType = 'OS') OR 
+    (YearOpened < 1990 AND SquareFeet > 40000 AND NumberEmployees > 10)
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName IN ('Chris', 'Steve', 'Michael', 'Thomas')
+
+SELECT *
+FROM Sales.vStoreWithDemographics
+WHERE AnnualSales BETWEEN 1000000 AND 2000000 -- AnnualSales between 1000000 AND 2000000
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'Mi%' -- Any FistName starts with 'Mi', %s, %h%
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'Mi_' -- Should be one char after 'Mi'
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE '_on%'
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'D[a,o]n' -- Selects 'Dan' or 'Don'
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'D[^o]n' -- Select everything except o
+
+SELECT *
+FROM Person.Person
+WHERE MiddleName IS NOT NULL
+
+
+```

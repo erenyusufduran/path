@@ -6,6 +6,9 @@
 | 2. [***SELECT*** Statements](#selectstatements)        |
 | 3. [Filtering data with ***WHERE*** Clause](#where)    |
 | 4. [Sorting Data with ***ORDER BY*** Clause](#orderBy) |
+| 5. [***INNER JOIN***](#innerJoin)                      |
+| 6. [***LEFT OUTER JOIN***](#leftOuterJoin)             |
+| 5. [***RIGHT OUTER JOIN***](#rightOuterJoin)           |
 
 
 <a id="concepts"></a>
@@ -22,7 +25,7 @@ Table is the next concept. That's really just nothing more than a collection of 
 For now these four concepts (**Instance, Database, Schema, Table**) is enough for us.
 
 
-## <a id="selectstatements">SELECT Statements</a>
+## <a id="selectstatements">***SELECT* Statements**</a>
 
 ### Literal SELECT Statements
 ```sql
@@ -63,7 +66,7 @@ SELECT
 FROM Sales.vIndividualCustomer
 ```
 
-## <a id="where">Filtering data with WHERE Clause</a>
+## <a id="where">**Filtering data with *WHERE* Clause**</a>
 
 Where clause that allows you to filter rows of data based on some criteria.
 
@@ -120,7 +123,7 @@ WHERE MiddleName IS NOT NULL
 
 ```
 
-## <a id="orderBy">Sorting Data with ORDER BY</a>
+## <a id="orderBy">**Sorting Data with *ORDER BY***</a>
 
 Order BY Clause, which is the clause that allows us to sort our result set based on some criteria.
 
@@ -181,4 +184,60 @@ FROM Sales.vSalesPerson
 WHERE SalesQuota >= 100000
 ORDER BY SalesQuota DESC, LastName
 ```
+---
 
+## JOINS
+
+**JOIN** is a method that allows us to return columns from different tables in the same query.
+
+There are four types of join and they are;
+- Inner Join
+- Left Outer Join
+- Right Outer Join
+- Full Outer Join
+
+<br />
+
+![Alt text](./assets/image.png)
+
+## <a id="innerJoin">***INNER JOIN***</a>
+
+**INNER JOIN** is essentially think of it as the intersection of two sets or two tables. 
+
+```sql
+SELECT P.Name, P.ProductNumber, PS.Name AS [ProductSubCategory Name]
+FROM Production.Product P
+INNER JOIN Production.ProductSubcategory PS
+ON P.ProductSubcategoryID = PS.ProductSubcategoryID
+
+SELECT 
+	PS.Name AS ProductSubCategoryName,
+	PC.Name AS ProductCategoryName
+FROM Production.ProductSubcategory PS
+INNER JOIN Production.ProductCategory PC
+ON PS.ProductCategoryID = PC.ProductCategoryID
+-- This query takes the Product Name from ProductSubCategory table.
+-- Takes the Product Category Name from ProductCategory table.
+-- IN PS there are ProductCategory ID's and in PC there are it's names.
+
+SELECT 
+	P.FirstName, P.LastName, E.EmailAddress
+FROM Person.Person P
+INNER JOIN Person.EmailAddress E
+ON P.BusinessEntityID = E.BusinessEntityID
+-- Takes Person Names from Person table
+-- Takes Person Email from EmailAddress table
+
+SELECT 
+	P.FirstName, P.LastName, E.EmailAddress, PP.PhoneNumber
+FROM Person.Person P
+INNER JOIN Person.EmailAddress E
+ON P.BusinessEntityID = E.BusinessEntityID
+INNER JOIN Person.PersonPhone PP
+ON PP.BusinessEntityID = P.BusinessEntityID
+-- With this way we can do two INNER JOIN together.
+``` 
+
+## <a id="leftOuterJoin">***LEFT OUTER JOIN***</a>
+
+## <a id="rightOuterJoin">***RIGHT OUTER JOIN***</a>

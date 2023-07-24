@@ -9,8 +9,8 @@
 | 5. [***INNER JOIN***](#innerJoin)                           |
 | 6. [***LEFT & RIGHT OUTER JOIN***](#leftRightOuterJoin)     |
 | 7. [***Aggregate** Functions*](#aggregate)                  |
-| 7. [Grouping Data with the ***GROUP BY** Clause*](#groupBy) |
-| 7. [Filtering Groups with the ***HAVING** Clause*](#having) |
+| 8. [Grouping Data with the ***GROUP BY** Clause*](#groupBy) |
+| 9. [Filtering Groups with the ***HAVING** Clause*](#having) |
 
 <a id="concepts"></a>
 An **instance** can be thought of as an installation of SQL Server. Every time we create a new server and then install SQL on it, we are actually creating a new instance of SQL.

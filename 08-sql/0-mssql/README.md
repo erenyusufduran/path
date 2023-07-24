@@ -8,6 +8,7 @@
 | 4. [Sorting Data with ***ORDER BY*** Clause](#orderBy)  |
 | 5. [***INNER JOIN***](#innerJoin)                       |
 | 6. [***LEFT & RIGHT OUTER JOIN***](#leftRightOuterJoin) |
+| 7. [***Aggregate** Functions*](#aggregate)              |
 
 
 <a id="concepts"></a>
@@ -277,5 +278,36 @@ LEFT OUTER JOIN Sales.SalesTerritory T
 ON T.TerritoryID = SOH.TerritoryID
 WHERE T.Name = 'Northwest'
 ORDER BY SOH.TotalDue DESC
+```
+
+## <a id="aggregate">***Aggregate** Functions*</a>
+
+Aggregate function are where you perform some operation against a set of values to return a single result or a scalar value. Find the max value from this, some these values...
+
+```sql
+SELECT MIN(TotalDue)
+FROM Sales.SalesOrderHeader
+
+- SELECT MAX(TotalDue)
+- SELECT COUNT(SalesOrderID)
+{
+  -- If I take SalesPersonID with COUNT function, it may be NULL so gives different result.
+  -- Count should be used with primary keys, or COUNT(*)
+
+  SELECT COUNT(SalesPersonID)
+  FROM Sales.SalesOrderHeader
+
+  SELECT COUNT(*)
+  FROM Sales.SalesOrderHeader
+  WHERE SalesPersonID IS NOT NULL
+}
+
+- SELECT COUNT(DISTINCT FirstName)
+- SELECT AVG(TotalDue)
+- SELECT SUM(TotalDue)
+
+SELECT SUM(TotalDue)
+FROM Sales.SalesOrderHeader
+WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
 ```
 

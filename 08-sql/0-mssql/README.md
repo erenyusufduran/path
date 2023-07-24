@@ -1,14 +1,13 @@
 # Microsoft SQL
 
-| <font size="4px">**Contents**</font>                   |
-| :----------------------------------------------------- |
-| 1. [***Concepts***](#concepts)                         |
-| 2. [***SELECT*** Statements](#selectstatements)        |
-| 3. [Filtering data with ***WHERE*** Clause](#where)    |
-| 4. [Sorting Data with ***ORDER BY*** Clause](#orderBy) |
-| 5. [***INNER JOIN***](#innerJoin)                      |
-| 6. [***LEFT OUTER JOIN***](#leftOuterJoin)             |
-| 5. [***RIGHT OUTER JOIN***](#rightOuterJoin)           |
+| <font size="4px">**Contents**</font>                    |
+| :------------------------------------------------------ |
+| 1. [***Concepts***](#concepts)                          |
+| 2. [***SELECT*** Statements](#selectstatements)         |
+| 3. [Filtering data with ***WHERE*** Clause](#where)     |
+| 4. [Sorting Data with ***ORDER BY*** Clause](#orderBy)  |
+| 5. [***INNER JOIN***](#innerJoin)                       |
+| 6. [***LEFT & RIGHT OUTER JOIN***](#leftRightOuterJoin) |
 
 
 <a id="concepts"></a>
@@ -184,7 +183,6 @@ FROM Sales.vSalesPerson
 WHERE SalesQuota >= 100000
 ORDER BY SalesQuota DESC, LastName
 ```
----
 
 ## JOINS
 
@@ -238,6 +236,46 @@ ON PP.BusinessEntityID = P.BusinessEntityID
 -- With this way we can do two INNER JOIN together.
 ``` 
 
-## <a id="leftOuterJoin">***LEFT OUTER JOIN***</a>
+## OUTER JOINS
 
-## <a id="rightOuterJoin">***RIGHT OUTER JOIN***</a>
+We will talk about left and right outer joins. These are same thing, it just depends on the order in which those tables appear that we are joining to and from. 
+
+### <a id="leftRightOuterJoin">***LEFT OUTER JOIN*** & ***RIGHT OUTER JOIN***</a>
+
+```sql
+SELECT P.Name, P.ProductNumber, PS.Name AS ProductSubCategoryName
+FROM Production.Product P
+INNER JOIN Production.ProductSubcategory PS
+ON PS.ProductSubcategoryID = P.ProductSubcategoryID
+-- We were do it this example. We were taking ProductSubCategoryName from PS table.
+
+SELECT P.Name, P.ProductNumber, PS.Name AS ProductSubCategoryName
+FROM Production.Product P
+LEFT OUTER JOIN Production.ProductSubcategory PS
+ON PS.ProductSubcategoryID = P.ProductSubcategoryID
+-- If we turn it into LEFT OUTER JOIN ProductSubCategoryName will be null.
+
+SELECT P.Name, P.ProductNumber, PS.Name AS ProductSubCategoryName
+FROM Production.ProductSubcategory PS
+RIGHT OUTER JOIN Production.Product P
+ON PS.ProductSubcategoryID = P.ProductSubcategoryID
+-- With RIGHT OUTER JOIN it is the same.
+
+SELECT 
+	P.FirstName, P.LastName,
+	SOH.SalesOrderNumber,
+	SOH.TotalDue AS SalesAmount,
+	T.Name AS TerritoryName
+FROM Sales.SalesOrderHeader SOH
+LEFT OUTER JOIN Sales.SalesPerson SP
+ON SP.BusinessEntityID = SOH.SalesPersonID
+LEFT OUTER JOIN HumanResources.Employee E
+ON E.BusinessEntityID = SP.BusinessEntityID
+LEFT OUTER JOIN Person.Person P
+ON P.BusinessEntityID = E.BusinessEntityID
+LEFT OUTER JOIN Sales.SalesTerritory T
+ON T.TerritoryID = SOH.TerritoryID
+WHERE T.Name = 'Northwest'
+ORDER BY SOH.TotalDue DESC
+```
+

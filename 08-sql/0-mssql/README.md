@@ -10,8 +10,7 @@
 | 6. [***LEFT & RIGHT OUTER JOIN***](#leftRightOuterJoin)     |
 | 7. [***Aggregate** Functions*](#aggregate)                  |
 | 7. [Grouping Data with the ***GROUP BY** Clause*](#groupBy) |
-
-
+| 7. [Filtering Groups with the ***HAVING** Clause*](#having) |
 
 <a id="concepts"></a>
 An **instance** can be thought of as an installation of SQL Server. Every time we create a new server and then install SQL on it, we are actually creating a new instance of SQL.
@@ -313,7 +312,7 @@ FROM Sales.SalesOrderHeader
 WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
 ```
 
-## <a id="where">**GROUP data with *GROUP BY* Clause**</a>
+## <a id="where">**Group data with *GROUP BY* Clause**</a>
 
 List the column values together. 
 
@@ -351,4 +350,52 @@ ON ST.TerritoryID = SOH.TerritoryID
 WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
 GROUP BY ST.Name, P.FirstName, P.LastName
 ORDER BY 1, 2
+```
+
+## <a id="where">**Filtering Groups with the *HAVING* Clause**</a>
+
+*HAVING* clause is very similar to the *WHERE* clause except where clause filters out rows of data based on common values, that having clause filters out from groups based on **aggregate functions**.
+
+```sql
+SELECT 
+	ST.Name AS [Territory Name],
+	SUM(TotalDue) AS [Total Sales - 2006]
+FROM Sales.SalesOrderHeader SOH
+INNER JOIN Sales.SalesTerritory ST
+ON ST.TerritoryID = SOH.TerritoryID
+WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
+GROUP BY ST.Name
+HAVING SUM(TotalDue) > 4000000
+ORDER BY 1 
+
+SELECT PS.Name AS [SubCategory Name], COUNT(*) AS [Product Count]
+FROM Production.Product P
+INNER JOIN Production.ProductSubcategory PS
+ON PS.ProductSubcategoryID = P.ProductSubcategoryID
+GROUP BY PS.Name
+HAVING COUNT(*) >= 15
+ORDER BY 1
+
+SELECT 
+	Department AS [Department Name],
+	COUNT(*) AS [Employee Count]
+FROM HumanResources.vEmployeeDepartment
+GROUP BY Department
+HAVING COUNT(*) >= 8
+
+- HAVING COUNT(*) BETWEEN 8 AND 10
+- HAVING COUNT(*) IN (8, 10)
+- HAVING COUNT(*) IN (6, 9, 10)
+
+SELECT 
+	SalesPersonID,
+	SUM(TotalDue) AS [Total Sales Amount],
+	COUNT(*) AS [Total Sales Count]
+FROM Sales.SalesOrderHeader
+WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
+	AND SalesPersonID IS NOT NULL
+GROUP BY SalesPersonID
+HAVING SUM(TotalDue) > 2000000
+	AND COUNT(*) >= 75
+ORDER BY [Total Sales Amount] DESC
 ```

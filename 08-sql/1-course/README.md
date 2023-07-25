@@ -9,7 +9,11 @@
 | 5. [***INSERT Table***](#insertTable)           |
 | 6. [***UPDATE Table***](#updateTable)           |
 | 7. [***DELETE Table***](#deleteTable)           |
-| 8. [***ALTER Table***](#alterTable)           |
+| 8. [***ALTER Table***](#alterTable)             |
+| 9. [***DROP Table***](#dropTable)               |
+| 10. [***CHECK Constraints***](#check)           |
+
+## <a id="check">**CHECK Constraints**</a>
 
 ## <a id="commands">***Advenced SQL Commands***</a>
 
@@ -135,5 +139,14 @@ RENAME COLUMN person TO people
 
 ALTER TABLE new_info
 ALTER COLUMN people DROP NOT NULL
+```
+
+## <a id="dropTable">**DROP Table**</a>
+
+`DROP` allows for the complete removal of a column in a table.
+
+```sql
+ALTER TABLE new_info
+DROP COLUMN IF EXISTS people
 ```
 

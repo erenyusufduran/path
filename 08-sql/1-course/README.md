@@ -6,6 +6,9 @@
 | 2. [***Primary Keys and Foreign Keys***](#keys) |
 | 3. [***Constraints***](#constraints)            |
 | 4. [***CREATE Table***](#createTable)           |
+| 4. [***INSERT Table***](#insertTable)           |
+| 5. [***UPDATe Table***](#updateTable)           |
+
 
 ## <a id="commands">***Advenced SQL Commands***</a>
 
@@ -59,3 +62,22 @@ CREATE TABLE job(
 	job_name VARCHAR(150) UNIQUE NOT NULL
 )
 ```
+
+## <a id="insertTable">**INSERT Table**</a>
+
+SERIAL columns do not need to be provided a value.
+
+```sql
+INSERT INTO account(username, password, email, created_on) 
+VALUES
+('Eren', 'password', 'erenydurann@gmail.com', CURRENT_TIMESTAMP)
+
+INSERT INTO job(job_name)
+VALUES
+('Astronaut')
+
+INSERT INTO job(job_name)
+VALUES
+('Astronaut')
+```
+

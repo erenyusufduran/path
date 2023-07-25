@@ -9,6 +9,7 @@
 | 5. [***INSERT Table***](#insertTable)           |
 | 6. [***UPDATE Table***](#updateTable)           |
 | 7. [***DELETE Table***](#deleteTable)           |
+| 8. [***ALTER Table***](#alterTable)           |
 
 ## <a id="commands">***Advenced SQL Commands***</a>
 
@@ -109,3 +110,30 @@ RETURNING email, created_on, last_login
 ```sql
 DELETE FROM job WHERE job_name = 'President'
 ```
+
+## <a id="alterTable">**ALTER Table**</a>
+
+The `ALTER` clause allows for changes to an existing table structure, such as:
+- Adding, dropping or renaming columns
+- Changing a column's data type
+- Set *DEFAULT* values for a column
+- ADD *CHECK* constraints
+- Rename table
+
+```sql
+CREATE TABLE information(
+	info_id SERIAL PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	person VARCHAR(50) NOT NULL UNIQUE
+)
+
+ALTER TABLE information
+RENAME TO new_info
+
+ALTER TABLE new_info
+RENAME COLUMN person TO people
+
+ALTER TABLE new_info
+ALTER COLUMN people DROP NOT NULL
+```
+

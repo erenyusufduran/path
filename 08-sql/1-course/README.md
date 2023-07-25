@@ -6,9 +6,9 @@
 | 2. [***Primary Keys and Foreign Keys***](#keys) |
 | 3. [***Constraints***](#constraints)            |
 | 4. [***CREATE Table***](#createTable)           |
-| 4. [***INSERT Table***](#insertTable)           |
-| 5. [***UPDATe Table***](#updateTable)           |
-
+| 5. [***INSERT Table***](#insertTable)           |
+| 6. [***UPDATE Table***](#updateTable)           |
+| 7. [***DELETE Table***](#deleteTable)           |
 
 ## <a id="commands">***Advenced SQL Commands***</a>
 
@@ -102,4 +102,10 @@ RETURNING email
 UPDATE account
 SET last_login = CURRENT_TIMESTAMP
 RETURNING email, created_on, last_login
+```
+
+## <a id="deleteTable">**DELETE Table**</a>
+
+```sql
+DELETE FROM job WHERE job_name = 'President'
 ```

@@ -150,3 +150,21 @@ ALTER TABLE new_info
 DROP COLUMN IF EXISTS people
 ```
 
+## <a id="check">**CHECK Constraints**</a>
+
+The `CHECK` constraints allows us to create more customized constraints that adhere to a certain condition. Such as making sure all inserted integer values fall below a certain threshold.	
+
+```sql
+CREATE TABLE employees(
+	emp_id SERIAL PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	birthdate DATE CHECK (birthdate > '1900-01-01'),
+	hire_date DATE CHECK (hire_date > birthdate),
+	salary INTEGER CHECK (salary > 0)
+)
+
+INSERT INTO employees(first_name, last_name, birthdate, hire_date, salary)
+VALUES
+('Eren', 'Duran', '1920-11-03', '2010-01-11', 100)
+```

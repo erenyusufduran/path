@@ -234,3 +234,24 @@ END) AS pg13
 FROM film
 ```
 
+### <a id="coalesce">**COALESCE**</a>
+
+THE **COALESCE** function becomes useful when querying a table that contains `null` values and substituting it with another value.
+
+Keep the COLESCE function in mind in case you encounter a table with null values that you want to perform operations on!
+
+### <a id="cast">**CAST**</a>
+
+The **CAST** operator let's you convert from one data type into another.
+
+- Keep in mind not every instance of a data type can be CAST to another data type, it must be reasonable to convert the data, *for example '5' to an integer will work, 'five' to an integer will not*.
+- Keep in mind you can then use this in a `SELECT` query with a column name instead of a single instance
+  - SELECT CAST(date AS TIMESTAMP) from table
+
+```sql
+SELECT CAST('5' AS INTEGER) AS new_int
+
+SELECT CAST(inventory_id AS VARCHAR) FROM rental
+
+SELECT CHAR_LENGTH(CAST(inventory_id AS VARCHAR)) FROM rental
+```

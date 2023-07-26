@@ -19,9 +19,9 @@ Each instance has unique name on a network.
 
 We have a **database** which is kind of the next concept and at a high level, it's just an organized collection of data. There are **schemas** and **tables** contained within a database is just a container to **store and organize** data.
 
-Schema is the next concept. That's a physical grouping of tables in a logical way. We create these schemas sort of in a way that makes sense to us.
+**Schema** is the next concept. That's a physical grouping of tables in a logical way. We create these schemas sort of in a way that makes sense to us.
 
-Table is the next concept. That's really just nothing more than a collection of data organized in rows and columns. Can think of an `Excel Table` or `Excel Worksheet` as a table. There are some differences, but really its rows and columns.  
+**Table** is the next concept. That's really just nothing more than a collection of data organized in rows and columns. Can think of an `Excel Table` or `Excel Worksheet` as a table. There are some differences, but really its rows and columns.  
 
 For now these four concepts (**Instance, Database, Schema, Table**) is enough for us.
 
@@ -69,7 +69,7 @@ FROM Sales.vIndividualCustomer
 
 ## <a id="where">**Filtering data with *WHERE* Clause**</a>
 
-Where clause that allows you to filter rows of data based on some criteria.
+**WHERE** clause that allows you to filter rows of data based on some criteria.
 
 ```sql
 SELECT AVG(ListPrice) 
@@ -126,7 +126,7 @@ WHERE MiddleName IS NOT NULL
 
 ## <a id="orderBy">**Sorting Data with *ORDER BY***</a>
 
-Order BY Clause, which is the clause that allows us to sort our result set based on some criteria.
+**Order BY** Clause, which is the clause that allows us to sort our result set based on some criteria.
 
 ```sql
 SELECT FirstName, LastName
@@ -312,7 +312,7 @@ FROM Sales.SalesOrderHeader
 WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
 ```
 
-## <a id="where">**Group data with *GROUP BY* Clause**</a>
+## <a id="groupBy">**Group data with *GROUP BY* Clause**</a>
 
 List the column values together. 
 
@@ -352,7 +352,7 @@ GROUP BY ST.Name, P.FirstName, P.LastName
 ORDER BY 1, 2
 ```
 
-## <a id="where">**Filtering Groups with the *HAVING* Clause**</a>
+## <a id="having">**Filtering Groups with the *HAVING* Clause**</a>
 
 *HAVING* clause is very similar to the *WHERE* clause except where clause filters out rows of data based on common values, that having clause filters out from groups based on **aggregate functions**.
 

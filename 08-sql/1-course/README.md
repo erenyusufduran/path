@@ -18,10 +18,6 @@
 | 11.3 - [*CAST*](#cast)                                           |
 | 12 - [***Views***](#views)                                       |
 
-## <a id="procedures">**Conditional Expressions and Procedures**</a>
-
-## <a id="check">**CHECK Constraints**</a>
-
 ## <a id="commands">***Advenced SQL Commands***</a>
 
 ### **Timestamps and Extract**

@@ -1,17 +1,24 @@
 # SQL
 
-| <font size="4px">**Contents**</font>            |
-| :---------------------------------------------- |
-| 1. [***Advanced SQL Commands***](#commands)     |
-| 2. [***Primary Keys and Foreign Keys***](#keys) |
-| 3. [***Constraints***](#constraints)            |
-| 4. [***CREATE Table***](#createTable)           |
-| 5. [***INSERT Table***](#insertTable)           |
-| 6. [***UPDATE Table***](#updateTable)           |
-| 7. [***DELETE Table***](#deleteTable)           |
-| 8. [***ALTER Table***](#alterTable)             |
-| 9. [***DROP Table***](#dropTable)               |
-| 10. [***CHECK Constraints***](#check)           |
+| <font size="4px">**Contents**</font>                             |
+| :--------------------------------------------------------------- |
+| 1 - [***Advanced SQL Commands***](#commands)                     |
+| 2 - [***Primary Keys and Foreign Keys***](#keys)                 |
+| 3 - [***Constraints***](#constraints)                            |
+| 4 - [***CREATE Table***](#createTable)                           |
+| 5 - [***INSERT Table***](#insertTable)                           |
+| 6 - [***UPDATE Table***](#updateTable)                           |
+| 7 - [***DELETE Table***](#deleteTable)                           |
+| 8 - [***ALTER Table***](#alterTable)                             |
+| 9 - [***DROP Table***](#dropTable)                               |
+| 10 - [***CHECK Constraints***](#check)                           |
+| 11 - [***Conditional Expressions and Procedures***](#procedures) |
+| 11.1 - [*CASE*](#case)                                           |
+| 11.2 - [*COALESCE*](#coalesce)                                   |
+| 11.3 - [*CAST*](#cast)                                           |
+| 11.4 - [*NULLIF*](#nullIf)                                       |
+
+## <a id="procedures">**Conditional Expressions and Procedures**</a>
 
 ## <a id="check">**CHECK Constraints**</a>
 
@@ -168,3 +175,62 @@ INSERT INTO employees(first_name, last_name, birthdate, hire_date, salary)
 VALUES
 ('Eren', 'Duran', '1920-11-03', '2010-01-11', 100)
 ```
+
+## <a id="procedures">**Conditional Expressions and Procedures**</a>
+
+These expressions and functions will allow us to add logic to our commands and workflows in SQL.
+
+### <a id="case">**CASE**</a>
+
+We can use the **CASE** statement to only execute SQL code when certain conditions are met. This is very similar to `IF/ELSE` statements in programming languages.
+
+The **CASE** expression syntax first evaluates an expression then compares the result with each value in the `WHEN` clauses sequentially.
+
+```sql
+SELECT customer_id,
+CASE 
+	WHEN (customer_id < 100) THEN 'Premium'
+	WHEN (customer_id BETWEEN 100 AND 200) THEN 'Plus'
+	ELSE 'Normal'
+END AS customer_class
+FROM customer
+
+SELECT customer_id,
+CASE customer_id
+	WHEN 2 THEN 'Winner'
+	WHEN 5 THEN 'Second Place'
+	ELSE 'Normal'
+END AS raffle_results
+FROM customer
+
+SELECT
+SUM(CASE rental_rate
+	WHEN 0.99 THEN 1
+	ELSE 0
+END) AS number_of_bargains,
+SUM(CASE rental_rate
+   	WHEN 2.99 THEN 1
+   	ELSE 0
+END) AS regular,
+SUM(CASE rental_rate
+   	WHEN 4.99 THEN 1
+   	ELSE 0
+END) AS premium
+FROM film
+
+SELECT
+SUM(
+CASE rating
+	WHEN 'R' THEN 1 ELSE 0
+END) AS r,
+SUM(
+CASE rating
+	WHEN 'PG' THEN 1 ELSE 0
+END) AS pg,
+SUM(
+CASE rating
+	WHEN 'PG-13' THEN 1 ELSE 0
+END) AS pg13
+FROM film
+```
+

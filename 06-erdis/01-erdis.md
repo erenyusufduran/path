@@ -27,7 +27,7 @@ ERP (Kurumsal kaynak planlama) bir organizasyondaki iş süreçlerinin görünü
   - Benzer sistemler varsa bir ülkede farklı AX'lar kullanıyoruz.
   - Farklı sistemler var ise bu sefer yeni geliştirme yapılması gerekiliyor. Bu yüzden de farklı farklı AX yapıları çıkartmak gerekebiliyor.
 
-![](ax.png)
+![](./assets/ax.png)
 
 ## SÜREÇ
 

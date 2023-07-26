@@ -44,7 +44,7 @@ Mikroservisdeki servisler birbirleriyle iletişim kurabiliyor olmalı. Bunun iki
 
 ## Data Akış Senaryosu
 
-![](erdis.png)
+![](./assets/erdis.png)
 
 - Client, data veya mağaza olarak adlandırılabilir.
 - Gateway ile kullanıcı kontrolü ve uygulamaya bağlanabiliyorlar.
@@ -86,4 +86,4 @@ Depodan bir istek geldiğinde ürün çekmek için TR tüm ürünlerin deposu ol
 
 ---
 
-![](./barcode-shipping-receipt.png)
+![](./assets/barcode-shipping-receipt.png)

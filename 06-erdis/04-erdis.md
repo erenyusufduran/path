@@ -17,10 +17,10 @@ ErAX Other'da farklı farklı ülkeler bulunuyor, bunlar farklı şirketler gibi
 2009'daki ürün biraz daha veri tabanı geliştirme gibiydi, 2012'de ise OOP'den yararlanılmış bir versiyon vardı. Miras almalar gibi şeyler, extensionlar yapıp o tabloları istediğimiz alanlara eklemeler yapabiliyordur.
 
 AX 2009
-![](ax-2009.png)
+![](./assets/ax-2009.png)
 
 AX 2012
-![](ax-2012.png)
+![](./assets/ax-2012.png)
 
 2012 kullanan biri, 2009 kullanabilir. 2009 kullanan biri 2012 kullanabilir.
 

@@ -27,11 +27,11 @@ Bizim bir Master data senaryomuz vardı, bu master data senaryosunda Colins TR A
 
 ### Colins 2012 AX TR Yapısı
 
-![](./erdis.png)
+![](./assets/erdis.png)
 
 Bizim burda Colins TR AX 2012'den akan master datalarımızın bulunduğu bir kuyruk yapısı var.
 
-![](master_data_source.png)
+![](./assets/master_data_source.png)
 
 Burası bizim master data kaynağımızın bulunduğu ekran.
 
@@ -39,7 +39,7 @@ Midax sender olarak görünen kısım ise, AX üzerindeki tabloların insert vey
 
 Mesela **InventItemBarcode** tablosuna bakalım.
 
-![](./inventItemBarcode.png)
+![](./assets/inventItemBarcode.png)
 
 Bu barkod tablosu üzerindeki bir barkod normal şartlarda entegrasyona eklendiği zaman (insert veya update aldığında), erdisIntegrationQueue'ya yeni bir kayıt ekleniyor. ErdisSent'i de false oluyor. Bu kayıt bizim tarafımızda dinlenmek üzere kuyrukta bekliyor. Daha sonrasında biz bir SP yardımıyla ErdisSent'i false olan dataları çekiyoruz.
 

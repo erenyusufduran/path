@@ -16,7 +16,7 @@
 | 11.1 - [*CASE*](#case)                                           |
 | 11.2 - [*COALESCE*](#coalesce)                                   |
 | 11.3 - [*CAST*](#cast)                                           |
-| 11.4 - [*NULLIF*](#nullIf)                                       |
+| 12 - [***Views***](#views)                                       |
 
 ## <a id="procedures">**Conditional Expressions and Procedures**</a>
 
@@ -254,4 +254,34 @@ SELECT CAST('5' AS INTEGER) AS new_int
 SELECT CAST(inventory_id AS VARCHAR) FROM rental
 
 SELECT CHAR_LENGTH(CAST(inventory_id AS VARCHAR)) FROM rental
+```
+
+## <a id="views">***Views***</a>
+
+Often there are specific combinations of tables and conditions that you find yourself using quite often for a project. Instead of having to perform the same query over and over again as a starting point, we can create a *VIEW* to quickly see this query with a simple call.
+
+- A view is a database object that is of a stored query.
+- A view can be accessed as a virtual table in PostgreSQL.
+- Notice that a view does not store data phisically, it simply stores the query.
+
+```sql
+CREATE VIEW customer_info AS 
+SELECT first_name, last_name, address
+FROM customer
+INNER JOIN address
+ON customer.address_id = address.address_id
+
+SELECT * FROM customer_info
+
+CREATE OR REPLACE VIEW customer_info AS 
+SELECT first_name, last_name, address, district 
+FROM customer
+INNER JOIN address
+ON customer.address_id = address.address_id
+
+SELECT * FROM customer_info
+
+DROP VIEW IF EXISTS customer_info
+
+ALTER VIEW customer_info RENAME to c_info
 ```

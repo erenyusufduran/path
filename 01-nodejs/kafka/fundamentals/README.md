@@ -13,12 +13,11 @@
 
 ![Alt text](./assets/where-to-use.png)
 
-- Web sayfası etkinlik izlemelerinde
-  - User interactions
-  - User hashing informations
-- İzleme sistemlerinde metriklerde (Grafik, CPU izlemeleri)
-- Log toplama sistemlerinde
-- Stream Processing işlemlerinde (Dağıtılması gereken işlemlerde)
+- **Web Sayfası etkinlik izlemelerinde:** User'ın girdiği aksiyonlar, sayfalar üzerindeki işlemler, user session bilgileri gibi bir çok bilgi burada tutulabilir. Bu bilgiler merkezi bir topic içerisinde toplanır ve gerçek zamanlı işlem için uygun hale getirilebilir.
+- **İzleme sistemlerindeki Metriklerde:** Kafka izleme sistemleri üzerine veri depolama, toplama, raporlama gibi operasyonel metrikler ile de sıklıkla kullanılır. (CPU'yu takip etme gibi)
+- **Log Toplama Sistemlerinde:** Çeşitli kaynaklardan log toplama ve bunları işleme sokma gibi yapılarda kullanılabilir.
+- **Stream Proccessing İşlemlerinde:** Bir contentimiz var diyelim. Ve bu content yani bu içerik belirli kaynaklara stream edilmesi gerek dağıtılması gerekiyor. Youtube'u düşünebiliriz.
+
 
 ### Kafka'nın **Artıları**
 
@@ -38,9 +37,26 @@ Kafkayı Uber, Netflix, Spotify, Slack, Pinterest, Coursera, LinkedIn, Shopify g
 
 ![Alt text](./assets/components-of-kafka.png)
 
-- **Producer:** Bize Kafka'nın toplayacağı verileri gönderen yapı. Upload edilen video olabilir, log olabilir.
+- **Producer:** Apache Kafka'nın toplayacağı verileri gönderen bileşen. Buradaki veri her şey olabilir.
+  
+  Temel olarak, veri akışının kaynağı olan bir uygulama, Producer dediğimiz bileşendir. mesajlar veya tokenlar oluşturmak ve bunları Kafka clusterdaki bir veya daha fazla topic'e yayınlamak için Apache Kafka Producer'ı kullanıyoruz.
+
+  Ayrıca, Kafka'nın Producer API'si, mesajın veya token'in paketlenmesine ve Kafka Sunucusuna teslim edilmesine yardımcı olur.
+  Producer veri gönderirken acknowledgment mesajı alıp almayacağını, alacaksa kimden alacağını konfigüre edebilir.
+
 - **Topics:** Bizim veri depomuz, göndereceğimiz verileri depolayan birimler.
+
+   Kafka topic, mesajları ve olayları mantıksal bir sırada tutan Sanal Gruplar veya Günlüklerdir ve kullanıcıların Kafka Sunucuları arasında kolaylıkla veri gönderip almasına olanak tanır. Kullanıcı tarafından isimlendirilirler. Bir Kafka cluster'ında binlerce topic olabilir.
+
+
 - **Kafka Broker:** Sunucunun kendisi
+
+  Broker'lar Kafka Cluster'ı oluşturan sunuculardır. Her broker birer sayıdan oluşan ID ile tanımlıdır. Kafka Cluster oluşturulurken broker sayısı üç gibi bir sayıyla başlar, gereksinim arttıkça ilave edilir. Yüzün üstünde broker koşturan sistemler de vardır.
+
+  Bağlandığımız sunucu bootstrap broker adını alır. Bootstrap broker'a bağlanınca tüm broker'ların bilgisinin tutulduğu metadata sayesinde diğer broker'ların adreslerine erişilir. Tüm kafka cluster'a bağlanmak için sadece bootstrap broker'a bağlanmak yeterlidir.
+  
+  Kafka dağıtık yapıda olduğu için tek bir broker topic'in tamamını alamaz. Her broker topic'in belli kısımlarını (partition) alır. Brokerlara partition'ların dağıtımı, eşit şekilde yapılmaya çalışılır.
+
 - **Consumer:** Topiclere bağlanan, topic'i baştan başlayarak okur.
 
 ### Nasıl Çalışıyor?
@@ -108,3 +124,4 @@ docker run --name kafka -p 9092:9092 -e KAFKA_ZOOKEEPER_CONNECT=127.0.0.1:2181 -
 
 - <a href="https://kafka.softwaremill.com/">Kafka Software Mill</a>
 - <a href="https://stackshare.io/kafka">Stackshare / Kafka</a>
+- Ekip Sunumu

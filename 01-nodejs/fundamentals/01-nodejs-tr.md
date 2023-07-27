@@ -11,7 +11,7 @@ Nodejs JavaScript kodlarını execute etmek için yapılmış, açık kaynak kod
 
 ### Sandboxing
 
-![alt text](./sandboxing.png)
+![alt text](./assets/sandboxing.png)
 
 Diğer ortamlardan izole edilmiş ve bölümlenmiş yazılımları çalıştırmak için kullanılan bir ortamdır.
 

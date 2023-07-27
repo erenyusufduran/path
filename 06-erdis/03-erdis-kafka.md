@@ -5,12 +5,12 @@ ErdisSent, Management Worker aldı mı almadım mı boolean değeri.
 
 ## EMT
 
-- Management ile Middleware arasındaki tüm iletişimi Kafka sağlıyor.
-- Colins TR AX ile Management arası SQL sorgularıyla sağlanıyor.
+- Management ile Middleware arasındaki tüm iletişimi **Kafka** sağlıyor.
+- Colins TR AX ile Management arası **SQL sorgularıyla** sağlanıyor.
 
-Servisler 3 kısımdan oluşuyor, işleyen kısımlar worker ve service, client'a aktaran kısımlar API kısımları.
+Servisler 3 kısımdan oluşuyor, işleyen kısımlar *worker* ve *service*, client'a aktaran kısımlar *API* kısımları.
 
-Servisler sürekli run edilmesi gereken yerler, schedule edilmesi gerekilen yerler bir repo olarak düşünüldü, API bacaklarını yazdığımız middleware katmanına gelen yerler ise servisin kendi adıyla yer alıyor.
+Servisler sürekli run edilmesi gereken yerler, schedule edilmesi gerekilen yerler bir repo olarak düşünüldü yani worker, API bacaklarını yazdığımız middleware katmanına gelen yerler ise servisin kendi adıyla yer alıyor.
 
 Normalde 3 kısım, 3 ayrı microservice oluyor. Fakat microservice olarak 3'ünü birlikte almak daha doğru olur.
 
@@ -61,15 +61,17 @@ Yukarıdaki ilk şemada Colins TR AX 2012'den Management'a olan iletişim SQL so
 
 ---
 
-Management'ta bir registry yapısı var. Cron job'lar içerisinde periyodik olarak SP'yi çalıştıyor. Burada GetQueue'yu çalıştırıyor. Çalıştırdığı SP'nin içerisinden gelen data'yı bir takım işlemlere sokuyor. TABLENAME'i grupluyor, recID'yi grupluyor. Sonrasında **bunları kafkaya produce** ediyor. Kafka'da da **AXERDISQUEUE'ya produce** ediyor. Sonrasında produce edebildiğini **successList** içine pushluyor. Sonrasında bu successList içerisine pushladıklarını da **TABLENAME'e göre grupluyor**, **ErdisSent**'ini **true**'ya çekiyor.
+**Management Worker**'da bir registry yapısı var. Cron job'lar içerisinde periyodik olarak SP'yi çalıştıyor. Burada GetQueue'yu çalıştırıyor. Çalıştırdığı SP'nin içerisinden gelen data'yı bir takım işlemlere sokuyor. TABLENAME'i grupluyor, recID'yi grupluyor. Sonrasında **bunları kafkaya produce** ediyor. Kafka'da da **AXERDISQUEUE'ya produce** ediyor. Sonrasında produce edebildiğini **successList** içine pushluyor. Sonrasında bu successList içerisine pushladıklarını da **TABLENAME'e göre grupluyor**, **ErdisSent**'ini **true**'ya çekiyor.
+
+`dataListener.js`
 
 TABLENAME'e göre farklı farklı ayrıştırmalar yapabiliyoruz. Mesela InventTransferTable ise data biçimi olarak ayrıştırabiliyoruz, onları da businessLogic içerisinde tutuyoruz.
 
-Bu noktada worker'ın işi bitiyor, data kafka'ya verilmiş oluyor. `dataListener.js`
+Bu noktada worker'ın işi bitiyor, data kafka'ya verilmiş oluyor.
 
 ---
 
-Öncesinde `server.js`'e bakalım. Biz kafka'nın topiclerini sürekli consume edecek bir yapı olarak kurguladığımız service yapıları var. Bunlar sürekli olarak gidip kafka'nın topiclerini dinliyorlar.
+Öncesinde **data-management-service**'teki `server.js`'e bakalım. Biz kafka'nın topiclerini sürekli consume edecek bir yapı olarak kurguladığımız service yapıları var. Bunlar sürekli olarak gidip kafka'nın topiclerini dinliyorlar.
 
 Sonrasında bizim bu datayı Management service taşımaya devam ediyor. Management-service içerisinde de `dataDistributor.js` diye bir yapı var.
 
@@ -95,7 +97,7 @@ Kafka'nın içine mesaj (`incomingMessage`) string olarak düşüyor, onun için
 
 ---
 
-Geldik middleware-service altındaki `dataStaging` dosyasına, burada MIDDLEWAREQUEUE'yu dinleyen bir yapı var. Message geldiği zaman bunu gidip Staging'e kaydediyor. Management-service'ten alıp produce ettiğimiz datayı burası dinliyor.
+Geldik **middleware-service** altındaki `dataStaging` dosyasına, burada MIDDLEWAREQUEUE'yu dinleyen bir yapı var. Message geldiği zaman bunu gidip Staging'e kaydediyor. Management-service'ten alıp produce ettiğimiz datayı burası dinliyor.
 
 Şuanda data middleware içerisine geldi, tabii datanın tamamı yok, sadece izi var. Datanın tamamına sahip olmadığımız için `middleware-worker/scheduler` içerisinde `barcode` schedular'ı var. Bu da gidiyor refAXTableName'i **InventItemBarcode** olan status'u da **none** olan dataları git bul ve bunların ara datalarını getir diyor. Burdan `jobs/getData` içindeki `barcode`'a gidiyorum ve burda bir view var, bu view içinde recId'si şu olan datayı getir diyerek, propertylerini mapleyerek kaydediyoruz.
 
@@ -119,4 +121,4 @@ Data eklenmiş oldu, bu eklenen datanın objectId'si ile middleware'e request at
 
 ---
 
-Biz barcode'a gidiyoruz ve datayı alıyoruz ya isSent'ini true'ya çekmemiz gerekiyor. Bunu da service'in commit service'ine gel ve datayı aldığını onayla diyoruz. Bunu onayladıktan sonra isSent true'ya çevriliyor.
+Biz barcode'a gidiyoruz ve datayı alıyoruz ama isSent'ini true'ya çekmemiz gerekiyor. Bunu da service'in commit service'ine gel ve datayı aldığını onayla diyoruz. Bunu onayladıktan sonra isSent true'ya çevriliyor.

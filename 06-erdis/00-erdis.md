@@ -81,7 +81,6 @@ Depodan bir istek geldiğinde ürün çekmek için TR tüm ürünlerin deposu ol
 - Bu depolara barkod göndermemiz gerekiyor. Bu barkod datası TR'den çıkıyor. TR'de üretilen barkod datası farklı ülkelere dağıtılır.
   - Bu data _Master Data_ olarak adlandırılır, Middleware'de tutulur. Çoklu dağıtılır.
 - Barkodlar AX 2012 sisteminden geliyor, middleware de datanın tamamını tuttuğumuz yer olarak konumlanıyor.
-
 - Ukrayna ve Romanya'nın içerisinde ise burada bulunan mağazalara sevkiyat çıkacağı zaman ordaki işlemi Ukrayna'daki ERP hallediyor.
 
 ---

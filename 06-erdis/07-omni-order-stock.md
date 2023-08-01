@@ -9,11 +9,11 @@ AX entegrasyonumuz var, burada dolan tabloyu `clsOrderHeaderTable_B2C` dinliyoru
   - Stoğun işlenmemiş olması?
   - Barkodun daha seçilmemiş olması?
   - Model, Renk, KaliteVersiyon bilgileri belli
-Burdaki izi alıp OMNIORDERERDISQUEUE'ya gidiyor. 
+Burdaki izi alıp `OMNIORDERERDISQUEUE`'ya gidiyor. 
 
-Burada OMNI ORDER dinliyor. dataStaging.consumer içinde dinliyor. Buradan sonra OMNI ORDER'da preOrder.scheduler içerisinde SQL'den çektiğimiz SP ile çekiyoruz.
+Burada OMNI ORDER dinliyor. `dataStaging.consumer` içinde dinliyor. Buradan sonra OMNI ORDER'da `preOrder.scheduler` içerisinde SQL'den çektiğimiz SP ile çekiyoruz.
 
-1. ETicaret operasyonu klasik
+1. ETicaret operasyonu klasik --> ETicaret -> Siparişi veren kişi
 2. Mağazadan teslim --> ETicaretten mağazadan alabilme özelliği
 3. Marketplace var ETicaret'le aynı, ama Trendyol üzerinden olursa buradan oluyor. Colins Eticaretten değil de Trendyol'dan veya N11'den falan yapılması.
 
@@ -25,14 +25,14 @@ WMS'te çözüm denen bir firma var. Stoksal işlemleri falan yapıyorlar. Periy
 
 ETicaret'i yapan başka bir firma biz oraya periyodik stock veriyoruz. Stock'u teyit ediyorlar bizden satarken tekrardan. Varsa da satış yapıyorlar. 
 
-Çözüm entegrasyon API'leriyle Stock çekilmesi için yapıldı. Ham haldeki stock'u burada çekiyoruz. Sonra processWMSStockScheduler ile bizim bütün tablodaki stock'ları alıyor. Sonlarındaki key number'lara göre processLimit belirliyoruz. Her birini işlemcilere dağıtacak şekilde bölüyoruz. 8 işlemciye 100 işlemi dağıtıyoruz, her bir işlem 100'e bölümünden kalanını işliyor. 100'le 200 arasındakileri de her seferinde aynı şekilde bölerek işliyor. Burada da subProcess'ten (child process, thread bölmek) faydalanıyoruz.
+Çözüm entegrasyon API'leriyle Stock çekilmesi için yapıldı. Ham haldeki stock'u burada çekiyoruz. Sonra **omni-stock** reposundaki `processWMSStockScheduler` ile bizim bütün tablodaki stock'ları alıyor. Sonlarındaki key number'lara göre processLimit belirliyoruz. Her birini işlemcilere dağıtacak şekilde bölüyoruz. 8 işlemciye 100 işlemi dağıtıyoruz, her bir işlem 100'e bölümünden kalanını işliyor. 100'le 200 arasındakileri de her seferinde aynı şekilde bölerek işliyor. Burada da subProcess'ten (child process, thread bölmek) faydalanıyoruz.
 
-- İşlemci yapısının kurulma sebebi çok fazla stock olması (27100), bunların her birini işlemek gerekiyor. Bunu yapmak için node'un stream yapısından da faydalanıyoruz. En hızlı zamanda yapılması gerekiliyor, sürekli güncelleme yapacağımız için de süreyle ilgili de bir hızlandırma sağlamamız gerekiyor.
+- İşlemci yapısının kurulma sebebi çok fazla stock olması (**271000**), bunların her birini işlemek gerekiyor. Bunu yapmak için node'un stream yapısından da faydalanıyoruz. En hızlı zamanda yapılması gerekiliyor, sürekli güncelleme yapacağımız için de süreyle ilgili de bir hızlandırma sağlamamız gerekiyor.
   - WMS entegrasyonundan çekilen bir massive data var
   - Onları halledip kullanılabilir data şekline sokmak ayrı bir işlem, ve bu uzun sürmemeli.
-  - Order işlenicek 1 saatte bir çekilirse, 1 saatlik stock sıkıntı vericek. En güncel stockla devam etsin istiyoruz, en yakın kopyayı almaya çalışıyoruz. Bu yüzden de böyle yapıyoruz.
+  - Order işlenicek 1 saatte bir çekilirse, 1 saatlik stock sıkıntı vericek. En güncel stockla devam etsin istiyoruz, en yakın kopyayı almaya çalışıyoruz. Bu yüzden de sürekli (dakikada, 2 dakikada bir) çekiyoruz. Burada da tüm işlemcilere yaymak bizim için en optimal çözüm oluyor.
 
-Bu işlemeyi bitirdikten sonra `processstock` ortaya çıkmış oluyor. OnOrderQty varsa farklı logicler var. colorId gibi şeyler Erdis'te bulunan barcode tablosundan geliyor. 
+Bu işlemeyi bitirdikten sonra `processedstock` ortaya çıkmış oluyor. OnOrderQty varsa farklı logicler var. colorId gibi şeyler Erdis'te bulunan barcode tablosundan geliyor. 
 
 Bir config table olmak zorunda ve burada depo olmalı. `warehouseCode`. Tanımlı olmayan bir stock'u işleyemiyoruz. SalesPoolTable ile de adres bilgilerini mapliyoruz. Sonrasnıda barcode buluyoruz, existingStock mu ona bakıyoruz. 
 

@@ -26,11 +26,39 @@ Buradan sonra Rusya dönüş yapıyor. Rusya'nın dönüşü **CLSQRCodeTable** 
 - Bunları barcode, po ile birlikte tutabiliyor muyuz ve tutarsak bu dataya tutacağımız po-barcode birleşimini key olarak atayarak ulaşabilir miyiz? --> array olarak response olabilir.
 - Etiketçi firmaya bunları manuel olarak gönderiyoruz, orada bir servis yazabilir miyiz?
 
+---
+
+- **RBOSpecialGroupItems** içerisindeki;
+  -  `ITEMID`, 
+  -  `ETGCONFIGID`, 
+  -  `ETGSTYLEID`, 
+  -  `ETGINVENTCOLORID`, 
+  -  `ETGGTIPINFOID` alanları bizim için önemli olan alanlar. 
+
+- Bu alanlar **CisPOLineTable** içerisinde;
+  - `ITEMID`,
+  - `CONFIGID`,
+  - `INVENTSTYLEID`,
+  - `INVENTCOLORID` olarak bulunuyorlar.
+
+- **ETGGtipInfo** içerisindekii önemli alanlar ise;
+  - `GTIPINFOID`
+  - `USEQRCODE` alanları.
+
+**RBOSpecialGroupItems** içerisindeki `ETGTIPINFOID` aynı zamanda **ETGGtipInfo** tablosunda `GTIPINFOID` olarak bulunmakta. Biz burada RBOSpecialGroupItems'tan ETGGtipInfo'ya gidiyoruz ve aynı *`GTIPINFOID`*'ye sahip olan dökümana bakıp, bu dökümanın `USEQRCODE` alanı 0 mı 1 mi diye bakıyoruz. 
+
+1 ise **CLSQRGtinTable** adlı tabloda bunları topluyoruz. Rusya'ya gitmesi gereken dökümanları görebiliyoruz.
+
 ## <a id="rboSpecial">**RBOSpecialGroupItems**</a>
 
 ```
+- GROUP_ID
 - ITEM_ID
+- ETG_INVENT_COLOR_ID
+- ETG_STYLE_ID
+- ETG_CONFIG_ID
 - ETG_STYLE_NAME
+- ETG_GTIP_INFO_ID
 - ETG_ISC_OATED
 - ETG_OUTLET
 - ETGC_OLLECTION_IN_USE

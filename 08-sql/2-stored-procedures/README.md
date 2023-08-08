@@ -17,3 +17,80 @@ Stored procedure is simply a group of SQL statements grouped togerher under a si
 7. To call it we can write `EXEC $NAME` or `EXECUTE`
 8. If we want to update the procedure, we can call with `ALTER PROC` command.
 9. We can remove it from SP list or with `DROP PROC $NAME` we can delete it.
+
+```sql
+ALTER PROC spHREmployee --CREATE
+AS
+BEGIN
+SELECT TOP 100 *
+FROM HumanResources.Employee
+ORDER BY BirthDate
+END
+
+EXEC spHREmployee
+```
+
+## Parameters
+
+The idea being that every time you execute a SP, you can pass in a different piece of information and that will affect the result returned if change the value.
+
+After the SP name we can write the parameters.
+
+```sql
+USE AdventureWorks2012
+GO
+
+CREATE PROC spHREmployeCriteria (@OrgLevel AS INT)
+AS
+BEGIN
+	SELECT TOP 100 *
+	FROM HumanResources.Employee
+	WHERE OrganizationLevel > @OrgLevel
+	ORDER BY BirthDate
+END
+
+EXEC spHREmployeCriteria @OrgLevel = 3
+```
+
+```sql
+ALTER PROC spHREmployeCriteria 
+	(
+		@MinOrgLevel AS INT,
+		@MaxOrgLevel AS INT
+	)
+AS
+BEGIN
+	SELECT TOP 100 *
+	FROM HumanResources.Employee
+	WHERE 
+		OrganizationLevel >= @MinOrgLevel AND 
+		OrganizationLevel <= @MaxOrgLevel
+	ORDER BY BirthDate
+END
+
+EXEC spHREmployeCriteria 3, 4
+```
+
+
+```sql
+ALTER PROC spHREmployeCriteria 
+	(
+		@MinOrgLevel AS INT = 0,
+		@MaxOrgLevel AS INT,
+		@Title AS VARCHAR(MAX)
+	)
+AS
+BEGIN
+	SELECT TOP 100 *
+	FROM HumanResources.Employee
+	WHERE 
+		OrganizationLevel >= @MinOrgLevel AND 
+		OrganizationLevel <= @MaxOrgLevel AND
+		JobTitle LIKE '%' + @Title + '%'
+	ORDER BY BirthDate
+END
+
+EXEC spHREmployeCriteria 3, 4, 'sales'
+EXEC spHREmployeCriteria @MinOrgLevel = 3, @MaxOrgLevel = 4, @Title = 'sales'
+
+```

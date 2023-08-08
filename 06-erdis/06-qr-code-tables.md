@@ -4,7 +4,7 @@
 | :------------------------------------------------------------ |
 | 1. [**RBOSpecialGroupItems**](#rboSpecial)                    |
 | 2. [**ETGGtipInfo**](#etgGtip)                                |
-| 3. [**CisPOLineTable**](#cisPOLine)                                |
+| 3. [**CisPOLineTable**](#cisPOLine)                           |
 | 4. [**CLSQRGtinTable** (1. Custom Table)](#firstCustomTable)  |
 | 5. [**CLSQRCodeTable** (2. Custom Table)](#secondCustomTable) |
 
@@ -78,7 +78,7 @@ Buradan sonra Rusya dönüş yapıyor. Rusya'nın dönüşü **CLSQRCodeTable** 
 - REC_VERSION
 - PARTITION
 - REC_ID
-- USE_QR_CODE
+- USE_QR_CODE - Önemli olan kısım burası. 0'sa QR kod kullanılmıyor bilgisi, 1'se kullanılıyor bilgisi.
 - USE_QR_CODE_BELARUS
 - QR_CODE_CONTROL_WMS_RU
 - QR_CODE_CONTROL_WMS_BY
@@ -147,7 +147,7 @@ Buradan sonra Rusya dönüş yapıyor. Rusya'nın dönüşü **CLSQRCodeTable** 
 - REC_VERSION
 - PARTITION
 - REC_ID
-- STATUS
+- STATUS - 0, 1, 2 (New, Requested, Completed)
 ```
 
 ## <a id="secondCustomTable">**CLSQRCodeTable *(2. Custom Table)***</a>
@@ -162,3 +162,29 @@ Buradan sonra Rusya dönüş yapıyor. Rusya'nın dönüşü **CLSQRCodeTable** 
 - S58QR2
 - S58_COUNTRY_REGION
 ```
+
+---
+
+Barkodarın kullanılabilir ya da kullanılamaz bilgisini gönderdiğimiz bir tablo var. Hem de QR kodları direkt gönderdiğimiz bir tablo var. AX içerisinde **Ürün Bilgi Yönetimi** alanında **QR Code Formu** bulunuyor. Buradaki barkod bilgilerini Serdar Bey giriyor. Sonra bu veriler depoya gönderiliyor. Bunu da otomatik hale getirmeyi planlıyorlar. Verileri servisten alıp buraya yazdırma kısmı var. Formdaki veriler de entegrasyon tarafından dinlendiği için depoya gönderiliyor. Burası 2. custom table.
+
+GtinTable yani 1. custom table olayı da verileri batch job'la dolduruyor. Status 0, 1, 2 (New, Requested, Completed) BatchJob'la buraya veriler geliyor. İsmi `QrGtinTableInsert`. Burası Hem Rusya, hem Belarus için çalıştığı için ilk kısım Rusya için olan kısım oluyor, item barcode ve asorti barcode için sonraki kısım da Belarus. Bunların arasında **sadece destinasyon farkı** bulunuyor.
+
+Bu iki custom tablo arasında ortak bir alan var mı? GtinTable'da veriler oluşsun, buradaki verileri de alarak bir servis oluşturalım. Bizden bunu servisle alsınlar ve başvuru formuna otomatik olarak gelsin. - Peki hangi üründe hangi datamatrix olduğunu nereden biliyoruz?
+
+Qr code table'daki veriler ve barkodlar kullanılabilir/kullanılamaz bilgisini de depoya gönderiyoruz. **QrControlWmsAndMidaxRU**. 
+
+ETGGtipInfo'da QR code kullanılabilir, kullanılamaz işaretleniyor burada bazı tablolarla join ediyoruz. Bu barkod bilgisini depoya gönderiyoruz. 
+- `UseQrCodeRusya` - erktsr192 midax sender db'sinde
+- `QrGtinInsertTable`  - servertr149
+- Her gün çalışan verileri tabloya insert eden `ClsQrCodeBatchJob` - servertr149
+- **QrCodeAx2WMS** - erktsr192 midax sender db'sinde - MidaxSender'da dinliyor. Ona göre MidaxSender'a alıyor tabloyu. Sonra ENT058 tablosuna bu SP ile gönderim yapıyoruz. Depo tarafında qr kodların var olduğu tablo.
+
+----
+
+- CLSQrCodeTable'daki S58SKU nedir? Burayı takip edebiliyor muyuz, bu kısımla ilgili soru sormadık sanırım
+  - Anladığım kadarıyla ürünleri tekil bazda takip edemiyoruz, buna ek olarak hangi qr hangi ürüne göremiyoruz?
+- QrGtinTableInsert SP'si Temp GtinTablo RBO, ETGGTIPINFO, PURCHPOOL, AXSASSORTMENTTABLE ile birlikte çalışıyor.
+  - PURCHPOOL içerisinde Batch'te alınacak maddeler belirtiliyor.
+  - AXSASSORTMENTTABLE içerisinde SizeDescription alanı alınıyor.
+- erktsr192'ye nasıl ulaşıyoruz?
+- BatchJob ve QrCodeAx2WMS'e nasıl ulaşıyoruz

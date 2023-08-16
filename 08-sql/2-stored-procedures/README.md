@@ -146,3 +146,50 @@ PRINT @NumActors
 
 PRINT 'Number of films = ' + CAST(@NumFilms AS VARCHAR(MAX))
 ```
+
+```sql
+USE Movies
+GO
+
+DECLARE @ID INT
+DECLARE @Name VARCHAR(MAX)
+DECLARE @Date DATETIME
+
+SELECT TOP 1
+	@ID = ActorID,
+	@Name = ActorName,
+	@Date = ActorDOB
+FROM
+	tblActor
+WHERE
+	ActorDOB >= '1970-01-01'
+ORDER BY
+	ActorDOB ASC
+
+SELECT
+	F.FilmName,
+	C.CastCharacterName
+FROM
+	tblFilm AS F
+	INNER JOIN tblCast AS C
+	ON F.FilmID = C.CastFilmID
+WHERE
+	C.CastActorID = @ID
+```
+
+```sql
+USE Movies
+GO
+
+DECLARE @NameList VARCHAR(MAX)
+SET @NameList = ''
+
+SELECT
+	@NameList = @NameList + ActorName + ', '
+FROM
+	tblActor
+WHERE
+	YEAR(ActorDob) = 1970
+
+PRINT @NameList
+```

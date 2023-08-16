@@ -203,5 +203,59 @@ SELECT
 	@@SERVERNAME, 
 	@@VERSION,
 	@@ROWCOUNT
+```
 
+## Output Parameters & Return Valeus
+
+```sql
+USE Movies
+GO
+
+CREATE PROC spFilmsInYear(@Year INT)
+AS
+BEGIN
+	SELECT FilmName
+	FROM tblFilm
+	WHERE YEAR(FilmReleaseDate) - @Year
+	ORDER BY FilmName ASC
+END
+
+-- EXEC
+EXEC spFilmsInYear @Year = 2000
+```
+
+```sql
+ALTER PROC spFilmsInYear
+	(
+		@Year INT,
+		@FilmList VARCHAR(MAX) OUTPUT,
+		@FilmCount INT OUTPUT
+	)
+AS
+BEGIN
+	DECLARE @Films VARCHAR(MAX)
+	SET @Films = ''
+	SELECT
+		@Films = @Films + FilmName + ', '
+	FROM
+		tblFilm
+	WHERE
+		YEAR(FilmReleaseDate) = @Year
+	ORDER BY
+		FilmName ASC
+
+	SET @FilmCount = @@ROWCOUNT
+	SET @FilmList = @Films
+END
+
+-- EXEC
+DECLARE @Names VARCHAR(MAX)
+DECLARE @Count INT
+
+EXEC spFilmsInYear
+	@Year = 2000,
+	@FilmList = @Names OUTPUT
+	@FilmCount = @Count OUTPUT
+
+SELECT @Count AS [Number of Films], @Names AS [List of Films]
 ```

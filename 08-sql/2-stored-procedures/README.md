@@ -193,3 +193,15 @@ WHERE
 
 PRINT @NameList
 ```
+
+### Global Variables
+
+With `@@`, we can reach global variables.
+
+```sql
+SELECT 
+	@@SERVERNAME, 
+	@@VERSION,
+	@@ROWCOUNT
+
+```

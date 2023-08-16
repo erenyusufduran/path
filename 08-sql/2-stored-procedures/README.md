@@ -94,3 +94,55 @@ EXEC spHREmployeCriteria 3, 4, 'sales'
 EXEC spHREmployeCriteria @MinOrgLevel = 3, @MaxOrgLevel = 4, @Title = 'sales'
 
 ```
+
+## Variables
+
+Variable is simply a space in memory where you can hold a single piece of information while your procedure runs. They're useful whenever you want to give your procedures in memory if you would like to be ablo to refer to the same value from one statement to the next within a procedure.
+
+```sql
+USE Movies
+GO
+
+SET NOCOUNT ON
+
+DECLARE @MyDate DATETIME
+DECLARE @NumFilms INT
+DECLARE @NumActors INT
+DECLARE @NumDirectors INT
+
+SET @MyDate = '1970-01-01'
+SET @NumFilms = 
+				(SELECT COUNT(*) 
+					FROM tblFilm 
+					WHERE FilmReleaseDate >= @MyDate)
+SET @NumActors = 
+				(SELECT COUNT(*) 
+					FROM tblActor 
+					WHERE ActorDOB >= @MyDate)
+SET @NumDirectors = 
+				(SELECT COUNT(*) 
+					FROM tblDirector 
+					WHERE DirectorDOB >= @MyDate)
+
+SELECT 'Number of films', @NumFilms
+UNION
+SELECT 'Number of actors', @NumActors
+
+SELECT FilmName AS [Name], FilmReleaseDate AS [Date], 'Film' AS [Type]
+FROM tblFilm
+WHERE FilmReleaseDate >= @MyDate
+UNION ALL
+SELECT ActorName, ActorDOB, 'Actor'
+FROM tblActor
+WHERE ActorDOB >= @MyDate
+UNION ALL
+SELECT DirectorName, DirectorDOB, 'Director'
+WHERE tblDirector
+WHERE DirectorDOB >= @MyDate
+ORDER BY [Date] ASC
+
+PRINT @NumFilms
+PRINT @NumActors
+
+PRINT 'Number of films = ' + CAST(@NumFilms AS VARCHAR(MAX))
+```

@@ -243,6 +243,8 @@ BEGIN
 		YEAR(FilmReleaseDate) = @Year
 	ORDER BY
 		FilmName ASC
+	
+	RETURN @@ROWCOUNT
 
 	SET @FilmCount = @@ROWCOUNT
 	SET @FilmList = @Films
@@ -259,3 +261,4 @@ EXEC spFilmsInYear
 
 SELECT @Count AS [Number of Films], @Names AS [List of Films]
 ```
+

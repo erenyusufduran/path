@@ -262,3 +262,63 @@ EXEC spFilmsInYear
 SELECT @Count AS [Number of Films], @Names AS [List of Films]
 ```
 
+## IF Statements
+
+In SQL server `IF statements` allows you to check whether a condition has been met and if it has to perform a sequence of actions.
+
+Demostrate that at the most basic level, gt a simple routine here which counts the number of films stored in the film table where the film genre Id is 3.
+
+```sql
+DECLARE @RomanticFilms INT
+DECLARE @ActionFilms INT
+
+SET @RomanticFilms = (SELECT COUNT(*) FROM tblFilm WHERE FilmGenreID = 3)
+SET @ActionFilms = (SELECT COUNT(*) FROM tblFilm WHERE FilmGenreID = 1)
+
+IF @RomanticFilms > 5
+	BEGIN
+		PRINT 'There are too many romantic films in DB.'
+		IF @ActionFilms > 10
+			BEGIN
+				PRINT 'Phew! Therer are enough action films'
+			END
+	END
+ELSE
+	BEGIN
+		PRINT 'There are no more than five romantic films.'
+	END
+```
+
+```sql
+CREATE PROC spVariableData
+	(
+		@InfoType VARCHAR(9) -- ALL / AWARD / FINANCIAL
+	)
+AS
+BEGIN
+	IF @InfoType = 'ALL'
+		BEGIN
+			(SELECT * FROM tblFilm)
+			RETURN 
+		END
+	IF @InfoType = 'AWARD'
+		BEGIN
+			(
+				SELECT FilmName, FilmOscarWins, FilmOscarNominations
+				FROM tblFilm
+			)
+			RETURN
+		END
+	IF @InfoType = 'FINANCIAL'
+		BEGIN
+			(
+				SELECT FilmName, FilmBoxOfficeDollars, FilmBudgerDollars
+				FROM tblFilm
+			)
+			RETURN
+		END
+	SELECT 'You must choose ALL, AWARD or FINANCIAL'
+END
+
+EXEC spVariableData @InfoType='ALL'
+```

@@ -361,3 +361,7 @@ WHILE @Counter <= @MaxOscars
 		SET @Counter = @Counter + 1
 	END
 ```
+
+## User Defined Functions
+
+Under the database there are a programmability section. Under it's there is Functions folder and there are list of some functions. We can see System Functions like Date and Time functions, Aggregate functions.

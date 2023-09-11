@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import Calculator from './components/Calculator';
 
 const messages = ['Learn React ⚛️', 'Apply for jobs 💼', 'Invest your new income 🤑'];
 
 export default function App() {
   return (
     <div>
-      <Steps />
-      <Steps />
+      {/* <Steps /> */}
+      <Calculator />
     </div>
   );
 }

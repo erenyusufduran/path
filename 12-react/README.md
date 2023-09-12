@@ -56,8 +56,6 @@ If you are taking **SEPERTE INGREDIENTS**, it will be an library.
 
 - When using event handlers, we get access to a **synthetic event object**, not the browser's native object, so that **events work the same way across al browsers**. The difference is that **most synthetic events bubble,** including focus, blue, and change, which do not bubble as native browser events. Only the scroll event does not bubble.
 
-- 
-
 ---
 
 ## Section #1

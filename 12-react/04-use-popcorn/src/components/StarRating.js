@@ -11,17 +11,6 @@ const starContainerStyle = {
   display: 'flex',
 };
 
-// eslint-disable-next-line no-use-before-define
-StarRating.propTypes = {
-  maxRating: PropTypes.number,
-  color: PropTypes.string,
-  size: PropTypes.number,
-  className: PropTypes.string,
-  messages: PropTypes.array,
-  defaultRating: PropTypes.number,
-  onSetRating: PropTypes.func,
-};
-
 const StarRating = ({
   maxRating = 5,
   color = '#fcc419',
@@ -87,5 +76,16 @@ const Star = ({ onRate, full, onHoverIn, onHoverOut, color, size }) => {
     </span>
   );
 };
+
+StarRating.propTypes = {
+  maxRating: PropTypes.number,
+  color: PropTypes.string,
+  size: PropTypes.number,
+  className: PropTypes.string,
+  messages: PropTypes.array,
+  defaultRating: PropTypes.number,
+  onSetRating: PropTypes.func,
+};
+
 
 export default StarRating;

@@ -58,6 +58,24 @@ If you are taking **SEPERTE INGREDIENTS**, it will be an library.
 
 ---
 
+## Hooks
+
+- Special built-in functions that allow us to **`hook` into React internals:**
+  - Creating and accessing **state** from Fiber tree
+  - Registering **side effects** in Fiber tree
+  - Manual **DOM selections**
+- Always start with **`use`**
+- Enable easy **reusing of non-visual logic:** We can compose multiple hooks into our own **custom hooks**
+- Give **function components** the ability to own state and run side effects at different lifecycle points.
+
+### Rules of Hooks
+
+1. **Only call hooks at the top level.**
+   - Do **NOT** call hooks **inside conditionals, loops, nested functions**, or after an **early return**.
+   - This is necessary to ensure that hooks are always called in the **same order** (hooks rely on this)
+2. **Only call hooks from React functions.**
+   - Only call hooks inside a **function component** or a **custom hook**.
+
 ## Section #1
 
 - <a href="https://react.dev/?ref=jonas.io">React</a> (Documentation that you should keep open at all times)

@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import StarRating from './StarRating';
-import { useMovies } from '../hooks/useMovies';
-import { useLocalStorageState } from '../hooks';
+import { useMovies, useKey, useLocalStorageState } from '../hooks';
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 const KEY = 'c7a85c15';
@@ -9,7 +8,7 @@ const KEY = 'c7a85c15';
 export default function App() {
   const [query, setQuery] = useState('');
   const [selectedId, setSelectedId] = useState(null);
-  const [watched, setWatched] = useLocalStorageState([], "watched");
+  const [watched, setWatched] = useLocalStorageState([], 'watched');
   const { movies, isLoading, error } = useMovies(query);
 
   const handleSelectMovie = (id) => {
@@ -96,18 +95,11 @@ function Logo() {
 function Search({ query, setQuery }) {
   const inputElement = useRef(null);
 
-  useEffect(() => {
+  useKey('Enter', () => {
+    if (document.activeElement === inputElement.current) return;
     inputElement.current.focus();
-    const callback = (e) => {
-      if (document.activeElement === inputElement.current) return;
-      if (e.code === 'Enter') {
-        inputElement.current.focus();
-        setQuery('');
-      }
-    };
-    document.addEventListener('keydown', callback);
-    return () => document.removeEventListener('keydown', callback);
-  }, [setQuery]);
+    setQuery('');
+  });
 
   return (
     <input
@@ -213,17 +205,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onCloseMovie();
   };
 
-  useEffect(() => {
-    const callback = (e) => {
-      if (e.code === 'Escape') {
-        onCloseMovie();
-      }
-    };
-    document.addEventListener('keydown', callback);
-    return () => {
-      document.removeEventListener('keydown', callback);
-    };
-  }, [onCloseMovie]);
+  useKey('Escape', onCloseMovie);
 
   useEffect(() => {
     const getMovieDetails = async () => {

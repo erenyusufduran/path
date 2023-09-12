@@ -1,3 +1,37 @@
+# React is a library. 
+
+There is two kind of things and they are *Library and Frameworks*. 
+
+If you take everything **ALL-IN-ONE-KIT**, it would be a framework.
+- All ingredients are included.
+- But, you are stuck with the kit's ingrediends.
+- Angular, Vue.js
+  
+If you are taking **SEPERTE INGREDIENTS**, it will be an library.
+- You have freedom to choose the best ingredients.
+- But, you need to research and buy all ingredients seperately.
+
+## React 3rd Party Library Ecosystem
+
+1. **Routing (for SPAs)** - *React Router*, *React Location*
+2. **HTTP Requests** - *fetch*, *AXIOS*
+3. **Remote State Management** - *React Query*, *SWR*, *Apollo*
+4. **Global State Management** - *Context API*, *Redux*, *Zustand*
+5. **Styling** - *CSS Modules*, *Styled Components*, *tailwindcss*
+6. **Form Management** - *React Hook Form*, *FORMIK*
+7. **Animations/Transitions** - *Motion*, *react-spring*
+8. **UI Components** - *chakra*, *mantine*
+
+## Frameworks Built on Top of React
+
+**React frameworks offer many other features:** Server-side rendering (SSR), Static site generation (SSG), Better Developer Experience (DX)
+
+1. **Nextjs**
+2. **Remix**
+3. **Gatsby**
+
+
+
 ## Section #1
 
 - <a href="https://react.dev/?ref=jonas.io">React</a> (Documentation that you should keep open at all times)

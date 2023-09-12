@@ -228,6 +228,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     getMovieDetails();
   }, [selectedId]);
 
+  useEffect(() => {
+    if (!title) return;
+    document.title = `Movie | ${title}`;
+  }, [title]);
+
   return (
     <div className="details">
       {isLoading ? (
@@ -339,7 +344,9 @@ function WatchedMovie({ movie, onDeleteWatched }) {
           <span>⏳</span>
           <span>{movie.runtime} min</span>
         </p>
-        <button className='btn-delete' onClick={() => onDeleteWatched(movie.imdbID)}>X</button>
+        <button className="btn-delete" onClick={() => onDeleteWatched(movie.imdbID)}>
+          X
+        </button>
       </div>
     </li>
   );

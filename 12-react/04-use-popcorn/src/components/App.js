@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import StarRating from './StarRating';
-import { useMovies, useKey, useLocalStorageState } from '../hooks';
+import { useMovies, useMovie, useKey, useLocalStorageState, useCountRatingDecisions } from '../hooks';
 
 const average = (arr) => arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
-const KEY = 'c7a85c15';
 
 export default function App() {
   const [query, setQuery] = useState('');
@@ -164,18 +163,13 @@ function Movie({ movie, onSelectMovie }) {
 }
 
 function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
-  const countRef = useRef(0);
-
-  const [movie, setMovie] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState('');
+  const { movie, isLoading } = useMovie(selectedId);
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserRating = watched.find((movie) => movie.imdbID === selectedId)?.userRating;
 
-  useEffect(() => {
-    if (userRating) countRef.current++;
-  }, [userRating]);
+  const countRef = useCountRatingDecisions(userRating);
 
   const {
     Title: title,
@@ -207,17 +201,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
 
   useKey('Escape', onCloseMovie);
 
-  useEffect(() => {
-    const getMovieDetails = async () => {
-      setIsLoading(true);
-      const res = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&i=${selectedId}`);
-      if (!res.ok) throw new Error('Something went wrong with fetching movies.');
-      const data = await res.json();
-      setMovie(data);
-      setIsLoading(false);
-    };
-    getMovieDetails();
-  }, [selectedId]);
 
   useEffect(() => {
     if (!title) return;
@@ -299,11 +282,11 @@ function WatchedSummary({ watched }) {
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{avgUserRating.toFixed(2)}</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{avgRuntime.toFixed()} min</span>
         </p>
       </div>
     </div>

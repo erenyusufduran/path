@@ -130,6 +130,18 @@ One custom hook should have **one purpose**, to make it **reusable** and **porta
 
 useReducer hook is basically more advanced and more complex way of managing state instead of the useState hook.
 
+State management with *useState* is not enough in certain situations:
+1. When components have **a lot of state variables and state updates**, spread across many event handlers **all over the component.**
+2. When **multiple state updates** need to happen **at the same time** (as a reaction the the same event, like 'starting a game')
+3. When updating one piece of state **depends on one or multiple other pieces of state**.
+
+- An alternative way of setting state, ideal for **complex state** and **related pieces of state**.
+- Stores related pieces of state in a **state** object.
+- useReducer needs **reducer** function containing **all logic to update state**. Decouples state logic from component.
+- **reducer** pure function that takes current *state* and *action*, **and returns the next state**.
+- **action** object that describes **how to update state**.
+- **dispatch** function to trigger state updates, by *`sending` actions* **from event handlers** to the reducer.
+
 # RESOURCES
 
 ## Section #1

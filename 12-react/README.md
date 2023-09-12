@@ -99,14 +99,15 @@ Current property set to the initial property of 23. Then with <code>myRef.curren
 
 - Refs are usually for **data that is NOT rendered:** usually only appear in event handlers or effects, not in JSX (otherwise use state)
 - Do **NOT** write or read `.current` in render logic (like state)
+  
   ---
 
 - Need to Store Data
   - Will data change at some point?
-    - YES: Should it re-render component?
-      - YES: State (useState)
-      - NO: Ref (useRef)
-    - NO: Regular const variable
+    - **YES**: Should it re-render component?
+      - **YES**: State (useState)
+      - **NO**: Ref (useRef)
+    - **NO**: Regular const variable
 
 ## Section #1
 

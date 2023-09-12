@@ -76,6 +76,38 @@ If you are taking **SEPERTE INGREDIENTS**, it will be an library.
 2. **Only call hooks from React functions.**
    - Only call hooks inside a **function component** or a **custom hook**.
 
+### useState
+
+1. Creating State
+  - Simple
+  - Based on function (lazy evaluation)
+    - Function must be **pure** and accept **no arguments**. Called only on **initial render**.
+2. Updating State
+  - Simple
+  - Based on current state
+
+### useRef
+
+Current property set to the initial property of 23. Then with <code>myRef.current = 1000</code> we can change it to mutable.
+
+**Updating refs don't causes re-render.**
+
+- `Box` (object) with a **mutable**.current property that is **persisted across renders** (`normal` variables are always reset.)
+
+1. Creating a variable that stays the same between renders (e.g. previous state, setTimeout id, etc.)
+2. Selecting and storing DOM elements.
+
+- Refs are usually for **data that is NOT rendered:** usually only appear in event handlers or effects, not in JSX (otherwise use state)
+- Do **NOT** write or read `.current` in render logic (like state)
+  ---
+
+- Need to Store Data
+  - Will data change at some point?
+    - YES: Should it re-render component?
+      - YES: State (useState)
+      - NO: Ref (useRef)
+    - NO: Regular const variable
+
 ## Section #1
 
 - <a href="https://react.dev/?ref=jonas.io">React</a> (Documentation that you should keep open at all times)

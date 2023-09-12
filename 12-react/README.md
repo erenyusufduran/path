@@ -22,13 +22,13 @@ If you are taking **SEPERTE INGREDIENTS**, it will be an library.
 7. **Animations/Transitions** - *Motion*, *react-spring*
 8. **UI Components** - *chakra*, *mantine*
 
-## Frameworks Built on Top of React
+### Frameworks Built on Top of React
 
-**React frameworks offer many other features:** Server-side rendering (SSR), Static site generation (SSG), Better Developer Experience (DX)
+- **React frameworks offer many other features:** Server-side rendering (SSR), Static site generation (SSG), Better Developer Experience (DX)
 
-1. **Nextjs**
-2. **Remix**
-3. **Gatsby**
+  1. **Nextjs**
+  2. **Remix**
+  3. **Gatsby**
 
 ---
 
@@ -79,12 +79,12 @@ If you are taking **SEPERTE INGREDIENTS**, it will be an library.
 ### useState
 
 1. Creating State
-  - Simple
-  - Based on function (lazy evaluation)
-    - Function must be **pure** and accept **no arguments**. Called only on **initial render**.
+    - Simple
+    - Based on function (lazy evaluation)
+      - Function must be **pure** and accept **no arguments**. Called only on **initial render**.
 2. Updating State
-  - Simple
-  - Based on current state
+    - Simple
+    - Based on current state
 
 ### useRef
 
@@ -102,12 +102,27 @@ Current property set to the initial property of 23. Then with <code>myRef.curren
   
   ---
 
-- Need to Store Data
+### Need to Store Data?
   - Will data change at some point?
     - **YES**: Should it re-render component?
       - **YES**: State (useState)
       - **NO**: Ref (useRef)
     - **NO**: Regular const variable
+
+  ---
+
+### Need to Reuse:
+  - UI: Component
+  - Logic
+    - Does Logic contain any hooks?
+      - **NO**: Regular Function
+      - **YES**: Custom Hooks
+
+Allows us to reuse **non-visual logic** in multiple components.
+
+One custom hook should have **one purpose**, to make it **reusable** and **portable** (even across multiple projects)
+
+**Rules of hooks** apply to custom hooks too.
 
 ## Section #1
 

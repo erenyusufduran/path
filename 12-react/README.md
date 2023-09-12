@@ -111,7 +111,9 @@ Current property set to the initial property of 23. Then with <code>myRef.curren
 
   ---
 
-### Need to Reuse:
+### Custom Hooks
+
+#### Need to Reuse:
   - UI: Component
   - Logic
     - Does Logic contain any hooks?
@@ -123,6 +125,10 @@ Allows us to reuse **non-visual logic** in multiple components.
 One custom hook should have **one purpose**, to make it **reusable** and **portable** (even across multiple projects)
 
 **Rules of hooks** apply to custom hooks too.
+
+### useReducer
+
+useReducer hook is basically more advanced and more complex way of managing state instead of the useState hook.
 
 # RESOURCES
 

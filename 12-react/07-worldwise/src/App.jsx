@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import { AppLayout, Homepage, Login, PageNotFound, Pricing, Product } from './pages';
-import { CityList, CountryList } from './components';
+import { CityList, CountryList, City } from './components';
 
 const BASE_URL = 'http://localhost:8000';
 
@@ -36,6 +36,7 @@ const App = () => {
         <Route path="app" element={<AppLayout />}>
           <Route index element={<CityList cities={cities} isLoading={isLoading} />} />
           <Route path="cities" element={<CityList cities={cities} isLoading={isLoading} />} />
+          <Route path="cities/:id" element={<City />} />
           <Route path="countries" element={<CountryList cities={cities} isLoading={isLoading} />} />
           <Route path="form" element={<p>Form</p>} />
         </Route>

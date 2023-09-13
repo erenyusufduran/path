@@ -158,6 +158,13 @@ State management with *useState* is not enough in certain situations:
 - **The page is never reloaded**
 - Feels like a **native app**
 
+### Storing state Management
+
+1. Easy way to store state in a **global place**, accessible to **all components** in the app.
+2. Good way to **pass data** from one page into the next page.
+3. Makes it possible to **bookmark and share** the page with the exact UI state it had at the time.
+   - `www.example.com/app/cities/lisbon?lat=38.728&lbg=-9.141`
+
 # RESOURCES
 
 ## Section #1

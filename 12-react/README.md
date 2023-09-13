@@ -175,6 +175,45 @@ Context API basically allows components everywhere in the three to read state th
   2. **Value::** data that we want to make available (usually state and functions)
   3. **Consumers:** all components that read the provided context value
 
+### State Management
+
+Giving each piece of state the right **home**.
+
+#### 1. State Accessibility
+  - **Local State**
+      - Needed only by **one or few components**
+      - Only accessible in **component and child components**
+  - **Global State**
+      - Might be needed by **many components**
+      - Accessible to **every component** in the applicaiton.
+#### 2. State Domain
+  - **Remote State** (useContext)
+    - All aplication data **loaded from a remote server** (API)
+    - Usually **asynchronous**
+    - Needs re-fetching, updating
+  - **UI State** (useState, useReducer)
+    - **Everything else**
+    - Theme, list filters, form data, etc.
+    - Usually **synchronous** and stored in the application.
+
+### Placement Options
+
+| **🤔 Where to place state?** |              **Tools**               |          **When to Use?**           |
+| :-------------------------: | :----------------------------------: | :---------------------------------: |
+|    **_Local Component_**    |     useState, useReducer, useRef     |             Local State             |
+|   **_Parent Component_**    |     useState, useReducer, useRef     |          Lifting up State           |
+|        **_Context_**        | Context API + useState or useReducer | Global State (preferably UI state)  |
+|   **_3rd-party library_**   |   Redux, React Query, SWR, Zustand   |     Global state (remote or UI)     |
+|          **_URL_**          |             React Router             | Global state, passing between pages |
+|        **_Browser_**        |    Local Storage, session storage    |   Storing data in user's browser    |
+
+---
+
+|              |               Local State               |                 Global State                |
+|:------------:|:---------------------------------------:|:-------------------------------------------:|
+|   UI State   |       useState, useReducer, useRef      | Context API + useState, Redux, React Router |
+| Remote State | fetch + useEffect + useState/useReducer |       Context API, Redux, React Query       |
+   
 # RESOURCES
 
 ## Section #1

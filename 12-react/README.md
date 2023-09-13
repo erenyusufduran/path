@@ -165,6 +165,16 @@ State management with *useState* is not enough in certain situations:
 3. Makes it possible to **bookmark and share** the page with the exact UI state it had at the time.
    - `www.example.com/app/cities/lisbon?lat=38.728&lbg=-9.141`
 
+## Context API
+
+Context API basically allows components everywhere in the three to read state that a context shares.
+
+- System to pass data throughout the app **without manually passing props** down the tree.
+- Allows us to '**broadcast**' **global state** to the entire app.
+  1. **Provider:** gives all child components access to value
+  2. **Value::** data that we want to make available (usually state and functions)
+  3. **Consumers:** all components that read the provided context value
+
 # RESOURCES
 
 ## Section #1

@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Homepage, PageNotFound, Pricing, Product } from './pages';
+import { AppLayout, Homepage, Login, PageNotFound, Pricing, Product } from './pages';
 
 const App = () => {
   return (
@@ -8,6 +8,8 @@ const App = () => {
         <Route path="" element={<Homepage />} />
         <Route path="product" element={<Product />} />
         <Route path="pricing" element={<Pricing />} />
+        <Route path="login" element={<Login />} />
+        <Route path="app" element={<AppLayout />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>

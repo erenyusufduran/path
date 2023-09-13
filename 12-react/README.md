@@ -142,9 +142,21 @@ State management with *useState* is not enough in certain situations:
 - **action** object that describes **how to update state**.
 - **dispatch** function to trigger state updates, by *`sending` actions* **from event handlers** to the reducer.
   
-## Creation Projects with vite
+> Creation Projects with vite - `npm create vite@latest`
 
-- `npm create vite@latest`
+## Routing
+
+- With routing, we match **different URLs** to **different UI wivews** (React components)
+- This enables users to **navigate between different applications screens**.
+- Keeps the UI **in sync** with the current browser URL.
+
+### Single Page Application
+
+- Application that is **executed entirely on the client** (browsers)
+- **Routes:** different URLs correspond to different views
+- **Javascript** is used to update the page
+- **The page is never reloaded**
+- Feels like a **native app**
 
 # RESOURCES
 

@@ -169,6 +169,8 @@ State management with *useState* is not enough in certain situations:
 
 Context API basically allows components everywhere in the three to read state that a context shares.
 
+When you have a small sized application like `worldwise project`, and performance is never going to be an issue, then the context API is a great tool indeed.
+
 - System to pass data throughout the app **without manually passing props** down the tree.
 - Allows us to '**broadcast**' **global state** to the entire app.
   1. **Provider:** gives all child components access to value
@@ -209,9 +211,9 @@ Giving each piece of state the right **home**.
 
 ---
 
-|              |               Local State               |                 Global State                |
-|:------------:|:---------------------------------------:|:-------------------------------------------:|
-|   UI State   |       useState, useReducer, useRef      | Context API + useState, Redux, React Router |
+|              |               Local State               |                Global State                 |
+| :----------: | :-------------------------------------: | :-----------------------------------------: |
+|   UI State   |      useState, useReducer, useRef       | Context API + useState, Redux, React Router |
 | Remote State | fetch + useEffect + useState/useReducer |       Context API, Redux, React Query       |
    
 # RESOURCES

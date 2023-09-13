@@ -141,6 +141,10 @@ State management with *useState* is not enough in certain situations:
 - **reducer** pure function that takes current *state* and *action*, **and returns the next state**.
 - **action** object that describes **how to update state**.
 - **dispatch** function to trigger state updates, by *`sending` actions* **from event handlers** to the reducer.
+  
+## Creation Projects with vite
+
+- `npm create vite@latest`
 
 # RESOURCES
 

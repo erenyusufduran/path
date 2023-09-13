@@ -5,5 +5,6 @@ import Map from './Map';
 import CityList from './CityList';
 import CountryList from './CountryList';
 import City from './City';
+import Form from './Form';
 
-export { PageNav, AppNav, Sidebar, Map, CityList, CountryList, City };
+export { PageNav, AppNav, Sidebar, Map, CityList, CountryList, City, Form };

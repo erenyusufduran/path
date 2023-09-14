@@ -260,3 +260,22 @@ Used to create a component that will **not re-render when its parent re-renders,
 **Only affects props!** A memoized componenet will still re-render when its **own state changes** or when a **context that it's subscribed to changes**.
 
 Only makes sense when the component is heavy (slow rendering), **re-renders often**, and does so **with the same props**.
+
+#### **An Issue With MEMO**
+
+- In React, everything is **re-created on every render** (including objects and functions)
+- In JavaScript, two objects or functions that look the same, **are actually different** ({} != {})
+- If objects or functions are passed as props, the child component will always see them as **new props on each re-render**.
+- **If props are different between re-rends, *memo* wil not work.**
+
+> We need to memoize objects and functions, to make them stable (preserve) between re-renders (memoized {} == memoized {})
+
+#### useMome & useCallback
+
+- Used to memoize values **useMemo** and functions **useCallback** **between renders**.
+- Values passed into useMemo and useCallback will be stored in memory *(cached)* and **returned in subsequent re-renders, as long as dependencies** *(inputs)* **stay the same**.
+- useMemo and useCallback have a **dependency array** (like useEffect): whenever one **dependency changes**, the value will be re-created.
+- Only use them for one of the three **use cases!**
+   1. Memoizing props to prevent wasted renders (together with `memo`)
+   2. Memoizing values to avoid expensive re-calculations on every render.
+   3. Memoiznig values that are used in dependency array of another hook.

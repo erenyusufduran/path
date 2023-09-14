@@ -47,42 +47,6 @@
         "lng": "-6.416015625000001"
       },
       "id": 98443198
-    },
-    {
-      "cityName": "Istanbul",
-      "country": "Turkiye",
-      "emoji": "🇹🇷",
-      "date": "2023-09-14T07:50:37.085Z",
-      "notes": "That's a beautiful city.",
-      "position": {
-        "lat": "41.11246878918088",
-        "lng": "29.091796875"
-      },
-      "id": 98443199
-    },
-    {
-      "cityName": "Ortakoy",
-      "country": "Turkiye",
-      "emoji": "🇹🇷",
-      "date": "2023-09-14T07:52:30.526Z",
-      "notes": "I didn't like there.",
-      "position": {
-        "lat": "38.75408327579141",
-        "lng": "34.18945312500001"
-      },
-      "id": 98443200
-    },
-    {
-      "cityName": "Lillehammer",
-      "country": "Norway",
-      "emoji": "🇳🇴",
-      "date": "2023-09-14T07:53:40.041Z",
-      "notes": "Cold",
-      "position": {
-        "lat": "61.10078883158897",
-        "lng": "10.195312500000002"
-      },
-      "id": 98443201
     }
   ]
 }

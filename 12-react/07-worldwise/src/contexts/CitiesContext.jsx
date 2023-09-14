@@ -52,14 +52,26 @@ export const CitiesProvider = ({ children }) => {
       const data = await response.json();
       setCities((cities) => [...cities, data]);
     } catch {
-      alert('There was an error when loading data.');
+      alert('There was an error when creating city.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteCity = async (id) => {
+    try {
+      setIsLoading(true);
+      await fetch(`${BASE_URL}/cities/${id}`, { method: 'DELETE' });
+      setCities((cities) => cities.filter((city) => city.id !== id));
+    } catch {
+      alert('There was an error when deleting city.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity, createCity }}>
+    <CitiesContext.Provider value={{ cities, isLoading, currentCity, getCity, createCity, deleteCity }}>
       {children}
     </CitiesContext.Provider>
   );

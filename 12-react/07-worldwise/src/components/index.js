@@ -6,5 +6,6 @@ import CityList from './CityList';
 import CountryList from './CountryList';
 import City from './City';
 import Form from './Form';
+import SpinnerFullPage from './SpinnerFullPage';
 
-export { PageNav, AppNav, Sidebar, Map, CityList, CountryList, City, Form };
+export { PageNav, AppNav, Sidebar, Map, CityList, CountryList, City, Form, SpinnerFullPage };

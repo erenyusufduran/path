@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 export const createRandomPost = () => {
   return {
@@ -28,23 +28,21 @@ export const PostProvider = ({ children }) => {
     setPosts([]);
   }
 
-  return (
-    <PostContext.Provider
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery,
-        setSearchQuery,
-      }}
-    >
-      {children}
-    </PostContext.Provider>
-  );
+  const value = useMemo(() => {
+    return {
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery,
+      setSearchQuery,
+    };
+  }, [searchQuery, searchedPosts]);
+
+  return <PostContext.Provider value={value}>{children}</PostContext.Provider>;
 };
 
 export const usePosts = () => {
   const context = useContext(PostContext);
-  if (context === undefined) throw new Error("PostContext was used outside of the PostProvider")
+  if (context === undefined) throw new Error('PostContext was used outside of the PostProvider');
   return context;
-}
+};

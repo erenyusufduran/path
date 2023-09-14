@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: 'logout' });
   };
 
-  return <AuthContext.Provider value={(user, isAuthenticated, login, logout)}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>{children}</AuthContext.Provider>;
 };
 
 // eslint-disable-next-line react-refresh/only-export-components

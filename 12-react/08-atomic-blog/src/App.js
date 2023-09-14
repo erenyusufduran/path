@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { PostProvider, usePosts, createRandomPost } from './PostContext';
 
 function App() {
@@ -12,10 +12,12 @@ function App() {
     [isFakeDark]
   );
 
-  const archiveOptions = {
-    show: false,
-    title: 'Post archive in addition to main posts',
-  };
+  const archiveOptions = useMemo(() => {
+    return {
+      show: false,
+      title: `Post archive in addition to main posts`,
+    };
+  }, []);
 
   return (
     <section>

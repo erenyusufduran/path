@@ -215,8 +215,8 @@ Giving each piece of state the right **home**.
 | :----------: | :-------------------------------------: | :-----------------------------------------: |
 |   UI State   |      useState, useReducer, useRef       | Context API + useState, Redux, React Router |
 | Remote State | fetch + useEffect + useState/useReducer |       Context API, Redux, React Query       |
-   
-# RESOURCES
+
+## Performance Optimization Tools
 
 ## Section #1
 

@@ -1,3 +1,5 @@
+import { createStore } from 'redux';
+
 const initialState = {
   balance: 0,
   loan: 0,
@@ -12,11 +14,33 @@ function reducer(state = initialState, action) {
       return { ...state, balance: state.balance - action.payload };
     case 'account/requestLoan':
       if (state.loan > 0) return state;
-      // TODO: Change
-      return { ...state, loan: action.payload };
+      return {
+        ...state,
+        loan: action.payload.amount,
+        loanPurpose: action.payload.loanPurpos,
+        balance: state.balance + action.payload.amount,
+      };
     case 'account/payLoan':
       return { ...state, loan: 0, loanPurpose: '', balance: state.balance - state.loan };
     default:
       return state;
   }
 }
+
+function deposit(amount) {
+  return { type: 'account/deposit', payload: amount };
+}
+
+function withdraw(amount) {
+  return { type: 'account/withdraw', payload: amount };
+}
+
+function requestLoan(amount, purpose) {
+  return { type: 'account/requestLoan', payload: { amount, purpose } };
+}
+
+function payLoan() {
+  return { type: 'account/payLoan' };
+}
+
+const store = createStore(reducer);

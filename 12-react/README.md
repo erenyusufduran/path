@@ -285,3 +285,20 @@ Only makes sense when the component is heavy (slow rendering), **re-renders ofte
 - **Bundle:** Javascript file containing the **entire application code**. Downloading the bundle will load **the entire app at once**, turning it into a SPA.
 - **Bundle size:** Amount of JavaScript users have to download to start using the app. One of the most important things to be optimized, so that the bundle takes **less time to download**.
 - **Code splitting:** Splitting bundle into multiple parts that can be **downloaded over time** `(lazy loading)`
+
+### Don't Optimize **PREMATURELY!**
+
+- Don't opzimize anything if there is nothing to optimize..
+- Don't wrap all components in memo()
+- Don't wrap all values in useMemo()
+- Don't wrap all functions in useCallback()
+- Don't optimize context if it's not slow and doesn't have many consumers.
+  
+  ---
+- Find performance bootlenecks using the **Profiler** and **visual inspection (laggy UI)**
+- Fix those real performance issues
+- Memoize expensive re-renders
+- Memoize expensive calculations
+- Optimize context if it has many consumers and changes often
+- Memoize context value + child components
+- Implement code splitting + lazy loading for SPA routes.

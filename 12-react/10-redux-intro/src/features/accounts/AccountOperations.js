@@ -19,9 +19,9 @@ function AccountOperations() {
   }
 
   function handleWithdrawal() {
-    if (!depositAmount) return;
-    dispatch(withdraw(depositAmount));
-    setDepositAmount('');
+    if (!withdrawalAmount) return;
+    dispatch(withdraw(withdrawalAmount));
+    setWithdrawalAmount('');
   }
 
   function handleRequestLoan() {
@@ -72,7 +72,7 @@ function AccountOperations() {
         {currentLoan > 0 && (
           <div>
             <span>
-              Pay back ${currentLoan} {currentLoanPurpose}
+              Pay back ${currentLoan} ({currentLoanPurpose})
             </span>
             <button onClick={handlePayLoan}>Pay loan</button>
           </div>

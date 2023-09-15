@@ -1,0 +1,18 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    fontFamily: {
+      pizza: 'Roboto Mono, monospace',
+    },
+    extend: {
+      colors: {
+        pizza: '#123456',
+      },
+      fontSize: {
+        huge: ['9rem', { lineHeight: '1' }],
+      },
+    },
+  },
+  plugins: [],
+};

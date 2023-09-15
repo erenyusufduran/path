@@ -355,3 +355,14 @@ Event Handler -> Action Creator Function -> store -> Next State -> Re-Render // 
 Redux is start by calling an action creator in a component and then dispatch the action that resutled from the action creator. This action will then reach the store where the right reducer will pick it up and update the state according to the instructions. This then triggers a re-render of the UI where the cycle finishes. 
 
 Big goal of all this is to make the state update logic **seperate** from the rest of the application.
+
+### What is Redux Middleware? *(Redux Thunk)*
+
+Where to make an **asynchronous API call** in Redux?
+- Store can't execute asynchronous operations and reducers need to be pure functions aswell.
+- We can make asynchronous operations in component and then dispatch it, but fetching data in components is not ideal.
+- We can do it in **MIDDLEWARE** where between dispatch and store.
+- **Middleware** is a function that sits between dispatching the action and the store. Allows us to run code **after** dispatching, but **before** reaching the reducer in the store.
+  - Perfect for asynchronous code.
+  - API calls, timers, logging, etc.
+  - The place for side effects.

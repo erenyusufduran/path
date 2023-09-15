@@ -270,7 +270,7 @@ Only makes sense when the component is heavy (slow rendering), **re-renders ofte
 
 > We need to memoize objects and functions, to make them stable (preserve) between re-renders (memoized {} == memoized {})
 
-#### useMome & useCallback
+### useMome & useCallback
 
 - Used to memoize values **useMemo** and functions **useCallback** **between renders**.
 - Values passed into useMemo and useCallback will be stored in memory *(cached)* and **returned in subsequent re-renders, as long as dependencies** *(inputs)* **stay the same**.

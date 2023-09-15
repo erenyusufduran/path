@@ -366,3 +366,13 @@ Where to make an **asynchronous API call** in Redux?
   - Perfect for asynchronous code.
   - API calls, timers, logging, etc.
   - The place for side effects.
+
+### Redux Toolkit
+
+- The **modern and preferred** way of writing Redux code.
+- An **opinionated** approach, forcing us to use Redux best practices.
+- Allows us to write **a lot less code** to archieve the same result (less *boilerplate*)
+- Gives us 3 big things:
+    1. We can write code that **mutates** state inside reducers.
+    2. Action creators are **automatically** created
+    3. **Automatic** setup of thunk middleware and DevTools

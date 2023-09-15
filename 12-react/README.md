@@ -382,21 +382,67 @@ Where to make an **asynchronous API call** in Redux?
 We should **not** use these solutions **for remote states**
 
 |                         Context API + useReducer                         |                              REDUX                              |
-|:------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-|                             Built into React                             |         Requires additional package (larger bundle size)        |
-|                    Easy to set up a **single context**                   |                More work to set up **initially**                |
+| :----------------------------------------------------------------------: | :-------------------------------------------------------------: |
+|                             Built into React                             |        Requires additional package (larger bundle size)         |
+|                   Easy to set up a **single context**                    |                More work to set up **initially**                |
 | Additional state *slide* requires new context. (Provider Hell in App.js) | Once set up, it's easy to create **additional state**, *slices* |
-|                   **No** mechanism for async operations                  |          Supports **middleware** for async operations.          |
+|                  **No** mechanism for async operations                   |          Supports **middleware** for async operations.          |
 |                  Performance optimization is a **pain**                  |           Performance is optimized **out of the box**           |
-|                            Only React DevTools                           |                        Excellent DevTools                       |
+|                           Only React DevTools                            |                       Excellent DevTools                        |
 
 ### When to Use Context API or Redux?
 
 |                         Context API + useReducer                         |                              REDUX                              |
-|:------------------------------------------------------------------------:|:---------------------------------------------------------------:|
-|                             Built into React                             |         Requires additional package (larger bundle size)        |
-|                    Easy to set up a **single context**                   |                More work to set up **initially**                |
+| :----------------------------------------------------------------------: | :-------------------------------------------------------------: |
+|                             Built into React                             |        Requires additional package (larger bundle size)         |
+|                   Easy to set up a **single context**                    |                More work to set up **initially**                |
 | Additional state *slide* requires new context. (Provider Hell in App.js) | Once set up, it's easy to create **additional state**, *slices* |
-|                   **No** mechanism for async operations                  |          Supports **middleware** for async operations.          |
+|                  **No** mechanism for async operations                   |          Supports **middleware** for async operations.          |
 |                  Performance optimization is a **pain**                  |           Performance is optimized **out of the box**           |
-|                            Only React DevTools                           |                        Excellent DevTools                       |
+|                           Only React DevTools                            |                       Excellent DevTools                        |
+
+## How to **Plan** & **Build** a React Application
+
+1. Gather application **requirements and features**
+2. Divide the application into **pages**
+    - Think about the **overall** and **page-level** UI.
+    - Break the desired UI into **components**
+    - Design and build a **static** version 
+3. Divide the application into **feature categories**
+    - Think about **state management + data flow**
+4. Decide on what **libraries** to use (technology decision)
+
+### Project Requirement From the Business
+
+- #### <u>1. Step</u>
+  - Very simple application, where users can order **one or more pizzas from a menu**
+  - Requires **no user accounts** and no login: users just input their names before using the app.
+  - The pizza menu can change, so it should be **loaded from an API**.
+  - Users can add multiple pizzas to a **cart** before ordering
+  - Ordering requires just the **user's name**, **phone number**, and **address**
+  - If possible, **GPS location** should also be provided, to make delivery easier.
+  - User's can **mark their order as *priority*** for an additional 20% of thhe cart price.
+  - Orders are made by sending a POST request with the order data (user data + selected pizzas) to the API.
+  - Payments are made on delivery, so **no payment processing** is necessary in the app.
+  - Each order will get a **unique ID** that should be displayed, so the **user can later look up their order** based on the ID.
+  - Users should be able to mark their order as *priority* order **even after it has been placed**.
+- #### <u>2. & 3. Step *(Features & Pages)*</u>
+
+  | Feature Categories |             Necessary Pages             |
+  | :----------------: | :-------------------------------------: |
+  |        User        |             Homepage **/**              |
+  |        Menu        |          Pizza Menu **/menu**           |
+  |        Cart        |             Cart **/cart**              |
+  |       Order        |   Placing a new order **/order/new**    |
+  |                    | Looking up an order **/order/:orderID** |
+
+- #### <u>3. & 4. Step *(State Management & Technology Decisions)*</u>
+    1. **User** -> Global UI state (no accounts, so start in app)
+    2. **Menu** -> Global remote state (menu is fetched from API)
+    3. **Cart** -> Global UI state (no need for API, just stored in app)
+    4. **Order** -> Global remote state (fetched and submitted to API)
+  ---
+  - ***Routing*** - **React Router** - The standard for React SPAs
+  - ***Styling*** - **tailwindcss** - Trendy way of styling applications
+  - ***Remote State Management*** - **React Router** New way of fetching data right inside React Router (v6.4 +) that is worth exploring (**render-as-you-fetch** instead of **fetch-on-render**). Not really state **management**, as it doesn't persist state.
+  - ***UI State Management*** - **Redux** - State is fairly complex. Redux has many advantages for UI state.

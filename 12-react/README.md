@@ -211,10 +211,10 @@ Giving each piece of state the right **home**.
 
 ---
 
-|              |               Local State               |                Global State                 |
-| :----------: | :-------------------------------------: | :-----------------------------------------: |
-|   UI State   |      useState, useReducer, useRef       | Context API + useState, Redux, React Router |
-| Remote State | fetch + useEffect + useState/useReducer |       Context API, Redux, React Query       |
+|              |               Local State               |                      Global State                       |
+| :----------: | :-------------------------------------: | :-----------------------------------------------------: |
+|   UI State   |      useState, useReducer, useRef       |       Context API + useState, Redux, React Router       |
+| Remote State | fetch + useEffect + useState/useReducer | Context API, Redux, **React Query**, **SWR**, RTK Query |
 
 ## Performance Optimization Tools
 
@@ -334,3 +334,45 @@ Only makes sense when the component is heavy (slow rendering), **re-renders ofte
 1. **Responding to a user event.** An event handler function should be used instead.
 2. **Fetching data on component mount.** This is fine in small apps, but in real-world app, a library like React Query should be used.
 3. **Synchronizing state changes with one another** (setting state based on another state variable). Try to use derived state and event handlers.
+
+## Redux
+
+- 3rd-party library to manage **global state**
+- **Standalone** library
+- All global state is stored in one **globally accessible store**, which is easy to update using **actions** *(like useReducer)*
+- It's conceptually similar to using the Context API + useReducer
+- For Global UI States, redux is ideal use case. For Remote Global States, we have better tools.
+
+### The **Mechanism** of the *useReducer* Hook
+
+```js
+Event Handler -> dispatch -> reducer -> Next State -> Re-Render // useReducer
+Event Handler -> Action Creator Function -> store -> Next State -> Re-Render // Redux
+```
+
+- In store there are multiple reducer.
+
+Redux is start by calling an action creator in a component and then dispatch the action that resutled from the action creator. This action will then reach the store where the right reducer will pick it up and update the state according to the instructions. This then triggers a re-render of the UI where the cycle finishes. 
+
+Big goal of all this is to make the state update logic **seperate** from the rest of the application.
+
+### What is Redux Middleware? *(Redux Thunk)*
+
+Where to make an **asynchronous API call** in Redux?
+- Store can't execute asynchronous operations and reducers need to be pure functions aswell.
+- We can make asynchronous operations in component and then dispatch it, but fetching data in components is not ideal.
+- We can do it in **MIDDLEWARE** where between dispatch and store.
+- **Middleware** is a function that sits between dispatching the action and the store. Allows us to run code **after** dispatching, but **before** reaching the reducer in the store.
+  - Perfect for asynchronous code.
+  - API calls, timers, logging, etc.
+  - The place for side effects.
+
+### Redux Toolkit
+
+- The **modern and preferred** way of writing Redux code.
+- An **opinionated** approach, forcing us to use Redux best practices.
+- Allows us to write **a lot less code** to archieve the same result (less *boilerplate*)
+- Gives us 3 big things:
+    1. We can write code that **mutates** state inside reducers.
+    2. Action creators are **automatically** created
+    3. **Automatic** setup of thunk middleware and DevTools

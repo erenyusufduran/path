@@ -54,3 +54,33 @@
 - <a href="https://react-redux.js.org/api/hooks?ref=jonas.io">React Redux</a>
 
 ---
+
+## Section #4
+
+- <a href="https://www.robinwieruch.de/react-libraries/?ref=jonas.io">React Libraries for 2023</a> (Written in 2023, but will be up-to-date for years, as the ecosystem is relatively stable now)
+
+- <a href="https://www.joshwcomeau.com/css/styled-components/?ref=jonas.io">Styled-components best practices</a> (By the excellent writer and educator Josh W. Comeau)
+
+- <a href="https://css-tricks.com/a-thorough-analysis-of-css-in-js/?ref=jonas.io">A Thorough Analysis of CSS-in-JS</a>
+
+- <a href="https://tkdodo.eu/blog/practical-react-query?ref=jonas.io">Practical React Query</a> (A huge series from one of React Query's maintainers. Started in 2020, but is still going, and still very helpful)
+
+- <a href="https://tkdodo.eu/blog/react-query-meets-react-router?ref=jonas.io">React Query meets React Router</a> (From the same series as above)
+
+- <a href="https://www.benmvp.com/blog/picking-right-react-component-pattern/?ref=jonas.io">Picking the right React component pattern</a>
+
+- <a href="https://github.com/alan2207/bulletproof-react?ref=jonas.io">Bulletproof-react: A simple, scalable, and powerful architecture for building production-ready React applications</a> (GitHub repository)
+
+### Library documentation:
+
+- <a href="https://tailwindcss.com/docs/guides/vite?ref=jonas.io">Tailwind CSS: Installation With Vite</a>
+
+- <a href="https://styled-components.com/docs?ref=jonas.io">styled-components</a>
+
+- <a href="https://supabase.com/docs/reference/javascript/installing">Supabase Javascript Client Library</a>
+
+- <a href="https://tanstack.com/query/v4/docs/react/overview?ref=jonas.io">TanStack (React) Query v4</a>
+
+- <a href="https://recharts.org/en-US/examples?ref=jonas.io">Recharts</a>
+
+- <a href="https://date-fns.org/docs/Getting-Started/?ref=jonas.io">date-fns</a>

@@ -376,3 +376,27 @@ Where to make an **asynchronous API call** in Redux?
     1. We can write code that **mutates** state inside reducers.
     2. Action creators are **automatically** created
     3. **Automatic** setup of thunk middleware and DevTools
+
+### Redux vs. Context API
+
+We should **not** use these solutions **for remote states**
+
+|                         Context API + useReducer                         |                              REDUX                              |
+|:------------------------------------------------------------------------:|:---------------------------------------------------------------:|
+|                             Built into React                             |         Requires additional package (larger bundle size)        |
+|                    Easy to set up a **single context**                   |                More work to set up **initially**                |
+| Additional state *slide* requires new context. (Provider Hell in App.js) | Once set up, it's easy to create **additional state**, *slices* |
+|                   **No** mechanism for async operations                  |          Supports **middleware** for async operations.          |
+|                  Performance optimization is a **pain**                  |           Performance is optimized **out of the box**           |
+|                            Only React DevTools                           |                        Excellent DevTools                       |
+
+### When to Use Context API or Redux?
+
+|                         Context API + useReducer                         |                              REDUX                              |
+|:------------------------------------------------------------------------:|:---------------------------------------------------------------:|
+|                             Built into React                             |         Requires additional package (larger bundle size)        |
+|                    Easy to set up a **single context**                   |                More work to set up **initially**                |
+| Additional state *slide* requires new context. (Provider Hell in App.js) | Once set up, it's easy to create **additional state**, *slices* |
+|                   **No** mechanism for async operations                  |          Supports **middleware** for async operations.          |
+|                  Performance optimization is a **pain**                  |           Performance is optimized **out of the box**           |
+|                            Only React DevTools                           |                        Excellent DevTools                       |

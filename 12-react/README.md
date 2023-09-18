@@ -446,3 +446,13 @@ We should **not** use these solutions **for remote states**
   - ***Styling*** - **tailwindcss** - Trendy way of styling applications
   - ***Remote State Management*** - **React Router** New way of fetching data right inside React Router (v6.4 +) that is worth exploring (**render-as-you-fetch** instead of **fetch-on-render**). Not really state **management**, as it doesn't persist state.
   - ***UI State Management*** - **Redux** - State is fairly complex. Redux has many advantages for UI state.
+
+## Client-Side Rendering (CSR) **OR** Server-Side Rendering (SSR)?
+
+|                      **CSR With Plain React**                      |            **SSR With Framework (Next.js, Remix)**            |
+|:------------------------------------------------------------------:|:-------------------------------------------------------------:|
+|             Used to build **single***page applications             |           User to build **multi**-page applications           |
+|               All HTML is rendered on the **client**               |            Some HTMTL is rendered in the **server**           |
+|       All JS needs to be downloaded before apps start running      |      **More performant**, less JS needs to be downloaded      |
+|      **One perfect use case:** apps that are used *internally*     | The **React team** is moving more and more in this direction. |
+| As tools inside companies, that are entirely hidden behind a login |                                                               |

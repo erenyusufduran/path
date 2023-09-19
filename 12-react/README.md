@@ -456,3 +456,15 @@ We should **not** use these solutions **for remote states**
 |       All JS needs to be downloaded before apps start running      |      **More performant**, less JS needs to be downloaded      |
 |      **One perfect use case:** apps that are used *internally*     | The **React team** is moving more and more in this direction. |
 | As tools inside companies, that are entirely hidden behind a login |                                                               |
+
+## React Query
+
+- Powerful library for managing **remote (server) state**.
+- Many features that allow us to write a **lot less code**, while also **making the UX a lot better**.
+  - Data is stored in a cache.
+  - Automatic loading and error states.
+  - Automatic re-fetching to keep state synched.
+  - Pre-fetching
+  - Easy remote state mutation (updating)
+  - Offline support (data is already in cache)
+- Needed because remote state is **fundamentally** different from regular (UI) state

@@ -42,7 +42,7 @@ const CabinTable = () => {
         <div>Price</div>
         <div>Discount</div>
       </TableHeader>
-      {cabins.map((cabin) => (
+      {cabins && cabins.length && cabins.map((cabin) => (
         <CabinRow cabin={cabin} key={cabin.id} />
       ))}
     </Table>

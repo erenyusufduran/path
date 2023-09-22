@@ -483,6 +483,10 @@ We can reuse **UI** and **Stateful Logic**
 
 **Render props pattern:** For complete control over *what* the component renders, by passing in a function that tells the component what to render. Was more common before hooks, but still useful.
 
+**Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components. 
+
+### **Render Props Pattern**
+
 ```js
 function List({ title, items }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -515,9 +519,7 @@ function List({ title, items, render }) {
   }} />
 ```
 
-**Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components. 
-
-**Higher-Order Components (HOC)**
+### **Higher-Order Components (HOC)**
 
 ```js
 function ProductList({ title, items }) {
@@ -563,3 +565,57 @@ export default function withToggles(WrappedComponent) {
 const ProductListWithToggles = withToggles(ProductList);
 ```
 
+### **Compound Component Pattern**
+
+```js
+const CounterContext = createContext();
+
+// 2. Create parent component
+function Counter({ children }) {
+  const [count, setCount] = useState(0);
+  const increase = () => setCount((c) => c + 1);
+  const decrease = () => setCount((c) => c - 1);
+
+  return (
+    <CounterContext.Provider value={{ count, increase, decrease }}>
+      <span>{children}</span>
+    </CounterContext.Provider>
+  );
+}
+
+// 3. Create child components to help implementing the common task
+function Count() {
+  const { count } = useContext(CounterContext);
+  return <span>{count}</span>;
+}
+
+function Label({ children }) {
+  return <span>{children}</span>;
+}
+
+function Increase({ icon }) {
+  const { increase } = useContext(CounterContext);
+  return <button onClick={increase}>{icon}</button>;
+}
+
+function Decrease({ icon }) {
+  const { decrease } = useContext(CounterContext);
+  return <button onClick={decrease}>{icon}</button>;
+}
+
+// 4. Add child components as properties to parent component
+Counter.Count = Count;
+Counter.Label = Label;
+Counter.Increase = Increase;
+Counter.Decrease = Decrease;
+
+export default Counter;
+
+// In another file
+<Counter>
+  <Counter.Label>My super flexible counter</Counter.Label>
+  <Counter.Decrease icon="-" />
+  <Counter.Increase icon="+" />
+  <Counter.Count />
+</Counter>
+```

@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import styled from 'styled-components';
+import { HiPencil, HiSquare2Stack, HiTrash } from 'react-icons/hi2';
 
 import { formatCurrency } from '../../utils/helpers';
 import { useDeleteCabin } from './useDeleteCabin';
+import { useCreateCabin } from './useCreateCabin';
 
 import CreateCabinForm from './CreateCabinForm';
 
@@ -48,9 +50,14 @@ const Discount = styled.div`
 
 const CabinRow = ({ cabin }) => {
   const [showForm, setShowForm] = useState(false);
-  const { id: cabinId, name, maxCapacity, regularPrice, discount, image } = cabin;
-  
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const { isCreating, createCabin } = useCreateCabin();
+
+  const { id: cabinId, name, maxCapacity, regularPrice, discount, image, description } = cabin;
+
+  const handleDuplicate = () => {
+    createCabin({ name: `Copy of ${name}`, maxCapacity, regularPrice, discount, image, description });
+  };
 
   return (
     <>
@@ -61,9 +68,14 @@ const CabinRow = ({ cabin }) => {
         <Price>{formatCurrency(regularPrice)}</Price>
         {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}{' '}
         <div>
-          <button onClick={() => setShowForm((state) => !state)}>Edit</button>
+          <button disabled={isCreating} onClick={handleDuplicate}>
+            <HiSquare2Stack />
+          </button>
+          <button onClick={() => setShowForm((state) => !state)}>
+            <HiPencil />
+          </button>
           <button disabled={isDeleting} onClick={() => deleteCabin(cabinId)}>
-            Delete
+            <HiTrash />
           </button>
         </div>
       </TableRow>

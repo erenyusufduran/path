@@ -483,5 +483,37 @@ We can reuse **UI** and **Stateful Logic**
 
 **Render props pattern:** For complete control over *what* the component renders, by passing in a function that tells the component what to render. Was more common before hooks, but still useful.
 
+```js
+function List({ title, items }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const displayItems = isCollapsed ? items.slice(0, 3) : items;
+  return (
+    <div className="list-container">
+      {isOpen && <ul className="list">{displayItems.map((product) => (
+            <ProductItem key={product.productName} product={product} />
+          ))}</ul>}
+    </div>
+  );
+}
+
+<List title="Products" items={products} />
+```
+
+```js
+function List({ title, items, render }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const displayItems = isCollapsed ? items.slice(0, 3) : items;
+  return (
+    <div className="list-container">
+      {isOpen && <ul className="list">{displayItems.map(render)}</ul>}
+    </div>
+  );
+}
+
+<List title="Products" items={products} render={(product) => {
+    <ProductItem key={product.productName} product={product} />
+  }} />
+```
+
 **Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components.
 

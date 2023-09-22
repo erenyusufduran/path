@@ -450,11 +450,11 @@ We should **not** use these solutions **for remote states**
 ## Client-Side Rendering (CSR) **OR** Server-Side Rendering (SSR)?
 
 |                      **CSR With Plain React**                      |            **SSR With Framework (Next.js, Remix)**            |
-|:------------------------------------------------------------------:|:-------------------------------------------------------------:|
+| :----------------------------------------------------------------: | :-----------------------------------------------------------: |
 |             Used to build **single***page applications             |           User to build **multi**-page applications           |
-|               All HTML is rendered on the **client**               |            Some HTMTL is rendered in the **server**           |
-|       All JS needs to be downloaded before apps start running      |      **More performant**, less JS needs to be downloaded      |
-|      **One perfect use case:** apps that are used *internally*     | The **React team** is moving more and more in this direction. |
+|               All HTML is rendered on the **client**               |           Some HTMTL is rendered in the **server**            |
+|      All JS needs to be downloaded before apps start running       |      **More performant**, less JS needs to be downloaded      |
+|     **One perfect use case:** apps that are used *internally*      | The **React team** is moving more and more in this direction. |
 | As tools inside companies, that are entirely hidden behind a login |                                                               |
 
 ## React Query
@@ -468,3 +468,20 @@ We should **not** use these solutions **for remote states**
   - Easy remote state mutation (updating)
   - Offline support (data is already in cache)
 - Needed because remote state is **fundamentally** different from regular (UI) state
+
+## Advanced React Patterns
+
+### *How to **Reuse** Code in React*
+
+We can reuse **UI** and **Stateful Logic**
+
+#### UI
+- **Components and Props:** Use props as a component API, to enable custom behavior. Can be stateless, stateful, or structural components.
+- **Children prop:** To customize the component's content.
+#### Stateful Logic
+- **Custom Hooks**
+
+**Render props pattern:** For complete control over *what* the component renders, by passing in a function that tells the component what to render. Was more common before hooks, but still useful.
+
+**Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components.
+

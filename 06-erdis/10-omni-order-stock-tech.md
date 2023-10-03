@@ -92,3 +92,27 @@ Sonrasında reserve olan stockları güncellememiz gerekiyor. Bu omniStock içer
 Sonrasında da Order'ın status'ünü güncellemesi için EComOrderStatus'e produce ediyor. Burada orderın orderStatus'ünü sendToWms'e çek diyoruz.
 
 
+----
+
+Önceki iki aktarımda ECommerceOrder'ların Inveon'dan alınmasını bizde nasıl oluştuğunu, TR çözümden bizde nasıl kullanılabilir stoğa dönüştüğünü ve bu çektiğimiz stoklara istinaden ETicaret siparişlerinin nasıl bizim tarafta işlendiğine baktık. Burada da genel olarak deponun dönüşlerinden bahsedicez. Bu siparişlere istinaden depo ben bunları çıkabiliyorum ya da ben bunları çıktım diye geri döndüğü bir evrak var. Bunu kendi sistemimize kaydererek, biz 2 satır gönderdik, bize 1 satır döndü gibi kısımları göreceğimiz aktarım olucak.
+
+## #4 WMS'ten dönüş kısmı
+
+WMS-TR içerisinde sendShippingOrdersToWMS içerisinden order geçiyor, burada reserve olarak işaretlediğimiz orderları depoya gönderiyorduk. Buranın bir de **EComOrderSenttoWMS** olarak mesaj gönderiyoruz ve order'daki order'ın status'unu buna çek diyoruz. 
+
+Depodan gelen cevaba göre ise Sold, Cancel, PartiallySold olarak güncelliyoruz. Bütün satırlar gittiyse ve depo hepsini döndüyse Sold'a çekiyoruz. Diğer iki seçenek için ise AX'taki JOB'a göre çekiyoruz. 
+
+WMS-TR Çözüm'den WMS-TR'ye gitmesi gereken order'ı yolladık. Bunun dışında bir de depodan alacağımız cevap var, o yüzden de depodan cevap gelecek diyoruz. Cevaba istinaden birkaç tane işlem var. Diğer depolardan farklı olarak burada movementCode alanı bulunuyor. C27 olması durumunda normal eTicaret'te işler nasıl işliyorsa bunları yapıyor ve buna istinaden AX'ta bazı status'leri güncelliyor ve biz de AX'taki o status'leri dinliyoruz.
+
+ShippingOrderResponds tablomuza bakalım.
+- Tamamı satıldıysa orderQty ile sentQty'nin eşit olmasını bekliyoruz. Burada gateway'den wmsTR url'inin shippingOrderResponds'una gidiyor. Burada shippingOrderRespond'u alırken companyCode'u ve warehouse'u rakamlarla yolluyorlar, biz bunları kendi yapımıza göre *map ediyoruz*. Bunu mapledikten sonra shippingOrderRespond'u oluşturuyoruz. Bunu yolladıktan sonra da order service'in içerisine işle diyoruz. Burada da kafka kuyruğu ile shippingOrder'ı order'a yolluyoruz. Sonrasında order'da bunu kafkaConsumer'da dinliyoruz. Burada bir takım işler yapıyoruz, unavailableStock'umuz 0'sa ve orderStatus partiallySold değilse OrderStatus'u Sold'a çekiliyor. unAvailable ve order'ın line'ı eşitse cancel'a çekiyoruz. Bunlara göre de mail atıyoruz, ki bunlarla ilgili işlem yapılsın. Aynı zamanda bunları Stock Service'ine cancelStockTransaction'a yolluyoruz. Yani bunlar için stock'da stocktransactions tablosunda tdepoya gitti diye gitmişti, ama depo bizde yok dedi, buna istinaden biz de bu line'ları omni-stock içerisinde dinlediğimiz bir kafkaConsumer'ı ile cancelStockTransactions içerisinde cancel olarak al diyoruz. Biz burdan 1 tane çıktıysak, buraya bir cancel girilmediyse, bu transaction olarak gözükmeli ve buna göre availableQty'miz de stock tarafında düşmeli. Buranın bir de AX bacağı var. AX'ta bunların status'leri güncelleniyor. Bunu order içerisinde updateECommerceOrder scheduler'ı içerisinde dinliyoruz. 
+  - Mesela 10 satır gönderdik, depodan da 10 satırın tamamı geldi, o zaman AX'taki salesStatus 3 olarak geliyor, salesGroupStatus ise 1 olarak geliyor. Böyle olduğu zaman order'ın içindeki tüm satırlar satıldı olarak güncellenmiş oluyor. Burada order'ın status'u satıldıya çevriliyor, line status'lerini de satıldıya çekiyoruz.
+  - PartiallyReserved depoya yollanmadan önce stocks içerisinde satış esnasında vardı bu stock, o esnada depoda bir hareket yaşandı, ve stock başka bir yere kaydırıldı. Çektiğimiz stock'ta bunu bulamadık ve availableQty'si 0 geldi. O zaman satırlardan bir tanesi iptal olmak zorunda. Bunu eComOrderStatus'de yönetiyoruz. Notification'la beraber satıra istinaden bir geri dönüş yapıyoruz. AX'tan geri beslemeyle tekrar dinliyoruz ve salesStatus 1 ve salesGroupStatus 2 olarak geliyor. Satırı bul status'u cancel olanı bizde de cancel'a çek. LinesWithoutStock içerisine de iptal olan satırı at diyoruz. 
+  - Bunun sebebi serkanın yaptığı yeni endpointite linesWithoutStock'u çekiyoruz bunla faturalandırma yapılıyor. Bunu yaptıktan sonra order'ı update ediyoruz. 
+  - Kısmi iptal diye bir şey yok, kısmi satış var. Ama kargo satırı bazen iptal olamıyor, bu durumda da kargo satışı için farklı bir durum olarak bakıyoruz, fakat şimdilik aynı işi yapıyoruz.
+
+## ECommerce Order Returns (IADE)
+
+İadenin movementCode'u biraz daha farklı bir movementCode olarak düşüyor. Bizi çok ilgilendirmiyor biz bunu alıp AX'a gönderiyoruz. gateway üzerinden wms-TR içerisinde eCommmerceOrderReturn'ü alıyoruz, depo dönüşüne farklı olarak order ve orderLines alıyoruz. Bunu sonrasında wms-tr'ye api'ye gönderiyoruz. Post'u yapmadan önce yine map'liyoruz. WMS respond'unu alıyor. Bunu map'ledikten sonra kayıt ediyor.
+
+order içerisinde wmsOrderReturn ile consume ediyoruz. orderReturn ve soldOrderLine varsa bunu cancel'a çekiyoruz. uzunluğu eşit değilse de partially sold'a çekiyoruz.

@@ -483,5 +483,139 @@ We can reuse **UI** and **Stateful Logic**
 
 **Render props pattern:** For complete control over *what* the component renders, by passing in a function that tells the component what to render. Was more common before hooks, but still useful.
 
-**Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components.
+**Compound component pattern:** For very self-contained components that need/want to manage their own state. Compound components are like fancy super-components. 
 
+### **Render Props Pattern**
+
+```js
+function List({ title, items }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const displayItems = isCollapsed ? items.slice(0, 3) : items;
+  return (
+    <div className="list-container">
+      {isOpen && <ul className="list">{displayItems.map((product) => (
+            <ProductItem key={product.productName} product={product} />
+          ))}</ul>}
+    </div>
+  );
+}
+
+<List title="Products" items={products} />
+```
+
+```js
+function List({ title, items, render }) {
+  const [isOpen, setIsOpen] = useState(true);
+  const displayItems = isCollapsed ? items.slice(0, 3) : items;
+  return (
+    <div className="list-container">
+      {isOpen && <ul className="list">{displayItems.map(render)}</ul>}
+    </div>
+  );
+}
+
+<List title="Products" items={products} render={(product) => {
+    <ProductItem key={product.productName} product={product} />
+  }} />
+```
+
+### **Higher-Order Components (HOC)**
+
+```js
+function ProductList({ title, items }) {
+  return (
+    <ul className="list">
+      {items.map((product) => (
+        <ProductItem key={product.productName} product={product} />
+      ))}
+    </ul>
+  );
+}
+
+export default function withToggles(WrappedComponent) {
+  return function List(props) {
+    const [isOpen, setIsOpen] = useState(true);
+    const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const displayItems = isCollapsed ? props.items.slice(0, 3) : props.items;
+
+    function toggleOpen() {
+      setIsOpen((isOpen) => !isOpen);
+      setIsCollapsed(false);
+    }
+
+    return (
+      <div className="list-container">
+        <div className="heading">
+          <h2>{props.title}</h2>
+          <button onClick={toggleOpen}>
+            {isOpen ? <span>&or;</span> : <span>&and;</span>}
+          </button>
+        </div>
+        {isOpen && <WrappedComponent {...props} items={displayItems} />}
+
+        <button onClick={() => setIsCollapsed((isCollapsed) => !isCollapsed)}>
+          {isCollapsed ? `Show all ${props.items.length}` : "Show less"}
+        </button>
+      </div>
+    );
+  };
+}
+
+const ProductListWithToggles = withToggles(ProductList);
+```
+
+### **Compound Component Pattern**
+
+```js
+const CounterContext = createContext();
+
+// 2. Create parent component
+function Counter({ children }) {
+  const [count, setCount] = useState(0);
+  const increase = () => setCount((c) => c + 1);
+  const decrease = () => setCount((c) => c - 1);
+
+  return (
+    <CounterContext.Provider value={{ count, increase, decrease }}>
+      <span>{children}</span>
+    </CounterContext.Provider>
+  );
+}
+
+// 3. Create child components to help implementing the common task
+function Count() {
+  const { count } = useContext(CounterContext);
+  return <span>{count}</span>;
+}
+
+function Label({ children }) {
+  return <span>{children}</span>;
+}
+
+function Increase({ icon }) {
+  const { increase } = useContext(CounterContext);
+  return <button onClick={increase}>{icon}</button>;
+}
+
+function Decrease({ icon }) {
+  const { decrease } = useContext(CounterContext);
+  return <button onClick={decrease}>{icon}</button>;
+}
+
+// 4. Add child components as properties to parent component
+Counter.Count = Count;
+Counter.Label = Label;
+Counter.Increase = Increase;
+Counter.Decrease = Decrease;
+
+export default Counter;
+
+// In another file
+<Counter>
+  <Counter.Label>My super flexible counter</Counter.Label>
+  <Counter.Decrease icon="-" />
+  <Counter.Increase icon="+" />
+  <Counter.Count />
+</Counter>
+```

@@ -11,7 +11,7 @@ import FormRow from '../../ui/FormRow';
 import { useEditCabin } from './useEditCabin';
 import { useCreateCabin } from './useCreateCabin';
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onCloseModal }) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
 
@@ -27,8 +27,26 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   const onSubmit = (data) => {
     const image = typeof data.image === 'string' ? data.image : data.image[0];
-    if (isEditSession) editCabin({ newCabinData: { ...data, image }, id: editId }, { onSuccess: () => reset() });
-    else createCabin({ ...data, image }, { onSuccess: () => reset() });
+    if (isEditSession)
+      editCabin(
+        { newCabinData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
+    else
+      createCabin(
+        { ...data, image },
+        {
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
+        }
+      );
   };
 
   const onError = (errors) => {
@@ -36,7 +54,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   };
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form type={onCloseModal ? 'modal' : 'regular'} onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label={'Cabin name'} error={errors?.name?.message}>
         <Input
           type="text"
@@ -102,7 +120,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onCloseModal?.()}>
           Cancel
         </Button>
         <Button disabled={isWorking}>{isEditSession ? 'Edit cabin' : 'Create new cabin'}</Button>

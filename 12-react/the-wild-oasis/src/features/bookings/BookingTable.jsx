@@ -25,9 +25,9 @@ function BookingTable() {
         </Table.Header>
 
         <Table.Body data={bookings} render={(booking) => <BookingRow key={booking.id} booking={booking} />} />
-      
+
         <Table.Footer>
-          <Pagination count={45} />
+          <Pagination count={bookings.count} />
         </Table.Footer>
       </Table>
     </Menus>

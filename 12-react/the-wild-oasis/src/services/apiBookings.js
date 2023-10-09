@@ -8,7 +8,8 @@ export const getBookings = async ({ filter, sortBy }) => {
       'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
     );
 
-  if (filter !== null) query = query[filter.method || "eq"](filter.field, filter.value);
+  if (filter) query = query[filter.method || 'eq'](filter.field, filter.value);
+  if (sortBy.field) query = query.order(sortBy.field, { ascending: sortBy.direction === 'asc' });
 
   const { data, error } = await query;
   if (error) {

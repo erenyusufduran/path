@@ -47,13 +47,14 @@ const Filter = ({ filterField, options }) => {
 
   return (
     <StyledFilter>
-      {options.map((option) => (
+      {options.map(({ value, label }) => (
         <FilterButton
-          key={option.value}
-          active={option.value === currentFilter}
-          onClick={() => handleClick(option.value)}
+          key={value}
+          disabled={value === currentFilter ? 1 : 0}
+          active={value === currentFilter ? 1 : 0}
+          onClick={() => handleClick(value)}
         >
-          {option.label}
+          {label}
         </FilterButton>
       ))}
     </StyledFilter>

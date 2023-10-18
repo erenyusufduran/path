@@ -26,3 +26,9 @@ There is a chrome extension that called **jQuery Injector**. With it we can simp
 ```js
 $("h1").textContent // Is is easier from vanilla JS.
 ```
+
+### Multiple Selectors
+
+```js
+$("h2").each((index, element) => console.log($(element).text()))
+```

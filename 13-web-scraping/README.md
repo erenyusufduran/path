@@ -13,4 +13,16 @@ The order of things that you should try to do;
 
 However if you have a site, that doesn't have a public API you can access right away or it is not easy for you to reverse engineer how to use the API and the site requires JavaScript to render, which means you can't use request because request doesn't have a JS rendering enabled, it is just fetching the data on the URL. Then the last option is to use an automated browser such as puppeteer.
 
+## Intro to CSS Selectors
 
+```js
+const h1Element = document.querySelector("h1") // Takes first h1
+```
+
+We use jQuery selectors instead of these vanilla JS selectors. So jQuery is a library for JS that was quite popular some years ago. Not it's not so populat because we have things like React for making web apps, but we can still use jQuery to select elements and it's quite handy to do that compared to using vanilla JS selectors.
+
+There is a chrome extension that called **jQuery Injector**. With it we can simply type in a dolar sign and then put in my CSS selector, which is going to be `h1`. Then you can put in a dot text to get the text from this element.
+
+```js
+$("h1").textContent // Is is easier from vanilla JS.
+```

@@ -31,4 +31,37 @@ $("h1").textContent // Is is easier from vanilla JS.
 
 ```js
 $("h2").each((index, element) => console.log($(element).text()))
+$("#red").text()
+$(".red").each(element => console.log($(element).text()))
+$("[data-customer='22293']").text()
+```
+
+### HTML Tables
+
+When you are inspecting the site with developer tools, you can copy with selectors an any element an it gives you it's path.
+
+```css
+body > table > tbody > tr:nth-child(2) > td:nth-child(3)
+```
+
+We can select it with jQuery:
+
+```js
+$("body > table > tbody > tr:nth-child(2) > td:nth-child(3)").text()
+// 'Mexico'
+```
+
+And we can take all items in one:
+
+```js
+$("body > table > tbody > tr > td").text()
+// 'Alfred FutterkisteMaria AndersGermanyBerglunds snabbköpChristina BerglundSwedenCentro comercial MoctezumaFrancisco ChangMexicoErnst HandelRoland MendelAustriaIsland TradingHelen BennettUK'
+```
+
+We can modify the data with our functions as well:
+
+```js
+$("body > table > tbody > tr > td").each((index, element) => {
+  console.log($(element).text())
+})
 ```

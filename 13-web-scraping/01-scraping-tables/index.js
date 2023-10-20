@@ -1,5 +1,6 @@
 const request = require('request-promise');
 const cheerio = require('cheerio');
+const axios = require('axios');
 
 async function oldMain() {
   const result = await request.get('https://codingwithstefan.com/table-example');
@@ -11,8 +12,8 @@ async function oldMain() {
 }
 
 async function tableMain() {
-  const result = await request.get('https://codingwithstefan.com/table-example');
-  const $ = cheerio.load(result);
+  const result = await axios.get('https://codingwithstefan.com/table-example');
+  const $ = cheerio.load(result.data);
 
   const scrapedRows = [];
   $('body > table > tbody > tr').each((index, element) => {

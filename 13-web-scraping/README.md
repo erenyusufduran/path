@@ -65,3 +65,8 @@ $("body > table > tbody > tr > td").each((index, element) => {
   console.log($(element).text())
 })
 ```
+
+## Scraping on Craigslist using Puppeteer
+
+### <a href="https://sfbay.craigslist.org">What data are we scraping?</a>
+

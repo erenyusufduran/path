@@ -1,15 +1,12 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
-const scrapingResults = [];
 
-async function main() {
-  const browser = await puppeteer.launch({ headless: false });
-  const page = await browser.newPage();
+async function scrapeListings(page) {
   await page.goto('https://sfbay.craigslist.org/search/sof', { waitUntil: 'networkidle0' });
   const html = await page.content();
 
   const $ = cheerio.load(html);
-  const results = $('.result-info')
+  const listings = $('.result-info')
     .map((_, element) => {
       const titleElement = $(element).find('.posting-title');
       const timeElement = $($($(element).find('.meta')).find('span')).attr('title');
@@ -22,7 +19,33 @@ async function main() {
       return { title, url, datePosted, hood };
     })
     .get();
-  console.log(results);
+  return listings;
+}
+
+async function scrapeJobDescriptions(listings, page) {
+  for (let i = 0; i < listings.length; i++) {
+    await page.goto(listings[i].url, { waitUntil: 'networkidle0' });
+    const html = await page.content();
+    
+    const $ = cheerio.load(html);
+    const jobDescription = $("#postingbody").text();
+    listings[i].jobDescription = jobDescription;
+    console.log(jobDescription);
+    await sleep(1000);
+
+  
+  }
+}
+
+async function sleep(miliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, miliseconds));
+}
+
+async function main() {
+  const browser = await puppeteer.launch({ headless: false });
+  const page = await browser.newPage();
+  const listings = await scrapeListings(page);
+  const listingsWithJobDescriptions = await scrapeJobDescriptions(listings, page);
 }
 
 main();

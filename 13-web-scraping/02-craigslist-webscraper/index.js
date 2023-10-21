@@ -9,12 +9,15 @@ async function main() {
   const html = await page.content();
 
   const $ = cheerio.load(html);
-  const results = $('.posting-title')
+  const results = $('.result-info')
     .map((_, element) => {
-      jQuerySelector = $(element);
-      const title = jQuerySelector.text();
-      const url = jQuerySelector.attr('href');
-      return { title, url };
+      const titleElement = $(element).find('.posting-title');
+      const timeElement = $($($(element).find('.meta')).find('span')).attr('title');
+
+      const title = $(titleElement).text();
+      const url = $(titleElement).attr('href');
+      const datePosted = new Date(timeElement);
+      return { title, url, datePosted };
     })
     .get();
   console.log(results);

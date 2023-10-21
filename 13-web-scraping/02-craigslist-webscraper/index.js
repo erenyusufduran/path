@@ -13,11 +13,13 @@ async function main() {
     .map((_, element) => {
       const titleElement = $(element).find('.posting-title');
       const timeElement = $($($(element).find('.meta')).find('span')).attr('title');
+      const hoodElement = $(element).find('.supertitle');
 
       const title = $(titleElement).text();
       const url = $(titleElement).attr('href');
       const datePosted = new Date(timeElement);
-      return { title, url, datePosted };
+      const hood = $(hoodElement).text().trim().replace('(', '').replace(')', '');
+      return { title, url, datePosted, hood };
     })
     .get();
   console.log(results);

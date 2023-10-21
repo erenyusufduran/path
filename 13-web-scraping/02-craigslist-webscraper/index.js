@@ -26,14 +26,15 @@ async function scrapeJobDescriptions(listings, page) {
   for (let i = 0; i < listings.length; i++) {
     await page.goto(listings[i].url, { waitUntil: 'networkidle0' });
     const html = await page.content();
-    
-    const $ = cheerio.load(html);
-    const jobDescription = $("#postingbody").text();
-    listings[i].jobDescription = jobDescription;
-    console.log(jobDescription);
-    await sleep(1000);
 
-  
+    const $ = cheerio.load(html);
+    const jobDescription = $('#postingbody').text();
+    const compensation = $('p.attrgroup > span:nth-child(1) > b').text();
+
+    listings[i].jobDescription = jobDescription;
+    listings[i].compensation = compensation;
+
+    await sleep(1000);
   }
 }
 

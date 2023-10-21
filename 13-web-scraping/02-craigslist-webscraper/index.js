@@ -7,10 +7,17 @@ async function main() {
   const page = await browser.newPage();
   await page.goto('https://sfbay.craigslist.org/search/sof', { waitUntil: 'networkidle0' });
   const html = await page.content();
-  const $ = cheerio.load(html);
-  $('.posting-title').each((_, element) => console.log($(element).text()));
-  $('.posting-title').each((_, element) => console.log($(element).attr("href")));
 
+  const $ = cheerio.load(html);
+  const results = $('.posting-title')
+    .map((_, element) => {
+      jQuerySelector = $(element);
+      const title = jQuerySelector.text();
+      const url = jQuerySelector.attr('href');
+      return { title, url };
+    })
+    .get();
+  console.log(results);
 }
 
 main();

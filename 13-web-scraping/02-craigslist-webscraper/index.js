@@ -1,5 +1,12 @@
 const puppeteer = require('puppeteer');
 const cheerio = require('cheerio');
+const mongoose = require('mongoose');
+const Listing = require('./Listing');
+
+async function connectToDB() {
+  await mongoose.connect('mongodb://localhost:27017/CraigsList?serverSelectionTimeoutMS=5000&connectTimeoutMS=10000');
+  console.log('Connected to DB');
+}
 
 async function scrapeListings(page) {
   await page.goto('https://sfbay.craigslist.org/search/sof', { waitUntil: 'networkidle0' });
@@ -34,6 +41,7 @@ async function scrapeJobDescriptions(listings, page) {
     listings[i].jobDescription = jobDescription;
     listings[i].compensation = compensation;
 
+    await new Listing(listings[i]).save();
     await sleep(1000);
   }
 }
@@ -43,10 +51,11 @@ async function sleep(miliseconds) {
 }
 
 async function main() {
+  await connectToDB();
   const browser = await puppeteer.launch({ headless: false });
   const page = await browser.newPage();
   const listings = await scrapeListings(page);
-  const listingsWithJobDescriptions = await scrapeJobDescriptions(listings, page);
+  await scrapeJobDescriptions(listings, page);
 }
 
 main();

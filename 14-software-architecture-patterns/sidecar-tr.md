@@ -27,3 +27,9 @@ Sidecar Pattern'le birlikte ek işlevsellikleri her programlama dili için yenid
 > Ana uygulama örneğinde, yardımcı araç ile çekirdek hizmet arasındaki izolasyondan faydalanıyoruz, ancak aynı kaynaklara erişim ve tüm süreç iletişiminin düşük ek yükü açısından bunları birbirine yakın çalıştırmanın faydalarından da yararlanıyoruz.
 
 Ambassador Pattern'le birlikte ise yalnızca core uygulamayı genişletmekle kalmayarak, aynı zamanda ağ iletişimi ve güvenliğinin tüm karmaşıklığını Ambassador container'a aktarıyoruz.
+
+## Erdis
+
+Bizim hali hazırda Loglama servislerimiz bulunuyor, EMT içerisinde bir monitoring de yapıyoruz bu kısımda nasıl bir şey kullanıyoruz bilmiyorum. Loglama servislerini düşünecek olursam, şuanda çok fazla loglamamız yok, o yüzden Ambassador olarak ayırmak makul mu emin değilim. Daha çok OMNI tarafı geliyor aklıma, bu kısımda çok daha fazla CPU kullandığımız için bu tarafın loglarını, monitörlemesini bir başka containerda yaparak gelecekte ihtiyacımız olacak CPU seviyelerini daha net görebilirmişiz gibi düşündüm. 
+
+Buna ek olarak da genel yapımızı düşününce typescript repolarıyla bu durum değişiyor, fakat şimdiye kadar 3'lü microservice yapıları kullanıyorduk. Bunları artık tek container'da yaparken iletişim katmanını ayırarak, her biri için bir ambassador container ayağa kaldırırsak, uygulamaların içindeki logicleri daha basite indirgeyerek, codebase'imizi daha logic ağırlıklı bir hale getirebiliriz, daha okunaklı bir şekle sokabilirmişiz gibi düşündüm.

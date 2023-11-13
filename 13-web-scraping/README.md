@@ -69,4 +69,9 @@ $("body > table > tbody > tr > td").each((index, element) => {
 ## Scraping on Craigslist using Puppeteer
 
 ### <a href="https://sfbay.craigslist.org">What data are we scraping?</a>
+### <a href="http://scraperapi.com/?via=nodejswebscraping">ScraperAPI</a>
 
+### If you are blocked, what can you do?
+
+- Use with another ID like AWS Cloud9. 
+- Use proxies inside our request.

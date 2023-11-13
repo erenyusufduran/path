@@ -75,3 +75,7 @@ $("body > table > tbody > tr > td").each((index, element) => {
 
 - Use with another ID like AWS Cloud9. 
 - Use proxies inside our request.
+
+## Robots.txt
+
+robots.txt file saying to web crawlers what they can do and what they cannot do. They have written out specific rules for the different bots.

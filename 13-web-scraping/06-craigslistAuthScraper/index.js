@@ -1,12 +1,13 @@
 const request = require('request-promise').defaults({ jar: true }); // jar, to save cookies
 const fs = require('fs');
+require("dotenv").config();
 
 async function main() {
   try {
     // const html = await request.post('https://accounts.craigslist.org/login', {
     //   form: {
     //     inputEmailHandle: 'erenyusufduran1905@gmail.com',
-    //     inputPassword: 'vubhf5gau.',
+    //     inputPassword: process.env.password,
     //   },
     //   headers: {
     //     Referer: 'https://accounts.craigslist.org/login',

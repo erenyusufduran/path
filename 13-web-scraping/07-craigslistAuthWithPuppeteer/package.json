@@ -1,5 +1,5 @@
 {
-  "name": "06-craigslistauthscraper",
+  "name": "07-craigslistauthwithpuppeteer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.3.1",
-    "request": "^2.88.2",
-    "request-promise": "^4.2.6"
+    "puppeteer": "^21.5.2"
   }
 }

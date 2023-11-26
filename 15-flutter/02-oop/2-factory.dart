@@ -1,5 +1,3 @@
-void main(List<String> args) {}
-
 class Student {
   int id = 0;
   String name = "";

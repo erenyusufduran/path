@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 void main(List<String> args) {
   Map<String, dynamic> map = Map();
   var map2 = <String, dynamic>{};

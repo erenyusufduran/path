@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 void main(List<String> args) {
   Function(int, int) fn1 = (int a, int b) {
     // lambda expression, unnamed functions

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 void main(List<String> args) {
   Person person = Person(3, "Eren");
   Student student = Student(5, "Goksen", 4);

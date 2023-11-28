@@ -9,18 +9,23 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(
-        backgroundColor: Colors.yellow,
         appBar: AppBar(backgroundColor: Colors.teal, title: Text("Header")),
-        body: Container(
-          color: Colors.tealAccent,
-          child: Text(
-            "Eren",
-            textAlign: TextAlign.center,
-          ),
-          margin: EdgeInsets.all(20),
-          padding: EdgeInsets.only(left: 20, top: 20),
-          constraints: BoxConstraints(minHeight: 100, minWidth: 100, maxHeight: 200, maxWidth: 200),
-        ),
+        body: Center(
+            widthFactor: 2,
+            heightFactor: 2,
+            child: Container(
+              width: 200,
+              height: 200,
+              color: Colors.red,
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.blue,
+                margin: EdgeInsets.all(40),
+                width: 50,
+                height: 50,
+                child: Text("Eren"),
+              ),
+            )),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Clicked!");

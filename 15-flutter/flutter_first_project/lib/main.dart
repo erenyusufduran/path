@@ -5,27 +5,41 @@ void main(List<String> args) {
 }
 
 class MyApp extends StatelessWidget {
+  String _imgFirst =
+      "https://emrealtunbilek.com/wp-content/uploads/2016/10/apple-icon-72x72.png";
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.teal, title: Text("Header")),
         body: Center(
-            widthFactor: 2,
-            heightFactor: 2,
-            child: Container(
-              width: 200,
-              height: 200,
-              color: Colors.red,
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.blue,
-                margin: EdgeInsets.all(40),
-                width: 50,
-                height: 50,
-                child: Text("Eren"),
-              ),
-            )),
+          child: Container(
+            padding: EdgeInsets.all(20),
+            child: FlutterLogo(
+              size: 64,
+            ),
+            decoration: BoxDecoration(
+                color: Colors.orange,
+                shape: BoxShape.rectangle,
+                border: Border.all(width: 4, color: Colors.purple),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30),
+                    topRight: Radius.circular(30)),
+                image: DecorationImage(
+                    image: NetworkImage(_imgFirst),
+                    fit: BoxFit.contain,
+                    repeat: ImageRepeat.repeat),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.green,
+                      offset: Offset(10, 20),
+                      blurRadius: 20),
+                  BoxShadow(
+                      color: Colors.yellow,
+                      offset: Offset(0, -20),
+                      blurRadius: 15)
+                ]),
+          ),
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Clicked!");

@@ -12,38 +12,10 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.teal, title: Text("Header")),
         body: Container(
-          color: Colors.red.shade300,
-          child: Column /*Row*/ (
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [Text("E"), Text("R"), Text("E"), Text("N")],
-                ),
-                Icon(
-                  Icons.add_circle,
-                  size: 64,
-                  color: Colors.green,
-                ),
-                Icon(
-                  Icons.add_circle,
-                  size: 64,
-                  color: Colors.red,
-                ),
-                Icon(
-                  Icons.add_circle,
-                  size: 64,
-                  color: Colors.blue,
-                ),
-                Icon(
-                  Icons.add_circle,
-                  size: 64,
-                  color: Colors.orange,
-                )
-              ]),
-        ),
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: withProblemsContainer,
+        )),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Clicked!");
@@ -55,6 +27,146 @@ class MyApp extends StatelessWidget {
           backgroundColor: Colors.red,
         ),
       ),
+    );
+  }
+
+  List<Widget> get flexibleContainer {
+    return [
+      Flexible(
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.yellow,
+        ),
+      ),
+      Flexible(
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.red,
+        ),
+      ),
+      Flexible(
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.green,
+        ),
+      ),
+      Flexible(
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.blue,
+        ),
+      )
+    ];
+  }
+
+  List<Widget> get expandedContainer {
+    return [
+      Expanded(
+        flex: 2,
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.yellow,
+        ),
+      ),
+      Expanded(
+        flex: 1,
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.red,
+        ),
+      ),
+      Expanded(
+        flex: 3,
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.blue,
+        ),
+      ),
+      Expanded(
+        child: Container(
+          width: 75,
+          height: 75,
+          color: Colors.grey,
+        ),
+      ),
+    ];
+  }
+
+  List<Widget> get withProblemsContainer {
+    return [
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.yellow,
+      ),
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.red,
+      ),
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.blue,
+      ),
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.grey,
+      ),
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.blue,
+      ),
+      Container(
+        width: 75,
+        height: 75,
+        color: Colors.red,
+      )
+    ];
+  }
+
+  Widget rowColumnMethods() {
+    return Container(
+      color: Colors.red.shade300,
+      child: Column /*Row*/ (
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [Text("E"), Text("R"), Text("E"), Text("N")],
+            ),
+            Icon(
+              Icons.add_circle,
+              size: 64,
+              color: Colors.green,
+            ),
+            Icon(
+              Icons.add_circle,
+              size: 64,
+              color: Colors.red,
+            ),
+            Icon(
+              Icons.add_circle,
+              size: 64,
+              color: Colors.blue,
+            ),
+            Icon(
+              Icons.add_circle,
+              size: 64,
+              color: Colors.orange,
+            )
+          ]),
     );
   }
 

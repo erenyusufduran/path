@@ -16,8 +16,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _count = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,14 +39,23 @@ class MyHomePage extends StatelessWidget {
           style: TextStyle(fontSize: 24),
         ),
         Text(
-          "0",
+          _count.toString(),
           style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
         )
       ])),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          debugPrint("Button has been clicked");
+          increaseCount();
+        },
         child: Icon(Icons.add),
       ),
     );
+  }
+  
+  void increaseCount() {
+    setState(() {
+      _count++;
+    });
   }
 }

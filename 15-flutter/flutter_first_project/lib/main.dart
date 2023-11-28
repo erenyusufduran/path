@@ -11,7 +11,39 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.teal, title: Text("Header")),
-        body: containerLessons(),
+        body: Container(
+          color: Colors.red.shade300,
+          child: Column /*Row*/ (
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [Text("E"), Text("R"), Text("E"), Text("N")],
+                ),
+                Icon(
+                  Icons.add_circle,
+                  size: 64,
+                  color: Colors.green,
+                ),
+                Icon(
+                  Icons.add_circle,
+                  size: 64,
+                  color: Colors.red,
+                ),
+                Icon(
+                  Icons.add_circle,
+                  size: 64,
+                  color: Colors.blue,
+                ),
+                Icon(
+                  Icons.add_circle,
+                  size: 64,
+                  color: Colors.orange,
+                )
+              ]),
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Clicked!");

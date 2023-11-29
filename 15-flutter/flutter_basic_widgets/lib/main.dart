@@ -1,11 +1,12 @@
 // ignore_for_file: unused_import
 
 import "package:flutter/material.dart";
+import "package:flutter_basic_widgets/buttons_page.dart";
 import "package:flutter_basic_widgets/image_widgets.dart";
 import "package:flutter_basic_widgets/my_counter_page.dart";
 
 void main(List<String> args) {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -17,14 +18,19 @@ class MyApp extends StatelessWidget {
       title: "My Counter App",
       theme: ThemeData(
           primarySwatch: Colors.teal,
-          textTheme: TextTheme(
+          outlinedButtonTheme:
+              OutlinedButtonThemeData(style: OutlinedButton.styleFrom()),
+          textButtonTheme: const TextButtonThemeData(
+              style: ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.blue))),
+          textTheme: const TextTheme(
               headlineLarge: TextStyle(
                   color: Colors.purple,
                   fontWeight: FontWeight.bold,
                   fontSize: 64))),
       home: Scaffold(
-        appBar: AppBar(title: Text("Image Examples")),
-        body: ImageExamples(),
+        appBar: AppBar(title: const Text("Image Examples")),
+        body: const ButtonWidget(),
       ),
     );
   }

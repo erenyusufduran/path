@@ -1,13 +1,41 @@
-import { calculateComplexity, toUpperCaseWithCb } from '../../app/doubles/OtherUtils';
+import { OtherStringUtils, calculateComplexity, toUpperCaseWithCb } from '../../app/doubles/OtherUtils';
 
 describe('OtherUtils test suite', () => {
+  //spies
+  describe.only('OtherStringUtils tests with spies', () => {
+    let sut: OtherStringUtils;
 
-  describe("Tracking callbacks with Jest Mocks", () => {
+    beforeEach(() => {
+      sut = new OtherStringUtils();
+    });
+
+    test('Use a spy to track calls', () => {
+      const toUpperCaseSpy = jest.spyOn(sut, 'toUpperCase');
+      sut.toUpperCase('asa');
+      expect(toUpperCaseSpy).toHaveBeenCalledWith('asa');
+    });
+
+    test('Use a spy to track calls to other module', () => {
+      const consoleLogSpy = jest.spyOn(sut, 'logString');
+      sut.logString('abc');
+      expect(consoleLogSpy).toHaveBeenCalledWith('abc');
+    });
+
+    test('Use a spy to replace the implementation of a method', () => {
+      jest.spyOn(sut, 'callExternalService').mockImplementation(() => {
+        console.log('Calling mocked implementation');
+      });
+      sut.callExternalService();
+    });
+  });
+
+  // mocks
+  describe('Tracking callbacks with Jest Mocks', () => {
     const callbackMock = jest.fn();
 
     afterEach(() => {
       jest.clearAllMocks();
-    })
+    });
 
     it('Calls callback for invalid argument - tracks calls', () => {
       const actual = toUpperCaseWithCb('', callbackMock);
@@ -22,7 +50,7 @@ describe('OtherUtils test suite', () => {
       expect(callbackMock).toHaveBeenCalledWith('Called function with abc');
       expect(callbackMock).toHaveBeenCalledTimes(1);
     });
-  })
+  });
 
   // mocks
   describe('Tracking callbacks', () => {

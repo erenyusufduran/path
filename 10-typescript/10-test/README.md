@@ -33,6 +33,10 @@
  - Setup
  - Teardown
 
+Tests should be independent
+<br>
+Reduce code duplication
+
 ## F.I.R.S.T Principles
 
 Principles not rules, that we may follow when writing tests:

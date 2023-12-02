@@ -32,3 +32,47 @@
  ***
  - Setup
  - Teardown
+
+## F.I.R.S.T Principles
+
+Principles not rules, that we may follow when writing tests:
+- Fast
+  - Unit tests should be fast, faster tests - faster feedback
+- Independent (Isolated)
+  - From other tests
+  - From external environment
+    - No shared state with other tests
+    - The order in which tests run should not matter
+    - Contradiction with the Fast principle
+      - Individual tests take more time to setup
+- Repeatable
+  - Same result with the same input: 
+    - Random / Date values - we will often mock these
+    - Test that wites to a database, It should always clean up
+    - In contadiction with the Fast principle, More setup and teardown operations
+- Self-validating
+  - After the test is finished, it's results should be clear - Pass / Fail
+- Thorough
+  - Cover all the cases/paths/scenarios
+    - Hard to think at all of them from the beginning
+    - Happy cases, bad paths, edge cases
+    - Invalid output
+    - Large values
+    - 100% code coverage - not a great indicator
+
+### Illustration
+
+- A tester walks into a bar
+  - Runs into a bar
+  - Crawls into a bar
+  - Dances into a bar
+  - Jumps into a bar
+  - Others:
+    - A beer
+    - 2 beer
+    - 0 beer
+    - 1 million beers
+    - -1 beers
+    - A lizard beer
+  - ****
+- A real customer walks into a bark and ask where the bathrom is and its a **SYSTEM CRASH!!**

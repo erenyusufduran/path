@@ -26,7 +26,7 @@ describe('Utils test suite', () => {
       expect(() => sut.toUpperCase('')).toThrowErrorMatchingSnapshot('Invalid argument!');
     });
 
-    it.only('Should throw error on invalid argument - try catch block', (done) => {
+    it('Should throw error on invalid argument - try catch block', (done) => {
       try {
         sut.toUpperCase('');
         done('GetStringInfo should throw error for invalid arg!');

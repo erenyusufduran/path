@@ -80,3 +80,20 @@ Principles not rules, that we may follow when writing tests:
     - A lizard beer
   - ****
 - A real customer walks into a bark and ask where the bathrom is and its a **SYSTEM CRASH!!**
+
+----
+
+**Test properties:**
+- only
+- skip
+- todo
+- concurrent
+<br> 
+
+**Test aliases:**
+- it
+- test
+- xit
+- fit
+***
+watch mode

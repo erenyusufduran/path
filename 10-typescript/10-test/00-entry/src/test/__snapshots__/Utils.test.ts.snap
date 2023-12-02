@@ -2,6 +2,8 @@
 
 exports[`Utils test suite StringUtils tests Should throw error on invalid argument - arrow function: "Invalid argument!" 1`] = `"Invalid argument!"`;
 
+exports[`Utils test suite StringUtils tests Should throw error on invalid argument - arrow function: Invalid argument 1`] = `"Invalid argument!"`;
+
 exports[`Utils test suite StringUtils tests Should throw error on invalid argument - arrow function: Invalid argument! 1`] = `"Invalid argument!"`;
 
 exports[`Utils test suite StringUtils tests Should throw error on invalid argument - function: Invalid argument! 1`] = `"Invalid argument!"`;

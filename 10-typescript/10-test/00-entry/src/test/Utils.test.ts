@@ -9,7 +9,7 @@ describe('Utils test suite', () => {
       console.log('Setup');
     });
 
-    it('Should return correct uppercase', () => {
+    it.only('Should return correct uppercase', () => {
       const actual = sut.toUpperCase('abc');
       expect(actual).toBe('ABC');
     });

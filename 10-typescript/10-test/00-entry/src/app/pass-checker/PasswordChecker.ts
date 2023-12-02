@@ -1,7 +1,23 @@
+export enum PasswordErrors {
+  SHORT = 'Password is too short!',
+  NO_UPPER_CASE = 'Uppercase letter required!',
+  NO_LOWER_CASE = 'Lowercase letter required!',
+}
+
+export interface CheckResult {
+  valid: boolean;
+  reasons: string[];
+}
+
 export class PasswordChecker {
-  public checkPassword(password: string): boolean {
-    if (password.length < 8) return false;
-    if (password == password.toLowerCase() || password == password.toUpperCase()) return false;
-    return true;
+  public checkPassword(password: string): CheckResult {
+    const reasons: PasswordErrors[] = [];
+    if (password.length < 8) reasons.push(PasswordErrors.SHORT);
+    if (password == password.toLowerCase()) reasons.push(PasswordErrors.NO_UPPER_CASE);
+    if (password == password.toUpperCase()) reasons.push(PasswordErrors.NO_LOWER_CASE);
+    return {
+      valid: reasons.length > 0 ? false : true,
+      reasons: reasons,
+    };
   }
 }

@@ -97,3 +97,13 @@ Principles not rules, that we may follow when writing tests:
 - fit
 ***
 watch mode
+
+## Test Driven Development with Jest (TDD)
+
+- It is exactly what it sounds - development driven by tests
+- Big projects - a detour
+  - First achieve a working state, then write tests
+- **TDD:** great when extending an app of fixing bugs
+
+**TDD Cycle**
+![Alt text](./assets/image.png)

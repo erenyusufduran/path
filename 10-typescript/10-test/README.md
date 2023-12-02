@@ -106,4 +106,30 @@ watch mode
 - **TDD:** great when extending an app of fixing bugs
 
 **TDD Cycle**
-![Alt text](./assets/image.png)
+![Alt text](./assets/tddCycle.png)
+
+## Test Doubles
+- Stubs
+- Fakes
+- Mocks
+- Spies
+- Mock Modules
+
+### What are Test Doubles?
+
+Some units are not fast, or easily accessible, replace them in tests: 
+![Alt text](assets/testDoubles.png)
+
+- Pretend objects used in place of a real object for testing purposes
+  - **Dummy objects:** passed around but not used
+  - **Fakes:** Simplified working implementation, it takes a shortcut
+  - **Stubs:** Incomplete objects used as arguments
+  - **Spies:** Tracks information about how a unit is called
+  - **Mocks:** Preprogrammed with expectations
+
+Note for Jest: **Mocks** and **spies** have a lot in common.
+<br>
+
+**Mocks: most used, most debated**
+- The way we use them greatly influences the way we write tests.
+- If we need to use them too much, there is something wrong with our code.

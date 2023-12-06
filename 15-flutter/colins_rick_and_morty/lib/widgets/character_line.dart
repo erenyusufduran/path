@@ -10,6 +10,10 @@ class CharacterLine extends StatelessWidget {
     return Column(
       children: [
         ListTile(
+          onTap: () {
+            Navigator.of(context).pushNamed("/character_detail");
+
+          },
           title: Text(
             character.name,
             style: TextStyle(fontWeight: FontWeight.w700),

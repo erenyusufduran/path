@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import "../models/character.dart";
+import "../models/pass_route_it.dart";
 
 class CharacterLine extends StatelessWidget {
   Character character;
@@ -11,8 +12,8 @@ class CharacterLine extends StatelessWidget {
       children: [
         ListTile(
           onTap: () {
-            Navigator.of(context).pushNamed("/character_detail");
-
+            Navigator.of(context).pushNamed("/character_detail",
+                arguments: character);
           },
           title: Text(
             character.name,

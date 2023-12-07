@@ -15,7 +15,7 @@ class RickAndMorty extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Rick & Morty',
+      title: 'Rick & Morty Forever!',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

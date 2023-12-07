@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import "../models/character.dart";
-import "../models/pass_route_it.dart";
 
 class CharacterLine extends StatelessWidget {
   Character character;

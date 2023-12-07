@@ -9,13 +9,20 @@ class EpisodeLine extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       ListTile(
+          onTap: () {
+            Navigator.of(context)
+                .pushNamed("/episode_detail", arguments: episode);
+          },
           title: Text(episode.episode,
               style: TextStyle(fontWeight: FontWeight.w700)),
           subtitle: Text(episode.airDate),
           trailing: CircleAvatar(
               child: Text("+${episode.characters.length.toString()}")),
           leading: Text(episode.id.toString())),
-      Divider(color: Colors.black, height: 4,)
+      Divider(
+        color: Colors.black,
+        height: 4,
+      )
     ]);
   }
 }

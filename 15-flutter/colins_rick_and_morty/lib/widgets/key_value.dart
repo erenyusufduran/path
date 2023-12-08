@@ -1,0 +1,32 @@
+import 'package:flutter/material.dart';
+
+class KeyValue extends StatelessWidget {
+  final String displayKey;
+  final String displayValue;
+
+  const KeyValue(
+      {Key? key, required this.displayKey, required this.displayValue})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "$displayKey: ",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          ),
+          Expanded(
+            child: Text(
+              displayValue,
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

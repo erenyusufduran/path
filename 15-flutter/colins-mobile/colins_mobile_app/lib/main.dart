@@ -1,5 +1,4 @@
-import 'package:colins_mobile_app/screens/login/login_screen.dart';
-import 'package:colins_mobile_app/screens/screens.dart';
+import 'package:colins_mobile_app/screens/screens.dart' as screens;
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,19 +8,40 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      initialRoute: LoginScreen.route,
+          scaffoldBackgroundColor: Colors.white,
+          primarySwatch: Colors.blue,
+          inputDecorationTheme: InputDecorationTheme(
+              floatingLabelBehavior: FloatingLabelBehavior.never,
+              border: OutlineInputBorder(),
+              outlineBorder: BorderSide(color: Colors.blue)),
+          elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+            shape: MaterialStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.zero,
+                side: BorderSide(color: Colors.blue),
+              ),
+            ),
+            foregroundColor:
+                MaterialStateColor.resolveWith((states) => Colors.white),
+            minimumSize: MaterialStateProperty.resolveWith(
+                (states) => Size(double.infinity, 57)),
+            maximumSize: MaterialStateProperty.resolveWith(
+                (states) => Size(double.infinity, 57)),
+            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                (Set<MaterialState> states) {
+              return Colors.blue;
+            }),
+          ))),
+      initialRoute: screens.LoginScreen.route,
       routes: {
-        LoginScreen.route: (context) => const LoginScreen(),
-        MainTabScreen.route: (context) => const MainTabScreen(),
+        screens.LoginScreen.route: (context) => const screens.LoginScreen(),
+        screens.MainTabScreen.route: (context) => const screens.MainTabScreen(),
       },
     );
   }

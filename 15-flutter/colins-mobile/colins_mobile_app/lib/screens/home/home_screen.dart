@@ -1,3 +1,4 @@
+import "package:colins_mobile_app/widgets/category_button_icon.dart";
 import 'package:flutter/material.dart';
 import "../../widgets/widgets.dart" as widgets;
 import "../../view_models/view_models.dart" as view_models;
@@ -22,6 +23,16 @@ class HomeScreen extends StatelessWidget {
   final view_models.TitleGroup megaSaleTitle =
       view_models.TitleGroup(title: "İndirimdekiler", actionOnTab: () {});
 
+  final List<view_models.CategoryButtonIcon> _categories = [
+    view_models.CategoryButtonIcon(label: "Erkek T-Shirt", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(label: "Elbise", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(label: "Çanta", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(
+        label: "Yeni Doğan Kıyafeetleri", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(label: "Çocuk", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(label: "Üniversiteli", icon: Icons.ac_unit),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +51,13 @@ class HomeScreen extends StatelessWidget {
           child: Column(children: [
         widgets.OfferBanner(_offerBanner),
         widgets.TitleGroup(categoryTitle),
+        SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+            scrollDirection: Axis.horizontal,
+            child: Row(
+                children: _categories
+                    .map((category) => widgets.CategoryButtonIcon(category))
+                    .toList())),
         widgets.TitleGroup(megaSaleTitle),
         widgets.TitleGroup(flashSaleTitle)
       ])),

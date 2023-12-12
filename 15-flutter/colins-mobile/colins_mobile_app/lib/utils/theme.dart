@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import "./utils.dart" as utils;
 
 class Theme {
@@ -53,6 +54,10 @@ class Theme {
                     fontWeight: FontWeight.bold,
                     fontFamily: "Poppins"))),
         appBarTheme: AppBarTheme(
+            systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarBrightness: Brightness.light,
+                statusBarIconBrightness: Brightness.light,
+                statusBarColor: Colors.transparent),
             titleTextStyle: TextStyle(
               fontFamily: "Poppins",
               fontSize: 16,

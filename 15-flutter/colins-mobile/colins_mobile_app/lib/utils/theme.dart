@@ -6,26 +6,51 @@ class Theme {
     return ThemeData(
         scaffoldBackgroundColor: Colors.white,
         inputDecorationTheme: InputDecorationTheme(
+            contentPadding: const EdgeInsets.all(10),
+            suffixStyle: TextStyle(
+                color: utils.Colors.grey,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                fontFamily: "Poppins"),
+            focusColor: utils.Colors.blue,
+            fillColor: utils.Colors.blue,
+            hoverColor: utils.Colors.blue,
+            hintStyle: TextStyle(
+                color: utils.Colors.grey,
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                fontFamily: "Poppins"),
             floatingLabelBehavior: FloatingLabelBehavior.never,
-            border: OutlineInputBorder(),
-            outlineBorder: BorderSide(color: Colors.blue)),
-        // elevatedButtonTheme: ElevatedButtonThemeData(
-        //     style: ButtonStyle(
-        //   shape: MaterialStateProperty.all(
-        //     RoundedRectangleBorder(
-        //       borderRadius: BorderRadius.zero,
-        //       side: BorderSide(color: Colors.blue),
-        //     ),
-        //   ),
-       
-        // ))
+            border: const OutlineInputBorder(),
+            outlineBorder: const BorderSide(color: Colors.blue)),
+        errorColor: utils.Colors.red,
+        hintColor: utils.Colors.grey,
+        focusColor: utils.Colors.blue,
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
+          textStyle: const TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, fontFamily: "Poppins"),
           shadowColor: utils.Colors.blue.withOpacity(0.25),
           elevation: 30,
           minimumSize: const Size(double.infinity, 57),
-          primary: utils.Colors.blue,
+          backgroundColor: utils.Colors.blue,
           foregroundColor: utils.Colors.light,
-        )));
+        )),
+        textTheme: TextTheme(
+            headlineMedium: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: utils.Colors.dark),
+            bodyLarge: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 12,
+                color: utils.Colors.grey)),
+        textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+                foregroundColor: utils.Colors.blue,
+                textStyle: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Poppins"))));
   }
 }

@@ -66,7 +66,10 @@ class LoginScreen extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Hesabın yok mu?"),
+                    Text(
+                      "Hesabın yok mu?",
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
                     TextButton(
                         onPressed: () {},
                         child: Text("Hesap Oluştur",

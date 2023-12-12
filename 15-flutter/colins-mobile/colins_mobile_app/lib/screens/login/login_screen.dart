@@ -15,7 +15,7 @@ class LoginScreen extends StatelessWidget {
           actions: [
             TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(screens.MainTabScreen.route);
+                  Navigator.of(context).popAndPushNamed(screens.MainTabScreen.route);
                 },
                 child: Text(
                   "Atla",
@@ -87,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, screens.RegisterScreen.route);
+                          Navigator.popAndPushNamed(context, screens.RegisterScreen.route);
                         },
                         child: const Text("Hesap Oluştur",
                             style: TextStyle(color: Colors.blue)))

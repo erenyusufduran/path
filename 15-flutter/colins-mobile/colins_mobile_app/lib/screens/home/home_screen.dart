@@ -6,6 +6,20 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text("Home Screen")));
+    return Scaffold(
+        appBar: AppBar(
+          title: TextFormField(
+              decoration: const InputDecoration(
+                  hintText: "Ürün Ara",
+                  prefixIcon: Icon(Icons.search_outlined))),
+          actions: [
+            IconButton(
+                onPressed: () {}, icon: const Icon(Icons.favorite_outline)),
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.notifications_outlined))
+          ],
+        ),
+        body: Center(child: Text("Home Screen")));
   }
 }

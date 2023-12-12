@@ -57,7 +57,9 @@ class Theme {
             systemOverlayStyle: const SystemUiOverlayStyle(
                 statusBarBrightness: Brightness.light,
                 statusBarIconBrightness: Brightness.light,
-                statusBarColor: Colors.transparent),
+                statusBarColor: Colors.transparent,
+                systemNavigationBarIconBrightness: Brightness.dark,
+                systemNavigationBarColor: Colors.white),
             titleTextStyle: TextStyle(
               fontFamily: "Poppins",
               fontSize: 16,

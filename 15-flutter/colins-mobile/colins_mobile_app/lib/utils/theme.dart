@@ -51,6 +51,16 @@ class Theme {
                 textStyle: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    fontFamily: "Poppins"))));
+                    fontFamily: "Poppins"))),
+        appBarTheme: AppBarTheme(
+            titleTextStyle: TextStyle(
+              fontFamily: "Poppins",
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: utils.Colors.dark,
+            ),
+            backgroundColor: Colors.white,
+            foregroundColor: utils.Colors.dark,
+            shadowColor: Colors.transparent));
   }
 }

@@ -18,7 +18,10 @@ class ColinsMobileApp extends StatelessWidget {
       routes: {
         screens.LoginScreen.route: (context) => const screens.LoginScreen(),
         screens.MainTabScreen.route: (context) => const screens.MainTabScreen(),
+        screens.RegisterScreen.route: (context) =>
+            const screens.RegisterScreen()
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

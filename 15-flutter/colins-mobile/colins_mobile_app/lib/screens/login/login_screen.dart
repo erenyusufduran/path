@@ -49,6 +49,10 @@ class LoginScreen extends StatelessWidget {
                   height: 16,
                 ),
                 ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.zero),
+                    ),
                     onPressed: () {
                       // Navigator.pushNamed(context, MainTabScreen.route);
                     },

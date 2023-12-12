@@ -1,5 +1,7 @@
+import "../widgets/widgets.dart" as widgets;
 import 'package:flutter/material.dart';
 import "../view_models/view_models.dart" as view_models;
+import "../utils/utils.dart" as utils;
 
 class OfferBanner extends StatelessWidget {
   view_models.OfferBannerVM offerBanner;
@@ -9,18 +11,25 @@ class OfferBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.only(left: 24),
       margin: const EdgeInsets.all(16),
       height: 206,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.red, borderRadius: BorderRadius.circular(5)),
+          image: DecorationImage(
+              image: NetworkImage(offerBanner.imageUrl),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6), BlendMode.dstATop)),
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(5)),
       child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
               width: 209,
-              margin: const EdgeInsets.only(top: 32, left: 24),
+              margin: const EdgeInsets.only(top: 32, bottom: 10),
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,26 +39,18 @@ class OfferBanner extends StatelessWidget {
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
-                          .copyWith(color: Colors.white),
+                          .copyWith(color: utils.Colors.light),
                     ),
                     Text(
                       "${offerBanner.off} Discount!",
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium!
-                          .copyWith(color: Colors.white),
+                          .copyWith(color: utils.Colors.light),
                     )
                   ]),
             ),
-            Row(
-              children: [
-                Text("08"),
-                Text(":"),
-                Text("34"),
-                Text(":"),
-                Text("52")
-              ],
-            )
+            widgets.PromotionPeriod()
           ]),
     );
   }

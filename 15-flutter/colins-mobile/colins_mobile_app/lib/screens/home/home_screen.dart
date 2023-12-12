@@ -6,8 +6,12 @@ class HomeScreen extends StatelessWidget {
   static String route = "/home";
   HomeScreen({super.key});
 
-  view_models.OfferBannerVM _offerBanner = view_models.OfferBannerVM(
-      title: "Super Discounts", off: "50%", endTime: DateTime.now());
+  final view_models.OfferBannerVM _offerBanner = view_models.OfferBannerVM(
+      title: "Super Discounts",
+      off: "50%",
+      endTime: DateTime.now(),
+      imageUrl:
+          "https://www.colins.com.tr/Themes/Branch/Content/newyear2022/images/01-tr.jpg");
 
   @override
   Widget build(BuildContext context) {

@@ -24,11 +24,11 @@ class HomeScreen extends StatelessWidget {
       view_models.TitleGroup(title: "İndirimdekiler", actionOnTab: () {});
 
   final List<view_models.CategoryButtonIcon> _categories = [
-    view_models.CategoryButtonIcon(label: "Erkek T-Shirt", icon: Icons.ac_unit),
-    view_models.CategoryButtonIcon(label: "Elbise", icon: Icons.ac_unit),
-    view_models.CategoryButtonIcon(label: "Çanta", icon: Icons.ac_unit),
+    view_models.CategoryButtonIcon(label: "Erkek T-Shirt", icon: Icons.man),
+    view_models.CategoryButtonIcon(label: "Elbise", icon: Icons.woman),
+    view_models.CategoryButtonIcon(label: "Çanta", icon: Icons.badge_outlined),
     view_models.CategoryButtonIcon(
-        label: "Yeni Doğan Kıyafeetleri", icon: Icons.ac_unit),
+        label: "Yeni Doğan Kıyafeetleri", icon: Icons.workspaces),
     view_models.CategoryButtonIcon(label: "Çocuk", icon: Icons.ac_unit),
     view_models.CategoryButtonIcon(label: "Üniversiteli", icon: Icons.ac_unit),
   ];
@@ -58,7 +58,6 @@ class HomeScreen extends StatelessWidget {
                 children: _categories
                     .map((category) => widgets.CategoryButtonIcon(category))
                     .toList())),
-        widgets.TitleGroup(megaSaleTitle),
         widgets.TitleGroup(flashSaleTitle)
       ])),
     );

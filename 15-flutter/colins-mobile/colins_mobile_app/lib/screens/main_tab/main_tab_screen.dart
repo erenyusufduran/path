@@ -13,7 +13,7 @@ class MainTabScreen extends StatefulWidget {
 class _MainTabScreenState extends State<MainTabScreen> {
   final List<Widget> _screens = [
     screens.HomeScreen(),
-    const screens.ExploreScreen(),
+    screens.ExploreScreen(),
     const screens.CartScreen(),
     const screens.OfferScreen(),
     const screens.AccountScreen()

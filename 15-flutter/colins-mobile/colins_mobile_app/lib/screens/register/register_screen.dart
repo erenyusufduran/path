@@ -1,4 +1,4 @@
-import 'package:colins_mobile_app/screens/screens.dart';
+import '../screens.dart' as screens;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -86,7 +86,7 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, LoginScreen.route);
+                          Navigator.pushNamed(context, screens.LoginScreen.route);
                         },
                         child: const Text("Giriş Yap",
                             style: TextStyle(color: Colors.blue)))

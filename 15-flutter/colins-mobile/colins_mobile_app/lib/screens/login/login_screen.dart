@@ -1,4 +1,4 @@
-import 'package:colins_mobile_app/screens/screens.dart';
+import '../screens.dart' as screens;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,6 +9,20 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          shadowColor: Colors.transparent,
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(screens.MainTabScreen.route);
+                },
+                child: Text(
+                  "Atla",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ))
+          ],
+        ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 25),
             child: Column(
@@ -41,8 +55,10 @@ class LoginScreen extends StatelessWidget {
                   height: 8,
                 ),
                 TextFormField(
+                  obscureText: true,
                   decoration: const InputDecoration(
-                      hintText: "Şifreniz", prefixIcon: Icon(Icons.lock_outlined)),
+                      hintText: "Şifreniz",
+                      prefixIcon: Icon(Icons.lock_outlined)),
                 ),
                 const SizedBox(
                   height: 16,
@@ -71,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, RegisterScreen.route);
+                          Navigator.pushNamed(context, screens.RegisterScreen.route);
                         },
                         child: const Text("Hesap Oluştur",
                             style: TextStyle(color: Colors.blue)))

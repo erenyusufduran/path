@@ -38,6 +38,10 @@ class Theme {
         foregroundColor: utils.Colors.light,
       )),
       textTheme: TextTheme(
+          displayMedium: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+              color: utils.Colors.dark),
           headlineMedium: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,

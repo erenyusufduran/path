@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "../screens.dart" as screens;
-import "../../utils/colors.dart" as colors;
+import "../../utils/utils.dart" as utils;
 
 class MainTabScreen extends StatefulWidget {
   static String route = "/main_tab";
@@ -11,12 +11,12 @@ class MainTabScreen extends StatefulWidget {
 }
 
 class _MainTabScreenState extends State<MainTabScreen> {
-  final List<Widget> _screens = const [
+  final List<Widget> _screens = [
     screens.HomeScreen(),
-    screens.ExploreScreen(),
-    screens.CartScreen(),
-    screens.OfferScreen(),
-    screens.AccountScreen()
+    const screens.ExploreScreen(),
+    const screens.CartScreen(),
+    const screens.OfferScreen(),
+    const screens.AccountScreen()
   ];
   int _selectedIndex = 0;
   @override
@@ -26,7 +26,7 @@ class _MainTabScreenState extends State<MainTabScreen> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
             border:
-                Border(top: BorderSide(color: colors.Colors.light, width: 1))),
+                Border(top: BorderSide(color: utils.Colors.light, width: 1))),
         height: 59,
         child: BottomNavigationBar(
             backgroundColor: Colors.white,
@@ -38,8 +38,8 @@ class _MainTabScreenState extends State<MainTabScreen> {
               });
             },
             iconSize: 26,
-            unselectedItemColor: colors.Colors.grey,
-            selectedItemColor: colors.Colors.blue,
+            unselectedItemColor: utils.Colors.grey,
+            selectedItemColor: utils.Colors.blue,
             showUnselectedLabels: true,
             selectedLabelStyle:
                 const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),

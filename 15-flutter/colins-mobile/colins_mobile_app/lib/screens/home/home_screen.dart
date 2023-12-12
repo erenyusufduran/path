@@ -13,6 +13,15 @@ class HomeScreen extends StatelessWidget {
       imageUrl:
           "https://www.colins.com.tr/Themes/Branch/Content/newyear2022/images/01-tr.jpg");
 
+  final view_models.TitleGroup categoryTitle = view_models.TitleGroup(
+      title: "Kategoriler", actionLabel: "Tüm Kategoriler", actionOnTab: () {});
+
+  final view_models.TitleGroup flashSaleTitle = view_models.TitleGroup(
+      title: "Çok Satılanlar", actionLabel: "Daha Fazla", actionOnTab: () {});
+
+  final view_models.TitleGroup megaSaleTitle =
+      view_models.TitleGroup(title: "İndirimdekiler", actionOnTab: () {});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +37,12 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-          child: Column(children: [widgets.OfferBanner(_offerBanner)])),
+          child: Column(children: [
+        widgets.OfferBanner(_offerBanner),
+        widgets.TitleGroup(categoryTitle),
+        widgets.TitleGroup(megaSaleTitle),
+        widgets.TitleGroup(flashSaleTitle)
+      ])),
     );
   }
 }

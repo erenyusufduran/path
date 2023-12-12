@@ -46,6 +46,10 @@ class Theme {
               fontWeight: FontWeight.bold,
               fontSize: 16,
               color: utils.Colors.dark),
+          headlineSmall: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+              color: utils.Colors.dark),
           bodyLarge: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 12,

@@ -1,9 +1,9 @@
-import 'package:colins_mobile_app/screens/login/login_screen.dart';
+import 'package:colins_mobile_app/screens/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class RegisterScreen extends StatelessWidget {
-  static String route = "/login";
+  static String route = "/register";
   const RegisterScreen({super.key});
 
   @override

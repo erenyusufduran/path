@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import "../models/character.dart";
 
@@ -16,7 +18,7 @@ class CharacterLine extends StatelessWidget {
           },
           title: Text(
             character.name,
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w700),
           ),
           subtitle: Text(character.gender),
           trailing: Container(
@@ -28,7 +30,7 @@ class CharacterLine extends StatelessWidget {
               )),
           leading: Text(character.id.toString()),
         ),
-        Divider(color: Colors.black)
+        const Divider(color: Colors.black)
       ],
     );
   }

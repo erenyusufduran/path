@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import "../models/location.dart";
 
@@ -16,16 +18,16 @@ class LocationLine extends StatelessWidget {
           },
           title: Text(
             location.name,
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w700),
           ),
           subtitle: Text(location.dimension),
           trailing: Text(location.type),
           leading: CircleAvatar(
               child: Text(location.residents.isNotEmpty
-                  ? "+" + location.residents.length.toString()
+                  ? "+${location.residents.length}"
                   : "-")),
         ),
-        Divider(
+        const Divider(
           color: Colors.black,
         )
       ],

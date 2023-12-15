@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import "../models/episode.dart";
 
@@ -14,12 +16,12 @@ class EpisodeLine extends StatelessWidget {
                 .pushNamed("/episode_detail", arguments: episode);
           },
           title: Text(episode.episode,
-              style: TextStyle(fontWeight: FontWeight.w700)),
+              style: const TextStyle(fontWeight: FontWeight.w700)),
           subtitle: Text(episode.airDate),
           trailing: CircleAvatar(
               child: Text("+${episode.characters.length.toString()}")),
           leading: Text(episode.id.toString())),
-      Divider(
+      const Divider(
         color: Colors.black,
         height: 4,
       )

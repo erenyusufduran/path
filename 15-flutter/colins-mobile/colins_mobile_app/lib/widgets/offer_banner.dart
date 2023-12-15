@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import "../widgets/widgets.dart" as widgets;
 import 'package:flutter/material.dart';
 import "../view_models/view_models.dart" as view_models;

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, must_be_immutable, prefer_final_fields, annotate_overrides, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 void main(List<String> args) {
@@ -11,20 +13,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.teal, title: Text("Header")),
-        body: Container(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: withProblemsContainer,
-        )),
+        body: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: withProblemsContainer,
+                ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Clicked!");
           },
+          backgroundColor: Colors.red,
           child: Icon(
             Icons.account_box_rounded,
             color: Colors.white,
           ),
-          backgroundColor: Colors.red,
         ),
       ),
     );
@@ -174,9 +175,6 @@ class MyApp extends StatelessWidget {
     return Center(
       child: Container(
         padding: EdgeInsets.all(20),
-        child: FlutterLogo(
-          size: 64,
-        ),
         decoration: BoxDecoration(
             color: Colors.orange,
             shape: BoxShape.rectangle,
@@ -193,6 +191,9 @@ class MyApp extends StatelessWidget {
               BoxShadow(
                   color: Colors.yellow, offset: Offset(0, -20), blurRadius: 15)
             ]),
+        child: FlutterLogo(
+          size: 64,
+        ),
       ),
     );
   }

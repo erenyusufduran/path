@@ -80,4 +80,6 @@ If you have another main package with another file. You can't have another main 
 
 #### Null Values
 
+![Alt text](./assets/variables.png)
+
 ![Alt text](./assets/null-values.png)

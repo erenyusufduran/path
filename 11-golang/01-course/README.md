@@ -83,3 +83,9 @@ If you have another main package with another file. You can't have another main 
 ![Alt text](./assets/variables.png)
 
 ![Alt text](./assets/null-values.png)
+
+> With backticks can building multiline strings.
+
+#### Functions
+
+We can see the built-in functions in official standard library documentation, there is a <a href="https://cs.opensource.google/go/go">repository link</a>. All the code behind go and the standard library is publicly available. You can dive into the src folder to find subfolders for all these standard library packages like the fmt package here.

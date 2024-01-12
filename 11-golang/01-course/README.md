@@ -77,3 +77,7 @@ That's why we need a module and main package, because if I would change package 
 We also have func which is named main, and this also must be named **main**. This is a so-called function, a block of code that can be executed by calling that function, Go will call and execute that function, therefore the code in that function when program starts. 
 
 If you have another main package with another file. You can't have another main function, because with it, program confuse where to start.
+
+#### Null Values
+
+![Alt text](./assets/null-values.png)

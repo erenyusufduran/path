@@ -1,1 +1,6 @@
 go 1.20
+
+use (
+  "./00-essentials/00-hello-world"
+  "./00-essentials/01-profit-calculator"
+)

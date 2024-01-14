@@ -4,4 +4,5 @@ use (
   "./00-essentials/00-hello-world"
   "./00-essentials/01-profit-calculator"
   "./00-essentials/02-bank"
+  "./00-essentials/03-pointers"
 )

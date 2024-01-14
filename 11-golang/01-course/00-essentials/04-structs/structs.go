@@ -19,6 +19,11 @@ func (u user) outputUserDetails() {
 	fmt.Println(u.firstName, u.lastName, u.birthDate)
 }
 
+func (u *user) clearUserName() { // if we modify struct, it's copy changes, the struct stays same.
+	u.firstName = ""
+	u.lastName = ""
+}
+
 func main() {
 	firstName := getUserData("Please enter your first name: ")
 	lastName := getUserData("Please enter your last name: ")
@@ -31,6 +36,8 @@ func main() {
 		time.Now(),
 	}
 
+	appUser.outputUserDetails()
+	appUser.clearUserName()
 	appUser.outputUserDetails()
 }
 

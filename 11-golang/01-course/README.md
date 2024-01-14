@@ -78,7 +78,7 @@ We also have func which is named main, and this also must be named **main**. Thi
 
 If you have another main package with another file. You can't have another main function, because with it, program confuse where to start.
 
-#### Null Values
+### Null Values
 
 ![Alt text](./assets/variables.png)
 
@@ -86,11 +86,11 @@ If you have another main package with another file. You can't have another main 
 
 > With backticks can building multiline strings.
 
-#### Functions
+### Functions
 
 We can see the built-in functions in official standard library documentation, there is a <a href="https://cs.opensource.google/go/go">repository link</a>. All the code behind go and the standard library is publicly available. You can dive into the src folder to find subfolders for all these standard library packages like the fmt package here.
 
-#### Error Handling
+### Error Handling
 
 App doesn't crash because read file when it doesn't find a file does indeed generate an error as you'll see in a second, but it does not crash your application. 
 
@@ -99,3 +99,11 @@ Instead in Go, error handling typically works a bit differently than it does in 
 Instead in Go, functions are written such and your functions should be written such that errors don't crash the applcation. Instead, read file fore example, will simply return an empty byte collection if it failts to find that file, which is  then converted to an empty string, which is converted to the value zero when parsing it as a float. That is why we see the 0 as a result if we check the balance.
 
 That's not all Go does. Instead, for operations that could fail, it is quite common that funtions return such an error thing as a second value. That's the value we can accept and store as a second value here when calling that function.
+
+## Working With Packages
+
+- Splitting Code Across **Multiple Files**
+- Splitting Files Across **Multiple Packages**
+- **Importing & Using** Custom Packages
+
+In demo bank application, in such cases it's not uncommon that we might wanna split that code across multiple files to keep every file on its own a bit more readable and understandable so that we don't have too much code in a single file since that can make working with that file unnecessarily complex, because we have to search for the code we wanna work on and so on. Thankfully, splitting code into files in Go is pretty straightforward.

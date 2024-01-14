@@ -119,3 +119,36 @@ For example, put utility code into a package that could then be used in differen
 ![Alt text](./assets/multi-package-v2.png)
 
 For example, code for interacting with the file system. It can also be a useful pattern if you have code that works pretty much standalone, but should also be used in the context of a bigger project. You could put such code into a seperate package to have a clearer seperation of that code and still use it in one in the same project if you want to.
+
+### Splitting Code Across Multiple Packages
+
+We made generic functions. Now we are splitting them into a new file which named `fileops.go`. Then we need to change our `package main` to `package fileops`. But if I try to do that, it breaks, I get an error here.
+
+> Found packages main and fileops in the same folder basically. That's not allowed in Go. Instead, every package must go into its own sub folder.
+
+So If I wanna have a seperate new package here, I also have to add a new folder, and that folder should have the same name as the package, so fileops in this case. Filename is can be any name.
+
+#### Importing Packages
+
+To get access to the functions we define in our own packages, or to the things we define there in general, for example all the global constants or variables, to get access to these things, we'll have to import our own package, just as we already imported packages from the standard library.
+
+To import your own package, it's not enough to just add the package name `fileops`. Instead, you have to add the full path, which icludes your module path. `example.com/bank/fileops`
+
+#### Exporting & Importing Identifiers
+
+When we import our `example.com/bank/fileops` and then with using;
+
+```go
+fileops.getFloatFromFile()
+```
+
+can't be found on our own fileops package, even though import it there. It is not found because in go, only functions or variables or constants that's start with an uppercase character, so with an uppercase G for example, only such functions or variables and so on are available in other packages.
+
+That's also explain why we always used functions with uppercase:
+
+```go
+fmt.Print("Hi there!")
+fmt.Scan(&choice)
+```
+
+That's the Go way of exporting something, and you can only import and use something from another package into some package if it's exported there. It is exported in another package if it starts with an uppercase character.

@@ -4,14 +4,15 @@ import "fmt"
 
 func main() {
 	age := 32 // regular variable
-	agePointer := &age
+
+	var agePointer *int = &age
 
 	fmt.Println("Age:", *agePointer) // dereferencing - value at this address with *
 
-	adultYears := getAdultYears(agePointer)
-	fmt.Println(adultYears)
+	editAgeToAdultYears(agePointer)
+	fmt.Println(age)
 }
 
-func getAdultYears(age *int) int {
-	return *age - 18
+func editAgeToAdultYears(age *int) {
+	*age = *age - 18
 }

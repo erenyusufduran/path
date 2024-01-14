@@ -234,7 +234,7 @@ That's what pointers are, and why you might want to use them.
 
 > If you are working with pointer, it's **null value is nil**. Not like float64 -> 0.0, int -> 0. All pointer's null value is **nil**.
 
-**Working with Regular Variables**
+#### **Working with Regular Variables**
 ```go
 package main
 
@@ -252,7 +252,7 @@ func getAdultYears(age int) int {
 }
 ```
 
-**Working with Pointers**
+#### **Working with Pointers**
 ```go
 package main
 
@@ -292,3 +292,57 @@ So with that we're getting the address from parameter, then we are looking up th
 So therefore we can still create adultYears and call getAdultYears, but now here we should not pass age as a value to getAdultYears, but instead a pointer to age we can use agePointer as a parameter. 
 
 Important difference is that now there is no copy of 32 being created. Then we don't copy the value or anything like that, and than pass that pointer to that function where we want a pointer, and therefore again **nothing is copied**. It is still the one single 32 value. 
+
+#### **Using Pointers For Data Mutation**
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+
+	var agePointer *int
+	agePointer = &age
+
+	fmt.Println("Age:", *agePointer) // dereferencing - value at this address with *
+
+	getAdultYears(agePointer)
+	fmt.Println(*agePointer)
+}
+
+func getAdultYears(age *int) {
+  *age = *age - 18
+}
+```
+
+```go
+func getAdultYears(age *int) {
+	// return *age - 18
+  // age = *age - 18 - not like this, age is the pointer, not the value
+  *age = *age - 18
+}
+```
+With usage of `*age = *age - 18`, we are overriding that 32 value with that new value. Just by using that pointer, which we receive. Therefore, getAdultYears will no longer return anything. We should therefore remove that return type annotation.
+
+Therefore, when we calling that function no longer need to store adultYears, because we no longer get a value. At the Println, we should **dereference** instead output age.
+
+```go
+fmt.Println(age)
+```
+
+If I am outputting age, not my agePointer, not the dereferenced agePointer, but the original age variable. Keep in mind that getAdultYears did edit that place in memory. It overwrote the numbers stored under that address and therefore it overwrote this 32 and that variable just also used that place in memory.
+
+So if we change that place in memory, that variable holds that new value that's stored there under that address in memory. That's why we're outputting 14 with this lnie of code here, because we added the original value.
+
+That can be an advantage, because we don't have to return something here now. Of course it can also be a problem, because it might be unexpected that we override the original value. We might not want that, especially if we have a name like this, getAdultYears. That does not sound like it edits something. We instead might wanna to call this **editAgeToAdultYears** to make it clearer what this function will do.
+
+---
+
+So we can use pointers to directly edit a value from inside a function. Look at fmt.Scan function, which used to get user input. Which is why used with ampersand symbol.
+
+```go
+fmt.Scan(&choice)
+```
+
+We are creating a pointer here, which points at this choice integer, and we pass this pointer to scan, because scan then internally **de-references** this pointer and overwrites te value that's stored under that adress with the value entered by the user.

@@ -227,3 +227,68 @@ func main() {
 Doesn't give you the sum of two numbers, but instead edits the first number by adding the second to it. That can be unexpected. You might instead, expect a function that returns a result, and leaves the original numbers unchanged. So it comes down to your specific use case, your personal preferences, and of course also the naming of your function, so that you don't suprise yourself, or other developers with unexpected behaviours. 
 
 That's what pointers are, and why you might want to use them. 
+
+----
+
+### Working With Pointers In Code
+
+> If you are working with pointer, it's **null value is nil**. Not like float64 -> 0.0, int -> 0. All pointer's null value is **nil**.
+
+**Working with Regular Variables**
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+	fmt.Println("Age:", age)
+	adultYears := getAdultYears(age)
+	fmt.Println(adultYears)
+}
+
+func getAdultYears(age int) int {
+	return age - 18
+}
+```
+
+**Working with Pointers**
+```go
+package main
+
+import "fmt"
+
+func main() {
+	age := 32 // regular variable
+
+	var agePointer *int
+	agePointer = &age
+
+	fmt.Println("Age:", *agePointer) // dereferencing - value at this address with *
+
+	adultYears := getAdultYears(agePointer)
+	fmt.Println(adultYears)
+}
+
+func getAdultYears(age *int) int {
+	return *age - 18
+}
+```
+
+If we are giving a pointer as a parameter of a function, we should change the type of parameter; because we don't want int, but instead a pointer to an int, which means we have to add an **asterisk (*)** here.
+
+In Go, unlike in some other programming languages, you can't perform pointer arithmetic, you can't perform calculations on pointers. In some langugaes you can, and you can run into really nasty problems there, but it can also be a powerful feature. In Go you can't. 
+
+You can't deduct values from a pointer, so from an address or anything like that. Instead here, if you wanna perform this operation we are performing here, we have to dereference the pointer, we have to add this asterisk. 
+
+```go
+func getAdultYears(age *int) int {
+	return *age - 18
+}
+```
+
+So with that we're getting the address from parameter, then we are looking up the value that's stored under that address, and we are deducting 18 from that. Then just as before, we return that new value. 
+
+So therefore we can still create adultYears and call getAdultYears, but now here we should not pass age as a value to getAdultYears, but instead a pointer to age we can use agePointer as a parameter. 
+
+Important difference is that now there is no copy of 32 being created. Then we don't copy the value or anything like that, and than pass that pointer to that function where we want a pointer, and therefore again **nothing is copied**. It is still the one single 32 value. 

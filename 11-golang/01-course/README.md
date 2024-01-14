@@ -172,3 +172,58 @@ This `go.mod` file does not just serve as a description of your module, for exam
 ```sh
 go get # like npm install
 ```
+
+## Understanding Pointers
+
+Pointers are in the variables that store value **addresses** instead of values. That might sound confusing. So let's take a look at how your code affects your computer's memory. Let's say you have some code where you create and initialize a variable called age, which you set to a value of 32. In that case, that value 32 is stored in the computer's memory. That value in memory automatically gets an address. Every space in your computer's memory has an address. That address is required by the computer, to be able to retrieve that value and work with it. In this case here, this value which in our code, is stored in the variable age is actually also stored in the computer's memory. Every value you use in Go is at least for a short period of time, **stored somewhere in your computer's memory**. 
+
+![Alt text](./assets/pointer-of-age.png)
+
+A pointer, then is a variable, where you don't store a value, but where you instead use this special ampersand operator, a single ampersand symbol to get and store the address of a value, instead of the value itself. So now age pointer would contain the address as a value.
+
+### Why Would Use This Feature?
+
+There are probably two main advantages of using pointers in Go, at least in certain situations.
+1. When working with pointers, you can **avoid unnecessary value copies**.
+2. You can use pointers to **directly mutate values**.
+
+#### Avoid Unnecessary Values Copies
+
+By default, in Go programs when you pass a variable to a function, so that function can work with that value, Go creates a **copy of the value of that variable in memory** and **passes that copy to that function**. So at least for a certain period of time, until the function *execution is **done*** and the copied value will **eventually be cleaned up by Go's Garbage Collector**. A process that runs in the background automatically and *gets rid of unused values*.
+
+![Alt text](./assets/passing-values-to-functions.png)
+
+Until that happens, you have the same value twice in memory. 
+
+For very large and complex values, that could be a problem in certain applications because since you have the same value twice, you are of course taking up twice as much space. For numbers, most strings and all the most more complex values, that won't really matter too much in most applications. You will need a very specific application or use case, where this optimization of using a pointer to avoid this copy might actually make a difference. 
+
+![Alt text](./assets/passing-pointer-to-function.png)
+
+Still, it is an advantage to be aware of, because that can be one reason for a using pointers. **When passing a pointer** as an argument to a function, **there's no copy being created**. Instead, that function receives the address, and can use that address to look up the value that's stored under the address. Again, by using a special syntax, to then work with that value that is stored there.
+
+#### Directly Mutate Values
+
+Another advantage of using pointers, can be that you can write functions to which you pass a pointer. So an address instead of a value to that function. That function can then, since it has the address to the original value, directly edit that value.
+
+So it doesn't have to calculate a new value based on the input value, and then return that value so that returned value can be used in the place where the function was called. Instead, it can directly manipulate the value if it received such a pointer.
+
+That can of course lead to less code, since it allows you to avoid the return statement and so on. To be clear, it can also **lead to less understandable code**, and unexpected behaviors. It might come as a suprise that a function called add for example;
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+  x := 5
+  y := 10
+  add (&x, y)
+
+  fmt.Println("x: ", x) // x: 15
+  fmt.Println("y: ", y) // y: 10
+}
+```
+
+Doesn't give you the sum of two numbers, but instead edits the first number by adding the second to it. That can be unexpected. You might instead, expect a function that returns a result, and leaves the original numbers unchanged. So it comes down to your specific use case, your personal preferences, and of course also the naming of your function, so that you don't suprise yourself, or other developers with unexpected behaviours. 
+
+That's what pointers are, and why you might want to use them. 

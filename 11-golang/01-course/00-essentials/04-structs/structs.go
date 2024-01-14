@@ -24,17 +24,24 @@ func (u *user) clearUserName() { // if we modify struct, it's copy changes, the 
 	u.lastName = ""
 }
 
-func main() {
-	firstName := getUserData("Please enter your first name: ")
-	lastName := getUserData("Please enter your last name: ")
-	birthDate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
-
-	appUser := user{
+func newUser(firstName, lastName, birthDate string) *user {
+	// by returning a pointer here instead of a value, we again prevent this value from being copied
+	/// because if you would return a regular value, a copy would be created. That's not just the case
+	//// for received arguments, but also for returned values.
+	return &user{
 		firstName,
 		lastName,
 		birthDate,
 		time.Now(),
 	}
+}
+
+func main() {
+	firstName := getUserData("Please enter your first name: ")
+	lastName := getUserData("Please enter your last name: ")
+	birthDate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
+
+	appUser := newUser(firstName, lastName, birthDate)
 
 	appUser.outputUserDetails()
 	appUser.clearUserName()

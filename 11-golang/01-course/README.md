@@ -107,3 +107,15 @@ That's not all Go does. Instead, for operations that could fail, it is quite com
 - **Importing & Using** Custom Packages
 
 In demo bank application, in such cases it's not uncommon that we might wanna split that code across multiple files to keep every file on its own a bit more readable and understandable so that we don't have too much code in a single file since that can make working with that file unnecessarily complex, because we have to search for the code we wanna work on and so on. Thankfully, splitting code into files in Go is pretty straightforward.
+
+### Why Would Use More Than One Package?
+
+Splitting code across files is pretty easy. More complex project, you might wanna split your code not just into multiple files that belong to the same main package, but actually into multiple packages. That can be especially useful. 
+
+![Alt text](./assets/multi-package.png)
+
+For example, put utility code into a package that could then be used in different projects.
+
+![Alt text](./assets/multi-package-v2.png)
+
+For example, code for interacting with the file system. It can also be a useful pattern if you have code that works pretty much standalone, but should also be used in the context of a bigger project. You could put such code into a seperate package to have a clearer seperation of that code and still use it in one in the same project if you want to.

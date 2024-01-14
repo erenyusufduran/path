@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"time"
 )
@@ -24,7 +25,10 @@ func (u *user) clearUserName() { // if we modify struct, it's copy changes, the 
 	u.lastName = ""
 }
 
-func newUser(firstName, lastName, birthDate string) *user {
+func newUser(firstName, lastName, birthDate string) (*user, error) {
+	if firstName == "" || lastName == "" || birthDate == "" {
+		return nil, errors.New("first name, last name and birth date are required")
+	}
 	// by returning a pointer here instead of a value, we again prevent this value from being copied
 	/// because if you would return a regular value, a copy would be created. That's not just the case
 	//// for received arguments, but also for returned values.
@@ -33,7 +37,7 @@ func newUser(firstName, lastName, birthDate string) *user {
 		lastName,
 		birthDate,
 		time.Now(),
-	}
+	}, nil
 }
 
 func main() {
@@ -41,7 +45,12 @@ func main() {
 	lastName := getUserData("Please enter your last name: ")
 	birthDate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
-	appUser := newUser(firstName, lastName, birthDate)
+	appUser, err := newUser(firstName, lastName, birthDate)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	appUser.outputUserDetails()
 	appUser.clearUserName()
@@ -51,6 +60,6 @@ func main() {
 func getUserData(prompText string) string {
 	fmt.Print(prompText)
 	var value string
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return value
 }

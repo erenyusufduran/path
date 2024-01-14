@@ -18,13 +18,20 @@ func main() {
 	birthDate := getUserData("Please enter your birthdate (MM/DD/YYYY): ")
 
 	appUser := user{
-		firstName: firstName,
-		lastName:  lastName,
-		birthDate: birthDate,
-		createdAt: time.Now(),
+		firstName,
+		lastName,
+		birthDate,
+		time.Now(),
 	}
 
-	fmt.Println(firstName, lastName, birthDate)
+	outputUserDetails(&appUser)
+}
+
+func outputUserDetails(u *user) {
+	// Technically we are trying to access firstName, lastName, birthDate, not on the value
+	/// stored at that address. However this works because that's essentially a shortcut
+	//// that's allowed by Go. The technically correct way would be indeed *u
+	fmt.Println(u.firstName, u.lastName, u.birthDate)
 }
 
 func getUserData(prompText string) string {

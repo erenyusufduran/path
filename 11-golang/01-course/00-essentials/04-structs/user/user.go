@@ -13,7 +13,7 @@ type User struct {
 	createdAt time.Time
 }
 
-func (u User) OutputUserDetails() {
+func (u *User) OutputUserDetails() {
 	// Technically we are trying to access firstName, lastName, birthDate, not on the value
 	/// stored at that address. However this works because that's essentially a shortcut
 	//// that's allowed by Go. The technically correct way would be indeed *u

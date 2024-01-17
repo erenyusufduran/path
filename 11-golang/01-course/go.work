@@ -7,4 +7,5 @@ use (
   "./00-essentials/03-pointers"
   "./00-essentials/04-structs"
   "./00-essentials/05-custom-types"
+  "./01-note"
 )

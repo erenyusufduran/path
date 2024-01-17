@@ -1,8 +1,12 @@
 package main
 
 import (
-	"example.com/note/note"
+	"bufio"
 	"fmt"
+	"os"
+	"strings"
+
+	"example.com/note/note"
 )
 
 func main() {
@@ -13,18 +17,29 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+
+	userNote.Display()
 }
 
 func getNoteData() (string, string) {
-	title := getUserInput("Note title:")
-	content := getUserInput("Note content:")
+	title := getUserInput("Note title: ")
+	content := getUserInput("Note content: ")
 
 	return title, content
 }
 
 func getUserInput(prompt string) string {
 	fmt.Print(prompt)
-	var value string
-	fmt.Scanln(&value)
-	return value
+
+	reader := bufio.NewReader(os.Stdin)  // to read longer texts
+	text, err := reader.ReadString('\n') // We are saying that a single byte, so use single quotes
+
+	if err != nil {
+		return ""
+	}
+
+	text = strings.TrimSuffix(text, "\n")
+	text = strings.TrimSuffix(text, "\r")
+
+	return text
 }

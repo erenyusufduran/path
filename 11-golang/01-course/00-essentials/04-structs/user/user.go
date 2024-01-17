@@ -13,6 +13,14 @@ type User struct {
 	createdAt time.Time
 }
 
+// That you build a new struct that builds up on an existing struct.
+// ----- Inheritence -----
+type Admin struct {
+	email    string
+	password string
+	User     // anonymous embedding to use user's methods.
+}
+
 func (u *User) OutputUserDetails() {
 	// Technically we are trying to access firstName, lastName, birthDate, not on the value
 	/// stored at that address. However this works because that's essentially a shortcut
@@ -23,6 +31,19 @@ func (u *User) OutputUserDetails() {
 func (u *User) ClearUserName() { // if we modify struct, it's copy changes, the struct stays same.
 	u.firstName = ""
 	u.lastName = ""
+}
+
+func NewAdmin(email, password string) Admin {
+	return Admin{
+		email:    email,
+		password: password,
+		User: User{
+			firstName: "ADMIN",
+			lastName:  "ADMIN",
+			birthDate: "-----",
+			createdAt: time.Now(),
+		},
+	}
 }
 
 func New(firstName, lastName, birthDate string) (*User, error) {

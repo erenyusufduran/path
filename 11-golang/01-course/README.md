@@ -347,6 +347,10 @@ fmt.Scan(&choice)
 
 We are creating a pointer here, which points at this choice integer, and we pass this pointer to scan, because scan then internally **de-references** this pointer and overwrites te value that's stored under that adress with the value entered by the user.
 
+## Structs
+
+Struct is in <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/04-structs">that file</a>, directly go `user/user.go` file and you can see their's creation, and method implementations. In `structs.go` file, you can see their usages.
+
 ## Interfaces
 
 In Go and in most programming languages that have this feature is essentially a contract, you could say. A contract that guarantees that a certain value, typically a Struct, has a certain method.

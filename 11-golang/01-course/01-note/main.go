@@ -20,6 +20,10 @@ type outputable interface { // Embedded Interface
 }
 
 func main() {
+	printSomething(1)
+	printSomething(1.5)
+	printSomething("Eren")
+
 	title, content := getNoteData()
 	todoText := getUserInput("Todo text: ")
 
@@ -44,6 +48,10 @@ func main() {
 	}
 
 	outputData(userNote)
+}
+
+func printSomething(value interface{}) { // interface{} || any
+	fmt.Println(value)
 }
 
 func outputData(data outputable) error {

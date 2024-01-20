@@ -455,3 +455,98 @@ func printSomething(value interface{}) { // interface{} || any
 	}
 }
 ```
+
+### Interfaces, Dynamic Types & Limitations
+
+Interfaces can be very useful in Go and especially this special interface type that stands for any value can be very useful in certain situations since it allows you to write quite flexible code. But it also has some limitations and here's an example.
+
+Let's say you want to create an add function, which should take two input values and return the sum of both. These two values should not be of a fixed type like int or float64. Instead they should be either an int or a float64 or also a string. So that we either combine two strings or we add two ints or we add two floats. 
+
+Now ofcouse you could now use this special interface type `interface{}` or `any` keyword. So that Go accepts any kind of value here as an input. But you can't add structs.
+
+```go
+func add(a, b interface{}) interface{} {
+	aInt, aIsInt := a.(int)
+	bInt, bIsInt := b.(int)
+
+	if (aIsInt && bIsInt) {
+		return aInt + bInt
+	}
+
+	aFloat, aIsFloat := a.(float64)
+	bFloat, bIsFloat := b.(float64)
+
+	if (aIsFloat && bIsFloat) {
+		return aFloat + bFloat
+	}
+}
+```
+
+So `interface{}` is a bit **too flexible**. You could make it work by using this special syntax here to check whether a is of type in add if it is, `aIsInt` will hold true and we'll get a value which we can store in a variable where Go now knows that it will be of type int. Now Go would know that both are of type int. Then we can't know what returns, because we want to see their addition with floats.
+
+That's why Go offers another feature. It offers a concept called generics. This generic concept will help you solve problems like this.
+
+#### **Generics**
+
+Accepting any kind of value is a bit too wide, in addition another problem we have here is that the **return type also is too unspecific**. Therefore, if I call add and I pass two integers to it, Go doesn't understand that result will be an integer. Instead it thinks it's any kind of value.
+
+```go
+result := add(1, 2)
+result += 1 // complains
+```
+
+Therefore after working with that result will be rather difficult. If I add one to it, Go complains that the types are not the same. So of course, it would be great if Go would understand that the return value of add will be an integer if the two values we pass to add are an integer and that's also a kind of problem that will be solved by turning this add function into a **generic add function**.
+
+```go
+func add[T interface{}](a, b T) T {
+	aInt, aIsInt := a.(int)
+	bInt, bIsInt := b.(int)
+
+	if (aIsInt && bIsInt) {
+		return aInt + bInt
+	}
+
+	aFloat, aIsFloat := a.(float64)
+	bFloat, bIsFloat := b.(float64)
+
+	if (aIsFloat && bIsFloat) {
+		return aFloat + bFloat
+	}
+}
+```
+
+Which we do in Go by adding square brackets after the function name before the parameter list. In this square brackets you can define a **type placeholder name**. Typically that's T, but you can use any name of your choice. 
+
+The idea is that it's now this placeholder that is used here instead of this interface type. You can also use this placeholder as a return type.
+
+Then, we must tell Go which concrete types are allowed as types for that placeholder when add is being called.
+
+With `T interface{}` simply means T can be any kind of value. As you see when doing that here, I'm getting a bunch of errors, but I will deal with them later. What's more important than that is that by making this simple change, if you now hover over result, **go understands that** it will be of type int. It understands this because what we are doing with this generic type placeholder is that we are telling Go that the concrete type of values **we are receiving from them and our returning will only be set and known at the point of time where add is called**.
+
+```go
+result := add(1, 2) // go knows result is int.
+```
+
+That's why this generics feature exists and why it can sometimes in certain situations be really useful because it allows you to write more reusable, more generic functions where Go nonetheless is able to correctly infer the types of values you are working with.
+
+Therefore this code here now doesn't work anymore, because it isn't anymore.
+
+> When writing this in a generic way, we can simply return `a + b`. We don't need any other checks.
+
+```go
+func add[T any](a, b T) T {
+	 return a + b // invalid operation: operator + not defied
+}
+```
+
+However we'll still have one problem if we do it like this. Since we are saying that the concrete type that's used at the point of time where add is being called can be any type, we are of course back to this error that plus operator not defined.
+
+We can work around that by setting the base type or the range of allowed types for T not to any, but instead to a list of pre-defined types with which we're fine. By simply listing all those types, seperated with such a pipe (`|`) symbol. 
+
+```go
+func add[T int | float64 | string](a, b T) T {
+	 return a + b
+}
+```
+
+With that I am saying that T can be any type as long as it's an int, float or a string. Therefore now, this all works.

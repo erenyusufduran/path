@@ -346,3 +346,19 @@ fmt.Scan(&choice)
 ```
 
 We are creating a pointer here, which points at this choice integer, and we pass this pointer to scan, because scan then internally **de-references** this pointer and overwrites te value that's stored under that adress with the value entered by the user.
+
+## Interfaces
+
+In Go and in most programming languages that have this feature is essentially a contract, you could say. A contract that guarantees that a certain value, typically a Struct, has a certain method.
+
+```go
+type saver interface {
+	Save() error
+}
+```
+
+For example, here in this interface, I could say that I wanna guarantee that whichever struct implements this interface, so whichevr struct signs this contract, has a save method with an uppercase S. Save method which returns an error, because things can go wrong. 
+
+Method or function doesn't have a function body. Interfaces are not about defining the logic of a method. Instead they simply define that a certain method exists that it's there and what it's name is and what it's return values are. In addition, an interface can also define that a method accepts certain types of values as input, as parameters. You don't need to give these inputs here names, though you can, because it's really only the types that matter here.
+
+If you have an interface that requires only on method, then your interface name is that method name plus `-er` at the end. It's not a must do, but it is a common convention.

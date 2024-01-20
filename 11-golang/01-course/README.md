@@ -554,3 +554,23 @@ func add[T int | float64 | string](a, b T) T {
 ```
 
 With that I am saying that T can be any type as long as it's an int, float or a string. Therefore now, this all works.
+
+## Managing Related Data with Arrays, Slices & Maps
+
+Arrays, Slices and Maps can also help you group related data together.
+
+### Arrays - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/06-arrays">examples</a>
+
+An array is a data structure that holds values, potentially different values that kind of describe the same thing. Creating such an array;
+
+```go
+var prices [4]float64
+prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+fmt.Println(prices[2]) // output - 45.99
+
+var productNames [4]string
+productNames = [4]string{"A Book"}
+productNames[2] = "A Carpet" // output - [A Book  A Carpet ]
+fmt.Println(productNames)
+
+```

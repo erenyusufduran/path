@@ -357,8 +357,64 @@ type saver interface {
 }
 ```
 
-For example, here in this interface, I could say that I wanna guarantee that whichever struct implements this interface, so whichevr struct signs this contract, has a save method with an uppercase S. Save method which returns an error, because things can go wrong. 
+> The requirement is a save method without arguments and an error return type
 
-Method or function doesn't have a function body. Interfaces are not about defining the logic of a method. Instead they simply define that a certain method exists that it's there and what it's name is and what it's return values are. In addition, an interface can also define that a method accepts certain types of values as input, as parameters. You don't need to give these inputs here names, though you can, because it's really only the types that matter here.
+For example, here in this interface, I could say that I wanna guarantee that whichever struct implements this interface, so whichever struct signs this contract, have a save method with an uppercase S. **Save method which returns an error**, because things can go wrong. 
+
+Method or function **doesn't have a function body**. Interfaces are not about defining the logic of a method. Instead they simply define that a certain method exists that it's there and what it's name is and what it's return values are. In addition, an interface can also define that a method accepts certain types of values as input, as parameters. You don't need to give these inputs here names, though you can, because **it's really only the types that matter here**.
 
 If you have an interface that requires only on method, then your interface name is that method name plus `-er` at the end. It's not a must do, but it is a common convention.
+
+### Using Interfaces
+
+```go
+func saveData(data saver) error {
+	err := data.Save()
+
+	if err != nil {
+		fmt.Println("saving the note failed")
+		return err
+	}
+
+	fmt.Println("saving the note succeeded!")
+	return nil
+}
+```
+
+> That's exactly what we have here.
+
+```go
+func (todo Todo) Save() error { // Todo's method
+	fileName := "todo.json"
+	json, err := json.Marshal(todo)
+
+	if err != nil {
+		return err
+	}
+
+	os.WriteFile(fileName, json, 0644)
+	return nil
+}
+```
+
+Unlike in other programming langauges, in Go, you don't have to explicitly connect this interface **to some other type to force that type** to adhere to that interface. Instead, Go simply takes a look at the value you are passing to saveData here, which wants such an interface type and it takes a look at that value and simply checks if that value, that todo struct in this case, **has such a save method** *that fulfills the requirements of the saver interface*.
+
+```go
+func (note Note) Save() error {
+	fileName := strings.ReplaceAll(note.Title, " ", "_")
+	fileName = strings.ToLower(fileName) + ".json"
+
+	json, err := json.Marshal(note)
+
+	if err != nil {
+		return err
+	}
+
+	os.WriteFile(fileName, json, 0644)
+	return nil
+}
+```
+
+We have another save method with that Note struct. So, for Todo and Note structs have the save method and therefore, correctly implement this interface. That's why we can pass those values without any issues to saveData. That's why interfaces can be really useful because **they can help us write more generic, more flexible and more reusable code**. 
+
+We can now use one saveData function to save the data for two different types of values. 

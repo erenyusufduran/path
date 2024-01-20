@@ -708,3 +708,35 @@ fmt.Println(prices) // output - [8.99 5.99]
 So with that, we of course did remove that first element, which was `10.99`.
 
 There is no built-in function for doing that, since we already have the **built-in mechanism with that feature that allows us to build slices**.
+
+#### **Unpacking List Values**
+
+Before dive into maps, there is a special syntax, when you work with arrays and slices. Specifically, when you work with append.
+
+```go
+prices := []float64{10.99, 8.99}
+prices = append(prices, 5.99, 12.99)
+```
+
+Append actually does not just take on value that is appended, instead you can append as many values as you want. So here we could also add a couple of other values here.
+
+	---
+
+Sometimes you have an existing slice and you wanna append another slice or array to it. Let's say here we have our discount prices, that's a brand new list which I create here.
+
+```go
+discountPrices := []float64{140.99, 87.99, 20.59}
+```
+
+We might wanna merge discountPrices into prices slice. You can use the append function to perform such merges as well. Now, for that we can reassign prices and call append again, but it will give an error.
+
+```go
+prices = append(prices, discountPrices) // gives an error
+```
+
+So a list of floats, in a place where a single float is allowed, because prices is a list of floats, not a list of lists of floats. discountPrices is a list of floats. So adding the full list as one item into that existing list is not valid. Instead, we have to kind of pull out the existing items. There is a special operator in Go, which you can use for that. You can add three dots after discountPrices, exactly three dots to instruct Go to go to this list and take out all the elements in that list. So the three prices at the discountPrices and add them as seperated, comma seperated, elements to this append function.
+
+```go
+prices = append(prices, discountPrices...) // appends
+```
+

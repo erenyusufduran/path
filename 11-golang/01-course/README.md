@@ -418,3 +418,40 @@ func (note Note) Save() error {
 We have another save method with that Note struct. So, for Todo and Note structs have the save method and therefore, correctly implement this interface. That's why we can pass those values without any issues to saveData. That's why interfaces can be really useful because **they can help us write more generic, more flexible and more reusable code**. 
 
 We can now use one saveData function to save the data for two different types of values. 
+
+### Extracting Type Information From Values
+
+#### With Swich Statements
+
+```go
+func printSomething(value interface{}) { // interface{} || any
+	switch value.(type) {
+	case int:
+		fmt.Println("Integer:", value)
+	case float64:
+		fmt.Println("Float:", value)
+	case string:
+		fmt.Println(value)
+	}
+}
+```
+
+#### With Directly
+
+```go
+func printSomething(value interface{}) { // interface{} || any
+	typedVal, ok := value.(int)
+
+	if ok {
+		typedVal += 1
+		fmt.Println("Integer:", typedVal)
+	}
+
+	floatVal, ok := value.(float64)
+
+	if ok {
+		floatVal += 1
+		fmt.Println("Integer:", floatVal)
+	}
+}
+```

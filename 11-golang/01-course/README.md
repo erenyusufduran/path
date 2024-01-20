@@ -720,7 +720,7 @@ prices = append(prices, 5.99, 12.99)
 
 Append actually does not just take on value that is appended, instead you can append as many values as you want. So here we could also add a couple of other values here.
 
-	---
+<hr><br>
 
 Sometimes you have an existing slice and you wanna append another slice or array to it. Let's say here we have our discount prices, that's a brand new list which I create here.
 
@@ -748,7 +748,7 @@ In addition, let's say you wanna find *google*'s URL, you always need to memoriz
 
 ```go
 websites := map[string]string{
-	"Google":              "https://google.com",
+	"Google": "https://google.com",
 	"Amazon Web Services": "https://aws.com",
 }
 

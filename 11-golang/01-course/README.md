@@ -592,7 +592,7 @@ highlightedPrices := featuredPrices[:1]
 fmt.Println(highlightedPrices) // output - [9.99]
 ```
 
-#### Diving Deeper Into Slices
+### Diving Deeper Into Slices
 
 Time to a brief look behind the scenes to fully understand the connection between slices and arrays. Slices are like a **reference**, like a window into an array, a bit like a **pointer**, though it's a different concept. 
 
@@ -648,3 +648,63 @@ highlightedPrices before in this code block was just one value because we sliced
 ```
 
 Even though highlightedPrices originally only had one element, we can reslice based on that element slice and now suddenly select more than that one element because internally, Go always **memorized that there is more content available to the right of the selected slice**. That's what this capacity here kind of told us where we had a difference between capacity and length.
+
+### Dynamic Lists With Slices
+
+Also with slices you can create dynamic arrays, let's come back to that original prices array.
+
+```go
+prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+```
+
+One downside of using that array was that we had to define ahead of time how many values we'll have in there. Sometimes in the applications you're going to write, you know exactly how many values you'll have in a list of values.  
+
+So having to set the length of an array in advance in your code can be a restriction that's quite annoying. In other programming languages like JavaScript, you don't have that restriction. There you can create an array and it's automatically dynamic, so you can always add and remove elements just as you want to. Go thankfully also has solution for us and that solution again is that **slices feature**.
+
+Let's create a dynamic array, you can create suct a dynamic slice with a syntax that's similar to what we saw before, but you may now also omit the length here. 
+
+```go
+// both is possible
+// prices := []float64{}
+prices := []float64{10.99, 8.99} 
+fmt.Println(prices[1]) // output - 8.99
+fmt.Println(prices[0:1]) // output - 10.99 8.99
+
+```
+
+If you don't specify the number of items, Go will automatically **create a slice for you** and since a slice always is based on an array, it will also create an array for you behind the scenes, but it will **automatically ditch that array and create a new array if your slice grows beyond the balance** of that behind the scenes stored array.
+
+There now is a built-in function in Go the **append function**, wants a slice as a first parameter, and then a list of elements that should be added to that slice. Then as a second parameter our add value, for example, `5.99`.
+
+That will now append a new item, but it will actually also return a **brand new slice**. So it actually does not add it the *original slice, but instead what append does is it tells* Go that we want to add an item to that slice, and therefore also to the underlying array. Now of course, an array has a fixed length, so what Go will do in this case is it will create a **brand new array and add that element to that brand new array which is created such that it has the capacity for that new array**.
+
+```go
+updatedPrices := append(prices, 5.99)
+fmt.Println(updatedPrices) // output - [10.99 8.99 5.99]
+```
+
+If I would print prices, you see that (`[10.99 8.99]`) the original slice did not change. This is still just these two values. The **original slice in array was not changed** by Go. If you wanted to do that you would have to instead **reassign this appended slice to the existing prices slice**, instead of creating a new variable.
+
+```go
+prices := append(prices, 5.99)
+fmt.Println(prices) // output - [10.99 8.99 5.99]
+```
+
+> Technically, you are of course re-assigning the new slice to the existing variable - therefore the old value of that variable will be overwritten.
+
+Then of course, if you do this and you output this prices slice, then you'll see that it changed. If you **reassign an appended slice to an existing slice**, it will of course also **ditch that original array** which only had two elements before, and **use that brand new array that holds that extra third element** for that slice instead. 
+
+So **memory management** is taken care of by Go here and since we now have that extra flexibility where we can always add new elements if we need to, it's way more common to work with slices right from the start in Go than it is to use arrays.
+
+You can still use fixed length arrays if you know for sure that you will never have more than X amounts of elements in a list, but if there is at least a slight chance that you might want to add new elements as your program executes, you should definitely go for this slices approach right from the start instead, because that allows you to add elements to slices, and let your arrays grow just as they need to.
+
+If we wanna **remove the first element**, we simply create a new slice based on the existing slice that starts at the second element, and selects everything up to the end. That gives us a brand new slice that omits that first element.
+
+```go
+prices = prices[1:]
+fmt.Println(prices) // output - [8.99 5.99]
+```
+
+So with that, we of course did remove that first element, which was `10.99`.
+
+There is no built-in function for doing that, since we already have the **built-in mechanism with that feature that allows us to build slices**.

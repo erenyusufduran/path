@@ -740,3 +740,32 @@ So a list of floats, in a place where a single float is allowed, because prices 
 prices = append(prices, discountPrices...) // appends
 ```
 
+### Maps - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/08-maps">examples</a>
+
+A map is a different kind of data structure, which you can also use to group data together. It's a bit like a struct, but different. Let's say we wanna store a bunch of website URLs here. So we have different companies and those companies have websites. For this we could add a website variable. We can create a slice of websites. This works, but saving those URLs like this could have a couple of disadvantages. We can just see URLs, neither their company names. So having an **extra label** here could make a lot of sense.  
+
+In addition, let's say you wanna find *google*'s URL, you always need to memorize that *google* is the first URL here, so that you can retrieve it by index. Possible but if you have a long list of URLs, this can get very cumbersome if you need to start counting those different URLs to find the right index. That's a problem a map can solve for us. We can create a map by using the special map keyword in Go. Map, like a struct, is a storage where you have values of a certain type and then keys that identify those values, so labels for those values. You have **key vale pairs**; that's a map, just like a struct.
+
+```go
+websites := map[string]string{
+	"Google":              "https://google.com",
+	"Amazon Web Services": "https://aws.com",
+}
+
+fmt.Println(websites["Amazon Web Services"]) // https://aws.com
+```
+
+#### Mutating Maps
+
+When you work with maps, you are also not stuck to the initial map. You can always add new key value pairs. So unlike with arrays, there is no difference between arrays and slices. A map is a map and it's always dynamic. You can always add new key-value pairs. If you wanna add a new website, you just access websites and then you access a key that doesn't exist yet or overwrite a value by targeting an existing key.
+
+```go
+websites["LinkedIn"] = "https://linkedin.com"
+```
+
+Sometimes you also wanna get rid of keys, and you can do that with the built-in delete function.
+
+```go
+delete(websites, "Google")
+fmt.Println(websites) // map[Amazon Web Services:https://aws.com LinkedIn:https://linkedin.com]
+```

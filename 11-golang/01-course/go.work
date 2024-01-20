@@ -10,4 +10,5 @@ use (
 	./01-note
 	./00-essentials/06-arrays
 	./00-essentials/07-array-exercise
+	./00-essentials/08-maps
 )

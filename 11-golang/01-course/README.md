@@ -566,6 +566,7 @@ An array is a data structure that holds values, potentially different values tha
 ```go
 var prices [4]float64
 prices := [4]float64{10.99, 9.99, 45.99, 20.0}
+fmt.Println(prices) // [10.99 9.99 45.99 20]
 fmt.Println(prices[2]) // output - 45.99
 
 var productNames [4]string
@@ -590,3 +591,60 @@ Slices can be used on arrays, but slices actually also can be created based on o
 highlightedPrices := featuredPrices[:1]
 fmt.Println(highlightedPrices) // output - [9.99]
 ```
+
+#### Diving Deeper Into Slices
+
+Time to a brief look behind the scenes to fully understand the connection between slices and arrays. Slices are like a **reference**, like a window into an array, a bit like a **pointer**, though it's a different concept. 
+
+When we create an array like prices, that array is stored in **memory**. When we then treat a slice based on that array, we get a window into that array, so to say. Therefore, if you would modify an element in a slice, we would also modify the same element in the original array.  
+
+```go
+featuredPrices[0] = 199.99
+fmt.Println(prices) // output - [10.99 199.99 45.99 20]
+```
+
+So for example here, if I use my featuredPricess slice, is this part of the original array, so the original array which I did not directly added here, we will have been overwritten by 199.99. Because slice is just a window into the original array.
+
+When you create a slice, you **don't copy the original array**, so you don't have that copy in memory that occupies extra memory space. Instead, you still only have one array in memory and your slice is just a tiny reference to a part of that array. 
+
+Hence it is a very memory efficient way of selecting parts of arrays and if you want to do that of editing parts of an array. 
+
+Go also **saves some metadata for our slices** that can be useful to look into. For every slice, we got a length and a capacity and we can output both here to understand what it is.
+
+```go
+fmt.Println(len(featuredPrices), cap(featuredPrices)) // output - 3 3
+```
+
+> The length gives us the number of items in a slice or array. So if that slice featuredPrices has free elements, which it does, length will give us free as a value. 
+
+```go
+fmt.Println(len(highlightedPrices), cap(highlightedPrices)) // output - 1 3
+```
+
+> The capacity is a bit more complex. It's the same value here, but that would be different if we would output highlightedPrices.
+
+highlightedPrices is based on featuredPrices which in turn, is based on the prices array. So they **share the same array** under the hood, but highlightedPrices selects everything from the start of featuredPrices up to do second element excluding that element. That is why we have 1 length.
+
+But we **have a higher capacity**, because the slice and they offer the original array on which highlightedPrices is based, actually it has more items left. In featuredPrices where we selected everything from the second item until the end of the original array, we still have this (`9,99 45.99 20.0`) entire subset left. 
+
+So if in highlightedPrices, we then select just the first item, we could theoretically still select the other two items and that's why we overall have a capacity of three. 
+
+**Why not a capacity of four since the original array has a length of four?**
+
+- Well because that's important to understand about slices. You can **always select more towards the end of an array, but not towards the start, so towards the left**. Sine the first slice on which we are based starts at the second element and not at the first element, any other slices based on it can't go further to the left. So we can't go back to that first element which we omit here. That's why the **capacity only counts towards the end of the original array**, but omits any elements that might have been filtered out before.
+
+In the end, it's just important to understand that you can always select more items to the right, but never to the left.
+
+```go
+highlightedPrices = highlightedPrices[:3]
+fmt.Println(len(featuredPrices), cap(featuredPrices))
+fmt.Println(len(highlightedPrices), cap(highlightedPrices))
+```
+
+highlightedPrices before in this code block was just one value because we sliced it to be only up to the second value. You can always select more towards the end of an array or slice. 
+
+```go
+	highlightedPrices := featuredPrices[1:2] // That would be causes an error, if wroted above, because it's capacity would be 2 after that.
+```
+
+Even though highlightedPrices originally only had one element, we can reslice based on that element slice and now suddenly select more than that one element because internally, Go always **memorized that there is more content available to the right of the selected slice**. That's what this capacity here kind of told us where we had a difference between capacity and length.

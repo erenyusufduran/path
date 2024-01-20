@@ -572,5 +572,21 @@ var productNames [4]string
 productNames = [4]string{"A Book"}
 productNames[2] = "A Carpet" // output - [A Book  A Carpet ]
 fmt.Println(productNames)
+```
 
+### Selecting Parts of Arrays with Slices
+
+Sometimes, you need some part of the array.
+
+```go
+featuredPrices := prices[1:3] // from 1 to 3, 3 is not included
+featuredPrices := prices[:3] // from the beginning, until index 3
+featuredPrices := prices[1:] // from the first index, until last index + 1
+```
+
+Slices can be used on arrays, but slices actually also can be created based on other slices.
+
+```go
+highlightedPrices := featuredPrices[:1]
+fmt.Println(highlightedPrices) // output - [9.99]
 ```

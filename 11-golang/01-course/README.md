@@ -895,3 +895,34 @@ We could set this to three, now we can add three items here, *without Go having 
 courseRatings["angular"] = 4.7
 ```
 then since we only defined a capacity of three here, Go would have to reallocate memory, but if we know in advance that we only plan on adding three items, at least for the moment we could make this a bit more efficient by using make for creating that map.
+
+#### Working With Type Aliases
+
+Another feature that can make your code a bit more efficient from a developer's perspective could be a custom type, a type alias. 
+
+```go
+make(map[string]float64, 3)
+```
+
+For this example, types like this are rather long. A map with string keys and float values, that's quite some text you have to write to define this type. Then you could add a **output method**:
+
+
+```go
+type floatMap map[string]float64
+
+func (m floatMap) output() {
+	fmt.Println(m)
+}
+```
+
+Then you can use it them:
+
+```go
+courseRatings := make(floatMap, 3)
+courseRatings["go"] = 4.7
+courseRatings["react"] = 4.8
+
+courseRatings.output() // map[go:4.7 react:4.8]
+```
+
+You can print it with it's own method. Even if you don't plan on adding custom methods, using such a custom type, such a type alias for longer built-in types like this can make sense, because now we have this **more concise**, **shorter type** which we can use in our code.

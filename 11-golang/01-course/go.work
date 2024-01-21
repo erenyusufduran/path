@@ -12,4 +12,5 @@ use (
 	./00-essentials/07-array-exercise
 	./00-essentials/08-maps
 	./00-essentials/09-slices-maps-make
+	./00-essentials/10-functions
 )

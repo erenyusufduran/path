@@ -972,3 +972,90 @@ Key: react
 Value: 4.8
 */
 ```
+
+## **Functions**
+
+Function is a piece of code that we can execute on the demand. We give it a name, we accept parameters and we can return values, even multiple return values. 
+
+We can also do with functions in Go is that we can use function themselves as **parameter values for other functions**. This might sound a bit cryptic and strange.
+
+Let's say we have a couple of numbers, I now wanna double every number in that slice. We can write a for loop here and we can go through all the numbers and then perform this operation with for loop. We might have multiple slices of numbers in different parts of our program and therefore we wanna outsource this loop, into a seperate function.
+
+```go
+func main() {
+	numbers := []int{1, 2, 3, 4}
+	doubled := doubleNumbers(&numbers)
+	fmt.Println(doubled) // output - [2 4 6 8]
+}
+
+func doubleNumbers(numbers *[]int) []int {
+	dNumbers := []int{}
+	for _, value := range *numbers {
+		dNumbers = append(dNumbers, value*2)
+	}
+	return dNumbers
+}
+```
+
+With that, we are just repeating what we already learned, but this is an important first step to then understand what that mean with functions as parameter values for other functions. At the moment we are not using that feature yet.
+
+Our goal here is to not have this doubleNumbers function, which only works on slices, but instead we might want a general double function that doubles integer themselves, so not slices of integers, but single integers.
+
+For this we can write another function.
+
+```go
+func double(number int) int {
+	return number * 2
+}
+
+dNumbers = append(dNumbers, double(value)) // from above code
+```
+
+Now we have another utility function, but here we are passing the result of calling that function to append and that's also not new. We have been using the results of calling functions as parameters for other functions before already, but now comes the interesting part. Let's say we don't just have double function, but we also have a triple function as a dummy example.
+
+```go
+func triple(number int) int {
+	return number * 3
+}
+```
+
+We have to write brand new triple numbers function, where we repeat all that code just to then call a different function here inside of that for loop. *That's where this function are first class values feature can now come in handy*. It would be pretty nice if **double numbers would be less specific**. Maybe just be a transformNumbers function. Exact transformation is not hard coded into the function as it currently is. We maybe also accept a second parameter value **that describes the to be performed transformation**. 
+
+That's where it's now handy that in Go, we can also pass functions as parameter values and we can therefore accept functions as parameter values. 
+
+```go
+func main() {
+	numbers := []int{1, 2, 3, 4}
+	doubled := transformNumbers(&numbers, double)
+	tripled := transformNumbers(&numbers, triple)
+
+	fmt.Println(doubled) // output - [2 4 6 8]
+	fmt.Println(tripled) // output - [3 6 9 12]
+}
+
+func transformNumbers(numbers *[]int, transform func(int) int) []int {
+	dNumbers := []int{}
+	for _, value := range *numbers {
+		dNumbers = append(dNumbers, transform(value))
+	}
+	return dNumbers
+}
+
+func double(number int) int {
+	return number * 2
+}
+
+func triple(number int) int {
+	return number * 3
+}
+```
+
+Now that we know that we can pass functions themselves as parameter values, we can **save that unneccessary code duplication**, we can avoid it and we can instead justify this generic function once and then accept the specific transformation function that should be executed inside of it as a function parameter.
+
+Now that we know about function types, I can also come back to a feature we learned about **custom types**. Function types can get rather long. This one isn't (`func(int) int`), but that's just a function that takes one parameter and one return value. Let's create our custom type:
+
+```go
+type transformFn func(int) int
+func transformNumbers(numbers *[]int, transform transformFn) []int {}
+```
+

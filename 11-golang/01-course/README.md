@@ -1059,3 +1059,46 @@ type transformFn func(int) int
 func transformNumbers(numbers *[]int, transform transformFn) []int {}
 ```
 
+### Returning Functions as Values
+
+Functions can also return other functions. They can not just get them as parameter values. Now this will become more useful once we also learn about anonymous functions and closures later, but still want to show it to you. 
+
+```go
+func getTransformerFunction() transformFn {
+	return double
+}
+```
+
+Now whenever you execute, `getTransformerFunction` you geet a function as a return value because that's also possible. You can not just accept functions as parameter values. You can also return them. Here we are returning double. We are not executing it, because if I would, I would return the result of calling that function. I just wanna return the function itself here, and hence I don't execute it. **Return value is function itself as a value**.
+
+For better example, we could say that `getTransformerFunction` has the job of picking the right transformer for the data on which we want to perform the transformation. Hence we could expect some numbers here, which might be a slice of integer.
+
+```go
+func getTransformerFunction(numbers *[]int) transformFn {
+	if (*numbers)[0] == 1 {
+		return double
+	} else {
+		return triple
+	}
+}
+```
+
+Now we can use this `getTransformerFunction` in `main` function:
+
+```go
+func main() {
+	numbers := []int{1, 2, 3, 4}
+	moreNumbers := []int{5, 1, 2}
+
+	transformFn1 := getTransformerFunction(&numbers)
+	transformFn2 := getTransformerFunction(&moreNumbers)
+
+	transformedNumbers := transformNumbers(&numbers, transformFn1)
+	moreTransformedNumbers := transformNumbers(&moreNumbers, transformFn2)
+
+	fmt.Println(transformedNumbers) // output - [2 4 6 8]
+	fmt.Println(moreTransformedNumbers) // output - [15 3 6]
+}
+```
+
+This is definetely a made up case, but the key takeaway is that functions can return other functions and that can come in handy in certain situations. 

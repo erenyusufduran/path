@@ -770,7 +770,7 @@ delete(websites, "Google")
 fmt.Println(websites) // map[Amazon Web Services:https://aws.com LinkedIn:https://linkedin.com]
 ```
 
-#### Maps vs Structs
+#### **Maps vs Structs**
 
 Why we are using maps, we are already have structs, which are already key value data storages. There are two main very important differences. 
 1. The first important difference is that for maps, **you can use anything as a key**. Here we are using strings, but you could also create a map that uses integer or event some array or a struct as a key. So **any value can be used as a key**. That gives you more flexibility since you are not stuck to just using human readable text as keys, even though that is probably what you'll do very often, but you have more flexibility there.
@@ -789,3 +789,80 @@ You don't yuse structs to manage multiple values of the same kind with different
 Map on the other hand is used if you have a collection of values, which probably describe the same thing though technically, but then you can assign your own labels, your own keys and use any kinds of values for those keys that makes sense to you.
 
 In a nutshell, you can basically think of **maps as arrays where you don't use indexes**, but instead **any labels of your choice**.
+
+### Using the Special `make` Function
+
+There are two remaining important Go features you should know when working with arrays, slices or maps.
+
+Think of a userNames slice;
+
+```go
+userNames := []string{}
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Gökşen")
+```
+
+Now of course, we can create that slice like this. We can append a username. We know it, Go will essentially also **create an empty array**. Then once you start adding items, it will **start creating new arrays to fit the new content into those arrays**, and therefore, essentially into your slice. A slice is just a window into an array. Go takes care about managing those arrays.
+
+That's of course great, but if you have a scenario where you know that you're going to add a couple of items to a slice that's initially empty, or **at least not as big as it eventually will be**, then you can **also pre allocate some space** for these to be added elements. 
+
+That only makes sense if you know roughly how many elements you are going to add. In here, where I am adding two elements, we could make Go aware of the fact that we will add those two elements eventually. When we do **Go is able to create a bigger array right from the start**, and it then **doesn't have to recreate those arrays all the time**, which is **a bit more efficient**. 
+
+You can tell Go that you need a bigger array behind the scenes by using the make function. You can call the built-in make function to create such a slice. This function then needs a couple of arguments, and the first argument is the type of slice it should create. Therefore, you define **just the type not with curly braces**. Then you must **at least pass one extra argument** to make. First extra argument you can pass to make when using it for creating a slice **would define the length of that slice, the initial length** of that slice.
+
+```go
+userNames := make([]string, 2)
+```
+
+With that, Go will go ahead and behind the scenes, create an array with length two, **where both elements initially will be null**, empty slots so to say, but where you can now assign elements to those slots.
+
+```go
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Gökşen")
+fmt.Println(userNames) // output - [  Eren Gökşen]
+```
+
+The result of this code might be different that what you may expect though. As you can see output, the empty slots are actually in front of Eren and Gökşen. So the two userNames I assigned here do not occupy these slots. On the other hand, should make sense.
+
+`make` like this, creates an array of length two. These two elements then are empty here. Then we append new elements, **we don't add those for those existing slots**, instead, **we append them to the end**.
+
+Instead you could now, when you using make like this, assign values for these two slots that have been created like this:
+
+```go
+userNames[0] = "Julie"
+fmt.Println(userNames) // output - [Julie  Eren Gökşen]
+```
+
+<hr><br>
+
+If we create the array without make:
+
+```go
+userNames := []string{}
+userNames[0] = "Julie"
+```
+
+would get an error with that code, because this creates an empty array behind the scenes. **When you then try to target the first element there, you'll get an error**.
+
+That's the difference of make. You can create an array behind the scenes that already got some slots, which can be helpful if you wanna **assign values to specific indexes**. 
+
+Originally, about a greater efficiency if you let Go know about the intended size of the array you'll eventually need, that's not yet what we are doing here. Instead you can pass **another argument to make**, when using it to make a string, that would be the **capacity of the array that should be created behind the scenes**, for example, five.
+
+```go
+userNames := make([]string, 2, 5)
+```
+
+Keep in mind, the capacity is essentially the **maximum number of array items**, therefore **controls how much memory space will be allocated behind the scenes** by Go for this array. So the make function call will make sure that Go ***allocates enough memory space* for a string array** that takes five items, and it will create an array **with two empty slots**.
+
+Not with that pre allocated memory, appending items here is more efficient, because with this code, Go now doesn't have to go to the **memory and allocate new space**. Instead, it can use the existing space, because we **already reserved enough space**. 
+
+```go
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Eren")
+userNames = append(userNames, "Eren")
+```
+
+Only once we go beyond the five capacity limit here, it **will have to allocate new space**. Therefore, using this make function can be useful if you know in advance that you are soon going to add a fixed number of items, or at least a number where you have a rough estimate how much you are going to add, because that **then can make memory management more efficient**.

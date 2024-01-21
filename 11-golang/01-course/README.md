@@ -1,4 +1,4 @@
-## What is Go?
+# Go Language
 
 It is an open-source programming language developed and published by Google.
 - Focus on **simplicity**, **clarity** & **scalability**.
@@ -1140,3 +1140,52 @@ transformed := transformNumbers(&numbers, func(number int) int {
 ```
 
 This is valid way of writing this. Now this here is a so-called **anonymous function**. It's not a function type, because we are not writing this in a place where a type is expected, but in a place where a value is expected. We are calling another function and we are passing in values for these parameters after all.
+
+#### **Understanding Closures**
+
+Related to anonymous function, we have the concept of closures. Closures also use anonymous functions and use a specific aspect of anonymous functions. 
+
+I am using regular function named `createTransformer`. This function has the goal of producing functions. For this, I will return an anonymous function, because in all the places where functions are needed, so both in parameter values as well as in return values, you can use anonymous functions. That function should return functions that takes int as inputs and return int as values.
+
+```go
+func createTransformer() func(int) int {
+	return func(number int) int {}
+}
+```
+
+Then in anonymous function returns the number with which I wanna multiply that number should be a parameter of `createTransformer` now. So here the factor is another integer, inside of anonymous function we can use this factor.
+
+```go
+func createTransformer(factor int) func(int) int {
+	return func(number int) int {
+		return number * factor
+	}
+}
+```
+
+Note that factor is **not a parameter of this anonymous function**, but of createTransformer. Because of scoping and because of the fact that we can use variables and parameters act like variables and are just variables in the end, in lower level nested scopes means that we can use factor which belongs to the scope of `createTransformer` inside of this anonymous function, which has it's own scope, but which is part of the function scope.
+
+So we can use factor in this inner anonymous function, even though it's not a parameter of this function, because it is variable or parameter of that outer scope of this outer function. 
+
+Now the function which I return, takes both its own parameter number as well as a parameter of `createTransformer`. We can use this function as a **so-called factory function**. Because that **produces other functions with different configurations**. 
+
+Now we can easily create different number transformers.
+
+```go
+numbers := []int{1, 2, 3, 4}
+
+double := createTransformer(2)
+triple := createTransformer(3)
+
+doubled := transformNumbers(&numbers, double)
+tripled := transformNumbers(&numbers, triple)
+
+fmt.Println(doubled) // output - [2 4 6 8]
+fmt.Println(tripled) // output - [3 6 9 12]
+```
+
+That's how we can use such a factory function here. **Factory functions are just a pattern**, but we also actually have a closure here. Every anonymous function is a closure, and that simply means that if you use *a variable from a scope in which the function is created*, so from an **outer scope like factor** here, then the value of that **outer scope variable or parameter is locked in into this created function**. 
+
+So that means that if I call `createTransformer` with two different values as I do it here with two and three, then the function that is produced **will not be changed by those later calls**. If I call `createTransformer` with two here, then this function will return me a function that multiplies the input value to this transformer function with two, because I passed in two here, If I then call `createTransformer` thereafter again with a different value, **that will be a totally different scope, totally different function execution**. Just because I call it with three, will not change the double function, which was produced before because this anonymous function closed over the variables or parameters of the scope in which it was created.
+
+`factor` value **will be locked in and will be available at any point** in the future when we execute this function, even if we call `createTransformer` thereafter, this locked in value won't be changed.

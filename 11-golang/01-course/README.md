@@ -644,7 +644,8 @@ fmt.Println(len(highlightedPrices), cap(highlightedPrices))
 highlightedPrices before in this code block was just one value because we sliced it to be only up to the second value. You can always select more towards the end of an array or slice. 
 
 ```go
-highlightedPrices := featuredPrices[1:2] // That would be causes an error, if wroted above, because it's capacity would be 2 after that.
+highlightedPrices := featuredPrices[1:2] 
+// That would be causes an error, if wroted above, because it's capacity would be 2 after that.
 ```
 
 Even though highlightedPrices originally only had one element, we can reslice based on that element slice and now suddenly select more than that one element because internally, Go always **memorized that there is more content available to the right of the selected slice**. That's what this capacity here kind of told us where we had a difference between capacity and length.

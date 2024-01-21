@@ -776,11 +776,11 @@ Why we are using maps, we are already have structs, which are already key value 
 1. The first important difference is that for maps, **you can use anything as a key**. Here we are using strings, but you could also create a map that uses integer or event some array or a struct as a key. So **any value can be used as a key**. That gives you more flexibility since you are not stuck to just using human readable text as keys, even though that is probably what you'll do very often, but you have more flexibility there.
 2. Another key difference is simply that maps *solve a different problem*. With structs, you have predefined data structures. 
 	```go
-		type Product struct {
-			id string
-			title string
-			price float64
-		}
+	type Product struct {
+		id string
+		title string
+		price float64
+	}
 	```
 	Once we define that struct, when we work with in our code, we can't just add a new key value pair. Instead this is a set in stone, so to say. We also can't delete a key value pair from it. So these things which we can do with maps are not possible for structs, and that's not a disadvantage. Instead a struct solves a different problem. 
 
@@ -866,3 +866,32 @@ userNames = append(userNames, "Eren")
 ```
 
 Only once we go beyond the five capacity limit here, it **will have to allocate new space**. Therefore, using this make function can be useful if you know in advance that you are soon going to add a fixed number of items, or at least a number where you have a rough estimate how much you are going to add, because that **then can make memory management more efficient**.
+
+#### **`make`ing maps**
+
+This make function is not just available for slices. Instead, you can also use it to make maps. 
+
+```go
+courseRatings := map[string]float64{}
+courseRatings["go"] = 4.7
+courseRatings["react"] = 4.8
+
+fmt.Println(courseRatings) // map[go:4.7 react:4.8]
+```
+
+When we create such an empty map here, Go will have to **reallocate memory** whenever **we add new items to that map**. If we know at least roughly how many items we are going to add to that map, we can also use the `make` function to create such a map.
+
+Instead here we can also pass an additional argument to make, but unlike with make for slices, it's now not two additional arguments that can be passed here, but instead **only one**, because here, **we can't set any empty slots**. This doesn't really make sense for maps. Instead, we can **justify the intended length of that map**. Go can go ahead and pre-allocate memory.
+
+```go
+courseRatings := make(map[string]float64, 3)
+courseRatings["go"] = 4.7
+courseRatings["react"] = 4.8
+courseRatings["nodejs"] = 4.6
+```
+
+We could set this to three, now we can add three items here, *without Go having to reallocate memory*. That would only be the case once we add another item here, 
+```go
+courseRatings["angular"] = 4.7
+```
+then since we only defined a capacity of three here, Go would have to reallocate memory, but if we know in advance that we only plan on adding three items, at least for the moment we could make this a bit more efficient by using make for creating that map.

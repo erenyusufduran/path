@@ -9,4 +9,10 @@ func main() {
 	userNames[0] = "Julie"
 
 	fmt.Println(userNames)
+
+	courseRatings := make(map[string]float64, 3)
+	courseRatings["go"] = 4.7
+	courseRatings["react"] = 4.8
+
+	fmt.Println(courseRatings)
 }

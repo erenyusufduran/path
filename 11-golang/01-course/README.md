@@ -926,3 +926,47 @@ courseRatings.output() // map[go:4.7 react:4.8]
 ```
 
 You can print it with it's own method. Even if you don't plan on adding custom methods, using such a custom type, such a type alias for longer built-in types like this can make sense, because now we have this **more concise**, **shorter type** which we can use in our code.
+
+#### For Loops With Arrays, Slices & Maps
+
+When working with slices, arrays or maps, so with collections that store a number of items, you can also use the **for loop** to go through all these items and perform some operation for every item. That indeed is something you'll typically need to do quite a bit when writing code.
+
+The syntax for doint that is pretty easy.
+
+```go
+for range userNames {} // if you don't care values or indexes
+
+for index, value := range userNames {
+	fmt.Println("Index:", index)
+	fmt.Println("Value:", value)
+} // if you care about
+
+/* Output
+Index: 0
+Value: Julie
+Index: 1
+Value:
+Index: 2
+Value: Eren
+Index: 3
+Value: Gökşen
+*/
+```
+
+Index and value is needed, because this range keyword essentially exposes two values related to the usernames slice for every iteration of this for loop. That's exactly what we store in out userNames slice. We created with two empty slots. Then we store Julie for the first slot. Then we append 2 users.
+
+This for loop does not just exist for slices. You can of course also use it with arrays in the same way you use it for maps. For maps, it's also still the same syntax.
+
+```go
+for key, value := range courseRatings {
+	fmt.Println("Key:", key)
+	fmt.Println("Value:", value)
+}
+
+/* Output
+Key: go
+Value: 4.7
+Key: react
+Value: 4.8
+*/
+```

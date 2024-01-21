@@ -539,7 +539,7 @@ Therefore this code here now doesn't work anymore, because it isn't anymore.
 
 ```go
 func add[T any](a, b T) T {
-	 return a + b // invalid operation: operator + not defied
+	return a + b // invalid operation: operator + not defied
 }
 ```
 
@@ -549,7 +549,7 @@ We can work around that by setting the base type or the range of allowed types f
 
 ```go
 func add[T int | float64 | string](a, b T) T {
-	 return a + b
+	return a + b
 }
 ```
 
@@ -644,7 +644,7 @@ fmt.Println(len(highlightedPrices), cap(highlightedPrices))
 highlightedPrices before in this code block was just one value because we sliced it to be only up to the second value. You can always select more towards the end of an array or slice. 
 
 ```go
-	highlightedPrices := featuredPrices[1:2] // That would be causes an error, if wroted above, because it's capacity would be 2 after that.
+highlightedPrices := featuredPrices[1:2] // That would be causes an error, if wroted above, because it's capacity would be 2 after that.
 ```
 
 Even though highlightedPrices originally only had one element, we can reslice based on that element slice and now suddenly select more than that one element because internally, Go always **memorized that there is more content available to the right of the selected slice**. That's what this capacity here kind of told us where we had a difference between capacity and length.
@@ -667,6 +667,7 @@ Let's create a dynamic array, you can create suct a dynamic slice with a syntax 
 // both is possible
 // prices := []float64{}
 prices := []float64{10.99, 8.99} 
+
 fmt.Println(prices[1]) // output - 8.99
 fmt.Println(prices[0:1]) // output - 10.99 8.99
 

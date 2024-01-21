@@ -1189,3 +1189,42 @@ That's how we can use such a factory function here. **Factory functions are just
 So that means that if I call `createTransformer` with two different values as I do it here with two and three, then the function that is produced **will not be changed by those later calls**. If I call `createTransformer` with two here, then this function will return me a function that multiplies the input value to this transformer function with two, because I passed in two here, If I then call `createTransformer` thereafter again with a different value, **that will be a totally different scope, totally different function execution**. Just because I call it with three, will not change the double function, which was produced before because this anonymous function closed over the variables or parameters of the scope in which it was created.
 
 `factor` value **will be locked in and will be available at any point** in the future when we execute this function, even if we call `createTransformer` thereafter, this locked in value won't be changed.
+
+### Recursion
+
+We talk about recursion if a **function calls itself**. The great example for this is a function that calculates the factorial of a number. Just to make sure we are on the same page, the factorial of five would be `5 * 4 * 3 * 2 * 1`. So it would simply be `120`.
+
+```go
+func main() {
+	fact := factorial(5)
+	fmt.Println(fact) // 120
+}
+
+func factorial(number int) int {
+	result := 1
+	for i := 1; i <= number; i++ {
+		result = result * i
+	}
+	return result
+}
+```
+
+This is not using anything new. There is nothing wrong with this approach, but with recursion we can write this in a slightly more concise way, and in other cases recursion can **have even bigger advantages and solve problems which can be difficult to solve**. 
+
+Recursion is calling itself, so you **have to define an exit condition**. *Otherwise this is an infinite loop. Because you keep on calling yourselves, and you just lower the number, at some point will go into the negative space*, but will continue calling ourselves. 
+
+```go
+func main() {
+	fact := factorial(5)
+	fmt.Println(fact) // 120
+}
+
+func factorial(number int) int {
+	if number == 0 {
+		return 1
+	}
+	return number * factorial(number-1)
+}
+```
+
+![Alt text](./assets/recursion-in-action.png)

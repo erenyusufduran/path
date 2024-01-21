@@ -1298,3 +1298,33 @@ Then for that collect all parameter, which wants a list of individual parameter 
 So behind the scenes, `sumup` is called with four parameters, one is for `startingValue`, and then the three values in that slice pulled out and turned into three seperate parameter values.
 
 So the three dots can be useful to make your functions more **dynamic** and **flexible**. You can either use them *when you define a function in the parameter list that you define to add such a collect all parameter* or use *three dots in place where you do want to split a slice or array of existing values up into a standalone parameter list*, so that you can pass that data into a function that does have this collect all function parameter in it's function definition.
+
+## Practice Project: **Price Calculator** - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">Examples</a>
+
+We build a tool that calculates `tax included` prices for a given list of **prices & tax rates**. 
+
+![Alt text](./assets/price-calculator-description.png)
+
+Main goal of this program is to then go through prices and for every price I want to add all taxes for these different tax rates and then get a bunch of new prices for every single price.
+
+I want to have a bunch of prices for every tax rate if we wanna store the result like this:
+
+```go
+func main() {
+	prices := []float64{10, 20, 30}
+	taxRates := []float64{0, 0.7, 0.1, 0.15}
+
+	result := make(map[float64][]float64)
+
+	for _, taxRate := range taxRates {
+		taxIncludedPrices := make([]float64, len(prices))
+		for priceIndex, price := range prices {
+			taxIncludedPrices[priceIndex] = price * (1 + taxRate)
+		}
+		result[taxRate] = taxIncludedPrices
+	}
+	fmt.Println(result)
+}
+```
+
+This is the basic of that program, in the <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">file</a> you can see advanced version.

@@ -1103,7 +1103,7 @@ func main() {
 
 This is definetely a made up case, but the key takeaway is that functions can return other functions and that can come in handy in certain situations. 
 
-### Anonymous Functions
+### Anonymous Functions - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/10-functions/anonymous-closures/main.go">Examples</a>
 
 We have code that looks similar to what we had before, we have a transformNumbers function just as before, takes another function as a second parameter. 
 
@@ -1141,7 +1141,7 @@ transformed := transformNumbers(&numbers, func(number int) int {
 
 This is valid way of writing this. Now this here is a so-called **anonymous function**. It's not a function type, because we are not writing this in a place where a type is expected, but in a place where a value is expected. We are calling another function and we are passing in values for these parameters after all.
 
-#### **Understanding Closures**
+#### **Understanding Closures** - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/10-functions/anonymous-closures/main.go">Examples</a>
 
 Related to anonymous function, we have the concept of closures. Closures also use anonymous functions and use a specific aspect of anonymous functions. 
 
@@ -1190,7 +1190,7 @@ So that means that if I call `createTransformer` with two different values as I 
 
 `factor` value **will be locked in and will be available at any point** in the future when we execute this function, even if we call `createTransformer` thereafter, this locked in value won't be changed.
 
-### Recursion
+### Recursion - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/10-functions/recursion/recursion.go">Examples</a>
 
 We talk about recursion if a **function calls itself**. The great example for this is a function that calculates the factorial of a number. Just to make sure we are on the same page, the factorial of five would be `5 * 4 * 3 * 2 * 1`. So it would simply be `120`.
 
@@ -1228,3 +1228,73 @@ func factorial(number int) int {
 ```
 
 ![Alt text](./assets/recursion-in-action.png)
+
+### Variadic Functions - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/10-functions/main.go">Examples</a>
+
+Let's say you wanna build a function `sumup`, which should take a list of numbers and build the sum of that list. Now for this of course, we could accept a slice of ints, and then return a single int.
+
+```go
+func main() {
+	numbers := []int{1, 10, 15}
+	sum := sumup(numbers)
+	fmt.Println(sum) // 26
+}
+
+func sumup(numbers []int) int {
+	sum := 0
+	for _, val := range numbers {
+		sum += val
+	}
+	return sum
+}
+```
+
+Sometimes, when writing code or when working on more complex programs, you might not have a slice or an array of numbers available. You might wanna call `sumup`, but instead of creating a slice in a seperate step, you might **prefer to just pass in your list of numbers like this** as simple parameter values:
+
+```go
+sum := sumup(1, 10, 25)
+```
+
+So that's not an array or slice, it's just a list of free parameter values. Of course, that doesn't work here, because `sumup` doesn't want free individual parameter values. That's where **variadic functions** come into play.
+
+You can write functions that **work with any amount of parameters**. In most cases, you clearly define that a function as one or two or three or whatever you need parameters. Sometimes, you want to write a function that really works with any amount of parameters. In here I wanna accept **any amount of numbers as inputs**, but I *don't wanna force others to pass in a slice or array of numbers that has to be created seperately*. 
+
+To handle that case we can use three dots:
+
+```go
+func sumup(numbers ...int) int {}
+sum := sumup(1, 10, 15, 40, -4)
+fmt.Println(sum) // 61
+```
+
+In the end numbers, if we hover it, will just be a slice of these value types. So the tree dots in the end, **collect that list of standalone values and merge that all into a slice for you**. That's what the three dots here in that parameter list when defining a function do for you. We still act on a slice of numbers, but **now it's created behind the scenes based on a list of standalone values** instead of forcing the color of the function to create the slice ahead of time.
+
+That certainly wouldn't be the end of the world, but it's more convenient to do it like that. It's also worth that you can also mix this feature with other parameters which are defined standalone.
+
+```go
+func sumup(startingValue int, numbers ...int) int {}
+```
+
+With this way, first value that we pass into `sumup` would be interpreted as a `startingValue`, which we then can use in any way we want in the `sumup` function. **All the other values that don't have their own specific parameter-defined would be collected together into this slice**.
+
+#### Splitting Slices Into Parameter Values
+
+Now what if you have a variadic function that you maybe did not write yourself, but a colleague or third party package have it. You do have a slice of numbers, but you have a function that doesn't want that slice of numbers, but instead, a list of standalone parameters.
+
+```go
+numbers := []int{1, 10, 15}
+sum := sumup(numbers) // it gives error now
+```
+
+Now calling such a function would be pretty annoying if you have a slice, because you *can't pass your slice as a value here, we want list, not a slice*. Thankfully, there is also the **opposite of this collect all parameter**. In a place where a value is needed, so where you call a function that has this collect all parameter, **you can pass in your slice with help of another special operator in Go** and as a first parameter we give an seperate integer.
+
+```go
+anotherSum := sumup(1, numbers...) // correct way
+fmt.Println(anotherSum) // 27
+```
+
+Then for that collect all parameter, which wants a list of individual parameter values, **I can now pass in my slice with the three dots**, and in this place the three dots will actually **pull all the elements from that slice out of that slice** and **turn that slice into a list of standalone parameter values**. 
+
+So behind the scenes, `sumup` is called with four parameters, one is for `startingValue`, and then the three values in that slice pulled out and turned into three seperate parameter values.
+
+So the three dots can be useful to make your functions more **dynamic** and **flexible**. You can either use them *when you define a function in the parameter list that you define to add such a collect all parameter* or use *three dots in place where you do want to split a slice or array of existing values up into a standalone parameter list*, so that you can pass that data into a function that does have this collect all function parameter in it's function definition.

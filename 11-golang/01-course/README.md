@@ -769,3 +769,23 @@ Sometimes you also wanna get rid of keys, and you can do that with the built-in 
 delete(websites, "Google")
 fmt.Println(websites) // map[Amazon Web Services:https://aws.com LinkedIn:https://linkedin.com]
 ```
+
+#### Maps vs Structs
+
+Why we are using maps, we are already have structs, which are already key value data storages. There are two main very important differences. 
+1. The first important difference is that for maps, **you can use anything as a key**. Here we are using strings, but you could also create a map that uses integer or event some array or a struct as a key. So **any value can be used as a key**. That gives you more flexibility since you are not stuck to just using human readable text as keys, even though that is probably what you'll do very often, but you have more flexibility there.
+2. Another key difference is simply that maps *solve a different problem*. With structs, you have predefined data structures. 
+	```go
+		type Product struct {
+			id string
+			title string
+			price float64
+		}
+	```
+	Once we define that struct, when we work with in our code, we can't just add a new key value pair. Instead this is a set in stone, so to say. We also can't delete a key value pair from it. So these things which we can do with maps are not possible for structs, and that's not a disadvantage. Instead a struct solves a different problem. 
+
+You don't yuse structs to manage multiple values of the same kind with different keys, but instead you use structs to describe data entities in your programs. Something like a product or a user or a company or anything like that.
+
+Map on the other hand is used if you have a collection of values, which probably describe the same thing though technically, but then you can assign your own labels, your own keys and use any kinds of values for those keys that makes sense to you.
+
+In a nutshell, you can basically think of **maps as arrays where you don't use indexes**, but instead **any labels of your choice**.

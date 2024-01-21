@@ -559,7 +559,7 @@ With that I am saying that T can be any type as long as it's an int, float or a 
 
 Arrays, Slices and Maps can also help you group related data together.
 
-### Arrays - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/06-arrays">examples</a>
+### Arrays - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/06-arrays">Examples</a>
 
 An array is a data structure that holds values, potentially different values that kind of describe the same thing. Creating such an array;
 
@@ -742,7 +742,7 @@ So a list of floats, in a place where a single float is allowed, because prices 
 prices = append(prices, discountPrices...) // appends
 ```
 
-### Maps - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/08-maps">examples</a>
+### Maps - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/08-maps">Examples</a>
 
 A map is a different kind of data structure, which you can also use to group data together. It's a bit like a struct, but different. Let's say we wanna store a bunch of website URLs here. So we have different companies and those companies have websites. For this we could add a website variable. We can create a slice of websites. This works, but saving those URLs like this could have a couple of disadvantages. We can just see URLs, neither their company names. So having an **extra label** here could make a lot of sense.  
 
@@ -1059,7 +1059,7 @@ type transformFn func(int) int
 func transformNumbers(numbers *[]int, transform transformFn) []int {}
 ```
 
-### Returning Functions as Values
+### Returning Functions as Values - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/10-functions/function-values/function-values.go">Examples</a>
 
 Functions can also return other functions. They can not just get them as parameter values. Now this will become more useful once we also learn about anonymous functions and closures later, but still want to show it to you. 
 
@@ -1102,3 +1102,41 @@ func main() {
 ```
 
 This is definetely a made up case, but the key takeaway is that functions can return other functions and that can come in handy in certain situations. 
+
+### Anonymous Functions
+
+We have code that looks similar to what we had before, we have a transformNumbers function just as before, takes another function as a second parameter. 
+
+```go
+func main() {
+	numbers := []int{1, 2, 3, 4}
+
+	transformed := transformNumbers(&numbers, ???)
+
+	fmt.Println(transformed)
+}
+
+func transformNumbers(numbers *[]int, transform func(int) int) []int {
+	dNumbers := []int{}
+	for _, value := range *numbers {
+		dNumbers = append(dNumbers, transform(value))
+	}
+	return dNumbers
+}
+```
+
+Here is an error, because we are not passing a value for transformNumbers second parameter. We don't have the double and triple functions from before anymore.
+
+Because now we dive into anonymous functions. When you *have a case where a function wants another function as a parameter value or where a function returns a function*, then you often can save some effort and **time by using anonymous functions**, which is a feature that **allows you to define a function just in time when you need it** instead of in advance.
+
+I need a function that doubles all my numbers, I might not want to write a brand new double function because maybe **I only need the double function once and for the next transformation**, I need a different function, different logic. 
+
+In that case, you can write a function here in place of these free question marks. 
+
+```go
+transformed := transformNumbers(&numbers, func(number int) int {
+	return number * 2
+})
+```
+
+This is valid way of writing this. Now this here is a so-called **anonymous function**. It's not a function type, because we are not writing this in a place where a type is expected, but in a place where a value is expected. We are calling another function and we are passing in values for these parameters after all.

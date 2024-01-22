@@ -1336,3 +1336,19 @@ One of Go's advantages focus on concurrency and it's high performance.
 - How you can work with a feature called **Goroutines** to run tasks in parallel?
 - Sending Data with **Channels**
 - Controlling **Code Flow** & **Simultaneous Tasks**
+
+### Goroutines
+
+To understand concurrency and Goroutines, let's first understand how a Go program normally executes when we're not using any special concurrency features. 
+
+In a normal program, if we have a bunch of function calls that should do stuff, these functions are **simply executed after each other**. So If we have some code where we call the store function three times, and then the sum function, these functions will **be executed after each other**. 
+
+![Alt text](./assets/without-concurrency.png)
+
+What's very important here is that the second function will **only start after the first function finished** and so on. 
+
+Therefore, as a result if one of these functions should take **a bit longer**, it will **block the execution** *of all subsequent functions*. So all functions calls that come thereafter until it's done. The other code will only execute once that long-taking operation finished.
+
+Now in many programs, this behavios isn't a problem, because all functions might be relatively quick or might simply depend on each other. Therefore, running them in **parallel** might not make a lot of sense. But you can, in Go, actually run code in parallel and *execute functions concurrently by using a feature called **Goroutines***. 
+
+![Alt text](./assets/with-concurrency.png)

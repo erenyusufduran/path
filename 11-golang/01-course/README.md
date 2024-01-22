@@ -1328,3 +1328,11 @@ func main() {
 ```
 
 This is the basic of that program, in the <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">file</a> you can see advanced version.
+
+## **Concurrency** - Running Tasks In Parallel
+
+One of Go's advantages focus on concurrency and it's high performance. 
+- What exactly concurrency means in Go?
+- How you can work with a feature called **Goroutines** to run tasks in parallel?
+- Sending Data with **Channels**
+- Controlling **Code Flow** & **Simultaneous Tasks**

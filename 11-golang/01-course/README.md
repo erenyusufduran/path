@@ -742,7 +742,7 @@ So a list of floats, in a place where a single float is allowed, because prices 
 prices = append(prices, discountPrices...) // appends
 ```
 
-### Maps - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/08-maps">Examples</a>
+### Maps - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/00-essentials/08-maps/maps.go">Examples</a>
 
 A map is a different kind of data structure, which you can also use to group data together. It's a bit like a struct, but different. Let's say we wanna store a bunch of website URLs here. So we have different companies and those companies have websites. For this we could add a website variable. We can create a slice of websites. This works, but saving those URLs like this could have a couple of disadvantages. We can just see URLs, neither their company names. So having an **extra label** here could make a lot of sense.  
 

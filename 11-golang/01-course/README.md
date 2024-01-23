@@ -1352,3 +1352,42 @@ Therefore, as a result if one of these functions should take **a bit longer**, i
 Now in many programs, this behavios isn't a problem, because all functions might be relatively quick or might simply depend on each other. Therefore, running them in **parallel** might not make a lot of sense. But you can, in Go, actually run code in parallel and *execute functions concurrently by using a feature called **Goroutines***. 
 
 ![Alt text](./assets/with-concurrency.png)
+
+#### **Running Functions As Goroutines**
+
+```go
+func greet(phrase string) {
+	fmt.Println("Hello!", phrase)
+}
+
+func slowGreet(phrase string) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Hello!", phrase)
+}
+
+func main() {
+	greet("nice to meet you")
+	greet("how are you")
+	slowGreet("how .. are .. you ..")
+	greet("I hope you are like it")
+}
+```
+
+Example contains a very basic go file with two functions. A `greet` function and `slowGreet` function where the `slowGreet` function to simulate a task the takes a bit longer. In reality that might be a long taking calculation, file operation, request can be. 
+
+Last `greet` function execution, only shows up after `slowGreet` function operation is done. *Normally functions execute after each other and the next execution of the **next function only starts after the previous execution finished***. So the code is executed line by line from top to bottom, and this `greet` function's execution here only starts after this `slowGreet` function's execution finished.
+
+Goroutines could be used to make this program faster and to speed it up, because we got a operation that's taking relatively long and we got another operation thereafter, which is **blocked by this long taking operation, which does not depend on the long taking operation** though.
+
+Last function call does not need any result from that long taking operation. If it would, we would have to run them after each other. Here that's not the case. Therefore **we can run them in parallel simply by adding to go keyword in front of every function invocation**.
+
+```go
+func main() {
+	go greet("nice to meet you")
+	go greet("how are you")
+	go slowGreet("how .. are .. you ..")
+	go greet("I hope you are like it")
+}
+```
+
+By adding this built-in go keyword, you tell go that you wanna run these functions as Goroutines, which in the end simply means they still will be executed, but they will now run in parallel instead of after each other. 

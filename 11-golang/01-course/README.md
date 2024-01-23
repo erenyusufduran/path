@@ -1403,3 +1403,61 @@ So if we run all four functions as Goroutines as we are doing it here, then we e
 It is just dispatched and then it goes on it's own. Of course, as a result, all the main function does now, **dispatch four goroutines and then it's done**. What happens when the main function is done? Program exits. 
 
 You might think that these `greet` functions are so simple that they should immediately print something to the console, but indeed dispatching these four Goroutines, **starting these four is even faster**. *That's why the program ends before we see anything in the console*.
+
+### Channels
+
+The solution from the above's problem is a concept called **channels**. A channel in Go, is in the end, simply a value, a value that can be used as a communication well, channel when working with Goroutines.
+
+A channel is created with help of the built-in `make` function, and then you use the `chan` keyword.
+
+```go
+make(chan)
+```
+
+The idea behind the channel is actually **that it will transmit**, you could say, *some kind of data*. So you can think of a channel in Go *as a communication device*. Therefore, you also must add another type here besides `chan`, which describes **the kind of data that will be sent through the channel**. That could be an int or float64 value, or a string or a struct, whatever you need. Here we will go for a boolean value. So true or false. Because I wanna have a *simple channel that tells me whether the program is done or not*, or to be presice, whether this operation here is done or not.
+
+```go
+make(chan bool)
+```
+
+Therefore, I'll name this channel done and **store the created channel** in variable like this;
+
+```go
+done := make(chan bool)
+```
+
+So we have a variable named done, **which contains a channel**, so such a communication device as named it, as a value. You can now pass this channel to the functions that you intend to run as a Goroutine. For that, `slowGreet`, accept a second parameter, which named doneChan,	which is of type channel, boolean.
+
+```go
+func slowGreet(phrase string, doneChan chan bool) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Hello!", phrase)
+}
+```
+
+Then we use this channel inside of the function once we are *done with our operation to send data through that channel* to the place where we started the Goroutine. We do that by using the channel and then special arrow operator which in the end is just the lower than sign and the dash `<-`. Combined, these *two symbols form a special operator* in Go **that sends data to a channel** and the data that should be sent goes to the right side of this arrow.
+
+So this arrow operator **points in the direction where the data should flow**. We could simply send true as a value to this channel since our channel wants a boolean value. If you had a channel that wants an int, you should send some int number.	  
+
+```go
+func slowGreet(phrase string, doneChan chan bool) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Hello!", phrase)
+	doneChan <- true
+}
+```
+
+Now we can go to the main function and pass our `done` channel as a second argument to `slowGreet`. Then *read from that channel by using it putting the arrow on the other side of the channel*, because the **arrow always describes the direction of data flow**. Now we are basically waiting for the channel to emit data you could say, so for data to come out of this channel, and we could now also print this value.
+
+
+```go
+func main() {
+	done := make(chan bool)
+	go slowGreet("how .. are .. you ..", done)
+	fmt.Println(<- done)
+}
+```
+
+We can also let it flow into the void so to say. It's just important that we have the statement (`<- done`) here, because *that simply means that Go will only continue after this lines of code* and therefore in this case **end of the program after some data came out of the channel**. We are waiting for some data to come out of the channel.
+
+Now, program waits and we get that output, thereafter it finishes.

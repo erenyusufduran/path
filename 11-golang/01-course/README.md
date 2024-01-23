@@ -1390,4 +1390,16 @@ func main() {
 }
 ```
 
-By adding this built-in go keyword, you tell go that you wanna run these functions as Goroutines, which in the end simply means they still will be executed, but they will now run in parallel instead of after each other. 
+By adding this built-in go keyword, you tell go that you wanna run these functions as Goroutines, which in the end simply means they still will be executed, but *they will now run in parallel instead of after each other*. 
+
+#### **Understanding Goroutine Behaviour**
+
+When we running the above code we are not seeing anything in the console, even we have prints in there. When running these functions as Goroutines, why don't we see anything? 
+
+To understand this, it's important to understand and keep in mind that the idea behind running a function as a goroutine, is to **run it a non-blocking way**. So that the next operation thereafter, the next function call thereater, whatever, **can immediately be invoked**. 
+
+So if we run all four functions as Goroutines as we are doing it here, then we essentially **just dispatch** these four Goroutines, these four tasks, and then we are done in the main function. That is what's happening here. It's the very definiton of a Goroutine, that **it doesn't return a value** and *that the place where the function is called*, therefore, **doesn't wait for the Goroutine to complete**. That's the idea.
+
+It is just dispatched and then it goes on it's own. Of course, as a result, all the main function does now, **dispatch four goroutines and then it's done**. What happens when the main function is done? Program exits. 
+
+You might think that these `greet` functions are so simple that they should immediately print something to the console, but indeed dispatching these four Goroutines, **starting these four is even faster**. *That's why the program ends before we see anything in the console*.

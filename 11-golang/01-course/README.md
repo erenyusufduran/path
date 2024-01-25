@@ -1626,7 +1626,7 @@ func slowGreet(phrase string, doneChan chan bool) {
 
 Doing that in that *slow operation*, because we know that we don't need that channel anymore once this operation is done. This of course, therefore **only works if you do know which operation will take the longest** and after which operation this channel is not needed anymore. 
 
-#### **<a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">Price Calculator Project with Goroutines & Channels</a>**
+#### **<a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">Price Calculator Project with Goroutines & Channels</a>** - (You can Look at <a href="https://github.com/erenyusufduran/colins-path/commit/053e82fcf800c86be9961560e9f5dd12310f50ee">**Commit**</a>)
 
 It is an existing project. We will continue to build it.
 

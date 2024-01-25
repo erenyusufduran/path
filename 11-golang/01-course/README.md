@@ -1775,7 +1775,7 @@ Now we don't have to wait for the 12 seconds, because we ran all these processes
 
 Previously we also had error handling, we can't return errors, but we can use channels instead. we could for example in the process method, accept a second channel parameter that could be called `errorChan`, which should send error values. Istead of return error, we simply send data to that errorChan channel.
 
-Still return after sending error so that below code doesn't execute, because whilst the value returned is ignored when called as a Goroutine, the return keyword of course still works as before.
+Still return after sending error so that below code doesn't execute, because whilst the value returned is ignored when called as a Goroutine, **the return keyword of course still works as before**.
 
 ```go
 // prices.go
@@ -1828,7 +1828,7 @@ func main() {
 }
 ```
 
-The only problem we'll now have is that we can't really wait for the error channel, because we could duplicate this for loop, go through all the error channels then also use it. You'll see that now the program won't work as expected.
+The only problem we'll now have is that *we can't really wait for the error channel*, because we could duplicate this for loop, go through all the error channels then also use it. You'll see that now the program won't work as expected.
 
 ```go
 for _, errorChan := range errorChans {
@@ -1840,5 +1840,41 @@ for _, doneChan := range doneChans {
 }
 ```
 
-It will be stuck and eventually it will crash, because we are essentially waiting for data to come back that's never sent. Because in most cases, the error channel won't be used, we have no errors, we need some way of either waiting for an error sent through the error channel or the done channel.
+It *will be stuck* and eventually it *will crash*, because we are essentially **waiting for data to come back that's never sent**. Because in most cases, the error channel won't be used, we have no errors, we need some way of either waiting for an error sent through the error channel or the done channel.
 
+#### Managing Channels with the `select` Statement
+
+If you have multiple channels like we have it here, error and done, where only one of the *two channels will emit a value for a given Goroutine*. If you have a solution like this, you can use a special control structure that's built into Go, the **select** statement.
+
+Which is a control structure that's built to be used with channels. The idea behind `select` is kind of related to the idea behind the **switch** statement, just that we are now not evaluating different values being stored in a variable, but that we instead wait for different values emitted by a channel. 
+
+For this, we should start by select statement into a for loop that goes through all channels that we could have. So either `doneChans` or `errorChans` in this case, or simply `taxRates` since that is used as a source for the length for both channels.
+
+So there is need a for loop where I go through all my taxRates and then you wanna have that select statement inside of that for loop. I won't case about the taxRate and I don't care about index.
+
+```go
+for range taxRates {}
+```
+
+Then the select statement also needs a pair of curly braces. You can define the different cases, this different cases will be related to different channels.
+
+With case keyword you can read the value from a channel like `<-errorChan` and also if you need to store it in a variable `err := <-errorChan` you can code for this case.
+
+```go
+for index, _ := range taxRates {
+	select {
+	case err := <-errorChans[index]:
+		if err != nil {
+			fmt.Println(err)
+		}
+	case <-doneChans[index]:
+		fmt.Println("Done")
+	}
+}
+```
+
+Once we done, we can remove for loops for `errorChans` and `doneChans`.
+
+**What is the select statement doing here?**
+
+- The idea behind the select statement is that you can define different cases for different channels it will be the **case of the channel that emits a value earlier that will be executed, but then it will not wait for the other channel to also emit a value**. That's exactly what we need here. *It allows us to wait for only one channel to emit a value*. Once that happened, it will move on. It will not case about the other case. **The case that gives us a value earlier wins and the other case is discarded, ignored**. That's exactly what we need.

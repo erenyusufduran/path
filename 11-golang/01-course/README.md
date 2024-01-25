@@ -1769,3 +1769,76 @@ That simply tells Go that **we wait until every channel has emitted one value**,
 
 Now we don't have to wait for the 12 seconds, because we ran all these processes in parallel. So it was now just **the longest taking process that mattered instead of the sum of all process durations**.
 
+<hr>
+
+#### Error Handling at Goroutines & Channels with Wrong Way
+
+Previously we also had error handling, we can't return errors, but we can use channels instead. we could for example in the process method, accept a second channel parameter that could be called `errorChan`, which should send error values. Istead of return error, we simply send data to that errorChan channel.
+
+Still return after sending error so that below code doesn't execute, because whilst the value returned is ignored when called as a Goroutine, the return keyword of course still works as before.
+
+```go
+// prices.go
+func (job *TaxIncludedPriceJob) Process(doneChan chan bool, errorChan chan error) {
+	err := job.LoadData()
+	if err != nil {
+		errorChan <- err
+		return
+	}
+
+	result := make(map[string]string)
+
+	for _, price := range job.InputPrices {
+		taxIncludedPrice := price * (1 + job.TaxRate)
+		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", taxIncludedPrice)
+	}
+
+	job.TaxIncludedPrices = result
+	job.IOManager.WriteResult(job)
+	doneChan <- true
+}
+```
+
+Now in back in the `main.go` file and we then need to listen for values in these error channels. Create a new slice of errorChans, pass the created error channels to the `Process()` method.
+
+```go
+// main.go
+func main() {
+	taxRates := []float64{0, 0.7, 0.1, 0.12, 0.15}
+	doneChans := make([]chan bool, len(taxRates))
+	errorChans := make([]chan error, len(taxRates))
+
+	for index, taxRate := range taxRates {
+		doneChans[index] = make(chan bool)
+		errorChans[index] = make(chan error)
+
+		fm := filemanager.New("prices.txt", fmt.Sprintf("result_%v.json", taxRate*100))
+
+		priceJob := prices.NewTaxIncludedPriceJob(fm, taxRate)
+		go priceJob.Process(doneChans[index], errorChans[index])
+		// if err != nil {
+		// 	fmt.Println("could not process job")
+		// 	fmt.Println(err)
+		// }
+	}
+
+	for _, doneChan := range doneChans {
+		<-doneChan
+	}
+}
+```
+
+The only problem we'll now have is that we can't really wait for the error channel, because we could duplicate this for loop, go through all the error channels then also use it. You'll see that now the program won't work as expected.
+
+```go
+for _, errorChan := range errorChans {
+	<-errorChan
+}
+
+for _, doneChan := range doneChans {
+	<-doneChan
+}
+```
+
+It will be stuck and eventually it will crash, because we are essentially waiting for data to come back that's never sent. Because in most cases, the error channel won't be used, we have no errors, we need some way of either waiting for an error sent through the error channel or the done channel.
+

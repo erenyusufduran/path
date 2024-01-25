@@ -10,11 +10,11 @@ import (
 func main() {
 	taxRates := []float64{0, 0.7, 0.1, 0.12, 0.15}
 	doneChans := make([]chan bool, len(taxRates))
-	errorChans := make([]chan bool, len(taxRates))
+	errorChans := make([]chan error, len(taxRates))
 
 	for index, taxRate := range taxRates {
 		doneChans[index] = make(chan bool)
-		errorChans[index] = make(chan bool)
+		errorChans[index] = make(chan error)
 
 		fm := filemanager.New("prices.txt", fmt.Sprintf("result_%v.json", taxRate*100))
 		// cmdm := cmdmanager.New()
@@ -25,6 +25,10 @@ func main() {
 		// 	fmt.Println("could not process job")
 		// 	fmt.Println(err)
 		// }
+	}
+
+	for _, errorChan := range errorChans {
+		<-errorChan
 	}
 
 	for _, doneChan := range doneChans {

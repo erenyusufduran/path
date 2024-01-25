@@ -1831,6 +1831,7 @@ func main() {
 The only problem we'll now have is that *we can't really wait for the error channel*, because we could duplicate this for loop, go through all the error channels then also use it. You'll see that now the program won't work as expected.
 
 ```go
+// main.go
 for _, errorChan := range errorChans {
 	<-errorChan
 }
@@ -1853,6 +1854,7 @@ For this, we should start by select statement into a for loop that goes through 
 So there is need a for loop where I go through all my taxRates and then you wanna have that select statement inside of that for loop. I won't case about the taxRate and I don't care about index.
 
 ```go
+// main.go
 for range taxRates {}
 ```
 
@@ -1861,6 +1863,7 @@ Then the select statement also needs a pair of curly braces. You can define the 
 With case keyword you can read the value from a channel like `<-errorChan` and also if you need to store it in a variable `err := <-errorChan` you can code for this case.
 
 ```go
+// main.go
 for index, _ := range taxRates {
 	select {
 	case err := <-errorChans[index]:
@@ -1878,3 +1881,100 @@ Once we done, we can remove for loops for `errorChans` and `doneChans`.
 **What is the select statement doing here?**
 
 - The idea behind the select statement is that you can define different cases for different channels it will be the **case of the channel that emits a value earlier that will be executed, but then it will not wait for the other channel to also emit a value**. That's exactly what we need here. *It allows us to wait for only one channel to emit a value*. Once that happened, it will move on. It will not case about the other case. **The case that gives us a value earlier wins and the other case is discarded, ignored**. That's exactly what we need.
+
+### Deferring Code Execution with `defer`
+
+There is one last kind of concurrency related feature. For that go to that `filemanager.go` file. In there *we have methods that work with the file system*. We open a file, we then read from a file. Whenever you are doing that, **you have to make sure that you also close that file once you are done**. Because of that we are calling `fileClose()`.
+
+Calling this manually like this is not the best way of doing it, because you have to call it in multiple places and it's easy to forget that you should call it. 
+
+```go
+// filemanager.go
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
+
+	if err != nil {
+		return nil, errors.New("could not open file")
+	}
+
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	err = scanner.Err()
+
+	if err != nil {
+		file.Close()
+		return nil, errors.New("reading the file content failed")
+	}
+
+	file.Close()
+	return lines, nil
+}
+```
+
+Therefore, the better way of closing the file is to use a special keyword that's built-in Go. After the first if check where I know that opening the file worked, you can use the **`defer` keyword** to defer the `file.Close()` operation.
+
+```go
+// filemanager.go
+file, err := os.Open(fm.InputFilePath)
+if err != nil {
+		return nil, errors.New("could not open file")
+}
+defer file.Close()
+```
+
+So I still call `file.Close()` with defer, but executing a function with defer in front of it, *Go will actually not execute this code right away*, but instead it **executes only once the surrounding function or method, so this case the `ReadLines` method finished**, either because of an error or because it's done.
+
+So go will call `file.Close()` for me at the right point of time. That's great, because now we only have to call it once and it will then be called for us.
+
+Therefore we should of course not just use it here in `ReadLines`, but also in `WriteResults` Once we know that we have a file that we did not get an error, we should `defer file.Close()`.
+
+```go
+// filemanager.go
+func (fm FileManager) ReadLines() ([]string, error) {
+	file, err := os.Open(fm.InputFilePath)
+
+	if err != nil {
+		return nil, errors.New("could not open file")
+	}
+
+	defer file.Close()
+	scanner := bufio.NewScanner(file)
+
+	var lines []string
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	err = scanner.Err()
+
+	if err != nil {
+		return nil, errors.New("reading the file content failed")
+	}
+
+	return lines, nil
+}
+
+func (fm FileManager) WriteResult(data interface{}) error {
+	file, err := os.Create(fm.OutputFilePath)
+	if err != nil {
+		return errors.New("failed to create file")
+	}
+
+	defer file.Close()
+	time.Sleep(3 * time.Second)
+
+	encoder := json.NewEncoder(file)
+	err = encoder.Encode(data)
+
+	if err != nil {
+		return errors.New("failed to convert data to JSON")
+	}
+
+	return nil
+}
+```
+
+So **`defer`** is an important keyword whenever you have some operation, some function that **must be called whenever the outer function is done**. Because *then by using defer you can make sure that you don't forget it in some place and that you don't have to call it manually in multiple places*.

@@ -1626,3 +1626,146 @@ func slowGreet(phrase string, doneChan chan bool) {
 
 Doing that in that *slow operation*, because we know that we don't need that channel anymore once this operation is done. This of course, therefore **only works if you do know which operation will take the longest** and after which operation this channel is not needed anymore. 
 
+#### **<a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/01-course/02-price-calculator">Price Calculator Project with Goroutines & Channels</a>**
+
+It is an existing project. We will continue to build it.
+
+- To simulate a slow program, go to the filemanager and there, let's say when we write our data to the disk, `WriteResult` function, we introduce some delay with time package. We have four tax rates and if we take three seconds for every tax rate to write it's results to the disk, then this will take 12 seconds overall. Now we have a scenario where Goroutines could make sense.
+
+```go
+// filemanager.go
+time.Sleep(3 * time.Second)
+```
+
+In `main.go` file that I call `Process()` on my `priceJob` struct. This struct is responsible for *starting all the **other sub-processes***. Hence if we could run this main `priceJob` process here as a Goroutine, we should **able to significantly speed up the overall program**.
+
+```go
+// main.go
+err := priceJob.Process()
+if err != nil {
+	fmt.Println("could not process job")
+	fmt.Println(err)
+}
+```
+
+Therefore in `main.go` `priceJob.Process()` as a Goroutine by adding the `go` keyword. Now Goroutines **don't return values**, so storing the error or trying to get back any other return value and storing that won't work. You'll h**ave to use channels if you want to transmit data**.
+
+```go
+// main.go
+go priceJob.Process()
+// if err != nil {
+// 	fmt.Println("could not process job")
+// 	fmt.Println(err)
+// }
+```
+
+With that we essentially have the same program as before, but now this task here is ran as a Goroutine. Therefore, all the other tasks that are started by this `Process()` method **will be part of that Goroutine**.
+
+If we save this and run the program, it now finishes *instantly*, which is great, but it actually also didn't work as expected. If you delete result files, you will *see that no new files are created*.
+
+These processes are started in **parallel**, and Go *doesn't keep track of when they are done*. Instead, it is done after all processes started, therefore the programs exits. 
+
+As a solution, we can use a **channel**, or such an array of channels. So we will create a slice of channels, every channels gets a boolean, then I will create an empty slice to begin with help of the `make` function, though it actually should come with a couple of elements, which then just should be empty elements essentially.
+
+I know how many channels, I'll need, because I have a fixed number of `taxRates`.
+
+```go
+// main.go
+taxRates := []float64{0, 0.7, 0.1, 0.12, 0.15}
+doneChans := make([]chan bool, len(taxRates))
+
+for _, taxRate := range taxRates {
+	fm := filemanager.New("prices.txt", fmt.Sprintf("result_%v.json", taxRate*100))
+	priceJob := prices.NewTaxIncludedPriceJob(fm, taxRate)
+	go priceJob.Process()
+}
+```
+
+So with that I have my channels. We can actually make use of index, which we get from the range kayword and create a couple of new channels for the different indexes so that we replace the empty slots that were created by `make` function.
+
+```go
+// main.go
+for index, taxRate := range taxRates {
+	doneChans[index] = make(chan bool)
+	fm := filemanager.New("prices.txt", fmt.Sprintf("result_%v.json", taxRate*100))
+	priceJob := prices.NewTaxIncludedPriceJob(fm, taxRate)
+	go priceJob.Process()
+}
+```
+
+So now we create one new channel for every tax rate, and we can then pass this channel to process. So that process can let us know through that channel once it's done.
+
+```go
+// main.gp
+go priceJob.Process(doneChans[index])
+```
+
+Then we are coming `Process()` method to take parameter. The idea is simply send data through that channel once operation is done.
+
+```go
+// prices.go
+func (job *TaxIncludedPriceJob) Process(doneChan chan bool) error {
+	err := job.LoadData()
+	if err != nil {
+		return err
+	}
+
+	result := make(map[string]string)
+
+	for _, price := range job.InputPrices {
+		taxIncludedPrice := price * (1 + job.TaxRate)
+		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", taxIncludedPrice)
+	}
+
+	job.TaxIncludedPrices = result
+	return job.IOManager.WriteResult(job)
+}
+```
+
+We should get rid of `WriteResult` *return* statement, because when you execute a function as a Goroutine, **it's return value is ignored**, it's not supported by this feature, therefore we don't *need to return anything*. We can actually also get rid of the return type error of the function.
+
+```go
+// prices.go
+func (job *TaxIncludedPriceJob) Process(doneChan chan bool) {
+	err := job.LoadData()
+	if err != nil {
+		// return err
+	}
+
+	result := make(map[string]string)
+
+	for _, price := range job.InputPrices {
+		taxIncludedPrice := price * (1 + job.TaxRate)
+		result[fmt.Sprintf("%.2f", price)] = fmt.Sprintf("%.2f", taxIncludedPrice)
+	}
+
+	job.TaxIncludedPrices = result
+	job.IOManager.WriteResult(job)
+}
+```
+
+If you would have places in the app where `Process()` is still called as a regular function instead of a Goroutines, **you could keep that return type so that you can use this method both** *as a Goroutine and as a regular function*. Here, that will not be the case. So we get rid of the return err.
+
+After we call `WriteResult` and we waited for that to finish, I will pass a value into my `doneChan`. That value will be true, but you could use any value.
+
+```go
+// prices.go
+job.IOManager.WriteResult(job)
+doneChan <- true
+```
+
+So with that, we got the code in `Process()`, this code will be executed step by step. Because *that method is started as a Goroutine* **does not mean that all the functions in there are started as Goroutines as well**. Instead they **are still processed as before**. It's just the overall `Process()` method that started as a Goroutine. So that *multiple processes can run in parallel*.
+
+We could start more Goroutines in there if we needed to, but here, current approach is enough. It is important that we send the data through that channel though, so in `main.go`, we can wait for that data. So that we do know when we are done.
+
+```go
+// main.go
+for _,doneChan := range doneChans {
+	<- doneChan
+}
+```
+
+That simply tells Go that **we wait until every channel has emitted one value**, then thereafter this main function finishes and the program exits. With that we now can save everything and run this again. You'll notice that now it takes three seconds, because that's the time it takes to write data to the disk. 
+
+Now we don't have to wait for the 12 seconds, because we ran all these processes in parallel. So it was now just **the longest taking process that mattered instead of the sum of all process durations**.
+

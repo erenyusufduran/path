@@ -1461,3 +1461,168 @@ func main() {
 We can also let it flow into the void so to say. It's just important that we have the statement (`<- done`) here, because *that simply means that Go will only continue after this lines of code* and therefore in this case **end of the program after some data came out of the channel**. We are waiting for some data to come out of the channel.
 
 Now, program waits and we get that output, thereafter it finishes.
+
+### Working with Multiple Channels & Goroutines
+
+We saw channel can be used to wait for the completion of a Goroutine. Now you can also use a channel to wait for the completion of multiple Goroutines. 
+
+For that we wanna make sure that the channel is created before we run these Goroutines, of course, then we should make sure that all these Goroutines accept such a channel. So in this case, the second parameter should be accepted by the `greet` function aswell. Of course that function then also *write data to that channel*. It **should send data through that channel once it's done**.
+
+```go
+func greet(phrase string, doneChan chan bool) {
+	fmt.Println("Hello!", phrase)
+	doneChan <- true
+}
+
+func slowGreet(phrase string, doneChan chan bool) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Hello!", phrase)
+	doneChan <- true
+}
+
+func main() {
+	done := make(chan bool)
+
+	go greet("nice to meet you", done)
+	go greet("how are you", done)
+	go slowGreet("how .. are .. you ..", done)
+	go greet("I hope you are like it", done)
+
+	<-done
+}
+```
+
+You can use one and the same channel with multiple Goroutines. That is absolutely fine, because this channel, in in the end a *transmission device, a communication device*. It is capable and indeed intended **to be used to receive multiple values**, not just a single value. You can use it for that, but you can also **send multiple values from different Goroutines through the same channel**.
+
+However, if you save and run this code, you'll get some strange results. If you run this a couple of times, you will eventually get different outputs. Sometimes just the last message, sometimes last message and another message.
+
+```sh
+Hello! I hope you are like it
+----
+Hello! I hope you are like it
+Hello! how are you
+```
+
+So we don't have a *consistent behaviour here and we definetely don't wait for all Goroutines to finish*. Instead, it looks like we have some kind of **race condition** here where the function **that completes first simply ends** the execution of the program. 
+
+Indeed that is what's happening here, because we're using one channel and the same channel for multiple Goroutines and we then simply read from that channel here in this place at the end of the main function, which to Go simply means **that we're done as soon as we got one value out of this channel**. 
+
+We could write `<-done` four times.
+
+```go
+<-done
+<-done
+<-done
+<-done
+```
+
+The result will be different, now program is wait for that long taking task as well, and we then output all these results.
+
+```sh
+Hello! I hope you are like it
+Hello! nice to meet you
+Hello! how are you
+Hello! how .. are .. you ..
+```
+
+In the order in which they've finished. So that is one thing to keep in mind with channels. I*f you use the same channel for multiple Goroutines*, you also **have to wait for as many values as you have Goroutines** at least *if you want all of them to be finished*.
+
+Since the code here is not very scalable and we always have to update the number of reads from this channel whenever we add another Goroutine, since that's not ideal there is an alternative way of handling this.
+
+We can work with a *slice*, which we can also create with the make function where the slice should contain a bunch of channels, because a channel is just a normal value. So it can also be stored in structs, slices, maps.. Then we can create such a slice of channel with four empty elements.
+
+```go
+dones := make([]chan bool, 4)
+```
+
+We can simply add new channels for every Goroutine, again by using the `make` function. Then we want the channel that *transports a boolean*, we store that as a first element in dones. Then **create all these different channels which are stored in these different positions** in that `dones` slice.
+
+Now we can use a for loop to go through the different done channels that we have in that `dones` slice with a for range loop. **Then simply read all these channels**.
+
+```go
+func main() {
+	dones := make([]chan bool, 4)
+
+	dones[0] = make(chan bool)
+	go greet("nice to meet you", dones[0])
+
+	dones[1] = make(chan bool)
+	go greet("how are you", dones[1])
+
+	dones[2] = make(chan bool)
+	go slowGreet("how .. are .. you ..", dones[2])
+
+	dones[3] = make(chan bool)
+	go greet("I hope you are like it", dones[3])
+
+	for _, done := range dones {
+		<-done
+	}
+}
+```
+
+With that, we will then wait for as many channels as we have here. Therefore, if you run that, we get the same result as before and we wait for all operations to finish.
+
+```sh
+Hello! I hope you are like it
+Hello! nice to meet you
+Hello! how are you
+Hello! how .. are .. you ..
+```
+
+<hr>
+
+Managing such a slice of channels can be a bit cumbersome, go also gives you another feature you can use instead of creating multiple channels and managing them in such a slice. 
+
+Bring back that single `done` channel and pass that single done channel to all Goroutines again. So we're back to one channel for all Goroutines.
+
+```go
+func main() {
+	done := make(chan bool)
+
+	go greet("nice to meet you", done)
+	go greet("how are you", done)
+	go slowGreet("how .. are .. you ..", done)
+	go greet("I hope you are like it", done)
+}
+```
+
+Now to make sure that we don't have to manually add as many reads from done as we have Goroutines, as we had it before, we'll use a different feature built-in to Go. 
+
+We can also use the for loop directly on a channel with the range keyword still, but now instead of passing a slice or map after range, we pass our channel as a value after range. 
+
+```go
+for doneChan := range done {
+	fmt.Println(doneChan)
+}
+```
+
+That is a feature that is supported by Go. Then inside of this for loop here, we'll actually not get the channel, but instead **the values that are emitted by that channel**. So bunch of booleans here actually, which we could not output with `Println`.
+
+If we do that and we use this for range loop directly on this one single channel that is used for all these different Goroutines, you now see we again wait for all operations to finish, but at the end it looks like we have a problem here that all Goroutines are asleep. In addition, we all print true all the time.
+
+```sh
+fatal error: all goroutines are asleep - deadlock!
+```
+
+We can get rid of that true value by simply not caring about the value returned by the done channel.
+
+```go
+for range done {}
+```
+
+To go through all the done values nonetheless. So with that we would *still get that output and wait for all invocations*, but we would also *get error* still.
+
+We get this error, because of course not **Go doesn't know when this channel is out of values**. We simply loop through all the values and *we wait for new values to be emitted*, but eventaully **there will be no value left** and that's *why we are getting an error*. We can work around this problem by explicitly **closing the channel once we are done**, with help of the `close(doneChan)` function to which you pass the channel that should be closed.  
+
+```go
+func slowGreet(phrase string, doneChan chan bool) {
+	time.Sleep(3 * time.Second)
+	fmt.Println("Hello!", phrase)
+	doneChan <- true
+	close(doneChan)
+}
+```
+
+Doing that in that *slow operation*, because we know that we don't need that channel anymore once this operation is done. This of course, therefore **only works if you do know which operation will take the longest** and after which operation this channel is not needed anymore. 
+

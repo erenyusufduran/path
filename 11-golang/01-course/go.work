@@ -15,4 +15,5 @@ use (
 	./00-essentials/10-functions
 	./02-price-calculator
 	./00-essentials/11-goroutines
+	./rest-api
 )

@@ -2008,3 +2008,15 @@ go get -u github.com/gin-gonic/gin
 ```
 
 It is easy to set up such a pre-configured server with that package.
+
+### SQL
+
+It's time to move from a real database. With just a single file that you add to your project, which gives you a SQL database without installing any extra SQL tools, which is pretty amazing.
+
+Go standard library has a SQL package that helps you interact with such database, though as you'll learn on that <a href="https://pkg.go.dev/database/sql">package page</a>, this SQL package must be used in conjunction with a database driver. So in the end, with some other package that implements some database engine specific logic. 
+
+Now we can take a look at the drivers they recommend here. You see there are drivers for interacting with all kinds of database services and so on. 
+
+> In this section we will use go <a href="https://github.com/mattn/go-sqlite3">SQLite3 package</a>, which is a pretty popular go SQLite package.
+
+Firstly we should do installation. Then we had to initialize and establish a database connection.

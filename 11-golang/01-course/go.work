@@ -1,4 +1,4 @@
-go 1.20
+go 1.21.6
 
 use (
 	./00-essentials/00-hello-world
@@ -7,13 +7,13 @@ use (
 	./00-essentials/03-pointers
 	./00-essentials/04-structs
 	./00-essentials/05-custom-types
-	./01-note
 	./00-essentials/06-arrays
 	./00-essentials/07-array-exercise
 	./00-essentials/08-maps
 	./00-essentials/09-slices-maps-make
 	./00-essentials/10-functions
-	./02-price-calculator
 	./00-essentials/11-goroutines
+	./01-note
+	./02-price-calculator
 	./rest-api
 )

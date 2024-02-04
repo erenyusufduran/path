@@ -2020,3 +2020,13 @@ Now we can take a look at the drivers they recommend here. You see there are dri
 > In this section we will use go <a href="https://github.com/mattn/go-sqlite3">SQLite3 package</a>, which is a pretty popular go SQLite package.
 
 Firstly we should do installation. Then we had to initialize and establish a database connection.
+
+#### **Preparing Statements vs Directly Executing Queries (Prepare() vs Exec() / Query())**
+
+1. `DB.Exec()` (when we created the tables)
+2. `Prepare()` + `stmt.Exec()` (when we inserted data into the database)
+3. `DB.Query()` (when we fetched data from the database)
+
+Using `Prepare()` is 100% optional! You could send all your commands directly via `Exec()` or `Query()`. `Prepare()` prepares a SQL statement - this can lead to better performance if the same statement is executed multiple times (potentially with different data for its placeholders). 
+
+> This is only true, if the prepared statement is not closed (`stmt.Close()`) in between those executions. In that case, there wouldn't be any advantages. Indeed, in this application, we are calling `stmt.Close()` directly after calling `stmt.Exec()`. So here, it really wouldn't matter which approach you're using.

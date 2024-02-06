@@ -8,6 +8,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// eren
+
 func main() {
 	db.InitDB()
 	server := gin.Default()

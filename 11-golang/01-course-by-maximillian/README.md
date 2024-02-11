@@ -1,4 +1,4 @@
-# Go Language
+# Go Language - <a href="https://www.udemy.com/course/go-the-complete-guide/">by Maximilian Schwarzmüller</a>
 
 It is an open-source programming language developed and published by Google.
 - Focus on **simplicity**, **clarity** & **scalability**.

@@ -41,7 +41,7 @@ In hello-world program, we are using `fmt` package. That's not a package written
 
 #### Why is the package name is `main`?
 
-Indeed you can use any name you want, many go projects espcially bigger projects typically use multiple packages. These pacakges need different names.
+Indeed you can use any name you want, many go projects especially bigger projects typically use multiple packages. These packages need different names.
 
 **main** is a special package name, that tells Go that this package will be the main entry point. You'll not always run your code as we did it before like `go run app.go`.
 
@@ -96,7 +96,7 @@ App doesn't crash because read file when it doesn't find a file does indeed gene
 
 Instead in Go, error handling typically works a bit differently than it does in other languages. In other languages you might be used to certain actions or problems crashing your code. In other languages you can ofter use try catch statement to wrap code that could potantially fail to catch errors and define code that should run if an error occurs. That is not how it works in Go though.
 
-Instead in Go, functions are written such and your functions should be written such that errors don't crash the applcation. Instead, read file fore example, will simply return an empty byte collection if it failts to find that file, which is  then converted to an empty string, which is converted to the value zero when parsing it as a float. That is why we see the 0 as a result if we check the balance.
+Instead in Go, functions are written such and your functions should be written such that errors don't crash the applcation. Instead, read file for example, will simply return an empty byte collection if it fails to find that file, which is then converted to an empty string, which is converted to the value zero when parsing it as a float. That is why we see the 0 as a result if we check the balance.
 
 That's not all Go does. Instead, for operations that could fail, it is quite common that funtions return such an error thing as a second value. That's the value we can accept and store as a second value here when calling that function.
 
@@ -631,7 +631,7 @@ So if in highlightedPrices, we then select just the first item, we could theoret
 
 **Why not a capacity of four since the original array has a length of four?**
 
-- Well because that's important to understand about slices. You can **always select more towards the end of an array, but not towards the start, so towards the left**. Sine the first slice on which we are based starts at the second element and not at the first element, any other slices based on it can't go further to the left. So we can't go back to that first element which we omit here. That's why the **capacity only counts towards the end of the original array**, but omits any elements that might have been filtered out before.
+- Well because that's important to understand about slices. You can **always select more towards the end of an array, but not towards the start, so towards the left**. Since the first slice on which we are based starts at the second element and not at the first element, any other slices based on it can't go further to the left. So we can't go back to that first element which we omit here. That's why the **capacity only counts towards the end of the original array**, but omits any elements that might have been filtered out before.
 
 In the end, it's just important to understand that you can always select more items to the right, but never to the left.
 
@@ -1069,7 +1069,7 @@ func getTransformerFunction() transformFn {
 }
 ```
 
-Now whenever you execute, `getTransformerFunction` you geet a function as a return value because that's also possible. You can not just accept functions as parameter values. You can also return them. Here we are returning double. We are not executing it, because if I would, I would return the result of calling that function. I just wanna return the function itself here, and hence I don't execute it. **Return value is function itself as a value**.
+Now whenever you execute, `getTransformerFunction` you get a function as a return value because that's also possible. You can not just accept functions as parameter values. You can also return them. Here we are returning double. We are not executing it, because if I would, I would return the result of calling that function. I just wanna return the function itself here, and hence I don't execute it. **Return value is function itself as a value**.
 
 For better example, we could say that `getTransformerFunction` has the job of picking the right transformer for the data on which we want to perform the transformation. Hence we could expect some numbers here, which might be a slice of integer.
 

@@ -1,0 +1,13 @@
+go 1.22.0
+
+use (
+	./concurrency/first-example
+	./toolkit-module/api-test-toolkit
+	./toolkit-module/app
+	./toolkit-module/app-dir
+	./toolkit-module/app-download
+	./toolkit-module/app-json
+	./toolkit-module/app-slug
+	./toolkit-module/app-upload
+	./toolkit-module/toolkit
+)

@@ -1,0 +1,12 @@
+go 1.22.0
+
+use (
+	./api-test-toolkit
+	./app
+	./app-dir
+	./app-download
+	./app-json
+	./app-slug
+	./app-upload
+	./toolkit
+)

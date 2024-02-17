@@ -26,3 +26,78 @@ Another thing to bear in mind:
 
 ### Goroutines, `go` keyword, Wait Groups
 
+```go
+func printSomething(s string) {
+	fmt.Println(s)
+}
+
+func main() {
+	printSomething("This is the first thing to be printed!")
+	printSomething("This is the second thing to be printed!")
+}
+```
+
+Know that firstly first thing, then second thing will executed.
+
+It we add `go` in front of function that go word does is it tells the compiler when you execute whatever comes after `go` command executed in it's goroutine. 
+
+```go
+func main() {
+	go printSomething("This is the first thing to be printed!")
+	printSomething("This is the second thing to be printed!")
+}
+```
+
+But if I run the program, what should happen?
+
+```sh
+This is the second thing to be printed!
+```
+
+i only see this is the second thing to be printed. What happened there? It is pretty straightforward. This program executed so quickly that there was not sufficient time for that goroutine, the one I that the first printSomething function. 
+
+How do I fixed that?
+
+```go
+for i, x := range words {
+	go printSomething(fmt.Sprintf("%d: %s", i, x))
+}
+```
+
+When you execute that, it will not display in any order. Another important thing have to undestrand about goroutines. It doesn't matter what order you them in.
+
+Here is where **Wait Groups** come to the rescue and wait groups are so simple. We can use it the top of the functions with;
+
+```go
+var wg sync.WaitGroup
+```
+
+and then, we can say it, how many times it wait?
+
+```go
+wg,Add(9)
+```
+
+After the for loop, all I need to write;
+
+```go
+wg.Wait()
+```
+
+Wait group will wait until the wait group (wg) is set to zero. I am say it to nine, but I am not decreasing the wait group. Goroutine spawning for it, which means I need to have access to that wait group in that particular goroutine.
+
+So what I can do is come up `printSomething` function and say I am going to take a string and also take wg, which is a pointer to center wait group. 
+
+```go
+func printSomething(s string, wg *sync.WaitGroup) {
+	fmt.Println(s)
+}
+
+for i, x := range words {
+    go printSomething(fmt.Sprintf("%d: %s", i, x), &wg)
+}
+```
+
+Once you have created a wait group, you really shouldn't copy it after the fact. You need to be really cautious with wait groups. **Don't go copying them and modifying them**, just pass them around as pointers. It's much simpler.
+
+The last change I need to make here in print something is to hand this WG which will be ignored aswell.

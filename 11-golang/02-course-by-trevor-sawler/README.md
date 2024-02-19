@@ -101,3 +101,12 @@ for i, x := range words {
 Once you have created a wait group, you really shouldn't copy it after the fact. You need to be really cautious with wait groups. **Don't go copying them and modifying them**, just pass them around as pointers. It's much simpler.
 
 The last change I need to make here in print something is to hand this WG which will be ignored aswell.
+
+After giving wait group as a parameter, we need to decrement by one. We are doing it with `defer` keyword with `wg.Done()`
+
+```go
+func printSomething(s string, wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Println(s)
+}
+```

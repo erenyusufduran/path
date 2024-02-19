@@ -1,6 +1,7 @@
 go 1.22.0
 
 use (
+	./concurrency/challenge
 	./concurrency/first-example
 	./toolkit-module/api-test-toolkit
 	./toolkit-module/app

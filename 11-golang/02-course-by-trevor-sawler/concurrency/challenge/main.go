@@ -1,11 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 var msg string
+var wg sync.WaitGroup
 
-func updateMessage(s string) {
+func updateMessage(s string, wg *sync.WaitGroup) {
 	msg = s
+	wg.Done()
 }
 
 func printMessage() {
@@ -15,12 +20,18 @@ func printMessage() {
 func main() {
 	msg = "Hello, world!"
 
-	updateMessage("Hello, universe!")
+	wg.Add(1)
+	go updateMessage("Hello, universe!", &wg)
+	wg.Wait()
 	printMessage()
 
-	updateMessage("Hellos, cosmos!")
+	wg.Add(1)
+	go updateMessage("Hellos, cosmos!", &wg)
+	wg.Wait()
 	printMessage()
 
-	updateMessage("Hello, world!")
+	wg.Add(1)
+	go updateMessage("Hello, world!", &wg)
+	wg.Wait()
 	printMessage()
 }

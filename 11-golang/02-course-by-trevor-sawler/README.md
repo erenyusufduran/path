@@ -110,3 +110,7 @@ func printSomething(s string, wg *sync.WaitGroup) {
 	fmt.Println(s)
 }
 ```
+
+<hr>
+
+If I give wait group add length to 12, my program waits forever or it's give error. **All goroutines are sleep deadlock.** That's one of the reasosns why you almost never use a hardcoded value like 12.

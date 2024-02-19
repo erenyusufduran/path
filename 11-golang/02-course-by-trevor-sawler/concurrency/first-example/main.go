@@ -6,6 +6,7 @@ import (
 )
 
 func printSomething(s string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	fmt.Println(s)
 }
 
@@ -24,7 +25,7 @@ func main() {
 		"epsilon",
 	}
 
-	wg.Add(9)
+	wg.Add(len(words))
 
 	for i, x := range words {
 		go printSomething(fmt.Sprintf("%d: %s", i, x), &wg)
@@ -32,5 +33,5 @@ func main() {
 
 	wg.Wait()
 	wg.Add(1)
-	printSomething("This is the first thing to be printed!", &wg)
+	go printSomething("This is the first thing to be printed!", &wg)
 }

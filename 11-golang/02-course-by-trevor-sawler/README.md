@@ -114,3 +114,85 @@ func printSomething(s string, wg *sync.WaitGroup) {
 <hr>
 
 If I give wait group add length to 12, my program waits forever or it's give error. **All goroutines are sleep deadlock.** That's one of the reasosns why you almost never use a hardcoded value like 12.
+
+## Race Conditions, Mutexex & Channels
+
+When you are working with concurrent programming it is really important to be aware of race conditions.
+
+#### sync.Mutex
+
+- Mutex = `mutual exclusion` - allows us to deal with race conditions
+- Relative simple to use
+- Dealing with shared resources and concurrent/parallel goroutines
+- Lock / Unlock
+
+#### Race Conditions
+
+- Race conditions occur when multiple goroutines try to access the same data.
+- Con be difficult to spot when reading code.
+- Go allows us to check for them when running a program, or when testing our code with go test.
+
+Since I have no idea which goroutine is going to execute first or which one is going to end first and both of these access and perform some operation that data, bad things can happen.
+
+#### Channels
+
+- Channels are a means of having goroutines share data.
+- They can talk to each other. 
+- This is Go's philophy of having things share memory by communicationg, rather than communication by sharing memory.
+- The Producer/Consumer Problme
+
+#### Code
+
+```go
+var msg string
+var wg sync.WaitGroup
+
+func updateMessage(s string) {
+	defer wg.Done()
+	msg = s
+}
+
+func main() {
+	msg = "Hello, World!"
+
+	wg.Add(2)
+	go updateMessage("Hello, universe")
+	go updateMessage("Hello, cosmos")
+	wg.Wait()
+
+	fmt.Println(msg)
+}
+```
+
+There is a race condition, because two goroutines are running at the same time, and they are trying to modify same value.
+
+#### Solving with sync.Mutex
+
+```go
+var msg string
+var wg sync.WaitGroup
+
+func updateMessage(s string, m *sync.Mutex) {
+	defer wg.Done()
+	m.Lock()
+	msg = s
+	m.Unlock()
+}
+
+func main() {
+	msg = "Hello, World!"
+
+	var mutex sync.Mutex
+
+	wg.Add(2)
+	go updateMessage("Hello, universe", &mutex)
+	go updateMessage("Hello, cosmos", &mutex)
+	wg.Wait()
+
+	fmt.Println(msg)
+}
+```
+
+Before write to the variable msg use `m.Lock()` and nobody else can change it's value until I am done with it. Once I am done with it, I call `m.Unlock()`.
+
+I am not sure what the result is going to be, because I haven't actually waited for one particular goroutine to finish before the other one does. It might be universe or cosmos. Important thing in there is that I am accessing data safely. This is what is called a **thread safe operation.**

@@ -197,5 +197,5 @@ Before write to the variable msg use `m.Lock()` and nobody else can change it's 
 
 I am not sure what the result is going to be, because I haven't actually waited for one particular goroutine to finish before the other one does. It might be universe or cosmos. Important thing in there is that I am accessing data safely. This is what is called a **thread safe operation.**
 
-- <a href="">Complex Mutex examle</a>
-- <a href="">Producer - Consumer Problem with Channels </a>
+- <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/complex-mutex">Complex Mutex examle</a>
+- <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/producer-consumer">Producer - Consumer Problem with Channels </a>

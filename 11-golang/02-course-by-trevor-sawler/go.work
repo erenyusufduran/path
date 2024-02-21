@@ -5,6 +5,7 @@ use (
 	./concurrency/complex-mutex
 	./concurrency/first-example
 	./concurrency/mutex
+	./concurrency/producer-consumer
 	./toolkit-module/api-test-toolkit
 	./toolkit-module/app
 	./toolkit-module/app-dir

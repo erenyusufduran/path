@@ -196,3 +196,6 @@ func main() {
 Before write to the variable msg use `m.Lock()` and nobody else can change it's value until I am done with it. Once I am done with it, I call `m.Unlock()`.
 
 I am not sure what the result is going to be, because I haven't actually waited for one particular goroutine to finish before the other one does. It might be universe or cosmos. Important thing in there is that I am accessing data safely. This is what is called a **thread safe operation.**
+
+- <a href="">Complex Mutex examle</a>
+- <a href="">Producer - Consumer Problem with Channels </a>

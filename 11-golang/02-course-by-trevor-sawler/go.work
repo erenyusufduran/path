@@ -3,6 +3,7 @@ go 1.22.0
 use (
 	./concurrency/challenge
 	./concurrency/complex-mutex
+	./concurrency/dining-philosophers
 	./concurrency/first-example
 	./concurrency/mutex
 	./concurrency/producer-consumer

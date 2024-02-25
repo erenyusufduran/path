@@ -199,3 +199,22 @@ I am not sure what the result is going to be, because I haven't actually waited 
 
 - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/complex-mutex">Complex Mutex examle</a>
 - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/producer-consumer">Producer - Consumer Problem with Channels </a>
+
+### Channels
+
+Channels are the preferred method of sharing memory. **Go's approach to concurrency is share memory by communicating, don't communicate by sharing memory.** This is achieved primarily through the use of channels.  
+- A means of allowing communication to and from a goroutine
+- Channels can be buffered or unbuffered (takes one, or many)
+- Once you are done with a channel, you must close it
+- Channels typically only accept a given type of interface
+
+#### The Sleeping Barber
+- A classic computer science problem
+- A barber goes to work in a barbershop with a waiting room with a fixed number of seats.
+- If no one is in the waiting room, the barber goes to sleep.
+- When a client shows up, if there are no seats available, he or she leaves.
+- If there is a seat available, and the barber is sleeping, the client wakes the barber up and gets a hair cut.
+- If the barber is busy, the client takes a seat and waits his or her turn
+- Once the shop closes, no more clients are allowed in, but the barber has to stay until everyone who is waiting gets a hair cut.
+
+ 

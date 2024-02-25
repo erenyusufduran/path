@@ -399,4 +399,4 @@ When this select statement executes it, there are multiple cases that match the 
 
 Is is also possible to have, just as switch statement, a default case, this default case is useful for avoiding deadlock. If there is a situation where none of these channels are listening, then the default case will stop your program from crashing. This is a great situation.
 
-> Buffered channels `ch := make(chan int, 100)`, to know how many goroutines you have launched or we want to limit the number of goroutines we launch, or we wat to limit the amount of work that's queued up. 
+> Buffered channels `ch := make(chan int, 100)`, to know how many goroutines you have launched or we want to limit the number of goroutines we launch, or we wat to limit the amount of work that's queued up. <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/buffered-channels">Code</a>

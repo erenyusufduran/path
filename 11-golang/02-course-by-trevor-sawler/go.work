@@ -10,6 +10,7 @@ use (
 	./concurrency/producer-consumer
 	./concurrency/select-channels
 	./concurrency/simple-channels
+	./sleeping-barber
 	./toolkit-module/api-test-toolkit
 	./toolkit-module/app
 	./toolkit-module/app-dir

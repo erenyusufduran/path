@@ -200,7 +200,7 @@ I am not sure what the result is going to be, because I haven't actually waited 
 - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/complex-mutex">Complex Mutex examle</a>
 - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/producer-consumer">Producer - Consumer Problem with Channels </a>
 
-### Channels
+## Channels
 
 Channels are the preferred method of sharing memory. **Go's approach to concurrency is share memory by communicating, don't communicate by sharing memory.** This is achieved primarily through the use of channels.  
 - A means of allowing communication to and from a goroutine
@@ -217,7 +217,7 @@ Channels are the preferred method of sharing memory. **Go's approach to concurre
 - If the barber is busy, the client takes a seat and waits his or her turn
 - Once the shop closes, no more clients are allowed in, but the barber has to stay until everyone who is waiting gets a hair cut.
 
-#### How Channels are Working?
+### **How Channels are Working?**
 
 ```go
 func shout() {
@@ -334,3 +334,67 @@ func shout(ping <-chan string, pong chan<- string) {
 When I add an arrow to chan's left it will be a receive only channel. If I add an arrow to chan's right it will be a send only channel.
 
 That' absolutely not necessary, but it does **prevent you from accidentally trying to send to a channel** that you are intending to receive upon.
+
+> If I comment out `go shout(ping, pong)` line, there is nothing listening to ping channel. So when I execute it, I get a fatal error. **All goroutines are asleep, Deadlock.** Go tells us you are sending something to a channel, but nothing is ever going to receiving. There is no listening to that channel.
+
+> When I receive something from a channel, I actually have an optional second parameter I can get from that channel and I will just call it. `s, ok :- <-ping`. I can check to see if ok is false. It just tells me **whether the receive value was sent on the channel or it is a zero value return because the channel is closed and empty.** This is an easy way to make sure that the channel is in fact not closed, and we will be using that later.
+
+### **How Select Statement Works?**
+
+They are only useful for chdannels and there are a lot like the switch statement or what's called a case statement in other languages, but there are only for channels and you **can only use channels with the select statement.**
+
+Let's write two function to accept channel and with select statement look at them;
+
+```go
+func server1(ch chan string) {
+	for {
+		time.Sleep(6 * time.Second)
+		ch <- "This is from server 1"
+	}
+}
+
+func server2(ch chan string) {
+	for {
+		time.Sleep(3 * time.Second)
+		ch <- "This is from server 2"
+	}
+}
+
+func main() {
+	fmt.Println("Select with channels")
+	fmt.Println("--------------------")
+
+	channel1 := make(chan string)
+	channel2 := make(chan string)
+
+	go server1(channel1)
+	go server2(channel2)
+
+	for {
+		select {
+		case s1 := <-channel1:
+			fmt.Println("Case one:", s1)
+		case s2 := <-channel1:
+			fmt.Println("Case two:", s2)
+		case s3 := <-channel2:
+			fmt.Println("Case three:", s3)
+		case s4 := <-channel2:
+			fmt.Println("Case four:", s4)
+		default:
+			// avoiding deadlock
+		}
+	}
+}
+```
+
+When we execute a program main gets executed, we print out a little title. We create two channels. I start two goroutines, one that's listening to channel one and one that's listening to channel two. These will not exit until the program terminates because there is absolutely no reason for them to exit.
+
+There is no condition where those will actually stop executing the for loops. Then I have an endless for loop here where I listen to, you know, channel one no problem. Then I listen to channel one again and printing out different message. 
+
+You might say to yourself, how come he is not closing the channels? This is a highly contrived example. There is no situation where we ever get inside of this for loop. 
+
+**Let's look at how it is working**
+
+When this select statement executes it, there are multiple cases that match the same condition. If there is **more than one case that the select can match, it just chooses one at random.** There are lots of situations where that's useful.
+
+Is is also possible to have, just as switch statement, a default case, this default case is useful for avoiding deadlock. If there is a situation where none of these channels are listening, then the default case will stop your program from crashing. This is a great situation.

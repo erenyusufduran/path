@@ -7,6 +7,7 @@ use (
 	./concurrency/first-example
 	./concurrency/mutex
 	./concurrency/producer-consumer
+	./concurrency/select-channels
 	./concurrency/simple-channels
 	./toolkit-module/api-test-toolkit
 	./toolkit-module/app

@@ -398,3 +398,5 @@ You might say to yourself, how come he is not closing the channels? This is a hi
 When this select statement executes it, there are multiple cases that match the same condition. If there is **more than one case that the select can match, it just chooses one at random.** There are lots of situations where that's useful.
 
 Is is also possible to have, just as switch statement, a default case, this default case is useful for avoiding deadlock. If there is a situation where none of these channels are listening, then the default case will stop your program from crashing. This is a great situation.
+
+> Buffered channels `ch := make(chan int, 100)`, to know how many goroutines you have launched or we want to limit the number of goroutines we launch, or we wat to limit the amount of work that's queued up. 

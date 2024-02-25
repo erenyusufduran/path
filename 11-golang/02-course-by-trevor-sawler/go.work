@@ -1,6 +1,7 @@
 go 1.22.0
 
 use (
+	./concurrency/buffered-channels
 	./concurrency/challenge
 	./concurrency/complex-mutex
 	./concurrency/dining-philosophers

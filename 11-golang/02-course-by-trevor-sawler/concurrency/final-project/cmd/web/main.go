@@ -17,7 +17,6 @@ func main() {
 	// connect to the database
 	db := initDB()
 	db.Ping()
-
 	// create sessions
 
 	// create channels

@@ -418,3 +418,43 @@ We are going to need a wait group and we are going to be using that right away. 
 They are at a very high level are the kinds of things we are going to want to do.
 
 So in this project, we are going to be using Postgres as a database. We are going to be using Redis as a store for our session information. We are also going to require some kind of mail server, a dummy mail server that will capture mail for us. I want to use Docker for that.
+
+```yaml
+version: '3'
+
+services:
+
+  #  start Postgres, and ensure that data is stored to a mounted volume
+  postgres:
+    image: 'postgres:14.2'
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: concurrency
+    volumes:
+      - ./db-data/postgres/:/var/lib/postgresql/data/
+
+  #  start Redis, and ensure that data is stored to a mounted volume
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./db-data/redis/:/data
+
+  #  start mailhog
+  mailhog:
+    image: 'mailhog/mailhog:latest'
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    restart: always
+```
+
+When running it with `docker-compose up -d`, it takes a while the very first time it starts it, because it has to initialize the database. What it is doing is not just initializing an empty database store.
+
+Now once that's up and running, you are going to want to get your favorite database client aswell. We can look for <a href="https://www.beekeeperstudio.io/get">Beekeeper Studio</a>.

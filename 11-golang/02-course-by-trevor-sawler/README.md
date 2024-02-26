@@ -401,6 +401,20 @@ Is is also possible to have, just as switch statement, a default case, this defa
 
 > Buffered channels `ch := make(chan int, 100)`, to know how many goroutines you have launched or we want to limit the number of goroutines we launch, or we wat to limit the amount of work that's queued up. <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/buffered-channels">Code</a>
 
-#### Sleeping Barber - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/sleeping-barber">Code</a>
+<hr>
 
+### **Sleeping Barber** - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/concurrency/sleeping-barber">Code</a>
 
+<hr>
+
+### Real World Project - Building a Subscription Service
+
+- A more real-world use of concurrency
+- A fictitious service that allows people to buy a subscription
+- This section sets up the web application.
+
+We are going to need a wait group and we are going to be using that right away. I can see that If I am going to be sending email in this application and I am going to be sending email concurrently, if someone decides to restart the application for whatever reason, maybe you are going to do some maintenance or whatever it is. You don't wanna to just way, stop the application. You want to wait until any mail that is waiting to be send gets delivered and then you quit. That's and **ideal situation for a wait group.**
+
+They are at a very high level are the kinds of things we are going to want to do.
+
+So in this project, we are going to be using Postgres as a database. We are going to be using Redis as a store for our session information. We are also going to require some kind of mail server, a dummy mail server that will capture mail for us. I want to use Docker for that.

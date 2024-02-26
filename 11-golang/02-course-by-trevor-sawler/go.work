@@ -5,6 +5,7 @@ use (
 	./concurrency/challenge
 	./concurrency/complex-mutex
 	./concurrency/dining-philosophers
+	./concurrency/final-project
 	./concurrency/first-example
 	./concurrency/mutex
 	./concurrency/producer-consumer

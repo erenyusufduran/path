@@ -458,3 +458,5 @@ services:
 When running it with `docker-compose up -d`, it takes a while the very first time it starts it, because it has to initialize the database. What it is doing is not just initializing an empty database store.
 
 Now once that's up and running, you are going to want to get your favorite database client aswell. We can look for <a href="https://www.beekeeperstudio.io/get">Beekeeper Studio</a>.
+
+After the db connection initialization, with docker containers are running I should be able to run this program. Of course I need a DSN. We can actually set an environment variable and run the program. But this is the point we should start using **make**.

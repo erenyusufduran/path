@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"encoding/gob"
 	"final-project/data"
 	"fmt"
 	"log"
@@ -91,7 +92,7 @@ func connectToDB() *sql.DB {
 			log.Println("connected to database!")
 			return connection
 		}
-
+		counts++
 		if counts > 10 {
 			return nil
 		}
@@ -114,6 +115,8 @@ func openDB(dsn string) (*sql.DB, error) {
 }
 
 func initSession() *scs.SessionManager {
+	gob.Register(data.User{})
+
 	// set up session
 	session := scs.New()
 	session.Store = redisstore.New(initRedis())
@@ -129,7 +132,7 @@ func initRedis() *redis.Pool {
 	redisPool := &redis.Pool{
 		MaxIdle: 10,
 		Dial: func() (redis.Conn, error) {
-			return redis.Dial("tcp", os.Getenv("REDIS"))
+			return redis.Dial("tcp", "127.0.0.1:6379")
 		},
 	}
 	return redisPool

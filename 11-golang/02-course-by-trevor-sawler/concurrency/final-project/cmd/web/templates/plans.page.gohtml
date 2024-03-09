@@ -49,6 +49,7 @@
                 confirmButtonText: "Subscribe",
             }).then((result) => {
                 if (result.isConfirmed) {
+                    window.location.href = "/members/subscribe?id=" + x;
                 }
             })
         }

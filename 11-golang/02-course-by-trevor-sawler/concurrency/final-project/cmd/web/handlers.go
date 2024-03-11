@@ -42,7 +42,7 @@ func (app *Config) PostLoginPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// check password
-	validPassword, err := user.PasswordMatches(password)
+	validPassword, err := app.Models.User.PasswordMatches(password)
 	if err != nil {
 		app.Session.Put(r.Context(), "error", "Invalid credentials")
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
@@ -107,7 +107,7 @@ func (app *Config) PostRegisterPage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// send activation email
-	_, err = u.Insert(u)
+	_, err = app.Models.User.Insert(u)
 	if err != nil {
 		app.Session.Put(r.Context(), "error", "Unable to create user.")
 		http.Redirect(w, r, "/register", http.StatusSeeOther)
@@ -152,7 +152,7 @@ func (app *Config) ActivateAccount(w http.ResponseWriter, r *http.Request) {
 	}
 
 	u.Active = 1
-	err = u.Update()
+	err = app.Models.User.Update(*u)
 	if err != nil {
 		app.Session.Put(r.Context(), "error", "Unable to update user.")
 		http.Redirect(w, r, "/", http.StatusSeeOther)

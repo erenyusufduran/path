@@ -9,7 +9,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		render(w, "test.page.gohtml")
+		render(w, "test.page.go.html")
 	})
 
 	fmt.Println("Starting front end service on port 80")
@@ -21,9 +21,9 @@ func main() {
 
 func render(w http.ResponseWriter, t string) {
 	partials := []string{
-		"./cmd/web/templates/base.layout.gohtml",
-		"./cmd/web/templates/header.partial.gohtml",
-		"./cmd/web/templates/footer.partial.gohtml",
+		"./cmd/web/templates/base.layout.go.html",
+		"./cmd/web/templates/header.partial.go.html",
+		"./cmd/web/templates/footer.partial.go.html",
 	}
 
 	var templateSlice []string

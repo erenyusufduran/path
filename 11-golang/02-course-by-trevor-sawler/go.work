@@ -12,6 +12,7 @@ use (
 	./concurrency/select-channels
 	./concurrency/simple-channels
 	./concurrency/sleeping-barber
+	./go-micro/authentication-service
 	./go-micro/broker-service
 	./go-micro/front-end
 	./toolkit-module/api-test-toolkit

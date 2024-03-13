@@ -498,3 +498,12 @@ test:
 
 - We have DSN, that's our data source name, that's for connecting dbs.
 - There is exe at the name of the binary name so windows will know it's an executable.
+
+## Working with Microservices in Go
+
+- Breaking monolith up from functions/packages to completely seperate programs.
+- Communicate via JSON/REST, RPC, gRPC and over a messaging queue.
+- Easier to scale
+- Easier to maintain
+- Harder to write
+- 

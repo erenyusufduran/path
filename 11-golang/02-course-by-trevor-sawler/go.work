@@ -16,6 +16,7 @@ use (
 	./go-micro/broker-service
 	./go-micro/front-end
 	./go-micro/logger-service
+	./go-micro/mail-service
 	./toolkit-module/api-test-toolkit
 	./toolkit-module/app
 	./toolkit-module/app-dir

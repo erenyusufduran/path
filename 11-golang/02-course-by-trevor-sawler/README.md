@@ -506,4 +506,11 @@ test:
 - Easier to scale
 - Easier to maintain
 - Harder to write
-- 
+
+## Communicating between services using Remote Procedure Calls (RPC)
+
+This is not between, the user who's using a web browser and the broker. We are going to use JSON for that, because that's most widely accepted and functional way of doing things between a browser and some service. We are talking about connections between microservices. So far, in the vast majority of cases, we are actually posting JSON between microservices. For example, somebody hits the broker and says authenticate and the broker accepts the JSON request unmarshals it looks at what it has to do, sends another JSON request of to the authentication microservice, which then on marshall to json and does something with it.
+
+We also, have a means of logging using the queue. So when we log something right now with our frontend, the user sends JSON off to the broker which umarshals the JSON and then pushes it into the rabbitMQ into the queue and then the listener gets pushed a payload from the rabbitMQ and does something with it and logs it and that works really well as well.
+
+To one thing thats really important to know about RPC is that in go, if you are gonna use RPC, it has to be go applications running on both end. So I have a go application running in my broker and I have a go application running in my logger. 

@@ -584,3 +584,9 @@ When I execute the command I have two files, `logs_grpc.pb.go` and `logs.pb.go`
 Now we have got our proto defined our proto file, we generated the necessary source code in the server, we wrote the necessary code in the server to perform a particular action and to listen for gRPC connections. Then we went over to the client, which is the broker. We again copied the protocol over. We generated the necessary source code with that command to protoc and we wrote the necessary code to connect to the server and to make a request to it.
 
 So the last step will be to go and modify the frontend to put in a button that logs things via gRPC and try it out.
+
+## Deploying our Distributed App using Docker Swarm
+
+Kubernetes is really overkill for a particular company or individual needs, particularly if you don't have a dedicated person or team who works on Kubernetes all day, every day. There is an awful lot of moving parts in Kubernetes. Docker Swarm can easily be managed by an individual person, and that person doesn't have to work on it all the time. - **Look at Brett Fisher, who has an excellent course in Swarm and Docker and Kubernetes on Udemy.** 
+
+Docker Swarm is nothing more than a container orchestration service. You can look at some of the features <a href="https://docs.docker.com/engine/swarm/">right here</a>. Simple short story is that it allows you to deploy one or more instances of a Docker image and have Docker Swarm take care of how those instances are deployed. So far example, I can go on the node or digital ocean and create say, three nodes, three individual server instances and each one of those to Docker Swarm and deploy my microservices up there. Swarm manages, keeping them up, keeping multiple copies of them up when necessary. It makes it remarkably easy to scale your microservices. 

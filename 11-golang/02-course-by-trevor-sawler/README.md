@@ -533,7 +533,7 @@ go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
 ```
 
-````proto
+```proto
 syntax = "proto3";
 
 package logs;
@@ -557,3 +557,24 @@ service LogService {
     rpc WriteLog (LogRequest) returns (LogResponse);
 }
 ```
+
+#### Generating gRPC Code From the Command Line
+
+Need to be in the directory called logs inside the logger service where the directory that has this proto. There is a little binary application called <a href="https://grpc.io/docs/protoc-installation/">protoc</a>. 
+
+To install it;
+```sh
+cp protoc ~/go/bin
+which protoc
+protoc --version
+```
+
+We are ready to run necessary command. 
+
+```sh
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative logs.proto
+```
+
+Here is the command, start with the command `protoc` and this has to be run right beside the `.proto` file. So inside the logs directory at the root of the logger service.
+
+When I execute the command I have two files, `logs_grpc.pb.go` and `logs.pb.go`

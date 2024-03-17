@@ -514,3 +514,46 @@ This is not between, the user who's using a web browser and the broker. We are g
 We also, have a means of logging using the queue. So when we log something right now with our frontend, the user sends JSON off to the broker which umarshals the JSON and then pushes it into the rabbitMQ into the queue and then the listener gets pushed a payload from the rabbitMQ and does something with it and logs it and that works really well as well.
 
 To one thing thats really important to know about RPC is that in go, if you are gonna use RPC, it has to be go applications running on both end. So I have a go application running in my broker and I have a go application running in my logger. 
+
+### gRPC
+
+So now we have a number of ways of communicating between microservices.
+- JSON POST, receives JSON and something with it, creates another JSON response and sends it back.
+- RPC, presupposes that application that is acting as the client is written in go and the application acting as the server is written in go.
+- We can also push something onto a queue like rabbitMQ and have a listener to receive events from that queue and then do something with them.
+
+Now, we are going to move on to another means of communicating between microservices and that is gRPC, nobody's really sure what the G stands for. There is big difference between gRPC and RPC. One of the most significant ones is that you don't have to have both ends. The client and the server written in go. gRPC actually supports java and kotlin and PHP all kinds of languages.
+
+<hr>
+
+In order to work with gRPC, we need to install some additional tools and there is two things. When we are writing code that uses gRPC, these tools actually generate some code for us. We write something called a proto file and then we run a command that wil execute these two tools and thatt generates code for us.
+
+```sh
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+```
+
+````proto
+syntax = "proto3";
+
+package logs;
+
+option go_package = "/logs";
+
+message Log {
+    string name = 1;
+    string data = 2;
+}
+
+message LogRequest {
+    Log logEntry = 1;
+}
+
+message LogResponse {
+    string result = 1;
+}
+
+service LogService {
+    rpc WriteLog (LogRequest) returns (LogResponse);
+}
+```

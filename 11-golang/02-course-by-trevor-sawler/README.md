@@ -578,3 +578,9 @@ protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=p
 Here is the command, start with the command `protoc` and this has to be run right beside the `.proto` file. So inside the logs directory at the root of the logger service.
 
 When I execute the command I have two files, `logs_grpc.pb.go` and `logs.pb.go`
+
+<hr>
+
+Now we have got our proto defined our proto file, we generated the necessary source code in the server, we wrote the necessary code in the server to perform a particular action and to listen for gRPC connections. Then we went over to the client, which is the broker. We again copied the protocol over. We generated the necessary source code with that command to protoc and we wrote the necessary code to connect to the server and to make a request to it.
+
+So the last step will be to go and modify the frontend to put in a button that logs things via gRPC and try it out.

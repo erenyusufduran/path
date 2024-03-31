@@ -616,3 +616,28 @@ That can be incredibly useful when you want to have multiple copies of your serv
 That can be **incredibly useful**, even if you are running everything on a single server. In other words, you have one node in your swarm. This is a convenient way of having multiple instances of what you need to be running and to ensure that they stay up and running.
 
 We have deployed this application, but applications don't remail static over time. You are adding functionality or changing something and you need to update your **docker swarm**.
+
+### Updating Services
+
+Let's assume that we are actually making a change to the logger service.
+
+```sh
+docker build -f logger-service.dockerfile -t erenyusufduran/logger-service:1.0.1 .
+docker push erenyusufduran/logger-service:1.0.1
+```
+
+Any time I update a service to a new version, I want at least two to be running. That's because when I update the service with at least two replicas going, there will be almost no downtime. **Probably no downtime**, because it updates the service **one at a time for each instance**. So let's scale the docker service scale and give it the name.
+
+```sh
+docker service scale myapp_logger-service=2
+```
+
+Now I am going to update my logger service to the new version, and that's really simple.
+
+```sh
+docker service update --image erenyusufduran/logger-service:1.0.1 myapp_logger-service
+```
+
+Now it is been updated to **1.0.1**. You cadn downgrade things aswell. Updating services is pretty trivial and I am sure you have noticed this with other projects. You can actually automate this service with continuous integration.
+
+To stop swarm `docker stack rm myapp`, `docker swarm leave --force`

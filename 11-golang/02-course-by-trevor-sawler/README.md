@@ -590,3 +590,29 @@ So the last step will be to go and modify the frontend to put in a button that l
 Kubernetes is really overkill for a particular company or individual needs, particularly if you don't have a dedicated person or team who works on Kubernetes all day, every day. There is an awful lot of moving parts in Kubernetes. Docker Swarm can easily be managed by an individual person, and that person doesn't have to work on it all the time. - **Look at Brett Fisher, who has an excellent course in Swarm and Docker and Kubernetes on Udemy.** 
 
 Docker Swarm is nothing more than a container orchestration service. You can look at some of the features <a href="https://docs.docker.com/engine/swarm/">right here</a>. Simple short story is that it allows you to deploy one or more instances of a Docker image and have Docker Swarm take care of how those instances are deployed. So far example, I can go on the node or digital ocean and create say, three nodes, three individual server instances and each one of those to Docker Swarm and deploy my microservices up there. Swarm manages, keeping them up, keeping multiple copies of them up when necessary. It makes it remarkably easy to scale your microservices. 
+
+### Initialize Docker Swarm - <a href="https://github.com/erenyusufduran/colins-path/tree/main/11-golang/02-course-by-trevor-sawler/go-micro/swarm.yml">swarm.yml</a>
+
+I have initialized the swarm now I can write; `docker stack deploy -c swarm.yml myapp`, with this line of code when we write `docker service ls`, we can see that I have one replica for each of service and they are up and started. 3 column tells me whether it is replicated. 	
+
+We are working at local, so we can start frontend with `make start`.
+
+### Scaling Services
+
+We only have one instance of each of the services and when I write `docker service ls`, each service has a unique ID in the first column.
+
+Now one of the great things about any container orchestraion service is we can have multiple instances of many of our services, not all of them. For example, the ones that are global here in the mode global, we can only have one of those.
+
+If I want to scale a service up, it is literally as simple as typing `docker service scale`, then name of the service;
+
+```sh
+docker service scale myapp_listener-service=3
+```
+
+Ten we can see three instances of the lsitener service and if I want to take it down to two, I just again use that scale command.
+
+That can be incredibly useful when you want to have multiple copies of your services running. Other great thing about this is if something goes wrong, if, for example, the logger service suddenly dies, Docker swarm will just create another instance and bring it back up. So it keeps things up and running for me.
+
+That can be **incredibly useful**, even if you are running everything on a single server. In other words, you have one node in your swarm. This is a convenient way of having multiple instances of what you need to be running and to ensure that they stay up and running.
+
+We have deployed this application, but applications don't remail static over time. You are adding functionality or changing something and you need to update your **docker swarm**.

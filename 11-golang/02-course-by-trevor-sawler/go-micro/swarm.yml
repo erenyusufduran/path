@@ -1,3 +1,6 @@
+## docker swarm init
+## docker stack deploy -c swarm.yml myapp
+
 version: '3'
 
 services:

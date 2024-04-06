@@ -1,0 +1,4 @@
+db-data
+./authentication-service/authApp.exe
+./broker-service/brokerApp
+./logger-service/loggerServiceApp

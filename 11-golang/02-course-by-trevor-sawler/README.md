@@ -498,3 +498,95 @@ test:
 
 - We have DSN, that's our data source name, that's for connecting dbs.
 - There is exe at the name of the binary name so windows will know it's an executable.
+
+## Working with Microservices in Go
+
+- Breaking monolith up from functions/packages to completely seperate programs.
+- Communicate via JSON/REST, RPC, gRPC and over a messaging queue.
+- Easier to scale
+- Easier to maintain
+- Harder to write
+
+## Communicating between services using Remote Procedure Calls (RPC)
+
+This is not between, the user who's using a web browser and the broker. We are going to use JSON for that, because that's most widely accepted and functional way of doing things between a browser and some service. We are talking about connections between microservices. So far, in the vast majority of cases, we are actually posting JSON between microservices. For example, somebody hits the broker and says authenticate and the broker accepts the JSON request unmarshals it looks at what it has to do, sends another JSON request of to the authentication microservice, which then on marshall to json and does something with it.
+
+We also, have a means of logging using the queue. So when we log something right now with our frontend, the user sends JSON off to the broker which umarshals the JSON and then pushes it into the rabbitMQ into the queue and then the listener gets pushed a payload from the rabbitMQ and does something with it and logs it and that works really well as well.
+
+To one thing thats really important to know about RPC is that in go, if you are gonna use RPC, it has to be go applications running on both end. So I have a go application running in my broker and I have a go application running in my logger. 
+
+### gRPC
+
+So now we have a number of ways of communicating between microservices.
+- JSON POST, receives JSON and something with it, creates another JSON response and sends it back.
+- RPC, presupposes that application that is acting as the client is written in go and the application acting as the server is written in go.
+- We can also push something onto a queue like rabbitMQ and have a listener to receive events from that queue and then do something with them.
+
+Now, we are going to move on to another means of communicating between microservices and that is gRPC, nobody's really sure what the G stands for. There is big difference between gRPC and RPC. One of the most significant ones is that you don't have to have both ends. The client and the server written in go. gRPC actually supports java and kotlin and PHP all kinds of languages.
+
+<hr>
+
+In order to work with gRPC, we need to install some additional tools and there is two things. When we are writing code that uses gRPC, these tools actually generate some code for us. We write something called a proto file and then we run a command that wil execute these two tools and thatt generates code for us.
+
+```sh
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27
+go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+```
+
+```proto
+syntax = "proto3";
+
+package logs;
+
+option go_package = "/logs";
+
+message Log {
+    string name = 1;
+    string data = 2;
+}
+
+message LogRequest {
+    Log logEntry = 1;
+}
+
+message LogResponse {
+    string result = 1;
+}
+
+service LogService {
+    rpc WriteLog (LogRequest) returns (LogResponse);
+}
+```
+
+#### Generating gRPC Code From the Command Line
+
+Need to be in the directory called logs inside the logger service where the directory that has this proto. There is a little binary application called <a href="https://grpc.io/docs/protoc-installation/">protoc</a>. 
+
+To install it;
+```sh
+cp protoc ~/go/bin
+which protoc
+protoc --version
+```
+
+We are ready to run necessary command. 
+
+```sh
+protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative logs.proto
+```
+
+Here is the command, start with the command `protoc` and this has to be run right beside the `.proto` file. So inside the logs directory at the root of the logger service.
+
+When I execute the command I have two files, `logs_grpc.pb.go` and `logs.pb.go`
+
+<hr>
+
+Now we have got our proto defined our proto file, we generated the necessary source code in the server, we wrote the necessary code in the server to perform a particular action and to listen for gRPC connections. Then we went over to the client, which is the broker. We again copied the protocol over. We generated the necessary source code with that command to protoc and we wrote the necessary code to connect to the server and to make a request to it.
+
+So the last step will be to go and modify the frontend to put in a button that logs things via gRPC and try it out.
+
+## Deploying our Distributed App using Docker Swarm
+
+Kubernetes is really overkill for a particular company or individual needs, particularly if you don't have a dedicated person or team who works on Kubernetes all day, every day. There is an awful lot of moving parts in Kubernetes. Docker Swarm can easily be managed by an individual person, and that person doesn't have to work on it all the time. - **Look at Brett Fisher, who has an excellent course in Swarm and Docker and Kubernetes on Udemy.** 
+
+Docker Swarm is nothing more than a container orchestration service. You can look at some of the features <a href="https://docs.docker.com/engine/swarm/">right here</a>. Simple short story is that it allows you to deploy one or more instances of a Docker image and have Docker Swarm take care of how those instances are deployed. So far example, I can go on the node or digital ocean and create say, three nodes, three individual server instances and each one of those to Docker Swarm and deploy my microservices up there. Swarm manages, keeping them up, keeping multiple copies of them up when necessary. It makes it remarkably easy to scale your microservices. 

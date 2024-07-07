@@ -34,7 +34,7 @@ With the shared responsibility model, these responsibilities get shared between 
 
 Then, for some things, the responsibility depends on the situation. If you’re using a cloud SQL database, the cloud provider would be responsible for maintaining the actual database. However, you’re still responsible for the data that gets ingested into the database. If you deployed a virtual machine and installed an SQL database on it, you’d be responsible for database patches and updates, as well as maintaining the data and information stored in the database.
 
-![alt text](assets/responsibility.png)
+![alt text](../assets/responsibility.png)
 
 When using a cloud provider, you’ll always be responsible for:
 - The information and data stored in the cloud
@@ -68,7 +68,7 @@ A public cloud is built, controlled, and maintained by a third-party cloud provi
 
 A hybrid cloud is a computing environment that uses both public and private clouds in an inter-connected environment. A hybrid cloud environment can be used to allow a private cloud to surge for increased, temporary demand by deploying public cloud resources. Hybrid cloud can be used to provide an extra layer of security. For example, users can flexibly choose which services to keep in public cloud and which to deploy to their private cloud infrastructure.
 
-![alt text](assets/cloud-models.png)
+![alt text](../assets/cloud-models.png)
 
 #### Azure Arc
 

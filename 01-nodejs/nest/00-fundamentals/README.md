@@ -25,3 +25,9 @@ nest g module coffees
 In NestJS each service is a provider. Main idea of a provider is inject dependencies. This means that objects can create various relationship to each other.
 
 Providers are just a class and have a decorator called `@Injectable`. 
+
+```sh
+nest g class coffees/dto/create-coffee.dto --no-spec
+npm i class-validator class-transformer # to validate dtos
+npm i @nestjs/mapped-types # create object to optional partial
+```

@@ -31,3 +31,11 @@ nest g class coffees/dto/create-coffee.dto --no-spec
 npm i class-validator class-transformer # to validate dtos
 npm i @nestjs/mapped-types # create object to optional partial
 ```
+
+---
+
+### TypeORM
+
+NestJS comes with a module that helps make the TypeORM integration simple.
+
+To get started with this module, you can add your `app.module.ts imports`.

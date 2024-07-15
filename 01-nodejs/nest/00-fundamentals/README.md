@@ -18,5 +18,9 @@ With the help of NestJS dependency injection system. We have the ability to swap
 
 ```sh
 nest g co - nest generate controller // --no-spec for no test file
+nest g s - nest generate service
 ```
 
+In NestJS each service is a provider. Main idea of a provider is inject dependencies. This means that objects can create various relationship to each other.
+
+Providers are just a class and have a decorator called `@Injectable`. 

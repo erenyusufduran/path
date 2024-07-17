@@ -39,3 +39,113 @@ npm i @nestjs/mapped-types # create object to optional partial
 NestJS comes with a module that helps make the TypeORM integration simple.
 
 To get started with this module, you can add your `app.module.ts imports`.
+
+### Database Migrations
+
+Database migrations provide incrementally update database schema and keep in sync with application data model. To generate run and revert migrations, typeORM provides with a dedicated CLI within use.
+
+Since this migrations outside in nest. Unfortunately unable to leverage to dependency injection and other Nest spesific features for DB migrations.
+
+We need to create a `ormconfig.js` file at the root directory. It includes entities and migrations. TypeORM migrations need to work on compile files `/dist`.
+
+```js
+// ormconfig.js
+module.exports = {
+  type: 'postgres',
+  host: 'localhost',
+  post: 5432,
+  username: 'postgres',
+  password: 'pass123',
+  database: 'postgres',
+  entities: ['dist/**/*.entity.js'],
+  migrations: ['dist/migrations/*.js'],
+  cli: {
+    migrationsDir: 'src/migrations',
+  },
+};
+
+```
+
+```sh
+npx typeorm migration:create ./src/migrations/CoffeeRefactor
+```
+
+Then lets change our models, at coffee.entity change name to title.
+
+Every migration have up and down methods. Up is shows what need to be changed, down is undo or rollback any of those changes.
+
+```ts
+// auto created at src/migrations/
+import { MigrationInterface, QueryRunner } from 'typeorm';
+
+export class CoffeeRefactor1721203621345 implements MigrationInterface {
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "coffee" RENAME COLUMN "name" TO "title"`,
+    );
+  }
+
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE "coffee" RENAME COLUMN "title" TO "name"`,
+    );
+  }
+}
+```
+
+We need to make sure we build our source code, so TypeORM CLI can find our entities and migrations files at dist folder. So on the terminal first run:
+
+```sh
+npm run build
+```
+
+When our build finishes, everything will be compiled into dist folder. Now we can run typeorm migration command:
+
+```sh
+npx typeorm migration:run
+```
+
+### Current Way for Migrations
+
+1. Create database module as a seperate module.
+2. Import it form AppModule.
+3. Give it a ConfigModule from AppModule.
+4. Create typeOrm.config.ts file at root level of project.
+
+    ```ts
+    import { DataSource } from 'typeorm';
+    import { config } from 'dotenv';
+    import { ConfigService } from '@nestjs/config';
+    import { Coffee } from './src/coffees/entities/coffee.entity';
+    import { Flavor } from './src/coffees/entities/flavor.entity';
+    import { Event } from './src/events/entities/event.entity';
+
+    config();
+
+    const configService = new ConfigService();
+
+    export default new DataSource({
+      type: 'postgres',
+      host: configService.getOrThrow('DB_HOST'),
+      port: configService.getOrThrow('DB_PORT'),
+      database: configService.getOrThrow('DB_DATABASE'),
+      username: configService.getOrThrow('DB_USERNAME'),
+      password: configService.getOrThrow('DB_PASSWORD'),
+      migrations: ['migrations/**'],
+      entities: [Coffee, Flavor, Event],
+    });
+    ```
+5. Create a migrations folder at the root level.
+6. At package.json write typeorm migration create, run and revert commands.
+    
+    ```sh
+      "typeorm": "ts-node ./node_modules/typeorm/cli",
+
+      "typeorm:create-migration": "npm run typeorm -- migration:create ./migrations/$npm_config_name",
+
+      "typeorm:run-migrations": "npm run typeorm migration:run -- -d ./typeOrm.config.ts",
+
+      "typeorm:revert-migrations": "npm run typeorm migration:revert -- -d ./typeOrm.config.ts"
+    ```
+7. When create-migration executed, one file will add under to migrations folder. Do your up and down things for migration.
+8. Done!

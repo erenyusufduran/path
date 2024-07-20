@@ -149,3 +149,40 @@ npx typeorm migration:run
     ```
 7. When create-migration executed, one file will add under to migrations folder. Do your up and down things for migration.
 8. Done!
+
+### Dependency Injection
+
+NestJS handles all of the headlifting instead of handles dependency injection ourselfs. Essentially, when we ask for a dependency in a class constructor NestJS handles and retrieves the object back to us. 
+
+Think about our coffees controller, using coffesService in our constructor.
+
+1. In our Coffee Service @Injectable decorator at the class can be managed by the Nest container. This decorator marks the Coffee service class as a provider. 
+2. If we jump over the our Coffees Controller we can see we are requesting our Coffee Service in our constructor. This request tells the Nest the injector provider into our controller class.
+
+Lastly Nest is aware that this class is also a provider, because we are including it in Coffees Module.
+
+```ts
+@Controller('coffees')
+export class CoffeesController {
+  constructor(private readonly coffeesService: CoffeesService) {}
+}
+
+@Injectable()
+export class CoffeesService {}
+
+@Module({
+  imports: [TypeOrmModule.forFeature([Coffee, Flavor, Event])],
+  controllers: [CoffeesController],
+  providers: [CoffeesService],
+})
+export class CoffeesModule {}
+```
+
+---
+
+When the Nest container instantiates the Coffees Controller, it first looks the see if the are any dependencies needed, in our case there is one. The Coffee Service. When the Nest container finds the Coffee Service dependency, it performs the lookup on the Coffee Service token which returns the Coffee Service class.
+
+Assuming this provider has a singleton scope (Injectable provider default behaviour), Nest create an instance of coffee service and then return it.
+
+---
+
